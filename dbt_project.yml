@@ -19,6 +19,9 @@ clean-targets:
 vars:
   source_dir: parvaazdata
   shrug_source_dir: data/raw/reference/shrug/antyodaya_2020
+  lgd_source_dir: data/raw/reference/lgd/2026-10-15/extracted
+  lgd_snapshot: 15Oct2026
+  lgd_snapshot_date: '2026-10-15'
   minimum_public_cell_size: 10
 
 flags:

@@ -97,3 +97,111 @@ models:
         data_tests: [not_null]
       - name: place_name
         data_tests: [not_null]
+
+  - name: stg_lgd_punjab_districts
+    description: One current Punjab district from the dated LGD snapshot. This is current administrative geography, not Census 2011 district geography.
+    columns:
+      - name: source_snapshot_date
+        description: Date of the pinned LGD source extract.
+        data_tests: [not_null]
+      - name: state_code
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [3]
+      - name: district_code
+        description: Current Local Government Directory district identifier.
+        data_tests: [not_null, unique]
+      - name: district_name
+        data_tests: [not_null]
+
+  - name: stg_lgd_punjab_subdistricts
+    description: One current Punjab subdistrict from the dated LGD snapshot.
+    columns:
+      - name: source_snapshot_date
+        description: Date of the pinned LGD source extract.
+        data_tests: [not_null]
+      - name: subdistrict_code
+        description: Current Local Government Directory subdistrict identifier.
+        data_tests: [not_null, unique]
+      - name: district_code
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_lgd_punjab_districts')
+                field: district_code
+      - name: subdistrict_name
+        data_tests: [not_null]
+
+  - name: stg_lgd_punjab_villages
+    description: One current Punjab LGD village record. LGD village_code is the unique key; zero Census 2011 codes are converted to null because they are not usable join keys.
+    columns:
+      - name: source_snapshot_date
+        description: Date of the pinned LGD source extract.
+        data_tests: [not_null]
+      - name: village_code
+        description: Current Local Government Directory village identifier.
+        data_tests: [not_null, unique]
+      - name: district_code
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_lgd_punjab_districts')
+                field: district_code
+      - name: subdistrict_code
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_lgd_punjab_subdistricts')
+                field: subdistrict_code
+      - name: village_name
+        data_tests: [not_null]
+      - name: village_category
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [Both, Rural, Unmapped, Urban]
+      - name: village_status
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [Inhabitant, Un-Inhabitant]
+
+  - name: stg_lgd_punjab_village_block_mappings
+    description: One published LGD village-to-development-block/local-body mapping row. This is intentionally not one row per village because villages may have multiple mappings.
+    columns:
+      - name: source_snapshot_date
+        description: Date of the pinned LGD source extract.
+        data_tests: [not_null]
+      - name: source_row_number
+        description: Row number from the dated national LGD mapping export; unique within this snapshot.
+        data_tests: [not_null, unique]
+      - name: village_code
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_lgd_punjab_villages')
+                field: village_code
+      - name: district_code
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_lgd_punjab_districts')
+                field: district_code
+      - name: subdistrict_code
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_lgd_punjab_subdistricts')
+                field: subdistrict_code
+      - name: development_block_code
+        data_tests: [not_null]
