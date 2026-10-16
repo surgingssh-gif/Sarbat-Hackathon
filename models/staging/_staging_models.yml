@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: stg_secondary_student_responses
+    description: Cleanly named, decoded, student-level secondary survey responses. Internal and sensitive; not a public output.
+    columns:
+      - name: student_response_id
+        data_tests: [not_null, unique]
+      - name: school_code
+        description: UDISE candidate exactly as supplied; no zero-padding or external reconciliation has been applied.
+        data_tests: [not_null]
+      - name: district_name
+        data_tests: [not_null]
+      - name: is_female
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: education_aspiration_code
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      - name: education_aspiration_label
+        data_tests: [not_null]
+
+  - name: stg_vocational_student_responses
+    description: Cleanly named, decoded, student-level vocational survey responses. Internal and sensitive; not a public output.
+    columns:
+      - name: student_response_id
+        data_tests: [not_null, unique]
+      - name: institution_code
+        description: Synthetic institution grouping code; it is not a UDISE identifier.
+        data_tests: [not_null]
+      - name: district_name
+        data_tests: [not_null]
+      - name: house_damage_code
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      - name: owns_business
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: owns_agricultural_land
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]

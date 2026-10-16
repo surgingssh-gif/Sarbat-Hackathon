@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: dim_district
+    description: One row per district name appearing in either survey. This is provisional until official LGD identifiers are added.
+    columns:
+      - name: district_key
+        data_tests: [not_null, unique]
+      - name: district_name
+        data_tests: [not_null, unique]
+
+  - name: dim_school
+    description: One row per supplied UDISE candidate. School names and district assignments come only from the secondary survey.
+    columns:
+      - name: school_key
+        data_tests: [not_null, unique]
+      - name: school_code
+        data_tests: [not_null, unique]
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key
+
+  - name: dim_vocational_institution
+    description: One row per synthetic vocational institution code. This dimension cannot be joined to UDISE+.
+    columns:
+      - name: vocational_institution_key
+        data_tests: [not_null, unique]
+      - name: institution_code
+        data_tests: [not_null, unique]
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key
+
+  - name: fct_secondary_student_response
+    description: One row per secondary-school student response. Internal and sensitive; marts must aggregate this model.
+    columns:
+      - name: student_response_id
+        data_tests: [not_null, unique]
+      - name: school_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_school')
+                field: school_key
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key
+
+  - name: fct_vocational_student_response
+    description: One row per vocational student flood-exposure response. Internal and sensitive; marts must aggregate this model.
+    columns:
+      - name: student_response_id
+        data_tests: [not_null, unique]
+      - name: vocational_institution_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_vocational_institution')
+                field: vocational_institution_key
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key

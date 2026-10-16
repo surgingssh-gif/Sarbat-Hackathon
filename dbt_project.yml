@@ -18,6 +18,7 @@ clean-targets:
 
 vars:
   source_dir: parvaazdata
+  minimum_public_cell_size: 10
 
 flags:
   send_anonymous_usage_stats: false
@@ -27,3 +28,12 @@ models:
     raw:
       +materialized: table
       +schema: raw
+    staging:
+      +materialized: view
+      +schema: staging
+    core:
+      +materialized: table
+      +schema: core
+    marts:
+      +materialized: table
+      +schema: marts
