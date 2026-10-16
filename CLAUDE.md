@@ -71,11 +71,7 @@ Columns: `district, indicator, value, year, source_name, source_url, n_students`
 5. Bands (tune on hand-matched set): >0.9 auto-accept; 0.6-0.9 human review queue; <0.6 unmatched.
 6. Report accuracy against the hand-matched villages.
 
-## Team roles
-- **Member 1 (data scientist)**: crosswalk engine, district-boundary mapping, accuracy evaluation, suppression rules
-- **Member 2 (strong Claude Code)**: Ask Parvaaz AI, repo owner, merges everyone's work
-- **Member 3 (solid Claude Code)**: the atlas (map, indicator switcher, gender/wealth charts, source click-through)
-- **Member 4 (learning)**: PDF-to-table extraction, SHRUG/Antyodaya pulls, checking every number against its source, then one-pager and video script
+
 
 ## Working rules
 - Process data with local scripts; never paste large CSVs into chat.
