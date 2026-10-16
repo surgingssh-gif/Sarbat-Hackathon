@@ -97,21 +97,12 @@ window.Atlas = window.Atlas || {};
     return D.fmt(v, ind).replace(/ yrs$/, " years");
   };
 
-  // One sentence that says what the headline number means.
+  // One short sentence that says what the headline number means.
   function sentence(ind, g) {
     const v = D.visible(ind, g.id);
     if (v === null) return "";
-    const pv = D.visible(ind, Atlas.data.stateId);
     if (g.level === "state") return cap(t("acrossPunjab", { s: D.say(ind, v) }));
-    const rk = g.level === "district" ? D.rank(ind, g.id) : null;
-    const first = t("inPlace", { p: name(g), s: D.say(ind, v) }) + (rk ? `, ${rankPhrase(rk)}` : "") + ".";
-    const dist = districtOf(g);
-    const dv = g.level === "village" && dist ? D.visible(ind, dist.id) : null;
-    const ref = g.level === "village" && dv !== null ? dv : pv;
-    const refPlace = g.level === "village" && dv !== null ? name(dist) : t("punjab");
-    const same = ref !== null && brief(ind, ref) === brief(ind, v);
-    const second = ref === null ? "" : t("acrossPlaceBrief", { p: refPlace, f: same ? D.fmt(ref, ind) : brief(ind, ref) });
-    return `${cap(first)} ${second}`;
+    return cap(t("inPlace", { p: name(g), s: D.say(ind, v) })) + ".";
   }
 
   // The few things that stand out most about a place, as plain sentences.
@@ -156,15 +147,13 @@ window.Atlas = window.Atlas || {};
       if (Math.abs(f.z) < 0.5) continue;
       const tone = D.tone(Math.sign(f.z), f.ind);
       const rk = !isVillage ? D.rank(f.ind, g.id) : null;
+      const vals = D.districtValues(f.ind).map((d) => d.value);
       out.push({
-        ind: f.ind, tone,
-        head: label(f.ind) + (rk ? `: ${rankPhrase(rk)}` : ""),
-        text: (() => {
-          // If rounding makes both sides read the same, show exact values instead.
-          let a = brief(f.ind, f.v), b = brief(f.ind, f.ref);
-          if (a === b) { a = D.fmt(f.v, f.ind); b = D.fmt(f.ref, f.ind); }
-          return t("hereVs", { a: cap(a), b, p: isVillage && dist ? name(dist) : t("punjab") });
-        })(),
+        ind: f.ind, tone, row: true,
+        head: label(f.ind),
+        v: f.v, ref: f.ref, lo: Math.min(...vals), hi: Math.max(...vals),
+        refName: isVillage && dist ? name(dist) : t("punjab"),
+        note: rk ? rankPhrase(rk) : "",
       });
     }
     return out;
@@ -194,6 +183,14 @@ window.Atlas = window.Atlas || {};
       <h3>${esc(t("keyFindings"))}</h3>
       <ul class="findings">${list.map((f) => {
         const attrs = f.pair ? `data-pair="${esc(f.pair.a)}|${esc(f.pair.b)}"` : f.mode ? `data-mode="${esc(f.mode)}"` : f.ind ? `data-ind="${esc(f.ind)}"` : "";
+        if (f.row) {
+          return `<li><button type="button" class="frow tone-${f.tone}" ${attrs}>
+            <span class="frow-name">${esc(f.head)}${f.note ? ` <span class="frow-rank">${esc(f.note)}</span>` : ""}</span>
+            <span class="frow-vals"><b>${esc(D.fmt(f.v, f.ind))}</b> <span>${esc(t("vsRef", { v: D.fmt(f.ref, f.ind), p: f.refName }))}</span></span>
+            ${Atlas.Charts.miniTrack({ v: f.v, ref: f.ref, lo: f.lo, hi: f.hi, tone: f.tone })}
+            ${f.note ? `<span class="frow-note">${esc(cap(f.note))}</span>` : ""}
+          </button></li>`;
+        }
         return `<li><button type="button" class="finding tone-${f.tone}" ${attrs}>
           <span class="finding-head">${esc(f.head)}</span>
           <span class="finding-text">${esc(f.text)}</span>
@@ -618,20 +615,22 @@ window.Atlas = window.Atlas || {};
     const d = D.fmtDelta(a, b, ind);
     const tone = D.tone(d.sign, ind);
     const arrow = d.sign > 0 ? "▲" : d.sign < 0 ? "▼" : "";
-    const txt = d.sign ? `${d.text.replace(/^[+−]/, "")} ${t(d.sign > 0 ? "higherThan" : "lowerThan", { p: against })}` : t("sameAs", { p: against });
-    return `<span class="delta delta-${tone}">${arrow ? `<span class="delta-arrow" aria-hidden="true">${arrow}</span>` : ""}${esc(txt)}</span>`;
+    const txt = d.sign ? t(d.sign > 0 ? "chipAbove" : "chipBelow", { d: d.text.replace(/^[+−]/, ""), p: against }) : t("sameAs", { p: against });
+    return `<span class="chip-stat tone-${tone}">${arrow ? `<span class="delta-arrow" aria-hidden="true">${arrow}</span>` : ""}${esc(txt)}</span>`;
   }
 
   function citation(ind, g) {
     const r = D.rec(ind, g.id);
     if (!r) return "";
     const href = D.sourceHref(r.source_url);
-    const parts = [esc(r.source_name || "—") + (r.year ? `, ${esc(r.year)}` : "")];
-    if (D.isSuppressed(r)) parts.push(esc(t("fewerThan", { n: Atlas.config.minGroupSize })));
-    else if (r.n !== null) parts.push(esc(t("basedOn", { n: r.n.toLocaleString() })));
-    if (r.match_confidence !== null) parts.push(esc(t("matchConfidence", { p: Math.round(r.match_confidence * 100) })));
-    return `<p class="cite"><span class="cite-label">${esc(t("source"))}</span> ${parts.join(". ")}.
-      ${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(t("openSource"))}</a>` : ""}</p>`;
+    const bits = [esc(r.source_name || "—") + (r.year ? `, ${esc(r.year)}` : "")];
+    if (D.isSuppressed(r)) bits.push(esc(t("fewerThan", { n: Atlas.config.minGroupSize })));
+    else if (r.n !== null) bits.push(esc(t("nStudents", { n: r.n.toLocaleString() })));
+    if (r.match_confidence !== null) bits.push(esc(t("matchConfidence", { p: Math.round(r.match_confidence * 100) })));
+    return `<p class="cite">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg>
+      <span>${bits.join(", ")}.</span>
+      ${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(t("openSourceShort"))}</a>` : ""}</p>`;
   }
 
   function figure(ind, g, { compact = false } = {}) {
@@ -639,21 +638,30 @@ window.Atlas = window.Atlas || {};
     const pv = D.visible(ind, Atlas.data.stateId);
     const dist = districtOf(g);
     const dv = g.level === "village" && dist ? D.visible(ind, dist.id) : null;
-    const rk = g.level === "district" ? D.rank(ind, g.id) : null;
-    const vals = D.districtValues(ind).map((d) => d.value);
-    const compare = g.level === "state" ? "" : `<p class="figure-compare">
+    const rk = g.level === "district" && v !== null ? D.rank(ind, g.id) : null;
+    const chips = g.level === "state" || v === null ? "" : `<p class="figure-chips">
       ${g.level === "village" && dist ? delta(v, dv, ind, name(dist)) : ""}
       ${delta(v, pv, ind, t("punjab"))}
-      </p>`;
-    const strip = !compact && v !== null && vals.length > 2
-      ? Atlas.Charts.strip({ values: vals, mark: g.level === "state" ? null : v, ref: pv, ind, markLabel: `${name(g)} ${D.fmt(v, ind)}` })
-      : "";
+      ${rk ? `<span class="chip-stat">${esc(cap(rankPhrase(rk)))}</span>` : ""}</p>`;
     const says = compact ? "" : sentence(ind, g);
+    let bar = "";
+    const dvals = D.districtValues(ind).sort((a, b) => a.value - b.value);
+    if (!compact && dvals.length > 2 && (v !== null || g.level === "state")) {
+      const lo = dvals[0], hi = dvals[dvals.length - 1];
+      const isState = g.level === "state";
+      bar = Atlas.Charts.rangeBar({
+        ind, ramp: rampName(ind), values: dvals.map((d) => d.value),
+        lo: { name: name(lo.geo), value: lo.value }, hi: { name: name(hi.geo), value: hi.value },
+        mark: isState ? { value: pv, label: t("punjab") } : { value: v, label: name(g) },
+        ref: isState ? null : g.level === "village" && dv !== null ? { value: dv, label: name(dist) } : pv !== null ? { value: pv, label: t("punjab") } : null,
+      });
+    }
     return `<div class="figure${compact ? " is-compact" : ""}">
       <p class="figure-label">${esc(label(ind))}</p>
       ${valueBlock(ind, g)}
+      ${chips}
       ${says ? `<p class="figure-say">${esc(says)}</p>` : ""}
-      ${compare}${strip}
+      ${bar}
       ${citation(ind, g)}
     </div>`;
   }

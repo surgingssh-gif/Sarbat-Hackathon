@@ -191,5 +191,51 @@ window.Atlas = window.Atlas || {};
     </div>`;
   }
 
-  Atlas.Charts = { scatter, strip, profile, bars, bivariateLegend, esc };
+
+  /*
+   * Range bar: the spread of all districts on one indicator, coloured by the map
+   * ramp, with the place and Punjab marked and labelled, and the lowest and highest
+   * districts named at the ends.
+   *   ramp: good | bad | neutral    lo/hi: { name, value }
+   *   mark: { value, label } (above)   ref: { value, label } (below)
+   */
+  function rangeBar({ ind, ramp, values, lo, hi, mark, ref }) {
+    const min = Math.min(lo.value, mark?.value ?? Infinity, ref?.value ?? Infinity);
+    const max = Math.max(hi.value, mark?.value ?? -Infinity, ref?.value ?? -Infinity);
+    const pct = (v) => (max === min ? 50 : ((v - min) / (max - min)) * 100);
+    const align = (p) => (p < 18 ? "is-start" : p > 82 ? "is-end" : "");
+    const f = (v) => Atlas.D.fmt(v, ind);
+    const ticks = values.map((v) => `<i style="left:${pct(v)}%"></i>`).join("");
+    const pin = (o, cls) => {
+      const p = pct(o.value);
+      return `<span class="rb-pin ${cls} ${align(p)}" style="left:${p}%"><span class="rb-tag">${esc(o.label)} <b>${esc(f(o.value))}</b></span></span>`;
+    };
+    return `<div class="rb" role="img" aria-label="${esc((mark ? mark.label + " " + f(mark.value) + ", " : "") + (ref ? ref.label + " " + f(ref.value) : ""))}">
+      <div class="rb-above">${mark ? pin(mark, "rb-mark") : ""}</div>
+      <div class="rb-track" style="background:linear-gradient(90deg, var(--seq-${ramp}-0), var(--seq-${ramp}-2), var(--seq-${ramp}-4))">
+        <span class="rb-ticks">${ticks}</span>
+        ${mark ? `<span class="rb-dot" style="left:${pct(mark.value)}%"></span>` : ""}
+        ${ref ? `<span class="rb-ring" style="left:${pct(ref.value)}%"></span>` : ""}
+      </div>
+      <div class="rb-below">${ref ? pin(ref, "rb-ref") : ""}</div>
+      <div class="rb-ends">
+        <span>${esc(Atlas.t("lowestIs", { p: lo.name }))} <b>${esc(f(lo.value))}</b></span>
+        <span>${esc(Atlas.t("highestIs", { p: hi.name }))} <b>${esc(f(hi.value))}</b></span>
+      </div>
+    </div>`;
+  }
+
+  // Small two-marker track for a findings row: dot = place, ring = comparison.
+  function miniTrack({ v, ref, lo, hi, tone }) {
+    const min = Math.min(lo, v, ref), max = Math.max(hi, v, ref);
+    const pct = (x) => (max === min ? 50 : ((x - min) / (max - min)) * 100);
+    const a = pct(Math.min(v, ref)), b = pct(Math.max(v, ref));
+    return `<span class="mt" aria-hidden="true">
+      <span class="mt-gap tone-${tone}" style="left:${a}%;width:${b - a}%"></span>
+      <span class="mt-ring" style="left:${pct(ref)}%"></span>
+      <span class="mt-dot tone-${tone}" style="left:${pct(v)}%"></span>
+    </span>`;
+  }
+
+  Atlas.Charts = { scatter, strip, profile, bars, bivariateLegend, rangeBar, miniTrack, esc };
 })();

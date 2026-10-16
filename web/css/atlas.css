@@ -671,3 +671,68 @@ svg { flex: none; }
 .more[open] > summary::after { transform: rotate(-135deg); }
 .more > summary:hover { color: var(--accent); }
 .more > .block:first-of-type { border-top: 0; padding-top: 4px; }
+
+/* ---------- inspector, visual pass ---------- */
+
+.figure { gap: 8px; }
+.figure-say { font-size: 14.5px; color: var(--muted); max-width: 48ch; }
+.figure-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-stat {
+  display: inline-flex; align-items: baseline; gap: 5px; font-size: 12.5px; font-weight: 600;
+  padding: 3px 9px; border-radius: 999px; background: var(--sunk); color: var(--ink);
+}
+.chip-stat.tone-good { background: var(--good-soft); color: var(--good); }
+.chip-stat.tone-bad { background: var(--bad-soft); color: var(--bad); }
+.chip-stat .delta-arrow { font-size: 9px; }
+
+/* range bar */
+.rb { display: grid; gap: 3px; margin: 10px 0 2px; padding: 0 9px; font-size: 12px; }
+.rb-above, .rb-below { position: relative; height: 22px; }
+.rb-pin { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+.rb-pin.is-start { transform: translateX(-8px); }
+.rb-pin.is-end { transform: translateX(calc(-100% + 8px)); }
+.rb-tag { display: inline-block; padding: 2px 7px; border-radius: 6px; font-size: 12px; }
+.rb-mark .rb-tag { background: var(--ink); color: var(--paper); }
+.rb-mark .rb-tag b { font-weight: 800; }
+.rb-ref .rb-tag { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.rb-track { position: relative; height: 12px; border-radius: 6px; }
+.rb-ticks i { position: absolute; top: 2px; bottom: 2px; width: 1.5px; background: color-mix(in srgb, var(--surface) 70%, transparent); transform: translateX(-50%); }
+.rb-dot, .rb-ring { position: absolute; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; }
+.rb-dot { width: 18px; height: 18px; background: var(--gold); border: 2.5px solid var(--ink); z-index: 2; }
+.rb-ring { width: 14px; height: 14px; background: var(--surface); border: 2.5px solid var(--ink); }
+.rb-ends { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); margin: 2px -9px 0; }
+.rb-ends b { color: var(--ink); font-weight: 600; }
+
+/* source line */
+.cite { display: flex; align-items: flex-start; gap: 6px; font-size: 12px; color: var(--faint); margin-top: 6px; }
+.cite svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; margin-top: 2px; }
+.cite a { margin-left: auto; padding-left: 8px; white-space: nowrap; font-weight: 600; }
+
+/* findings rows */
+.findings:has(.frow) { gap: 0; }
+.findings:has(.frow) li + li { border-top: 1px solid var(--line); }
+.frow {
+  width: 100%; text-align: left; cursor: pointer;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(90px, 34%); grid-template-rows: auto auto; gap: 2px 14px; align-items: center;
+  padding: 10px 6px; border: 0; border-radius: 8px; background: transparent;
+}
+.frow:hover { background: var(--paper); }
+.frow-name { font-weight: 700; font-size: 13.5px; }
+.frow.tone-good .frow-name { color: var(--good); }
+.frow.tone-bad .frow-name { color: var(--bad); }
+.frow-vals { grid-column: 1; font-size: 12.5px; }
+.frow-vals b { font-size: 15px; }
+.frow-vals span { color: var(--muted); }
+.frow .mt { grid-column: 2; grid-row: 1 / span 2; margin: 0 6px; }
+.frow-note { display: none; }
+.mt { position: relative; display: block; height: 14px; }
+.mt::before { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px; border-radius: 1px; background: var(--line); }
+.mt-gap { position: absolute; top: 5px; height: 4px; border-radius: 2px; background: var(--faint); opacity: 0.45; }
+.mt-gap.tone-good { background: var(--good); }
+.mt-gap.tone-bad { background: var(--bad); }
+.mt-dot, .mt-ring { position: absolute; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; }
+.mt-dot { width: 12px; height: 12px; background: var(--ink); }
+.mt-dot.tone-good { background: var(--good); }
+.mt-dot.tone-bad { background: var(--bad); }
+.mt-ring { width: 11px; height: 11px; border: 2px solid var(--muted); background: var(--surface); }
+.frow-rank { display: block; font-weight: 500; font-size: 12px; color: var(--muted); }
