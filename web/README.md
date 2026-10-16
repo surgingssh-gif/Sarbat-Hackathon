@@ -24,9 +24,9 @@ The atlas has three parts. On tablets the left rail becomes a drawer (the Indica
 
 | Part | What it does |
 |---|---|
-| **Indicator rail** (left) | Every indicator, grouped by topic, each showing the current place's value and a small track of where it sits among districts (dot = this place, ring = Punjab). It is the menu and the place's profile at once. Red names are warning signs. Greyed rows are data that's coming. |
-| **Map canvas** (centre) | Four views: **One indicator**; **Overlap** (two indicators on a 3×3 colour grid, darkest = worse on both; pick B with the B buttons in the rail); **Warning signs** (districts coloured by how many red flags they have); **All indicators** (a small map per indicator). Drag to pan, scroll or +/− to zoom, toggle district names, click a district to open it. |
-| **Inspector** (right) | Breadcrumb, place name, **Pin** button, headline number with comparison and source, then view-specific detail: overlap explanation, warning signs, villages, relationship chart, rankings, and a **Side by side** table of up to four pinned places. |
+| **Topics rail** (left) | Every topic with the current place's value and its rank in words ("Lowest of 23", "#8 of 23"), or the district range at Punjab level. Red names are warning signs. Greyed rows are data that's coming. |
+| **Map canvas** (centre) | Four views: **One topic**; **Compare two** (two topics on a 3×3 colour grid, darkest = worse on both; pick A and B in the dropdowns above the map); **Problem areas** (districts coloured by how many topics they are among Punjab's worst on); **All topics** (a small map per topic). Drag to pan, scroll or +/− to zoom, toggle district names, click a district to open it. |
+| **Inspector** (right) | On Punjab, a **Start here** panel with tappable questions (hide it once you know your way around). Then the place, **Pin** button, headline number with a plain-language sentence and source, **What stands out**, villages, and a **More detail** fold with warning signs, the relationship chart, rankings and the **Side by side** table of pinned places. |
 | Search | Any district or village, in English or Gurmukhi. Press `/` to jump to it. |
 | Ask Parvaaz | Chat in the corner; sends the question plus what's on screen (place, indicator, view). |
 | About | Sources, privacy rule, the four views, and a slot for crosswalk accuracy. |

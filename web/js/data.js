@@ -197,6 +197,9 @@ window.Atlas = window.Atlas || {};
     return i < 0 ? null : { r: i + 1, total: list.length };
   }
 
+  // How many districts count as "the worst" for a warning sign (a fifth of them).
+  function warnK() { return Math.max(1, Math.round(districts().length / 5)); }
+
   // Is this value a warning sign (worst fifth of districts for this indicator)?
   function warningThreshold(ind) {
     const dir = meta(ind).direction;
@@ -357,7 +360,7 @@ window.Atlas = window.Atlas || {};
 
   Atlas.D = {
     parseCSV, build, load, meta, rec, isHidden, isSuppressed, visible, districts, districtValues,
-    breaks, binOf, rank, warningThreshold, isWarning, overlaps, pearson,
+    breaks, binOf, rank, warnK, warningThreshold, isWarning, overlaps, pearson,
     fmt, fmtDelta, tone, sourceHref, slug, freq, scaleWord, say, fmtShort, zscore,
   };
 })();
