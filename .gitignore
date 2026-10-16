@@ -2,5 +2,22 @@ data/raw/
 data/working/
 data/exports/
 *.duckdb
+target/
+dbt_packages/
+logs/
+.user.yml
 .venv/
 .ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Unrelated, sensitive Ensaaf case-document extracts.
+/Case 1/
+/Case 2/
+/Case 3/
+/Case 4/
+/Case 5/
+
+# Redundant copy of the canonical simulated Parvaaz survey folder.
+/parvaazdata 2/

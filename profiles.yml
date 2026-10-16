@@ -1,0 +1,7 @@
+parvaaz:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: data/working/parvaaz.duckdb
+      threads: 4
