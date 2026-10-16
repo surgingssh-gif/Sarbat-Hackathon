@@ -1,0 +1,329 @@
+district,indicator,value,year,source_name,source_url,n_students
+Amritsar,agricultural_land_ownership_share,0.341453,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2340
+Amritsar,air_conditioner_ownership_share,0.365450,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,50037
+Amritsar,avg_agricultural_land_damage_among_owners,1.797247,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,799
+Amritsar,avg_business_damage_among_owners,1.649046,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,681
+Amritsar,avg_education_aspiration,3.306853,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,50037
+Amritsar,avg_father_education_years,8.734996,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,50037
+Amritsar,avg_house_damage,1.645726,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2340
+Amritsar,avg_mother_education_years,8.216420,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,50037
+Amritsar,business_ownership_share,0.291026,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2340
+Amritsar,car_ownership_share,0.210424,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,50037
+Amritsar,college_or_higher_aspiration_share,0.806903,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,50037
+Amritsar,female_share,0.519735,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,50037
+Amritsar,severe_or_total_house_damage_share,0.078205,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2340
+Amritsar,two_wheeler_ownership_share,0.744049,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,50037
+Barnala,agricultural_land_ownership_share,0.363144,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,738
+Barnala,air_conditioner_ownership_share,0.408955,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15767
+Barnala,avg_agricultural_land_damage_among_owners,2.018657,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,268
+Barnala,avg_business_damage_among_owners,1.936709,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,158
+Barnala,avg_education_aspiration,3.254582,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15767
+Barnala,avg_father_education_years,7.722839,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15767
+Barnala,avg_house_damage,2.008130,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,738
+Barnala,avg_mother_education_years,7.345659,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15767
+Barnala,business_ownership_share,0.214092,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,738
+Barnala,car_ownership_share,0.232321,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15767
+Barnala,college_or_higher_aspiration_share,0.793810,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15767
+Barnala,female_share,0.528002,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15767
+Barnala,severe_or_total_house_damage_share,0.097561,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,738
+Barnala,two_wheeler_ownership_share,0.816262,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15767
+Bathinda,agricultural_land_ownership_share,0.466238,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1244
+Bathinda,air_conditioner_ownership_share,0.440298,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,38106
+Bathinda,avg_agricultural_land_damage_among_owners,1.770690,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,580
+Bathinda,avg_business_damage_among_owners,1.462857,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,350
+Bathinda,avg_education_aspiration,3.279877,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,38106
+Bathinda,avg_father_education_years,8.251850,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,38106
+Bathinda,avg_house_damage,1.594855,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1244
+Bathinda,avg_mother_education_years,6.645673,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,38106
+Bathinda,business_ownership_share,0.281350,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1244
+Bathinda,car_ownership_share,0.296279,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,38106
+Bathinda,college_or_higher_aspiration_share,0.797250,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,38106
+Bathinda,female_share,0.498530,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,38106
+Bathinda,severe_or_total_house_damage_share,0.059486,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1244
+Bathinda,two_wheeler_ownership_share,0.788695,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,38106
+Chandigarh,agricultural_land_ownership_share,0.288698,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,814
+Chandigarh,avg_agricultural_land_damage_among_owners,1.519149,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,235
+Chandigarh,avg_business_damage_among_owners,1.293578,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,218
+Chandigarh,avg_house_damage,1.308354,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,814
+Chandigarh,business_ownership_share,0.267813,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,814
+Chandigarh,severe_or_total_house_damage_share,0.031941,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,814
+Faridkot,agricultural_land_ownership_share,0.395232,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,797
+Faridkot,air_conditioner_ownership_share,0.353568,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15683
+Faridkot,avg_agricultural_land_damage_among_owners,1.853968,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,315
+Faridkot,avg_business_damage_among_owners,1.477178,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,241
+Faridkot,avg_education_aspiration,3.298604,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15683
+Faridkot,avg_father_education_years,8.323535,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15683
+Faridkot,avg_house_damage,1.720201,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,797
+Faridkot,avg_mother_education_years,6.925397,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15683
+Faridkot,business_ownership_share,0.302384,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,797
+Faridkot,car_ownership_share,0.211758,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15683
+Faridkot,college_or_higher_aspiration_share,0.801569,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15683
+Faridkot,female_share,0.484665,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15683
+Faridkot,severe_or_total_house_damage_share,0.097867,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,797
+Faridkot,two_wheeler_ownership_share,0.793343,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15683
+Fazilka,agricultural_land_ownership_share,0.411765,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1054
+Fazilka,air_conditioner_ownership_share,0.213770,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,34060
+Fazilka,avg_agricultural_land_damage_among_owners,2.495392,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,434
+Fazilka,avg_business_damage_among_owners,1.892308,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,260
+Fazilka,avg_education_aspiration,3.255197,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,34060
+Fazilka,avg_father_education_years,7.837669,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,34060
+Fazilka,avg_house_damage,2.198292,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1054
+Fazilka,avg_mother_education_years,6.017528,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,34060
+Fazilka,business_ownership_share,0.246679,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1054
+Fazilka,car_ownership_share,0.142308,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,34060
+Fazilka,college_or_higher_aspiration_share,0.792660,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,34060
+Fazilka,female_share,0.498855,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,34060
+Fazilka,severe_or_total_house_damage_share,0.171727,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1054
+Fazilka,two_wheeler_ownership_share,0.745860,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,34060
+Firozpur,agricultural_land_ownership_share,0.436464,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,724
+Firozpur,air_conditioner_ownership_share,0.451522,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24114
+Firozpur,avg_agricultural_land_damage_among_owners,2.069620,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,316
+Firozpur,avg_business_damage_among_owners,1.621005,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,219
+Firozpur,avg_education_aspiration,3.268350,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24114
+Firozpur,avg_father_education_years,7.818197,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24114
+Firozpur,avg_house_damage,1.799724,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,724
+Firozpur,avg_mother_education_years,5.001991,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24114
+Firozpur,business_ownership_share,0.302486,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,724
+Firozpur,car_ownership_share,0.244381,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24114
+Firozpur,college_or_higher_aspiration_share,0.793564,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24114
+Firozpur,female_share,0.482749,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24114
+Firozpur,severe_or_total_house_damage_share,0.099448,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,724
+Firozpur,two_wheeler_ownership_share,0.810525,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24114
+Gurdaspur,agricultural_land_ownership_share,0.391091,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2245
+Gurdaspur,air_conditioner_ownership_share,0.308681,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,avg_agricultural_land_damage_among_owners,1.985194,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,878
+Gurdaspur,avg_business_damage_among_owners,1.598319,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,595
+Gurdaspur,avg_education_aspiration,3.359433,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,avg_father_education_years,9.433196,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,avg_house_damage,1.639198,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2245
+Gurdaspur,avg_mother_education_years,8.551940,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,business_ownership_share,0.265033,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2245
+Gurdaspur,car_ownership_share,0.210087,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,college_or_higher_aspiration_share,0.818477,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,female_share,0.497308,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,severe_or_total_house_damage_share,0.069042,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2245
+Gurdaspur,two_wheeler_ownership_share,0.774830,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41240
+Hoshiarpur,agricultural_land_ownership_share,0.411797,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1814
+Hoshiarpur,air_conditioner_ownership_share,0.185469,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,avg_agricultural_land_damage_among_owners,1.797858,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,747
+Hoshiarpur,avg_business_damage_among_owners,1.493590,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,468
+Hoshiarpur,avg_education_aspiration,3.409357,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,avg_father_education_years,10.274976,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,avg_house_damage,1.593164,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1814
+Hoshiarpur,avg_mother_education_years,9.842408,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,business_ownership_share,0.257993,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1814
+Hoshiarpur,car_ownership_share,0.177974,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,college_or_higher_aspiration_share,0.838250,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,female_share,0.496905,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,severe_or_total_house_damage_share,0.054576,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1814
+Hoshiarpur,two_wheeler_ownership_share,0.729038,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,41360
+Jalandhar,agricultural_land_ownership_share,0.321768,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1787
+Jalandhar,air_conditioner_ownership_share,0.365212,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,47586
+Jalandhar,avg_agricultural_land_damage_among_owners,1.869565,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,575
+Jalandhar,avg_business_damage_among_owners,1.559783,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,552
+Jalandhar,avg_education_aspiration,3.371097,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,47586
+Jalandhar,avg_father_education_years,9.688123,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,47586
+Jalandhar,avg_house_damage,1.612199,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1787
+Jalandhar,avg_mother_education_years,8.412958,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,47586
+Jalandhar,business_ownership_share,0.308898,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1787
+Jalandhar,car_ownership_share,0.219266,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,47586
+Jalandhar,college_or_higher_aspiration_share,0.824003,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,47586
+Jalandhar,female_share,0.496028,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,47586
+Jalandhar,severe_or_total_house_damage_share,0.066032,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1787
+Jalandhar,two_wheeler_ownership_share,0.725045,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,47586
+Kapurthala,agricultural_land_ownership_share,0.312977,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,655
+Kapurthala,air_conditioner_ownership_share,0.295823,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,18697
+Kapurthala,avg_agricultural_land_damage_among_owners,1.931707,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,205
+Kapurthala,avg_business_damage_among_owners,1.714286,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,168
+Kapurthala,avg_education_aspiration,3.308606,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,18697
+Kapurthala,avg_father_education_years,8.606461,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,18697
+Kapurthala,avg_house_damage,1.615267,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,655
+Kapurthala,avg_mother_education_years,8.645237,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,18697
+Kapurthala,business_ownership_share,0.256489,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,655
+Kapurthala,car_ownership_share,0.212387,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,18697
+Kapurthala,college_or_higher_aspiration_share,0.807242,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,18697
+Kapurthala,female_share,0.508370,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,18697
+Kapurthala,severe_or_total_house_damage_share,0.054962,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,655
+Kapurthala,two_wheeler_ownership_share,0.772530,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,18697
+Ludhiana,agricultural_land_ownership_share,0.296659,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2963
+Ludhiana,air_conditioner_ownership_share,0.393889,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,64932
+Ludhiana,avg_agricultural_land_damage_among_owners,1.660978,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,879
+Ludhiana,avg_business_damage_among_owners,1.542394,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,802
+Ludhiana,avg_education_aspiration,3.385357,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,64932
+Ludhiana,avg_father_education_years,10.024580,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,64932
+Ludhiana,avg_house_damage,1.520081,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2963
+Ludhiana,avg_mother_education_years,9.125839,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,64932
+Ludhiana,business_ownership_share,0.270672,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2963
+Ludhiana,car_ownership_share,0.275935,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,64932
+Ludhiana,college_or_higher_aspiration_share,0.829483,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,64932
+Ludhiana,female_share,0.488650,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,64932
+Ludhiana,severe_or_total_house_damage_share,0.052987,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2963
+Ludhiana,two_wheeler_ownership_share,0.805181,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,64932
+Malerkotla,agricultural_land_ownership_share,0.290429,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,303
+Malerkotla,air_conditioner_ownership_share,0.454518,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,9927
+Malerkotla,avg_agricultural_land_damage_among_owners,1.704545,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,88
+Malerkotla,avg_business_damage_among_owners,1.550000,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,80
+Malerkotla,avg_education_aspiration,3.304019,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,9927
+Malerkotla,avg_father_education_years,8.382492,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,9927
+Malerkotla,avg_house_damage,1.594059,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,303
+Malerkotla,avg_mother_education_years,6.743226,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,9927
+Malerkotla,business_ownership_share,0.264026,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,303
+Malerkotla,car_ownership_share,0.302105,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,9927
+Malerkotla,college_or_higher_aspiration_share,0.806185,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,9927
+Malerkotla,female_share,0.483429,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,9927
+Malerkotla,severe_or_total_house_damage_share,0.039604,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,303
+Malerkotla,two_wheeler_ownership_share,0.910547,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,9927
+Mansa,agricultural_land_ownership_share,0.480000,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,550
+Mansa,air_conditioner_ownership_share,0.319666,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24438
+Mansa,avg_agricultural_land_damage_among_owners,1.969697,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,264
+Mansa,avg_business_damage_among_owners,1.770270,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,148
+Mansa,avg_education_aspiration,3.193837,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24438
+Mansa,avg_father_education_years,6.723382,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24438
+Mansa,avg_house_damage,2.029091,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,550
+Mansa,avg_mother_education_years,5.231402,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24438
+Mansa,business_ownership_share,0.269091,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,550
+Mansa,car_ownership_share,0.183280,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24438
+Mansa,college_or_higher_aspiration_share,0.767125,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24438
+Mansa,female_share,0.529585,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24438
+Mansa,severe_or_total_house_damage_share,0.103636,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,550
+Mansa,two_wheeler_ownership_share,0.792004,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,24438
+Moga,agricultural_land_ownership_share,0.427544,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,973
+Moga,air_conditioner_ownership_share,0.473780,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,25877
+Moga,avg_agricultural_land_damage_among_owners,1.798077,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,416
+Moga,avg_business_damage_among_owners,1.656357,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,291
+Moga,avg_education_aspiration,3.359354,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,25877
+Moga,avg_father_education_years,9.415775,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,25877
+Moga,avg_house_damage,1.659815,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,973
+Moga,avg_mother_education_years,7.827414,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,25877
+Moga,business_ownership_share,0.299075,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,973
+Moga,car_ownership_share,0.290606,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,25877
+Moga,college_or_higher_aspiration_share,0.819260,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,25877
+Moga,female_share,0.484871,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,25877
+Moga,severe_or_total_house_damage_share,0.057554,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,973
+Moga,two_wheeler_ownership_share,0.809251,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,25877
+Pathankot,agricultural_land_ownership_share,0.392500,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,800
+Pathankot,air_conditioner_ownership_share,0.164243,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,16713
+Pathankot,avg_agricultural_land_damage_among_owners,1.898089,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,314
+Pathankot,avg_business_damage_among_owners,1.732283,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,254
+Pathankot,avg_education_aspiration,3.347813,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,16713
+Pathankot,avg_father_education_years,9.229701,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,16713
+Pathankot,avg_house_damage,1.747500,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,800
+Pathankot,avg_mother_education_years,8.416622,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,16713
+Pathankot,business_ownership_share,0.317500,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,800
+Pathankot,car_ownership_share,0.161551,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,16713
+Pathankot,college_or_higher_aspiration_share,0.820200,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,16713
+Pathankot,female_share,0.487525,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,16713
+Pathankot,severe_or_total_house_damage_share,0.076250,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,800
+Pathankot,two_wheeler_ownership_share,0.730150,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,16713
+Patiala,agricultural_land_ownership_share,0.338617,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2776
+Patiala,air_conditioner_ownership_share,0.398863,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,44667
+Patiala,avg_agricultural_land_damage_among_owners,1.808511,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,940
+Patiala,avg_business_damage_among_owners,1.545817,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,753
+Patiala,avg_education_aspiration,3.319139,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,44667
+Patiala,avg_father_education_years,8.981642,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,44667
+Patiala,avg_house_damage,1.601225,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2776
+Patiala,avg_mother_education_years,7.573018,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,44667
+Patiala,business_ownership_share,0.271254,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2776
+Patiala,car_ownership_share,0.260662,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,44667
+Patiala,college_or_higher_aspiration_share,0.810263,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,44667
+Patiala,female_share,0.484698,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,44667
+Patiala,severe_or_total_house_damage_share,0.067003,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,2776
+Patiala,two_wheeler_ownership_share,0.777129,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,44667
+Roop Nagar,agricultural_land_ownership_share,0.480552,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,797
+Roop Nagar,air_conditioner_ownership_share,0.218031,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,avg_agricultural_land_damage_among_owners,1.728460,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,383
+Roop Nagar,avg_business_damage_among_owners,1.601010,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,198
+Roop Nagar,avg_education_aspiration,3.339986,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,avg_father_education_years,9.146577,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,avg_house_damage,1.623588,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,797
+Roop Nagar,avg_mother_education_years,8.881660,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,business_ownership_share,0.248432,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,797
+Roop Nagar,car_ownership_share,0.198334,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,college_or_higher_aspiration_share,0.823825,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,female_share,0.513280,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,severe_or_total_house_damage_share,0.060226,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,797
+Roop Nagar,two_wheeler_ownership_share,0.742417,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,19089
+S.A.S Nagar,agricultural_land_ownership_share,0.331936,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1431
+S.A.S Nagar,air_conditioner_ownership_share,0.322876,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,avg_agricultural_land_damage_among_owners,1.755789,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,475
+S.A.S Nagar,avg_business_damage_among_owners,1.454774,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,398
+S.A.S Nagar,avg_education_aspiration,3.368071,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,avg_father_education_years,9.524752,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,avg_house_damage,1.547170,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1431
+S.A.S Nagar,avg_mother_education_years,8.758763,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,business_ownership_share,0.278127,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1431
+S.A.S Nagar,car_ownership_share,0.286073,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,college_or_higher_aspiration_share,0.825098,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,female_share,0.517257,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,severe_or_total_house_damage_share,0.055905,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1431
+S.A.S Nagar,two_wheeler_ownership_share,0.728827,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,22281
+Sangrur,agricultural_land_ownership_share,0.376360,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1379
+Sangrur,air_conditioner_ownership_share,0.371895,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,32692
+Sangrur,avg_agricultural_land_damage_among_owners,1.876686,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,519
+Sangrur,avg_business_damage_among_owners,1.751479,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,338
+Sangrur,avg_education_aspiration,3.299217,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,32692
+Sangrur,avg_father_education_years,8.492475,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,32692
+Sangrur,avg_house_damage,1.815809,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1379
+Sangrur,avg_mother_education_years,6.947082,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,32692
+Sangrur,business_ownership_share,0.245105,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1379
+Sangrur,car_ownership_share,0.231463,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,32692
+Sangrur,college_or_higher_aspiration_share,0.803010,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,32692
+Sangrur,female_share,0.521687,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,32692
+Sangrur,severe_or_total_house_damage_share,0.084119,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,1379
+Sangrur,two_wheeler_ownership_share,0.800593,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,32692
+Shaheed Bhagat Singh Nagar,agricultural_land_ownership_share,0.316949,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,590
+Shaheed Bhagat Singh Nagar,air_conditioner_ownership_share,0.153264,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,avg_agricultural_land_damage_among_owners,1.823529,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,187
+Shaheed Bhagat Singh Nagar,avg_business_damage_among_owners,1.562874,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,167
+Shaheed Bhagat Singh Nagar,avg_education_aspiration,3.301501,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,avg_father_education_years,8.654345,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,avg_house_damage,1.598305,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,590
+Shaheed Bhagat Singh Nagar,avg_mother_education_years,8.188764,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,business_ownership_share,0.283051,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,590
+Shaheed Bhagat Singh Nagar,car_ownership_share,0.151673,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,college_or_higher_aspiration_share,0.806209,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,female_share,0.517878,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,severe_or_total_house_damage_share,0.042373,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,590
+Shaheed Bhagat Singh Nagar,two_wheeler_ownership_share,0.812762,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,15718
+Shri Fatehgarh Sahib,agricultural_land_ownership_share,0.318015,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,544
+Shri Fatehgarh Sahib,air_conditioner_ownership_share,0.389543,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,avg_agricultural_land_damage_among_owners,1.820809,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,173
+Shri Fatehgarh Sahib,avg_business_damage_among_owners,1.396694,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,121
+Shri Fatehgarh Sahib,avg_education_aspiration,3.363742,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,avg_father_education_years,9.547153,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,avg_house_damage,1.568015,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,544
+Shri Fatehgarh Sahib,avg_mother_education_years,9.096154,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,business_ownership_share,0.222426,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,544
+Shri Fatehgarh Sahib,car_ownership_share,0.290652,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,college_or_higher_aspiration_share,0.823775,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,female_share,0.523816,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,severe_or_total_house_damage_share,0.055147,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,544
+Shri Fatehgarh Sahib,two_wheeler_ownership_share,0.861278,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,14612
+Sri Muktsar Sahib,agricultural_land_ownership_share,0.402041,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,490
+Sri Muktsar Sahib,air_conditioner_ownership_share,0.305874,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,avg_agricultural_land_damage_among_owners,1.690355,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,197
+Sri Muktsar Sahib,avg_business_damage_among_owners,1.489510,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,143
+Sri Muktsar Sahib,avg_education_aspiration,3.182565,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,avg_father_education_years,6.589368,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,avg_house_damage,1.620408,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,490
+Sri Muktsar Sahib,avg_mother_education_years,4.786543,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,business_ownership_share,0.291837,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,490
+Sri Muktsar Sahib,car_ownership_share,0.204275,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,college_or_higher_aspiration_share,0.766914,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,female_share,0.487844,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,severe_or_total_house_damage_share,0.073469,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,490
+Sri Muktsar Sahib,two_wheeler_ownership_share,0.765874,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,26900
+Tarn Tarn,agricultural_land_ownership_share,0.465291,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,533
+Tarn Tarn,air_conditioner_ownership_share,0.465106,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,avg_agricultural_land_damage_among_owners,1.846774,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,248
+Tarn Tarn,avg_business_damage_among_owners,1.817610,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,159
+Tarn Tarn,avg_education_aspiration,3.305112,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,avg_father_education_years,8.627470,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,avg_house_damage,1.709193,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,533
+Tarn Tarn,avg_mother_education_years,6.557865,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,business_ownership_share,0.298311,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,533
+Tarn Tarn,car_ownership_share,0.247211,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,college_or_higher_aspiration_share,0.807300,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,female_share,0.478378,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,severe_or_total_house_damage_share,0.078799,2025,Parvaaz synthetic vocational-institute flood survey,parvaazdata/vi_survey.csv,533
+Tarn Tarn,two_wheeler_ownership_share,0.829468,,Parvaaz synthetic secondary-school survey,parvaazdata/sec_school_survey.csv,27426
