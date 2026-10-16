@@ -6,4 +6,7 @@ select distinct
     school_name,
     d.district_key
 from {{ ref('stg_secondary_student_responses') }} s
-join {{ ref('dim_district') }} d using (district_name)
+join {{ ref('map_survey_district_to_lgd') }} m
+  on m.survey_district_name = s.district_name
+join {{ ref('dim_district') }} d
+  on d.district_key = m.district_key

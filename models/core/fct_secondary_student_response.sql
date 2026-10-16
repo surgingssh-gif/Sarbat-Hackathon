@@ -3,7 +3,7 @@
 select
     s.student_response_id,
     sc.school_key,
-    d.district_key,
+    sc.district_key,
     s.is_female,
     s.father_education_years,
     s.mother_education_years,
@@ -12,6 +12,5 @@ select
     s.has_car,
     s.education_aspiration_code
 from {{ ref('stg_secondary_student_responses') }} s
-join {{ ref('dim_district') }} d using (district_name)
 join {{ ref('dim_school') }} sc
     on s.school_code = sc.school_code
