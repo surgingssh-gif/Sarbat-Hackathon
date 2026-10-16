@@ -39,7 +39,15 @@
   </header>
 
   <div class="shell">
-    <nav class="crumbs" id="crumbs" aria-label="Location"></nav>
+    <div class="toolbar">
+      <nav class="crumbs" id="crumbs" aria-label="Location"></nav>
+      <div class="search" id="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="search-input" type="search" autocomplete="off" spellcheck="false"
+          role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list">
+        <ul class="search-results" id="search-results" role="listbox" hidden></ul>
+      </div>
+    </div>
 
     <section class="picker" aria-label="Choose what the map shows">
       <div class="tabs" id="tabs" role="tablist"></div>
@@ -53,6 +61,13 @@
           <p class="map-desc" id="map-desc"></p>
         </div>
         <div class="map-wrap" id="map"></div>
+        <section class="village-grid" id="village-grid" hidden aria-labelledby="village-grid-title">
+          <div class="vg-head">
+            <h2 id="village-grid-title"></h2>
+            <p class="hint" id="village-grid-hint"></p>
+          </div>
+          <ul class="vg-tiles" id="village-tiles"></ul>
+        </section>
         <div class="legend" id="legend"></div>
         <p class="map-note" id="map-note"></p>
       </section>

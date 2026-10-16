@@ -9,7 +9,7 @@ window.Atlas = window.Atlas || {};
   "use strict";
 
   const W = 1000;
-  let svg, gShapes, tip, wrap, shapes = new Map(), project, fullBox, currentBox, anim;
+  let svg, gShapes, gVillages, tip, wrap, shapes = new Map(), project, fullBox, currentBox, targetBox, anim;
 
   function makeProjection(features) {
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -62,7 +62,10 @@ window.Atlas = window.Atlas || {};
     svg.setAttribute("class", "map-svg");
     svg.setAttribute("role", "group");
     gShapes = document.createElementNS(NS, "g");
+    gVillages = document.createElementNS(NS, "g");
+    gVillages.setAttribute("class", "villages");
     svg.appendChild(gShapes);
+    svg.appendChild(gVillages);
 
     for (const f of features) {
       const name = f.properties.name || f.properties.district;
@@ -141,7 +144,39 @@ window.Atlas = window.Atlas || {};
       const by = clamp(y + h / 2 - bh / 2, fullBox[1], fullBox[1] + fullBox[3] - bh);
       target = [bx, by, bw, bh];
     }
+    targetBox = target;
     animateBox(target);
+  }
+
+  /*
+   * Village dots, only for villages that have coordinates.
+   * points: [{ id, name, lat, lon, fill, selected, label }]
+   */
+  function setVillages(points, onSelect) {
+    const NS = "http://www.w3.org/2000/svg";
+    gVillages.innerHTML = "";
+    if (!points.length) return;
+    const r = ((targetBox || fullBox)[2] / 95).toFixed(2);
+    const ordered = points.filter((p) => !p.selected).concat(points.filter((p) => p.selected));
+    for (const p of ordered) {
+      const [x, y] = project([p.lon, p.lat]);
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("cx", x.toFixed(1));
+      c.setAttribute("cy", y.toFixed(1));
+      c.setAttribute("r", p.selected ? (r * 1.4).toFixed(2) : r);
+      c.setAttribute("class", "village-dot" + (p.selected ? " is-selected" : ""));
+      c.setAttribute("tabindex", "0");
+      c.setAttribute("role", "button");
+      c.setAttribute("aria-label", p.label);
+      c.style.fill = p.fill;
+      c.addEventListener("click", (e) => { e.stopPropagation(); onSelect(p.id); });
+      c.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelect(p.id); }
+      });
+      c.addEventListener("pointermove", (e) => showTip(e, p.id, () => p.tip));
+      c.addEventListener("pointerleave", hideTip);
+      gVillages.appendChild(c);
+    }
   }
 
   function animateBox(target) {
@@ -161,5 +196,5 @@ window.Atlas = window.Atlas || {};
 
   function drawn() { return new Set(shapes.keys()); }
 
-  Atlas.Map = { init, paint, zoomTo, drawn, hideTip };
+  Atlas.Map = { init, paint, zoomTo, setVillages, drawn, hideTip };
 })();

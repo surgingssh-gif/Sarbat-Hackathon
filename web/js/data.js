@@ -11,6 +11,8 @@
  *   data_status       e.g. synthetic, real
  *   geography_status  e.g. supplied, demo_only
  *   match_confidence  (optional, villages) 0–1 score from the crosswalk
+ *   lat, lon          (optional, villages) coordinates; when present, villages are
+ *                     drawn as dots on the map instead of only as tiles
  */
 window.Atlas = window.Atlas || {};
 
@@ -83,6 +85,9 @@ window.Atlas = window.Atlas || {};
         geo = addGeo({ id, level, name: r.village, district: r.district, parentId: parent ? parent.id : null });
       }
       if (r.geography_status) geo.status = r.geography_status;
+      // Optional coordinates: villages with lat/lon get dots on the map.
+      const lat = num(r.lat ?? r.latitude), lon = num(r.lon ?? r.longitude);
+      if (lat !== null && lon !== null) { geo.lat = lat; geo.lon = lon; }
 
       const rec = {
         value: num(r.value),

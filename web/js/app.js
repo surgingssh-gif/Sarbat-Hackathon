@@ -114,6 +114,8 @@ window.Atlas = window.Atlas || {};
   function renderStatic() {
     document.documentElement.lang = Atlas.lang === "pa" ? "pa" : "en";
     document.querySelectorAll("[data-t]").forEach((el) => { el.textContent = t(el.dataset.t); });
+    $("search-input").placeholder = t("searchPlaceholder");
+    $("search-input").setAttribute("aria-label", t("searchPlaceholder"));
     document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === Atlas.lang)));
     const synthetic = [...Atlas.data.sources.values()].some((s) => /synthetic|simulated/i.test(s.status + " " + s.name));
     $("sim-badge").hidden = !synthetic;
@@ -173,6 +175,7 @@ window.Atlas = window.Atlas || {};
       },
     });
     Atlas.Map.zoomTo(dist ? dist.name : null);
+    renderVillages(dist, breaks);
 
     const m = D.meta(ind);
     $("map-title").textContent = Atlas.tr(m.label);
@@ -193,6 +196,59 @@ window.Atlas = window.Atlas || {};
     const drawn = Atlas.Map.drawn();
     const missing = D.districts().filter((d) => !drawn.has(d.name)).map(name);
     $("map-note").textContent = missing.length ? t("notOnMap", { list: missing.join(", ") }) : "";
+  }
+
+  // Villages of the open district: dots on the map when they have coordinates,
+  // and always as tiles under the map, coloured on the same scale as the districts.
+  function renderVillages(dist, breaks) {
+    const box = $("village-grid");
+    const ind = state.indicator;
+    const kids = dist ? dist.children.map(geo) : [];
+    document.querySelector(".map-col").classList.toggle("has-villages", kids.length > 0);
+    if (!kids.length) {
+      box.hidden = true;
+      Atlas.Map.setVillages([], go);
+      return;
+    }
+    const ramp = rampName(ind);
+    const items = kids.map((k) => {
+      const r = D.rec(ind, k.id);
+      const hidden = D.isSuppressed(r);
+      const v = D.isHidden(r) ? null : r.value;
+      return {
+        geo: k, value: v, hidden,
+        fill: v === null ? "var(--nodata)" : `var(--seq-${ramp}-${D.binOf(v, breaks)})`,
+        text: hidden ? t("hiddenShort") : v === null ? t("noData") : D.fmt(v, ind),
+        selected: k.id === state.geoId,
+      };
+    });
+
+    const withCoords = items.filter((i) => i.geo.lat != null);
+    Atlas.Map.setVillages(
+      withCoords.map((i) => ({
+        id: i.geo.id, lat: i.geo.lat, lon: i.geo.lon, fill: i.fill, selected: i.selected,
+        label: `${name(i.geo)}: ${i.text}`,
+        tip: `<strong>${esc(name(i.geo))}</strong><span>${esc(i.text)}</span>`,
+      })),
+      (id) => go(id, { focusPanel: true })
+    );
+
+    items.sort((a, b) => (b.value ?? -Infinity) - (a.value ?? -Infinity) || a.geo.name.localeCompare(b.geo.name, undefined, { numeric: true }));
+    const demo = kids.some((k) => /demo/i.test(k.status || ""));
+    $("village-grid-title").textContent = t("villages", { d: name(dist) });
+    $("village-grid-hint").textContent = [
+      withCoords.length === kids.length ? t("villagesWithCoords") : t("villagesNoCoords"),
+      demo ? t("villagesHint") : "",
+    ].filter(Boolean).join(" ");
+    $("village-tiles").innerHTML = items
+      .map((i) => `<li><button type="button" class="vg-tile${i.selected ? " is-selected" : ""}" data-village="${esc(i.geo.id)}"
+          aria-pressed="${i.selected}">
+          <span class="vg-swatch" style="background:${i.fill}"></span>
+          <span class="vg-name">${esc(name(i.geo))}</span>
+          <span class="vg-val${i.value === null ? " is-hidden" : ""}">${esc(i.text)}</span>
+        </button></li>`)
+      .join("");
+    box.hidden = false;
   }
 
   function tooltip(n) {
@@ -304,25 +360,6 @@ window.Atlas = window.Atlas || {};
     </section>`;
   }
 
-  function villagesCard(dist, selectedId) {
-    const ind = state.indicator;
-    const kids = dist.children.map(geo);
-    if (!kids.length) {
-      return `<section class="card"><h3>${esc(t("villages", { d: name(dist) }))}</h3><p class="hint">${esc(t("noVillages"))}</p></section>`;
-    }
-    const demo = kids.some((k) => /demo/i.test(k.status || ""));
-    const items = kids.map((k) => {
-      const r = D.rec(ind, k.id);
-      return { id: k.id, name: name(k), value: D.isHidden(r) ? null : r.value, hidden: D.isSuppressed(r) };
-    });
-    return `<section class="card">
-      <h3>${esc(t("villages", { d: name(dist) }))}</h3>
-      ${demo ? `<p class="hint">${esc(t("villagesHint"))}</p>` : ""}
-      <ul class="bars" data-list="villages">${Atlas.Charts.bars({ items, ind, selectedId, ref: D.visible(ind, dist.id) })}</ul>
-      <p class="hint bars-key"><span class="key-ref"></span>${esc(t("districtAverage", { d: name(dist) }))}</p>
-    </section>`;
-  }
-
   // ---------- panels by level ----------
 
   function panelState() {
@@ -404,7 +441,6 @@ window.Atlas = window.Atlas || {};
       ${flags.length ? `<section class="card card-warn"><h3>${esc(t("warningsHere", { n: flags.length }))}</h3>
         <div class="flags">${flags.map((f) => `<button type="button" class="flag" data-ind="${esc(f)}">${esc(Atlas.tr(D.meta(f).short))}</button>`).join("")}</div></section>` : ""}
       ${sourceCard(ind, g)}
-      ${villagesCard(g, null)}
       ${compareCard(g.id)}
       ${profileCard(g)}`;
   }
@@ -430,8 +466,7 @@ window.Atlas = window.Atlas || {};
         </div>
       </header>
       ${sourceCard(ind, g)}
-      ${profileCard(g)}
-      ${dist ? villagesCard(dist, g.id) : ""}`;
+      ${profileCard(g)}`;
   }
 
   function renderPanel() {
@@ -541,7 +576,86 @@ window.Atlas = window.Atlas || {};
     writeHash();
   }
 
+  // ---------- search ----------
+
+  const norm = (x) => String(x || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\u0a00-\u0a7f]+/g, " ").trim();
+  let searchHits = [], searchActive = -1;
+
+  function searchIndex() {
+    return [...Atlas.data.geos.values()]
+      .filter((g) => g.level !== "state")
+      .map((g) => ({
+        g,
+        keys: norm([g.name, Atlas.DISTRICT_PA[g.name] || "", g.level === "village" ? g.district : ""].join(" ")),
+      }));
+  }
+
+  function runSearch(q) {
+    const nq = norm(q);
+    const list = $("search-results");
+    const input = $("search-input");
+    if (!nq) { closeSearch(); return; }
+    const idx = Atlas._searchIndex || (Atlas._searchIndex = searchIndex());
+    searchHits = idx
+      .filter((e) => nq.split(" ").every((w) => e.keys.includes(w)))
+      .sort((a, b) => (a.g.level === "district" ? 0 : 1) - (b.g.level === "district" ? 0 : 1) ||
+        (norm(a.g.name).startsWith(nq) ? 0 : 1) - (norm(b.g.name).startsWith(nq) ? 0 : 1) ||
+        a.g.name.localeCompare(b.g.name, undefined, { numeric: true }))
+      .slice(0, 8)
+      .map((e) => e.g);
+    searchActive = searchHits.length ? 0 : -1;
+    list.innerHTML = searchHits.length
+      ? searchHits.map((g, i) => `<li role="option" id="sr-${i}" aria-selected="${i === searchActive}" data-go="${esc(g.id)}">
+          <span class="sr-name">${esc(name(g))}</span>
+          <span class="sr-sub">${esc(levelLabel(g.level))}${g.level === "village" ? " · " + esc(name(geo(g.parentId) || { level: "district", name: g.district })) : ""}</span>
+        </li>`).join("")
+      : `<li class="sr-none">${esc(t("searchNone"))}</li>`;
+    list.hidden = false;
+    input.setAttribute("aria-expanded", "true");
+    input.setAttribute("aria-activedescendant", searchActive >= 0 ? "sr-" + searchActive : "");
+  }
+
+  function moveSearch(step) {
+    if (!searchHits.length) return;
+    searchActive = (searchActive + step + searchHits.length) % searchHits.length;
+    $("search-results").querySelectorAll("[role=option]").forEach((li, i) => li.setAttribute("aria-selected", String(i === searchActive)));
+    $("search-input").setAttribute("aria-activedescendant", "sr-" + searchActive);
+  }
+
+  function closeSearch() {
+    $("search-results").hidden = true;
+    $("search-input").setAttribute("aria-expanded", "false");
+    searchHits = [];
+  }
+
+  function pickSearch(id) {
+    closeSearch();
+    $("search-input").value = "";
+    $("search-input").blur();
+    go(id, { focusPanel: true });
+  }
+
   function bind() {
+    const input = $("search-input");
+    input.addEventListener("input", () => runSearch(input.value));
+    input.addEventListener("focus", () => { if (input.value) runSearch(input.value); });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") { e.preventDefault(); moveSearch(1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); moveSearch(-1); }
+      else if (e.key === "Enter") { e.preventDefault(); if (searchHits[searchActive]) pickSearch(searchHits[searchActive].id); }
+      else if (e.key === "Escape") { closeSearch(); input.blur(); }
+    });
+    $("search-results").addEventListener("pointerdown", (e) => {
+      const li = e.target.closest("[data-go]");
+      if (li) { e.preventDefault(); pickSearch(li.dataset.go); }
+    });
+    input.addEventListener("blur", () => setTimeout(closeSearch, 120));
+
+    $("village-tiles").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-village]");
+      if (b) go(b.dataset.village, { focusPanel: true });
+    });
+
     document.addEventListener("click", (e) => {
       const a = e.target.closest("#crumbs [data-go], .brand[data-nav]");
       if (a) {

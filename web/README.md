@@ -23,11 +23,13 @@ Opening `index.html` by double-clicking won't work, because browsers block the d
 | Part | What it does |
 |---|---|
 | Breadcrumb | Shows where you are (Punjab › District › Village). Click to go back up. |
+| Search | Type any district or village name (English or Gurmukhi) and jump straight to it. |
 | Theme tabs + chips | Pick a topic (Household wealth, Education, 2025 floods, Livelihoods, Students), then an indicator. Greyed "Coming" chips show data on the way. |
 | Map | Districts coloured by the indicator, in fifths. Teal = higher is better, rose = higher is worse, indigo = neither. Click a district to open it; the map zooms in. |
 | Panel: Punjab | Statewide number, four headline stats, **Where warning signs line up** (districts in Punjab's worst fifth on 2+ warning signs), compare chart, all districts ranked, source. |
-| Panel: District | Value, gap vs Punjab, rank, where it sits among districts, its warning signs, source, its villages, compare chart, and a profile of every indicator vs Punjab. |
-| Panel: Village | Value, gaps vs its district and Punjab, source, profile, and the other villages in the district. |
+| Villages | Open a district and its villages appear right under the map as tiles, coloured on the map's scale. If the data has `lat`/`lon` for villages, they're also drawn as dots on the map. |
+| Panel: District | Value, gap vs Punjab, rank, where it sits among districts, its warning signs, source, compare chart, and a profile of every indicator vs Punjab. |
+| Panel: Village | Value, gaps vs its district and Punjab, source, and a profile against both. |
 | Ask Parvaaz | Chat in the corner. Sends the question plus what's on screen to the assistant. |
 | About the data | Sources, privacy rule, levels, and a slot for the crosswalk's accuracy. |
 | English / ਪੰਜਾਬੀ | Switches all interface text. The choice is remembered on that device. |
@@ -53,6 +55,7 @@ Links can point straight at a view, e.g. `web/#district.fazilka~car_ownership_sh
 | `data_status` | e.g. `synthetic` (shows the "Simulated data" badge) |
 | `geography_status` | e.g. `demo_only` (marks made-up demo villages) |
 | `match_confidence` | *Optional*, villages: crosswalk score 0–1, shown on the source card |
+| `lat`, `lon` | *Optional*, villages: coordinates. With them, villages appear as dots on the map. SHRUG village data can supply these. |
 
 The current file is the team's sample (simulated survey, 23 districts, 5 **demo** villages each). When the pipeline produces the real one, replace the file; nothing else needs to change.
 
@@ -86,6 +89,6 @@ web/
 
 - **Malerkotla has no shape on the map.** The boundary file is 2011-era (22 districts), so Malerkotla sits inside Sangrur. Its numbers are in every list and chart. Replace `geo/punjab_districts.geojson` with a current 23-district file whose `name` property matches the data's district names.
 - **Boundary file license is unconfirmed** (from `udit-001/india-maps-data`, no license stated). Swap in a clearly licensed file before public release.
-- **Villages have no map positions.** The sample has no coordinates, so villages appear as lists, not dots. Add `lat`/`lon` later if wanted.
+- **Villages have no map positions yet.** The sample has no coordinates, so villages show as tiles under the map. Add `lat`/`lon` columns and dots appear automatically.
 - **The Punjabi text needs a native speaker's review.**
 - Learning levels (ASER) and village facilities (Mission Antyodaya) are shown as "Coming".
