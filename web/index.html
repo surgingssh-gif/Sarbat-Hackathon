@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Punjab Data Hub</title>
+  <meta name="description" content="An open atlas of what Punjab's government-school students told Parvaaz, by district and village.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Public+Sans:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/atlas.css">
+</head>
+<body>
+  <a class="skip" href="#panel">Skip to details</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#" data-nav="state">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="1" y="1" width="30" height="30" rx="7" class="bm-bg"/>
+          <path d="M16 5 L27 16 L16 27 L5 16 Z" class="bm-a"/>
+          <path d="M16 10 L22 16 L16 22 L10 16 Z" class="bm-b"/>
+          <circle cx="16" cy="16" r="2.2" class="bm-c"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name" data-t="brand">Punjab Data Hub</span>
+          <span class="brand-by" data-t="by">with Parvaaz</span>
+        </span>
+      </a>
+      <div class="topbar-actions">
+        <span class="badge badge-sim" id="sim-badge" data-t="synthetic" hidden>Simulated data</span>
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">English</button>
+          <button type="button" data-lang="pa" aria-pressed="false" lang="pa">ਪੰਜਾਬੀ</button>
+        </div>
+        <button type="button" class="btn-ghost" id="about-open" data-t="about">About the data</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="crumbs" id="crumbs" aria-label="Location"></nav>
+
+    <section class="picker" aria-label="Choose what the map shows">
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="chips" id="indicator-chips" role="radiogroup"></div>
+    </section>
+
+    <main class="layout">
+      <section class="map-col" aria-labelledby="map-title">
+        <div class="map-head">
+          <h1 class="map-title" id="map-title"></h1>
+          <p class="map-desc" id="map-desc"></p>
+        </div>
+        <div class="map-wrap" id="map"></div>
+        <div class="legend" id="legend"></div>
+        <p class="map-note" id="map-note"></p>
+      </section>
+
+      <aside class="panel" id="panel" tabindex="-1" aria-live="polite"></aside>
+    </main>
+
+    <footer class="foot">
+      <p id="foot-text"></p>
+    </footer>
+  </div>
+
+  <section class="chat" id="chat" aria-label="Ask Parvaaz">
+    <div class="chat-panel" id="chat-panel" hidden>
+      <div class="chat-head">
+        <strong data-t="chatTitle">Ask Parvaaz</strong>
+        <button type="button" class="icon-btn" id="chat-close" aria-label="Close">×</button>
+      </div>
+      <div class="chat-log" id="chat-log">
+        <div class="msg bot" id="chat-intro"></div>
+      </div>
+      <div class="chat-chips" id="chat-chips"></div>
+      <form class="chat-form" id="chat-form">
+        <input id="chat-input" type="text" autocomplete="off" aria-label="Your question">
+        <button type="submit" class="btn-primary" data-t="chatSend">Ask</button>
+      </form>
+    </div>
+    <button type="button" class="chat-toggle" id="chat-toggle" aria-expanded="false" aria-controls="chat-panel">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H9l-5 4z"/></svg>
+      <span data-t="chatTitle">Ask Parvaaz</span>
+    </button>
+  </section>
+
+  <div class="drawer" id="about" hidden>
+    <div class="drawer-scrim" data-close></div>
+    <div class="drawer-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
+      <div class="drawer-head">
+        <h2 id="about-title" data-t="about">About the data</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close">×</button>
+      </div>
+      <div class="drawer-body" id="about-body"></div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
