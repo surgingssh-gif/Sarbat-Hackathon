@@ -10,7 +10,8 @@
     better: ["#e6f0ee", "#b5d3cf", "#7fb2ac", "#3f8a85", "#0f5c63"],
     worse: ["#fbeee0", "#f5cfa6", "#eba86a", "#d27a35", "#9c4a12"],
   };
-  const NO_DATA = "#d9d6cf";
+  const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const noData = () => cssVar("--no-data") || "#d3d6d1";
 
   const state = {
     indicator: CFG.defaultIndicator,
@@ -112,7 +113,7 @@
   }
 
   function colorFor(ind, row) {
-    if (!row || row.value === null || isSuppressed(row)) return NO_DATA;
+    if (!row || row.value === null || isSuppressed(row)) return noData();
     const ramp = RAMPS[meta(ind).higherIs] || RAMPS.better;
     const b = breaks(ind);
     let i = 0;
@@ -123,7 +124,8 @@
   function sourceHref(url) {
     if (!url) return "";
     if (/^https?:\/\//.test(url)) return url;
-    return "../" + url.replace(/^\/+/, ""); // repo-relative file path
+    const path = url.replace(/^\/+/, ""); // repo-relative file path
+    return CFG.repoUrl ? CFG.repoUrl + path : "../" + path;
   }
 
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -134,13 +136,13 @@
     state.map = L.map("map", { zoomSnap: 0.25, attributionControl: true, scrollWheelZoom: false });
     state.map.attributionControl.setPrefix(false);
     state.geoLayer = L.geoJSON(geo, {
-      style: () => ({ weight: 1, color: "#ffffff", fillOpacity: 0.95, fillColor: NO_DATA }),
+      style: () => ({ weight: 1, color: cssVar("--surface"), fillOpacity: 0.95, fillColor: noData() }),
       onEachFeature: (f, layer) => {
         const name = f.properties.name;
         state.shaped.add(name);
         state.layers[name] = layer;
         layer.on("click", () => selectDistrict(name));
-        layer.on("mouseover", () => layer.setStyle({ weight: 2.5, color: "#1d2327" }));
+        layer.on("mouseover", () => layer.setStyle({ weight: 2.5, color: cssVar("--ink") }));
         layer.on("mouseout", () => styleLayer(name));
       },
     }).addTo(state.map);
@@ -156,7 +158,7 @@
     layer.setStyle({
       fillColor: colorFor(state.indicator, row),
       weight: selected ? 3 : 1,
-      color: selected ? "#1d2327" : "#ffffff",
+      color: selected ? cssVar("--ink") : cssVar("--surface"),
     });
     if (selected) layer.bringToFront();
     const val = isSuppressed(row) ? "Too few students" : fmt(row?.value, state.indicator);
@@ -172,7 +174,7 @@
       ? `<span>${esc(fmt(v[0], state.indicator))}</span>
          <span class="legend-swatches">${ramp.map((c) => `<span style="background:${c}"></span>`).join("")}</span>
          <span>${esc(fmt(v[v.length - 1], state.indicator))}</span>
-         <span class="legend-swatches"><span style="background:${NO_DATA}"></span></span><span>No data / too few students</span>`
+         <span class="legend-swatches"><span style="background:${noData()}"></span></span><span>No data / too few students</span>`
       : "";
 
     const missing = state.districts.filter((d) => !state.shaped.has(d));
@@ -331,13 +333,16 @@
     $("ranking").innerHTML = rows
       .map(({ d, r }, i) => {
         const val = !r ? "No data" : isSuppressed(r) ? "Too few" : fmt(r.value, ind);
-        return `<li data-d="${esc(d)}" class="${d === state.district ? "is-selected" : ""}">
+        return `<li tabindex="0" data-d="${esc(d)}" class="${d === state.district ? "is-selected" : ""}">
           <span class="rank">${i + 1}</span>
           <span>${esc(d)}${state.shaped.has(d) ? "" : ` <span class="no-shape">(not on map yet)</span>`}</span>
           <span class="val">${esc(val)}</span></li>`;
       })
       .join("");
-    $("ranking").querySelectorAll("li").forEach((li) => li.addEventListener("click", () => selectDistrict(li.dataset.d)));
+    $("ranking").querySelectorAll("li").forEach((li) => {
+      li.addEventListener("click", () => selectDistrict(li.dataset.d));
+      li.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectDistrict(li.dataset.d); } });
+    });
   }
 
   // ---------- controls ----------
@@ -435,6 +440,8 @@
       $("compare-select").addEventListener("change", (e) => { state.compare = e.target.value; renderScatter(); });
       initChat();
       renderAll();
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", renderAll);
+      new MutationObserver(renderAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     } catch (err) {
       console.error(err);
       document.querySelector(".layout").innerHTML =

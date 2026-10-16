@@ -6,6 +6,9 @@ window.HUB_CONFIG = {
   breakdownsUrl: "../data/district_breakdowns.csv",
   boundariesUrl: "geo/punjab_districts.geojson",
 
+  // Repo-relative source paths (e.g. parvaazdata/x.csv) link here.
+  repoUrl: "https://github.com/surgingssh-gif/Sarbat-Hackathon/blob/main/",
+
   // Small-cell suppression: never show a number for fewer students than this.
   // TODO: confirm the threshold with Parvaaz.
   minGroupSize: 10,
