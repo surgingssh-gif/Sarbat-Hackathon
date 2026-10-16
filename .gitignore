@@ -1,0 +1,6 @@
+data/raw/
+data/working/
+data/exports/
+*.duckdb
+.venv/
+.ipynb_checkpoints/
