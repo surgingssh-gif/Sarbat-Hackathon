@@ -20,21 +20,19 @@ Opening `index.html` by double-clicking won't work, because browsers block the d
 
 ## What's on the page
 
+The atlas has three parts. On tablets the left rail becomes a drawer (the Indicators button); on phones everything stacks.
+
 | Part | What it does |
 |---|---|
-| Breadcrumb | Shows where you are (Punjab › District › Village). Click to go back up. |
-| Search | Type any district or village name (English or Gurmukhi) and jump straight to it. |
-| Theme tabs + chips | Pick a topic (Household wealth, Education, 2025 floods, Livelihoods, Students), then an indicator. Greyed "Coming" chips show data on the way. |
-| Map | Districts coloured by the indicator, in fifths. Teal = higher is better, rose = higher is worse, indigo = neither. Click a district to open it; the map zooms in. |
-| Panel: Punjab | Statewide number, four headline stats, **Where warning signs line up** (districts in Punjab's worst fifth on 2+ warning signs), compare chart, all districts ranked, source. |
-| Villages | Open a district and its villages appear right under the map as tiles, coloured on the map's scale. If the data has `lat`/`lon` for villages, they're also drawn as dots on the map. |
-| Panel: District | Value, gap vs Punjab, rank, where it sits among districts, its warning signs, source, compare chart, and a profile of every indicator vs Punjab. |
-| Panel: Village | Value, gaps vs its district and Punjab, source, and a profile against both. |
-| Ask Parvaaz | Chat in the corner. Sends the question plus what's on screen to the assistant. |
-| About the data | Sources, privacy rule, levels, and a slot for the crosswalk's accuracy. |
-| English / ਪੰਜਾਬੀ | Switches all interface text. The choice is remembered on that device. |
+| **Indicator rail** (left) | Every indicator, grouped by topic, each showing the current place's value and a small track of where it sits among districts (dot = this place, ring = Punjab). It is the menu and the place's profile at once. Red names are warning signs. Greyed rows are data that's coming. |
+| **Map canvas** (centre) | Four views: **One indicator**; **Overlap** (two indicators on a 3×3 colour grid, darkest = worse on both; pick B with the B buttons in the rail); **Warning signs** (districts coloured by how many red flags they have); **All indicators** (a small map per indicator). Drag to pan, scroll or +/− to zoom, toggle district names, click a district to open it. |
+| **Inspector** (right) | Breadcrumb, place name, **Pin** button, headline number with comparison and source, then view-specific detail: overlap explanation, warning signs, villages, relationship chart, rankings, and a **Side by side** table of up to four pinned places. |
+| Search | Any district or village, in English or Gurmukhi. Press `/` to jump to it. |
+| Ask Parvaaz | Chat in the corner; sends the question plus what's on screen (place, indicator, view). |
+| About | Sources, privacy rule, the four views, and a slot for crosswalk accuracy. |
+| EN / ਪੰਜਾਬੀ | Switches all interface text; remembered on that device. |
 
-Links can point straight at a view, e.g. `web/#district.fazilka~car_ownership_share`.
+Links can point straight at a view: `web/#district.fazilka~car_ownership_share`, or with a view and second indicator, `web/#district.mansa~car_ownership_share~overlap~severe_or_total_house_damage_share`.
 
 ## The data file
 
@@ -65,7 +63,7 @@ The current file is the team's sample (simulated survey, 23 districts, 5 **demo*
 - **Privacy threshold:** `minGroupSize` (placeholder 10, confirm with Parvaaz). Anything below it is hidden at every level, and its exact count is never printed.
 - **Warning signs:** `Atlas.WARNING_SIGNS` lists the indicators used for "Where warning signs line up".
 - **Connect the assistant:** set `assistantUrl`. The page sends
-  `POST { question, lang, context: { level, geography_id, district, village, indicator } }`
+  `POST { question, lang, context: { level, geography_id, district, village, indicator, compare, view } }`
   and expects `{ answer, sources: [{ name, url }] }`. Keep the Claude API key on the assistant's server, never in this site.
 
 ## Files
@@ -77,10 +75,10 @@ web/
   js/config.js        indicators, themes, settings  <- edit this one
   js/i18n.js          English + Punjabi interface text, district names in Gurmukhi
   js/data.js          loads the CSV, privacy rules, ranks, warning signs, number formatting
-  js/map.js           the SVG district map
+  js/map.js           the SVG district map: pan/zoom, labels, village dots, mini maps
   js/charts.js        compare scatter, strip, profile, bar lists
   js/chat.js          Ask Parvaaz panel
-  js/app.js           ties it together: current place + indicator -> what's drawn
+  js/app.js           ties it together: place + indicator + view -> rail, map, inspector
   geo/punjab_districts.geojson   district shapes
   tools/build_preview.py         one-file preview builder
 ```

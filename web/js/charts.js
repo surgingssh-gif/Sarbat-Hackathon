@@ -140,8 +140,9 @@ window.Atlas = window.Atlas || {};
    * Horizontal bar list. items: [{ id, name, value, hidden, note, warn }]
    * The bar scale starts at 0 for percentages and at the minimum otherwise.
    */
-  function bars({ items, ind, selectedId, ref, numbered }) {
+  function bars({ items, ind, selectedId, ref, numbered, swatch }) {
     const vis = items.filter((i) => !i.hidden && i.value != null).map((i) => i.value);
+    if (!vis.length) vis.push(0);
     // Bars start a little below the smallest value so differences are visible.
     const hi = Math.max(...vis, ref ?? -Infinity);
     const min = Math.min(...vis, ref ?? Infinity);
@@ -151,9 +152,9 @@ window.Atlas = window.Atlas || {};
       .map((it, i) => {
         const val = it.hidden ? Atlas.t("hiddenShort") : Atlas.D.fmt(it.value, ind);
         return `<li>
-          <button type="button" class="bar-item${it.id === selectedId ? " is-selected" : ""}${it.warn ? " is-warn" : ""}" data-id="${esc(it.id)}">
+          <button type="button" class="bar-item${it.id === selectedId ? " is-selected" : ""}${numbered ? " is-numbered" : ""}" data-id="${esc(it.id)}">
             ${numbered ? `<span class="bar-rank">${i + 1}</span>` : ""}
-            <span class="bar-name">${esc(it.name)}${it.note ? ` <span class="bar-note">${esc(it.note)}</span>` : ""}</span>
+            <span class="bar-name">${swatch ? `<i class="bar-sw" style="background:${it.color}"></i>` : ""}${esc(it.name)}</span>
             <span class="bar-track" aria-hidden="true">${it.hidden || it.value == null ? "" : `<span class="bar-fill" style="width:${pct(it.value)}%"></span>`}
               ${ref != null ? `<span class="bar-ref" style="left:${pct(ref)}%"></span>` : ""}</span>
             <span class="bar-val${it.hidden ? " is-hidden" : ""}"${it.hidden ? ` title="${esc(Atlas.t("suppressed"))}"` : ""}>${esc(val)}</span>
@@ -162,5 +163,33 @@ window.Atlas = window.Atlas || {};
       .join("");
   }
 
-  Atlas.Charts = { scatter, strip, profile, bars, esc };
+  /*
+   * 3×3 legend for the overlap view. Columns = indicator A (worse to the right),
+   * rows = indicator B (worse upwards). Top-right cell = worse on both.
+   */
+  function bivariateLegend({ xLabel, yLabel }) {
+    const S = 26, G = 2, O = 22;
+    let cells = "";
+    for (let a = 0; a < 3; a++) {
+      for (let b = 0; b < 3; b++) {
+        cells += `<rect x="${O + a * (S + G)}" y="${(2 - b) * (S + G)}" width="${S}" height="${S}" rx="2" style="fill:var(--bv-${a}${b})"/>`;
+      }
+    }
+    const side = 3 * S + 2 * G;
+    return `<div class="bv-legend">
+      <svg viewBox="0 0 ${O + side + 4} ${side + 22}" role="img" aria-label="${esc(xLabel)} / ${esc(yLabel)}">
+        ${cells}
+        <path class="bv-arrow" d="M${O} ${side + 10} H${O + side}" marker-end="url(#bv-ah)"/>
+        <path class="bv-arrow" d="M${O - 10} ${side} V0" marker-end="url(#bv-ah)"/>
+        <defs><marker id="bv-ah" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L8 4L0 8z" class="bv-head"/></marker></defs>
+      </svg>
+      <div class="bv-labels">
+        <span class="bv-x"><b>A</b> ${esc(xLabel)}</span>
+        <span class="bv-y"><b>B</b> ${esc(yLabel)}</span>
+        <span class="bv-both"><i></i>${esc(Atlas.t("bvBoth"))}</span>
+      </div>
+    </div>`;
+  }
+
+  Atlas.Charts = { scatter, strip, profile, bars, bivariateLegend, esc };
 })();

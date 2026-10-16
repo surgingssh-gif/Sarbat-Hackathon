@@ -21,7 +21,7 @@ Atlas.config = {
   minGroupSize: 10,
 
   // Ask Parvaaz assistant (built in /assistant). Empty = chat shows "not connected".
-  // POST { question, lang, context: { level, geography_id, district, village, indicator } }
+  // POST { question, lang, context: { level, geography_id, district, village, indicator, compare, view } }
   //   -> { answer, sources: [{ name, url }] }
   assistantUrl: "",
 
