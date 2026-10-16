@@ -12,3 +12,5 @@ where (match_status = 'matched_exact' and (
     ))
    or (requires_review = false and match_cardinality <> 'one_to_one')
    or (requires_review = true and review_reason is null)
+   or (is_atlas_ready and (requires_review or match_cardinality <> 'one_to_one'))
+   or (not is_atlas_ready and not requires_review)

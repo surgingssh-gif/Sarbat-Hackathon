@@ -33,6 +33,7 @@ The geography models represent the current LGD hierarchy; they are not a history
 - A zero local-body code means the source did not supply a usable local-body identifier and is converted to null in the bridge.
 - LGD-to-SHRUG village matches use normalized Census 2011 codes only. Exact matches receive confidence `1.00`; name similarity is not used.
 - Every LGD village remains in the crosswalk. Missing codes, codes absent from SHRUG, and combined SHRUG units are explicitly identified for review.
+- Atlas models must filter to `is_atlas_ready = true`. This excludes unmatched villages and exact-code links to combined SHRUG units, preventing one SHRUG facility record from being presented as separate evidence for multiple LGD villages.
 - School codes remain exactly as supplied. Ten-digit values are not padded.
 - Vocational institution codes are synthetic and never treated as UDISE codes.
 - Chandigarh is retained for vocational-survey analysis with a null Punjab LGD code and `is_punjab = false`.

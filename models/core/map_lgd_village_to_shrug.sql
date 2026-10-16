@@ -70,5 +70,8 @@ select
         when census_villages_per_shrug_unit > 1 then 'combined_shrug_unit'
     end as review_reason,
     review_reason is not null as requires_review,
+    shrid2 is not null
+        and lgd_villages_per_census_code = 1
+        and census_villages_per_shrug_unit = 1 as is_atlas_ready,
     source_snapshot_date
 from matched

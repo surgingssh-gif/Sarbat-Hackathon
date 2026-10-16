@@ -48,6 +48,13 @@ models:
           - accepted_values:
               arguments:
                 values: [true, false]
+      - name: is_atlas_ready
+        description: True only for exact one-to-one links that can safely carry SHRUG attributes into LGD-village analysis without duplicating a combined SHRUG unit.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
 
   - name: map_survey_district_to_lgd
     description: Explicit reviewed mapping from supplied survey district spellings to current LGD Punjab districts. Chandigarh is retained as a non-Punjab survey geography with no Punjab LGD district code.
