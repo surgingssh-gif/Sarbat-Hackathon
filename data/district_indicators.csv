@@ -1,0 +1,139 @@
+district,indicator,value,year,source_name,source_url,n_students
+Amritsar,assets_index,1.32,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,50037
+Amritsar,car_pct,21.04,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,50037
+Amritsar,mother_edu_years,8.22,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,50037
+Amritsar,college_aspiration_pct,80.69,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,50037
+Barnala,assets_index,1.46,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15767
+Barnala,car_pct,23.23,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15767
+Barnala,mother_edu_years,7.35,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15767
+Barnala,college_aspiration_pct,79.38,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15767
+Bathinda,assets_index,1.53,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,38106
+Bathinda,car_pct,29.63,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,38106
+Bathinda,mother_edu_years,6.65,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,38106
+Bathinda,college_aspiration_pct,79.72,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,38106
+Faridkot,assets_index,1.36,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15683
+Faridkot,car_pct,21.18,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15683
+Faridkot,mother_edu_years,6.93,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15683
+Faridkot,college_aspiration_pct,80.16,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15683
+Fazilka,assets_index,1.1,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,34060
+Fazilka,car_pct,14.23,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,34060
+Fazilka,mother_edu_years,6.02,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,34060
+Fazilka,college_aspiration_pct,79.27,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,34060
+Firozpur,assets_index,1.51,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,24114
+Firozpur,car_pct,24.44,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,24114
+Firozpur,mother_edu_years,5.0,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,24114
+Firozpur,college_aspiration_pct,79.36,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,24114
+Gurdaspur,assets_index,1.29,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,car_pct,21.01,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,mother_edu_years,8.55,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,41240
+Gurdaspur,college_aspiration_pct,81.85,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,41240
+Hoshiarpur,assets_index,1.09,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,car_pct,17.8,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,mother_edu_years,9.84,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,41360
+Hoshiarpur,college_aspiration_pct,83.82,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,41360
+Jalandhar,assets_index,1.31,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,47586
+Jalandhar,car_pct,21.93,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,47586
+Jalandhar,mother_edu_years,8.41,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,47586
+Jalandhar,college_aspiration_pct,82.4,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,47586
+Kapurthala,assets_index,1.28,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,18697
+Kapurthala,car_pct,21.24,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,18697
+Kapurthala,mother_edu_years,8.65,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,18697
+Kapurthala,college_aspiration_pct,80.72,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,18697
+Ludhiana,assets_index,1.48,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,64932
+Ludhiana,car_pct,27.59,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,64932
+Ludhiana,mother_edu_years,9.13,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,64932
+Ludhiana,college_aspiration_pct,82.95,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,64932
+Malerkotla,assets_index,1.67,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,9927
+Malerkotla,car_pct,30.21,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,9927
+Malerkotla,mother_edu_years,6.74,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,9927
+Malerkotla,college_aspiration_pct,80.62,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,9927
+Mansa,assets_index,1.29,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,24438
+Mansa,car_pct,18.33,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,24438
+Mansa,mother_edu_years,5.23,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,24438
+Mansa,college_aspiration_pct,76.71,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,24438
+Moga,assets_index,1.57,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,25877
+Moga,car_pct,29.06,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,25877
+Moga,mother_edu_years,7.83,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,25877
+Moga,college_aspiration_pct,81.93,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,25877
+Pathankot,assets_index,1.06,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,16713
+Pathankot,car_pct,16.16,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,16713
+Pathankot,mother_edu_years,8.42,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,16713
+Pathankot,college_aspiration_pct,82.02,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,16713
+Patiala,assets_index,1.44,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,44667
+Patiala,car_pct,26.07,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,44667
+Patiala,mother_edu_years,7.57,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,44667
+Patiala,college_aspiration_pct,81.03,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,44667
+Roop Nagar,assets_index,1.16,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,car_pct,19.83,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,mother_edu_years,8.88,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,19089
+Roop Nagar,college_aspiration_pct,82.38,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,19089
+S.A.S Nagar,assets_index,1.34,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,car_pct,28.61,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,mother_edu_years,8.76,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,22281
+S.A.S Nagar,college_aspiration_pct,82.51,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,22281
+Sangrur,assets_index,1.4,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,32692
+Sangrur,car_pct,23.15,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,32692
+Sangrur,mother_edu_years,6.95,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,32692
+Sangrur,college_aspiration_pct,80.3,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,32692
+Shaheed Bhagat Singh Nagar,assets_index,1.12,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,car_pct,15.17,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,mother_edu_years,8.19,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15718
+Shaheed Bhagat Singh Nagar,college_aspiration_pct,80.62,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,15718
+Shri Fatehgarh Sahib,assets_index,1.54,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,car_pct,29.07,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,mother_edu_years,9.1,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,14612
+Shri Fatehgarh Sahib,college_aspiration_pct,82.38,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,14612
+Sri Muktsar Sahib,assets_index,1.28,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,car_pct,20.43,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,mother_edu_years,4.79,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,26900
+Sri Muktsar Sahib,college_aspiration_pct,76.69,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,26900
+Tarn Tarn,assets_index,1.54,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,car_pct,24.72,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,mother_edu_years,6.56,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,27426
+Tarn Tarn,college_aspiration_pct,80.73,2025,Parvaaz secondary-school survey (simulated),parvaazdata/sec_school_survey.csv,27426
+Amritsar,flood_severe_house_damage_pct,7.82,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,2340
+Barnala,flood_severe_house_damage_pct,9.76,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,738
+Bathinda,flood_severe_house_damage_pct,5.95,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,1244
+Faridkot,flood_severe_house_damage_pct,9.79,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,797
+Fazilka,flood_severe_house_damage_pct,17.17,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,1054
+Firozpur,flood_severe_house_damage_pct,9.94,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,724
+Gurdaspur,flood_severe_house_damage_pct,6.9,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,2245
+Hoshiarpur,flood_severe_house_damage_pct,5.46,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,1814
+Jalandhar,flood_severe_house_damage_pct,6.6,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,1787
+Kapurthala,flood_severe_house_damage_pct,5.5,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,655
+Ludhiana,flood_severe_house_damage_pct,5.3,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,2963
+Malerkotla,flood_severe_house_damage_pct,3.96,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,303
+Mansa,flood_severe_house_damage_pct,10.36,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,550
+Moga,flood_severe_house_damage_pct,5.76,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,973
+Pathankot,flood_severe_house_damage_pct,7.62,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,800
+Patiala,flood_severe_house_damage_pct,6.7,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,2776
+Roop Nagar,flood_severe_house_damage_pct,6.02,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,797
+S.A.S Nagar,flood_severe_house_damage_pct,5.59,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,1431
+Sangrur,flood_severe_house_damage_pct,8.41,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,1379
+Shaheed Bhagat Singh Nagar,flood_severe_house_damage_pct,4.24,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,590
+Shri Fatehgarh Sahib,flood_severe_house_damage_pct,5.51,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,544
+Sri Muktsar Sahib,flood_severe_house_damage_pct,7.35,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,490
+Tarn Tarn,flood_severe_house_damage_pct,7.88,2025,Parvaaz vocational-institute flood survey (simulated),parvaazdata/vi_survey.csv,533
+Amritsar,aser_reading_std2_pct,60.6,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Barnala,aser_reading_std2_pct,36.0,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Bathinda,aser_reading_std2_pct,46.0,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Faridkot,aser_reading_std2_pct,43.9,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Fazilka,aser_reading_std2_pct,64.5,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Firozpur,aser_reading_std2_pct,62.1,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Gurdaspur,aser_reading_std2_pct,70.7,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Hoshiarpur,aser_reading_std2_pct,38.5,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Jalandhar,aser_reading_std2_pct,51.9,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Kapurthala,aser_reading_std2_pct,36.2,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Ludhiana,aser_reading_std2_pct,43.7,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Malerkotla,aser_reading_std2_pct,55.2,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Mansa,aser_reading_std2_pct,36.1,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Moga,aser_reading_std2_pct,43.0,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Pathankot,aser_reading_std2_pct,61.0,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Patiala,aser_reading_std2_pct,56.8,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Roop Nagar,aser_reading_std2_pct,43.8,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+S.A.S Nagar,aser_reading_std2_pct,58.6,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Sangrur,aser_reading_std2_pct,67.4,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Shaheed Bhagat Singh Nagar,aser_reading_std2_pct,35.3,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Shri Fatehgarh Sahib,aser_reading_std2_pct,67.2,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Sri Muktsar Sahib,aser_reading_std2_pct,62.9,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,
+Tarn Tarn,aser_reading_std2_pct,48.6,2022,PLACEHOLDER - fake values until ASER Punjab PDF is parsed,https://asercentre.org/wp-content/uploads/2022/12/POS_Punjab.pdf,

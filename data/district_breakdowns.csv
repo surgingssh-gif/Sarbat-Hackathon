@@ -1,0 +1,553 @@
+district,indicator,group_type,group,value,n_students
+Amritsar,assets_index,gender,Boys,1.32,24031
+Amritsar,car_pct,gender,Boys,21.03,24031
+Amritsar,mother_edu_years,gender,Boys,8.2,24031
+Amritsar,college_aspiration_pct,gender,Boys,80.44,24031
+Amritsar,assets_index,gender,Girls,1.32,26006
+Amritsar,car_pct,gender,Girls,21.06,26006
+Amritsar,mother_edu_years,gender,Girls,8.24,26006
+Amritsar,college_aspiration_pct,gender,Girls,80.92,26006
+Amritsar,assets_index,mother_edu,1-8 years,1.25,23000
+Amritsar,car_pct,mother_edu,1-8 years,17.89,23000
+Amritsar,mother_edu_years,mother_edu,1-8 years,5.17,23000
+Amritsar,college_aspiration_pct,mother_edu,1-8 years,78.43,23000
+Amritsar,assets_index,mother_edu,13+ years,1.49,9934
+Amritsar,car_pct,mother_edu,13+ years,28.15,9934
+Amritsar,mother_edu_years,mother_edu,13+ years,14.95,9934
+Amritsar,college_aspiration_pct,mother_edu,13+ years,86.25,9934
+Amritsar,assets_index,mother_edu,9-12 years,1.38,13843
+Amritsar,car_pct,mother_edu,9-12 years,23.27,13843
+Amritsar,mother_edu_years,mother_edu,9-12 years,10.38,13843
+Amritsar,college_aspiration_pct,mother_edu,9-12 years,82.68,13843
+Amritsar,assets_index,mother_edu,No schooling,1.07,3260
+Amritsar,car_pct,mother_edu,No schooling,12.18,3260
+Amritsar,mother_edu_years,mother_edu,No schooling,0.0,3260
+Amritsar,college_aspiration_pct,mother_edu,No schooling,71.26,3260
+Barnala,assets_index,gender,Boys,1.46,7442
+Barnala,car_pct,gender,Boys,23.41,7442
+Barnala,mother_edu_years,gender,Boys,7.33,7442
+Barnala,college_aspiration_pct,gender,Boys,79.45,7442
+Barnala,assets_index,gender,Girls,1.46,8325
+Barnala,car_pct,gender,Girls,23.08,8325
+Barnala,mother_edu_years,gender,Girls,7.36,8325
+Barnala,college_aspiration_pct,gender,Girls,79.32,8325
+Barnala,assets_index,mother_edu,1-8 years,1.39,8103
+Barnala,car_pct,mother_edu,1-8 years,20.68,8103
+Barnala,mother_edu_years,mother_edu,1-8 years,5.05,8103
+Barnala,college_aspiration_pct,mother_edu,1-8 years,77.72,8103
+Barnala,assets_index,mother_edu,13+ years,1.67,2204
+Barnala,car_pct,mother_edu,13+ years,32.08,2204
+Barnala,mother_edu_years,mother_edu,13+ years,14.63,2204
+Barnala,college_aspiration_pct,mother_edu,13+ years,85.3,2204
+Barnala,assets_index,mother_edu,9-12 years,1.54,4138
+Barnala,car_pct,mother_edu,9-12 years,26.44,4138
+Barnala,mother_edu_years,mother_edu,9-12 years,10.31,4138
+Barnala,college_aspiration_pct,mother_edu,9-12 years,81.39,4138
+Barnala,assets_index,mother_edu,No schooling,1.23,1322
+Barnala,car_pct,mother_edu,No schooling,14.07,1322
+Barnala,mother_edu_years,mother_edu,No schooling,0.0,1322
+Barnala,college_aspiration_pct,mother_edu,No schooling,73.37,1322
+Bathinda,assets_index,gender,Boys,1.53,19109
+Bathinda,car_pct,gender,Boys,29.44,19109
+Bathinda,mother_edu_years,gender,Boys,6.63,19109
+Bathinda,college_aspiration_pct,gender,Boys,79.6,19109
+Bathinda,assets_index,gender,Girls,1.52,18997
+Bathinda,car_pct,gender,Girls,29.82,18997
+Bathinda,mother_edu_years,gender,Girls,6.66,18997
+Bathinda,college_aspiration_pct,gender,Girls,79.85,18997
+Bathinda,assets_index,mother_edu,1-8 years,1.49,19746
+Bathinda,car_pct,mother_edu,1-8 years,27.67,19746
+Bathinda,mother_edu_years,mother_edu,1-8 years,4.83,19746
+Bathinda,college_aspiration_pct,mother_edu,1-8 years,78.73,19746
+Bathinda,assets_index,mother_edu,13+ years,1.75,4823
+Bathinda,car_pct,mother_edu,13+ years,39.42,4823
+Bathinda,mother_edu_years,mother_edu,13+ years,14.81,4823
+Bathinda,college_aspiration_pct,mother_edu,13+ years,85.53,4823
+Bathinda,assets_index,mother_edu,9-12 years,1.62,8368
+Bathinda,car_pct,mother_edu,9-12 years,33.35,8368
+Bathinda,mother_edu_years,mother_edu,9-12 years,10.32,8368
+Bathinda,college_aspiration_pct,mother_edu,9-12 years,83.58,8368
+Bathinda,assets_index,mother_edu,No schooling,1.31,5169
+Bathinda,car_pct,mother_edu,No schooling,21.96,5169
+Bathinda,mother_edu_years,mother_edu,No schooling,0.0,5169
+Bathinda,college_aspiration_pct,mother_edu,No schooling,71.87,5169
+Faridkot,assets_index,gender,Boys,1.36,8082
+Faridkot,car_pct,gender,Boys,20.82,8082
+Faridkot,mother_edu_years,gender,Boys,6.95,8082
+Faridkot,college_aspiration_pct,gender,Boys,80.18,8082
+Faridkot,assets_index,gender,Girls,1.36,7601
+Faridkot,car_pct,gender,Girls,21.55,7601
+Faridkot,mother_edu_years,gender,Girls,6.9,7601
+Faridkot,college_aspiration_pct,gender,Girls,80.13,7601
+Faridkot,assets_index,mother_edu,1-8 years,1.32,8241
+Faridkot,car_pct,mother_edu,1-8 years,19.57,8241
+Faridkot,mother_edu_years,mother_edu,1-8 years,4.92,8241
+Faridkot,college_aspiration_pct,mother_edu,1-8 years,79.06,8241
+Faridkot,assets_index,mother_edu,13+ years,1.57,1998
+Faridkot,car_pct,mother_edu,13+ years,29.93,1998
+Faridkot,mother_edu_years,mother_edu,13+ years,14.73,1998
+Faridkot,college_aspiration_pct,mother_edu,13+ years,85.29,1998
+Faridkot,assets_index,mother_edu,9-12 years,1.42,3737
+Faridkot,car_pct,mother_edu,9-12 years,23.6,3737
+Faridkot,mother_edu_years,mother_edu,9-12 years,10.34,3737
+Faridkot,college_aspiration_pct,mother_edu,9-12 years,83.44,3737
+Faridkot,assets_index,mother_edu,No schooling,1.17,1707
+Faridkot,car_pct,mother_edu,No schooling,13.36,1707
+Faridkot,mother_edu_years,mother_edu,No schooling,0.0,1707
+Faridkot,college_aspiration_pct,mother_edu,No schooling,72.29,1707
+Fazilka,assets_index,gender,Boys,1.09,17069
+Fazilka,car_pct,gender,Boys,14.41,17069
+Fazilka,mother_edu_years,gender,Boys,5.98,17069
+Fazilka,college_aspiration_pct,gender,Boys,79.19,17069
+Fazilka,assets_index,gender,Girls,1.11,16991
+Fazilka,car_pct,gender,Girls,14.05,16991
+Fazilka,mother_edu_years,gender,Girls,6.05,16991
+Fazilka,college_aspiration_pct,gender,Girls,79.34,16991
+Fazilka,assets_index,mother_edu,1-8 years,1.08,18603
+Fazilka,car_pct,mother_edu,1-8 years,13.1,18603
+Fazilka,mother_edu_years,mother_edu,1-8 years,4.72,18603
+Fazilka,college_aspiration_pct,mother_edu,1-8 years,78.64,18603
+Fazilka,assets_index,mother_edu,13+ years,1.31,3341
+Fazilka,car_pct,mother_edu,13+ years,23.14,3341
+Fazilka,mother_edu_years,mother_edu,13+ years,14.7,3341
+Fazilka,college_aspiration_pct,mother_edu,13+ years,86.26,3341
+Fazilka,assets_index,mother_edu,9-12 years,1.21,6606
+Fazilka,car_pct,mother_edu,9-12 years,18.06,6606
+Fazilka,mother_edu_years,mother_edu,9-12 years,10.29,6606
+Fazilka,college_aspiration_pct,mother_edu,9-12 years,83.03,6606
+Fazilka,assets_index,mother_edu,No schooling,0.94,5510
+Fazilka,car_pct,mother_edu,No schooling,8.06,5510
+Fazilka,mother_edu_years,mother_edu,No schooling,0.0,5510
+Fazilka,college_aspiration_pct,mother_edu,No schooling,72.61,5510
+Firozpur,assets_index,gender,Boys,1.51,12473
+Firozpur,car_pct,gender,Boys,24.27,12473
+Firozpur,mother_edu_years,gender,Boys,4.97,12473
+Firozpur,college_aspiration_pct,gender,Boys,78.98,12473
+Firozpur,assets_index,gender,Girls,1.5,11641
+Firozpur,car_pct,gender,Girls,24.62,11641
+Firozpur,mother_edu_years,gender,Girls,5.04,11641
+Firozpur,college_aspiration_pct,gender,Girls,79.76,11641
+Firozpur,assets_index,mother_edu,1-8 years,1.51,12200
+Firozpur,car_pct,mother_edu,1-8 years,24.44,12200
+Firozpur,mother_edu_years,mother_edu,1-8 years,4.48,12200
+Firozpur,college_aspiration_pct,mother_edu,1-8 years,79.78,12200
+Firozpur,assets_index,mother_edu,13+ years,1.72,1920
+Firozpur,car_pct,mother_edu,13+ years,33.85,1920
+Firozpur,mother_edu_years,mother_edu,13+ years,14.76,1920
+Firozpur,college_aspiration_pct,mother_edu,13+ years,86.46,1920
+Firozpur,assets_index,mother_edu,9-12 years,1.64,3660
+Firozpur,car_pct,mother_edu,9-12 years,29.67,3660
+Firozpur,mother_edu_years,mother_edu,9-12 years,10.28,3660
+Firozpur,college_aspiration_pct,mother_edu,9-12 years,84.37,3660
+Firozpur,assets_index,mother_edu,No schooling,1.35,6334
+Firozpur,car_pct,mother_edu,No schooling,18.55,6334
+Firozpur,mother_edu_years,mother_edu,No schooling,0.0,6334
+Firozpur,college_aspiration_pct,mother_edu,No schooling,73.49,6334
+Gurdaspur,assets_index,gender,Boys,1.29,20731
+Gurdaspur,car_pct,gender,Boys,20.64,20731
+Gurdaspur,mother_edu_years,gender,Boys,8.51,20731
+Gurdaspur,college_aspiration_pct,gender,Boys,81.58,20731
+Gurdaspur,assets_index,gender,Girls,1.3,20509
+Gurdaspur,car_pct,gender,Girls,21.38,20509
+Gurdaspur,mother_edu_years,gender,Girls,8.6,20509
+Gurdaspur,college_aspiration_pct,gender,Girls,82.12,20509
+Gurdaspur,assets_index,mother_edu,1-8 years,1.21,18443
+Gurdaspur,car_pct,mother_edu,1-8 years,17.71,18443
+Gurdaspur,mother_edu_years,mother_edu,1-8 years,5.3,18443
+Gurdaspur,college_aspiration_pct,mother_edu,1-8 years,78.66,18443
+Gurdaspur,assets_index,mother_edu,13+ years,1.48,8525
+Gurdaspur,car_pct,mother_edu,13+ years,28.32,8525
+Gurdaspur,mother_edu_years,mother_edu,13+ years,14.85,8525
+Gurdaspur,college_aspiration_pct,mother_edu,13+ years,87.26,8525
+Gurdaspur,assets_index,mother_edu,9-12 years,1.33,12327
+Gurdaspur,car_pct,mother_edu,9-12 years,22.5,12327
+Gurdaspur,mother_edu_years,mother_edu,9-12 years,10.41,12327
+Gurdaspur,college_aspiration_pct,mother_edu,9-12 years,84.27,12327
+Gurdaspur,assets_index,mother_edu,No schooling,1.05,1945
+Gurdaspur,car_pct,mother_edu,No schooling,10.75,1945
+Gurdaspur,mother_edu_years,mother_edu,No schooling,0.0,1945
+Gurdaspur,college_aspiration_pct,mother_edu,No schooling,72.96,1945
+Hoshiarpur,assets_index,gender,Boys,1.09,20808
+Hoshiarpur,car_pct,gender,Boys,17.56,20808
+Hoshiarpur,mother_edu_years,gender,Boys,9.84,20808
+Hoshiarpur,college_aspiration_pct,gender,Boys,83.71,20808
+Hoshiarpur,assets_index,gender,Girls,1.1,20552
+Hoshiarpur,car_pct,gender,Girls,18.04,20552
+Hoshiarpur,mother_edu_years,gender,Girls,9.85,20552
+Hoshiarpur,college_aspiration_pct,gender,Girls,83.94,20552
+Hoshiarpur,assets_index,mother_edu,1-8 years,0.98,14609
+Hoshiarpur,car_pct,mother_edu,1-8 years,13.12,14609
+Hoshiarpur,mother_edu_years,mother_edu,1-8 years,5.89,14609
+Hoshiarpur,college_aspiration_pct,mother_edu,1-8 years,81.59,14609
+Hoshiarpur,assets_index,mother_edu,13+ years,1.25,10674
+Hoshiarpur,car_pct,mother_edu,13+ years,24.11,10674
+Hoshiarpur,mother_edu_years,mother_edu,13+ years,14.72,10674
+Hoshiarpur,college_aspiration_pct,mother_edu,13+ years,86.77,10674
+Hoshiarpur,assets_index,mother_edu,9-12 years,1.1,15667
+Hoshiarpur,car_pct,mother_edu,9-12 years,18.15,15667
+Hoshiarpur,mother_edu_years,mother_edu,9-12 years,10.46,15667
+Hoshiarpur,college_aspiration_pct,mother_edu,9-12 years,84.19,15667
+Hoshiarpur,assets_index,mother_edu,No schooling,0.8,410
+Hoshiarpur,car_pct,mother_edu,No schooling,7.07,410
+Hoshiarpur,mother_edu_years,mother_edu,No schooling,0.0,410
+Hoshiarpur,college_aspiration_pct,mother_edu,No schooling,72.68,410
+Jalandhar,assets_index,gender,Boys,1.31,23982
+Jalandhar,car_pct,gender,Boys,21.88,23982
+Jalandhar,mother_edu_years,gender,Boys,8.44,23982
+Jalandhar,college_aspiration_pct,gender,Boys,82.55,23982
+Jalandhar,assets_index,gender,Girls,1.31,23604
+Jalandhar,car_pct,gender,Girls,21.98,23604
+Jalandhar,mother_edu_years,gender,Girls,8.38,23604
+Jalandhar,college_aspiration_pct,gender,Girls,82.25,23604
+Jalandhar,assets_index,mother_edu,1-8 years,1.23,19972
+Jalandhar,car_pct,mother_edu,1-8 years,18.85,19972
+Jalandhar,mother_edu_years,mother_edu,1-8 years,5.05,19972
+Jalandhar,college_aspiration_pct,mother_edu,1-8 years,80.25,19972
+Jalandhar,assets_index,mother_edu,13+ years,1.49,11499
+Jalandhar,car_pct,mother_edu,13+ years,28.55,11499
+Jalandhar,mother_edu_years,mother_edu,13+ years,15.22,11499
+Jalandhar,college_aspiration_pct,mother_edu,13+ years,86.94,11499
+Jalandhar,assets_index,mother_edu,9-12 years,1.35,11929
+Jalandhar,car_pct,mother_edu,9-12 years,23.52,11929
+Jalandhar,mother_edu_years,mother_edu,9-12 years,10.43,11929
+Jalandhar,college_aspiration_pct,mother_edu,9-12 years,84.33,11929
+Jalandhar,assets_index,mother_edu,No schooling,1.07,4186
+Jalandhar,car_pct,mother_edu,No schooling,13.86,4186
+Jalandhar,mother_edu_years,mother_edu,No schooling,0.0,4186
+Jalandhar,college_aspiration_pct,mother_edu,No schooling,74.7,4186
+Kapurthala,assets_index,gender,Boys,1.29,9192
+Kapurthala,car_pct,gender,Boys,21.46,9192
+Kapurthala,mother_edu_years,gender,Boys,8.65,9192
+Kapurthala,college_aspiration_pct,gender,Boys,81.23,9192
+Kapurthala,assets_index,gender,Girls,1.27,9505
+Kapurthala,car_pct,gender,Girls,21.02,9505
+Kapurthala,mother_edu_years,gender,Girls,8.64,9505
+Kapurthala,college_aspiration_pct,gender,Girls,80.23,9505
+Kapurthala,assets_index,mother_edu,1-8 years,1.21,7971
+Kapurthala,car_pct,mother_edu,1-8 years,18.19,7971
+Kapurthala,mother_edu_years,mother_edu,1-8 years,5.17,7971
+Kapurthala,college_aspiration_pct,mother_edu,1-8 years,78.17,7971
+Kapurthala,assets_index,mother_edu,13+ years,1.44,4393
+Kapurthala,car_pct,mother_edu,13+ years,27.73,4393
+Kapurthala,mother_edu_years,mother_edu,13+ years,15.14,4393
+Kapurthala,college_aspiration_pct,mother_edu,13+ years,85.39,4393
+Kapurthala,assets_index,mother_edu,9-12 years,1.31,5160
+Kapurthala,car_pct,mother_edu,9-12 years,22.38,5160
+Kapurthala,mother_edu_years,mother_edu,9-12 years,10.45,5160
+Kapurthala,college_aspiration_pct,mother_edu,9-12 years,82.64,5160
+Kapurthala,assets_index,mother_edu,No schooling,1.05,1173
+Kapurthala,car_pct,mother_edu,No schooling,12.62,1173
+Kapurthala,mother_edu_years,mother_edu,No schooling,0.0,1173
+Kapurthala,college_aspiration_pct,mother_edu,No schooling,72.21,1173
+Ludhiana,assets_index,gender,Boys,1.48,33203
+Ludhiana,car_pct,gender,Boys,28.06,33203
+Ludhiana,mother_edu_years,gender,Boys,9.12,33203
+Ludhiana,college_aspiration_pct,gender,Boys,83.15,33203
+Ludhiana,assets_index,gender,Girls,1.47,31729
+Ludhiana,car_pct,gender,Girls,27.11,31729
+Ludhiana,mother_edu_years,gender,Girls,9.13,31729
+Ludhiana,college_aspiration_pct,gender,Girls,82.74,31729
+Ludhiana,assets_index,mother_edu,1-8 years,1.37,26506
+Ludhiana,car_pct,mother_edu,1-8 years,23.21,26506
+Ludhiana,mother_edu_years,mother_edu,1-8 years,5.43,26506
+Ludhiana,college_aspiration_pct,mother_edu,1-8 years,80.58,26506
+Ludhiana,assets_index,mother_edu,13+ years,1.65,16101
+Ludhiana,car_pct,mother_edu,13+ years,34.82,16101
+Ludhiana,mother_edu_years,mother_edu,13+ years,14.96,16101
+Ludhiana,college_aspiration_pct,mother_edu,13+ years,86.86,16101
+Ludhiana,assets_index,mother_edu,9-12 years,1.51,19901
+Ludhiana,car_pct,mother_edu,9-12 years,28.97,19901
+Ludhiana,mother_edu_years,mother_edu,9-12 years,10.43,19901
+Ludhiana,college_aspiration_pct,mother_edu,9-12 years,83.89,19901
+Ludhiana,assets_index,mother_edu,No schooling,1.18,2424
+Ludhiana,car_pct,mother_edu,No schooling,16.17,2424
+Ludhiana,mother_edu_years,mother_edu,No schooling,0.0,2424
+Ludhiana,college_aspiration_pct,mother_edu,No schooling,75.21,2424
+Malerkotla,assets_index,gender,Boys,1.68,5128
+Malerkotla,car_pct,gender,Boys,30.32,5128
+Malerkotla,mother_edu_years,gender,Boys,6.76,5128
+Malerkotla,college_aspiration_pct,gender,Boys,81.03,5128
+Malerkotla,assets_index,gender,Girls,1.66,4799
+Malerkotla,car_pct,gender,Girls,30.09,4799
+Malerkotla,mother_edu_years,gender,Girls,6.73,4799
+Malerkotla,college_aspiration_pct,gender,Girls,80.18,4799
+Malerkotla,assets_index,mother_edu,1-8 years,1.63,5200
+Malerkotla,car_pct,mother_edu,1-8 years,28.44,5200
+Malerkotla,mother_edu_years,mother_edu,1-8 years,4.88,5200
+Malerkotla,college_aspiration_pct,mother_edu,1-8 years,79.35,5200
+Malerkotla,assets_index,mother_edu,13+ years,1.85,1258
+Malerkotla,car_pct,mother_edu,13+ years,38.0,1258
+Malerkotla,mother_edu_years,mother_edu,13+ years,14.71,1258
+Malerkotla,college_aspiration_pct,mother_edu,13+ years,87.36,1258
+Malerkotla,assets_index,mother_edu,9-12 years,1.76,2224
+Malerkotla,car_pct,mother_edu,9-12 years,33.95,2224
+Malerkotla,mother_edu_years,mother_edu,9-12 years,10.37,2224
+Malerkotla,college_aspiration_pct,mother_edu,9-12 years,84.31,2224
+Malerkotla,assets_index,mother_edu,No schooling,1.48,1245
+Malerkotla,car_pct,mother_edu,No schooling,23.05,1245
+Malerkotla,mother_edu_years,mother_edu,No schooling,0.0,1245
+Malerkotla,college_aspiration_pct,mother_edu,No schooling,72.53,1245
+Mansa,assets_index,gender,Boys,1.29,11496
+Mansa,car_pct,gender,Boys,18.34,11496
+Mansa,mother_edu_years,gender,Boys,5.22,11496
+Mansa,college_aspiration_pct,gender,Boys,76.5,11496
+Mansa,assets_index,gender,Girls,1.3,12942
+Mansa,car_pct,gender,Girls,18.32,12942
+Mansa,mother_edu_years,gender,Girls,5.24,12942
+Mansa,college_aspiration_pct,gender,Girls,76.9,12942
+Mansa,assets_index,mother_edu,1-8 years,1.3,10785
+Mansa,car_pct,mother_edu,1-8 years,18.43,10785
+Mansa,mother_edu_years,mother_edu,1-8 years,4.44,10785
+Mansa,college_aspiration_pct,mother_edu,1-8 years,76.99,10785
+Mansa,assets_index,mother_edu,13+ years,1.51,2718
+Mansa,car_pct,mother_edu,13+ years,26.78,2718
+Mansa,mother_edu_years,mother_edu,13+ years,15.06,2718
+Mansa,college_aspiration_pct,mother_edu,13+ years,85.58,2718
+Mansa,assets_index,mother_edu,9-12 years,1.42,3762
+Mansa,car_pct,mother_edu,9-12 years,22.67,3762
+Mansa,mother_edu_years,mother_edu,9-12 years,10.36,3762
+Mansa,college_aspiration_pct,mother_edu,9-12 years,81.69,3762
+Mansa,assets_index,mother_edu,No schooling,1.15,7173
+Mansa,car_pct,mother_edu,No schooling,12.69,7173
+Mansa,mother_edu_years,mother_edu,No schooling,0.0,7173
+Mansa,college_aspiration_pct,mother_edu,No schooling,70.33,7173
+Moga,assets_index,gender,Boys,1.58,13330
+Moga,car_pct,gender,Boys,29.58,13330
+Moga,mother_edu_years,gender,Boys,7.82,13330
+Moga,college_aspiration_pct,gender,Boys,82.05,13330
+Moga,assets_index,gender,Girls,1.57,12547
+Moga,car_pct,gender,Girls,28.51,12547
+Moga,mother_edu_years,gender,Girls,7.84,12547
+Moga,college_aspiration_pct,gender,Girls,81.8,12547
+Moga,assets_index,mother_edu,1-8 years,1.5,13170
+Moga,car_pct,mother_edu,1-8 years,26.22,13170
+Moga,mother_edu_years,mother_edu,1-8 years,5.24,13170
+Moga,college_aspiration_pct,mother_edu,1-8 years,79.79,13170
+Moga,assets_index,mother_edu,13+ years,1.78,3797
+Moga,car_pct,mother_edu,13+ years,37.9,3797
+Moga,mother_edu_years,mother_edu,13+ years,14.64,3797
+Moga,college_aspiration_pct,mother_edu,13+ years,87.12,3797
+Moga,assets_index,mother_edu,9-12 years,1.64,7533
+Moga,car_pct,mother_edu,9-12 years,31.37,7533
+Moga,mother_edu_years,mother_edu,9-12 years,10.35,7533
+Moga,college_aspiration_pct,mother_edu,9-12 years,84.47,7533
+Moga,assets_index,mother_edu,No schooling,1.3,1377
+Moga,car_pct,mother_edu,No schooling,19.24,1377
+Moga,mother_edu_years,mother_edu,No schooling,0.0,1377
+Moga,college_aspiration_pct,mother_edu,No schooling,74.07,1377
+Pathankot,assets_index,gender,Boys,1.06,8565
+Pathankot,car_pct,gender,Boys,16.3,8565
+Pathankot,mother_edu_years,gender,Boys,8.4,8565
+Pathankot,college_aspiration_pct,gender,Boys,81.98,8565
+Pathankot,assets_index,gender,Girls,1.05,8148
+Pathankot,car_pct,gender,Girls,16.0,8148
+Pathankot,mother_edu_years,gender,Girls,8.43,8148
+Pathankot,college_aspiration_pct,gender,Girls,82.06,8148
+Pathankot,assets_index,mother_edu,1-8 years,0.97,8200
+Pathankot,car_pct,mother_edu,1-8 years,12.6,8200
+Pathankot,mother_edu_years,mother_edu,1-8 years,5.65,8200
+Pathankot,college_aspiration_pct,mother_edu,1-8 years,79.39,8200
+Pathankot,assets_index,mother_edu,13+ years,1.26,2359
+Pathankot,car_pct,mother_edu,13+ years,24.54,2359
+Pathankot,mother_edu_years,mother_edu,13+ years,14.39,2359
+Pathankot,college_aspiration_pct,mother_edu,13+ years,88.77,2359
+Pathankot,assets_index,mother_edu,9-12 years,1.11,5848
+Pathankot,car_pct,mother_edu,9-12 years,18.31,5848
+Pathankot,mother_edu_years,mother_edu,9-12 years,10.33,5848
+Pathankot,college_aspiration_pct,mother_edu,9-12 years,83.64,5848
+Pathankot,assets_index,mother_edu,No schooling,0.81,306
+Pathankot,car_pct,mother_edu,No schooling,5.56,306
+Pathankot,mother_edu_years,mother_edu,No schooling,0.0,306
+Pathankot,college_aspiration_pct,mother_edu,No schooling,69.61,306
+Patiala,assets_index,gender,Boys,1.44,23017
+Patiala,car_pct,gender,Boys,25.87,23017
+Patiala,mother_edu_years,gender,Boys,7.56,23017
+Patiala,college_aspiration_pct,gender,Boys,81.08,23017
+Patiala,assets_index,gender,Girls,1.44,21650
+Patiala,car_pct,gender,Girls,26.27,21650
+Patiala,mother_edu_years,gender,Girls,7.59,21650
+Patiala,college_aspiration_pct,gender,Girls,80.97,21650
+Patiala,assets_index,mother_edu,1-8 years,1.38,20383
+Patiala,car_pct,mother_edu,1-8 years,23.48,20383
+Patiala,mother_edu_years,mother_edu,1-8 years,4.9,20383
+Patiala,college_aspiration_pct,mother_edu,1-8 years,79.27,20383
+Patiala,assets_index,mother_edu,13+ years,1.64,8473
+Patiala,car_pct,mother_edu,13+ years,34.72,8473
+Patiala,mother_edu_years,mother_edu,13+ years,15.08,8473
+Patiala,college_aspiration_pct,mother_edu,13+ years,87.29,8473
+Patiala,assets_index,mother_edu,9-12 years,1.5,10628
+Patiala,car_pct,mother_edu,9-12 years,28.13,10628
+Patiala,mother_edu_years,mother_edu,9-12 years,10.4,10628
+Patiala,college_aspiration_pct,mother_edu,9-12 years,83.2,10628
+Patiala,assets_index,mother_edu,No schooling,1.22,5183
+Patiala,car_pct,mother_edu,No schooling,17.87,5183
+Patiala,mother_edu_years,mother_edu,No schooling,0.0,5183
+Patiala,college_aspiration_pct,mother_edu,No schooling,73.26,5183
+Roop Nagar,assets_index,gender,Boys,1.16,9291
+Roop Nagar,car_pct,gender,Boys,19.55,9291
+Roop Nagar,mother_edu_years,gender,Boys,8.92,9291
+Roop Nagar,college_aspiration_pct,gender,Boys,82.96,9291
+Roop Nagar,assets_index,gender,Girls,1.16,9798
+Roop Nagar,car_pct,gender,Girls,20.11,9798
+Roop Nagar,mother_edu_years,gender,Girls,8.84,9798
+Roop Nagar,college_aspiration_pct,gender,Girls,81.83,9798
+Roop Nagar,assets_index,mother_edu,1-8 years,1.08,8262
+Roop Nagar,car_pct,mother_edu,1-8 years,16.58,8262
+Roop Nagar,mother_edu_years,mother_edu,1-8 years,5.49,8262
+Roop Nagar,college_aspiration_pct,mother_edu,1-8 years,80.09,8262
+Roop Nagar,assets_index,mother_edu,13+ years,1.31,4105
+Roop Nagar,car_pct,mother_edu,13+ years,26.29,4105
+Roop Nagar,mother_edu_years,mother_edu,13+ years,14.78,4105
+Roop Nagar,college_aspiration_pct,mother_edu,13+ years,86.77,4105
+Roop Nagar,assets_index,mother_edu,9-12 years,1.19,6109
+Roop Nagar,car_pct,mother_edu,9-12 years,20.69,6109
+Roop Nagar,mother_edu_years,mother_edu,9-12 years,10.4,6109
+Roop Nagar,college_aspiration_pct,mother_edu,9-12 years,83.21,6109
+Roop Nagar,assets_index,mother_edu,No schooling,0.9,613
+Roop Nagar,car_pct,mother_edu,No schooling,11.91,613
+Roop Nagar,mother_edu_years,mother_edu,No schooling,0.0,613
+Roop Nagar,college_aspiration_pct,mother_edu,No schooling,75.69,613
+S.A.S Nagar,assets_index,gender,Boys,1.34,10756
+S.A.S Nagar,car_pct,gender,Boys,28.83,10756
+S.A.S Nagar,mother_edu_years,gender,Boys,8.79,10756
+S.A.S Nagar,college_aspiration_pct,gender,Boys,82.42,10756
+S.A.S Nagar,assets_index,gender,Girls,1.33,11525
+S.A.S Nagar,car_pct,gender,Girls,28.4,11525
+S.A.S Nagar,mother_edu_years,gender,Girls,8.73,11525
+S.A.S Nagar,college_aspiration_pct,gender,Girls,82.59,11525
+S.A.S Nagar,assets_index,mother_edu,1-8 years,1.25,9163
+S.A.S Nagar,car_pct,mother_edu,1-8 years,24.52,9163
+S.A.S Nagar,mother_edu_years,mother_edu,1-8 years,5.15,9163
+S.A.S Nagar,college_aspiration_pct,mother_edu,1-8 years,79.92,9163
+S.A.S Nagar,assets_index,mother_edu,13+ years,1.51,5641
+S.A.S Nagar,car_pct,mother_edu,13+ years,36.61,5641
+S.A.S Nagar,mother_edu_years,mother_edu,13+ years,15.18,5641
+S.A.S Nagar,college_aspiration_pct,mother_edu,13+ years,87.13,5641
+S.A.S Nagar,assets_index,mother_edu,9-12 years,1.37,5964
+S.A.S Nagar,car_pct,mother_edu,9-12 years,29.63,5964
+S.A.S Nagar,mother_edu_years,mother_edu,9-12 years,10.45,5964
+S.A.S Nagar,college_aspiration_pct,mother_edu,9-12 years,84.04,5964
+S.A.S Nagar,assets_index,mother_edu,No schooling,1.11,1513
+S.A.S Nagar,car_pct,mother_edu,No schooling,19.5,1513
+S.A.S Nagar,mother_edu_years,mother_edu,No schooling,0.0,1513
+S.A.S Nagar,college_aspiration_pct,mother_edu,No schooling,74.95,1513
+Sangrur,assets_index,gender,Boys,1.4,15637
+Sangrur,car_pct,gender,Boys,22.95,15637
+Sangrur,mother_edu_years,gender,Boys,6.93,15637
+Sangrur,college_aspiration_pct,gender,Boys,80.16,15637
+Sangrur,assets_index,gender,Girls,1.41,17055
+Sangrur,car_pct,gender,Girls,23.32,17055
+Sangrur,mother_edu_years,gender,Girls,6.96,17055
+Sangrur,college_aspiration_pct,gender,Girls,80.43,17055
+Sangrur,assets_index,mother_edu,1-8 years,1.36,15857
+Sangrur,car_pct,mother_edu,1-8 years,21.22,15857
+Sangrur,mother_edu_years,mother_edu,1-8 years,4.85,15857
+Sangrur,college_aspiration_pct,mother_edu,1-8 years,79.13,15857
+Sangrur,assets_index,mother_edu,13+ years,1.59,5013
+Sangrur,car_pct,mother_edu,13+ years,30.84,5013
+Sangrur,mother_edu_years,mother_edu,13+ years,14.94,5013
+Sangrur,college_aspiration_pct,mother_edu,13+ years,86.57,5013
+Sangrur,assets_index,mother_edu,9-12 years,1.48,7275
+Sangrur,car_pct,mother_edu,9-12 years,26.13,7275
+Sangrur,mother_edu_years,mother_edu,9-12 years,10.35,7275
+Sangrur,college_aspiration_pct,mother_edu,9-12 years,83.45,7275
+Sangrur,assets_index,mother_edu,No schooling,1.21,4547
+Sangrur,car_pct,mother_edu,No schooling,16.6,4547
+Sangrur,mother_edu_years,mother_edu,No schooling,0.0,4547
+Sangrur,college_aspiration_pct,mother_edu,No schooling,72.44,4547
+Shaheed Bhagat Singh Nagar,assets_index,gender,Boys,1.12,7578
+Shaheed Bhagat Singh Nagar,car_pct,gender,Boys,15.32,7578
+Shaheed Bhagat Singh Nagar,mother_edu_years,gender,Boys,8.25,7578
+Shaheed Bhagat Singh Nagar,college_aspiration_pct,gender,Boys,81.16,7578
+Shaheed Bhagat Singh Nagar,assets_index,gender,Girls,1.12,8140
+Shaheed Bhagat Singh Nagar,car_pct,gender,Girls,15.02,8140
+Shaheed Bhagat Singh Nagar,mother_edu_years,gender,Girls,8.14,8140
+Shaheed Bhagat Singh Nagar,college_aspiration_pct,gender,Girls,80.12,8140
+Shaheed Bhagat Singh Nagar,assets_index,mother_edu,1-8 years,1.04,7944
+Shaheed Bhagat Singh Nagar,car_pct,mother_edu,1-8 years,12.21,7944
+Shaheed Bhagat Singh Nagar,mother_edu_years,mother_edu,1-8 years,5.52,7944
+Shaheed Bhagat Singh Nagar,college_aspiration_pct,mother_edu,1-8 years,78.24,7944
+Shaheed Bhagat Singh Nagar,assets_index,mother_edu,13+ years,1.31,2232
+Shaheed Bhagat Singh Nagar,car_pct,mother_edu,13+ years,22.94,2232
+Shaheed Bhagat Singh Nagar,mother_edu_years,mother_edu,13+ years,14.46,2232
+Shaheed Bhagat Singh Nagar,college_aspiration_pct,mother_edu,13+ years,86.25,2232
+Shaheed Bhagat Singh Nagar,assets_index,mother_edu,9-12 years,1.18,5095
+Shaheed Bhagat Singh Nagar,car_pct,mother_edu,9-12 years,17.17,5095
+Shaheed Bhagat Singh Nagar,mother_edu_years,mother_edu,9-12 years,10.33,5095
+Shaheed Bhagat Singh Nagar,college_aspiration_pct,mother_edu,9-12 years,83.0,5095
+Shaheed Bhagat Singh Nagar,assets_index,mother_edu,No schooling,0.85,447
+Shaheed Bhagat Singh Nagar,car_pct,mother_edu,No schooling,6.04,447
+Shaheed Bhagat Singh Nagar,mother_edu_years,mother_edu,No schooling,0.0,447
+Shaheed Bhagat Singh Nagar,college_aspiration_pct,mother_edu,No schooling,67.79,447
+Shri Fatehgarh Sahib,assets_index,gender,Boys,1.54,6958
+Shri Fatehgarh Sahib,car_pct,gender,Boys,28.41,6958
+Shri Fatehgarh Sahib,mother_edu_years,gender,Boys,9.17,6958
+Shri Fatehgarh Sahib,college_aspiration_pct,gender,Boys,82.94,6958
+Shri Fatehgarh Sahib,assets_index,gender,Girls,1.55,7654
+Shri Fatehgarh Sahib,car_pct,gender,Girls,29.66,7654
+Shri Fatehgarh Sahib,mother_edu_years,gender,Girls,9.03,7654
+Shri Fatehgarh Sahib,college_aspiration_pct,gender,Girls,81.87,7654
+Shri Fatehgarh Sahib,assets_index,mother_edu,1-8 years,1.44,6182
+Shri Fatehgarh Sahib,car_pct,mother_edu,1-8 years,25.19,6182
+Shri Fatehgarh Sahib,mother_edu_years,mother_edu,1-8 years,5.74,6182
+Shri Fatehgarh Sahib,college_aspiration_pct,mother_edu,1-8 years,79.6,6182
+Shri Fatehgarh Sahib,assets_index,mother_edu,13+ years,1.71,2843
+Shri Fatehgarh Sahib,car_pct,mother_edu,13+ years,36.12,2843
+Shri Fatehgarh Sahib,mother_edu_years,mother_edu,13+ years,14.55,2843
+Shri Fatehgarh Sahib,college_aspiration_pct,mother_edu,13+ years,86.42,2843
+Shri Fatehgarh Sahib,assets_index,mother_edu,9-12 years,1.58,5390
+Shri Fatehgarh Sahib,car_pct,mother_edu,9-12 years,30.11,5390
+Shri Fatehgarh Sahib,mother_edu_years,mother_edu,9-12 years,10.4,5390
+Shri Fatehgarh Sahib,college_aspiration_pct,mother_edu,9-12 years,83.91,5390
+Shri Fatehgarh Sahib,assets_index,mother_edu,No schooling,1.28,197
+Shri Fatehgarh Sahib,car_pct,mother_edu,No schooling,20.3,197
+Shri Fatehgarh Sahib,mother_edu_years,mother_edu,No schooling,0.0,197
+Shri Fatehgarh Sahib,college_aspiration_pct,mother_edu,No schooling,69.04,197
+Sri Muktsar Sahib,assets_index,gender,Boys,1.28,13777
+Sri Muktsar Sahib,car_pct,gender,Boys,20.35,13777
+Sri Muktsar Sahib,mother_edu_years,gender,Boys,4.79,13777
+Sri Muktsar Sahib,college_aspiration_pct,gender,Boys,76.77,13777
+Sri Muktsar Sahib,assets_index,gender,Girls,1.27,13123
+Sri Muktsar Sahib,car_pct,gender,Girls,20.51,13123
+Sri Muktsar Sahib,mother_edu_years,gender,Girls,4.79,13123
+Sri Muktsar Sahib,college_aspiration_pct,gender,Girls,76.61,13123
+Sri Muktsar Sahib,assets_index,mother_edu,1-8 years,1.28,14411
+Sri Muktsar Sahib,car_pct,mother_edu,1-8 years,20.39,14411
+Sri Muktsar Sahib,mother_edu_years,mother_edu,1-8 years,4.42,14411
+Sri Muktsar Sahib,college_aspiration_pct,mother_edu,1-8 years,76.75,14411
+Sri Muktsar Sahib,assets_index,mother_edu,13+ years,1.53,1699
+Sri Muktsar Sahib,car_pct,mother_edu,13+ years,31.55,1699
+Sri Muktsar Sahib,mother_edu_years,mother_edu,13+ years,14.62,1699
+Sri Muktsar Sahib,college_aspiration_pct,mother_edu,13+ years,85.11,1699
+Sri Muktsar Sahib,assets_index,mother_edu,9-12 years,1.41,3926
+Sri Muktsar Sahib,car_pct,mother_edu,9-12 years,25.85,3926
+Sri Muktsar Sahib,mother_edu_years,mother_edu,9-12 years,10.24,3926
+Sri Muktsar Sahib,college_aspiration_pct,mother_edu,9-12 years,82.04,3926
+Sri Muktsar Sahib,assets_index,mother_edu,No schooling,1.12,6864
+Sri Muktsar Sahib,car_pct,mother_edu,No schooling,14.66,6864
+Sri Muktsar Sahib,mother_edu_years,mother_edu,No schooling,0.0,6864
+Sri Muktsar Sahib,college_aspiration_pct,mother_edu,No schooling,71.42,6864
+Tarn Tarn,assets_index,gender,Boys,1.54,14306
+Tarn Tarn,car_pct,gender,Boys,24.91,14306
+Tarn Tarn,mother_edu_years,gender,Boys,6.55,14306
+Tarn Tarn,college_aspiration_pct,gender,Boys,80.63,14306
+Tarn Tarn,assets_index,gender,Girls,1.54,13120
+Tarn Tarn,car_pct,gender,Girls,24.52,13120
+Tarn Tarn,mother_edu_years,gender,Girls,6.56,13120
+Tarn Tarn,college_aspiration_pct,gender,Girls,80.84,13120
+Tarn Tarn,assets_index,mother_edu,1-8 years,1.51,13158
+Tarn Tarn,car_pct,mother_edu,1-8 years,23.33,13158
+Tarn Tarn,mother_edu_years,mother_edu,1-8 years,4.72,13158
+Tarn Tarn,college_aspiration_pct,mother_edu,1-8 years,80.23,13158
+Tarn Tarn,assets_index,mother_edu,13+ years,1.75,4033
+Tarn Tarn,car_pct,mother_edu,13+ years,33.23,4033
+Tarn Tarn,mother_edu_years,mother_edu,13+ years,15.09,4033
+Tarn Tarn,college_aspiration_pct,mother_edu,13+ years,86.39,4033
+Tarn Tarn,assets_index,mother_edu,9-12 years,1.62,5500
+Tarn Tarn,car_pct,mother_edu,9-12 years,27.95,5500
+Tarn Tarn,mother_edu_years,mother_edu,9-12 years,10.34,5500
+Tarn Tarn,college_aspiration_pct,mother_edu,9-12 years,84.05,5500
+Tarn Tarn,assets_index,mother_edu,No schooling,1.37,4735
+Tarn Tarn,car_pct,mother_edu,No schooling,17.59,4735
+Tarn Tarn,mother_edu_years,mother_edu,No schooling,0.0,4735
+Tarn Tarn,college_aspiration_pct,mother_edu,No schooling,73.43,4735

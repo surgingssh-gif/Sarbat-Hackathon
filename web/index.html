@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Punjab Data Hub</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>Punjab Data Hub</h1>
+        <p class="tagline">District patterns from Parvaaz's student surveys and public data</p>
+      </div>
+    </div>
+    <span class="badge badge-preview" id="data-status">Preview data</span>
+  </header>
+
+  <main class="layout">
+    <section class="map-col" aria-label="Map">
+      <div class="controls">
+        <label for="indicator-select">Show</label>
+        <select id="indicator-select"></select>
+      </div>
+      <p class="indicator-desc" id="indicator-desc"></p>
+      <div id="placeholder-note" class="placeholder-note" hidden>
+        These values are placeholders, not real data. They will be replaced once the source report is processed.
+      </div>
+      <div id="map" role="img" aria-label="Map of Punjab districts"></div>
+      <div class="legend" id="legend"></div>
+      <p class="map-note" id="map-note"></p>
+    </section>
+
+    <aside class="side-col">
+      <section class="card" id="detail-card" aria-live="polite">
+        <p class="empty">Click a district on the map or in the list to see its numbers and where they come from.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Compare with</h2>
+          <select id="compare-select" aria-label="Indicator to compare"></select>
+        </div>
+        <div id="scatter"></div>
+        <p class="hint" id="scatter-hint"></p>
+      </section>
+
+      <section class="card">
+        <h2>All districts</h2>
+        <ol class="ranking" id="ranking"></ol>
+      </section>
+    </aside>
+  </main>
+
+  <section class="chat" id="chat" aria-label="Ask Parvaaz">
+    <button class="chat-toggle" id="chat-toggle" aria-expanded="false">
+      Ask Parvaaz <span lang="pa">ਪੁੱਛੋ</span>
+    </button>
+    <div class="chat-panel" id="chat-panel" hidden>
+      <div class="chat-log" id="chat-log">
+        <p class="chat-msg bot">Ask about any district or indicator, in Punjabi or English. Every answer cites its sources.</p>
+      </div>
+      <form class="chat-form" id="chat-form">
+        <input id="chat-input" type="text" autocomplete="off" placeholder="e.g. Why is flood damage high in Fazilka?" aria-label="Your question">
+        <button type="submit">Ask</button>
+      </form>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
