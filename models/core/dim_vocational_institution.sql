@@ -5,4 +5,7 @@ select distinct
     institution_code,
     d.district_key
 from {{ ref('stg_vocational_student_responses') }} v
-join {{ ref('dim_district') }} d using (district_name)
+join {{ ref('map_survey_district_to_lgd') }} m
+  on m.survey_district_name = v.district_name
+join {{ ref('dim_district') }} d
+  on d.district_key = m.district_key

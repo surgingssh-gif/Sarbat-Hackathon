@@ -1,12 +1,136 @@
 version: 2
 
 models:
+  - name: map_survey_district_to_lgd
+    description: Explicit reviewed mapping from supplied survey district spellings to current LGD Punjab districts. Chandigarh is retained as a non-Punjab survey geography with no Punjab LGD district code.
+    columns:
+      - name: survey_district_name
+        data_tests: [not_null, unique]
+      - name: district_key
+        description: Repeats when multiple source spellings resolve to the same conformed district.
+        data_tests: [not_null]
+      - name: lgd_district_code
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_lgd_punjab_districts')
+                field: district_code
+      - name: canonical_district_name
+        data_tests: [not_null]
+      - name: is_punjab
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+
   - name: dim_district
-    description: One row per district name appearing in either survey. This is provisional until official LGD identifiers are added.
+    description: One current LGD Punjab district plus Chandigarh, using canonical LGD names and stable keys based on official LGD codes where available.
     columns:
       - name: district_key
         data_tests: [not_null, unique]
       - name: district_name
+        data_tests: [not_null, unique]
+      - name: lgd_district_code
+        description: Current LGD district code. Null only for non-Punjab Chandigarh.
+        data_tests: [unique]
+      - name: is_punjab
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+
+  - name: dim_subdistrict
+    description: One current Punjab LGD subdistrict, linked to its conformed district.
+    columns:
+      - name: subdistrict_key
+        data_tests: [not_null, unique]
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key
+      - name: lgd_subdistrict_code
+        data_tests: [not_null, unique]
+      - name: subdistrict_name
+        data_tests: [not_null]
+
+  - name: dim_village
+    description: One current Punjab LGD village, linked to conformed subdistrict and district dimensions.
+    columns:
+      - name: village_key
+        data_tests: [not_null, unique]
+      - name: subdistrict_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_subdistrict')
+                field: subdistrict_key
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key
+      - name: lgd_village_code
+        data_tests: [not_null, unique]
+      - name: village_name
+        data_tests: [not_null]
+      - name: village_category
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [Both, Rural, Unmapped, Urban]
+      - name: village_status
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [Inhabitant, Un-Inhabitant]
+
+  - name: dim_development_block
+    description: One current Punjab LGD development block represented in the village-to-block mapping source.
+    columns:
+      - name: development_block_key
+        data_tests: [not_null, unique]
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key
+      - name: lgd_development_block_code
+        data_tests: [not_null, unique]
+      - name: development_block_name
+        data_tests: [not_null]
+
+  - name: bridge_village_development_block
+    description: One published LGD village-to-development-block/local-body mapping row. Multiple rows per village are expected and preserved.
+    columns:
+      - name: village_development_block_bridge_key
+        data_tests: [not_null, unique]
+      - name: village_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_village')
+                field: village_key
+      - name: development_block_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_development_block')
+                field: development_block_key
+      - name: source_row_number
         data_tests: [not_null, unique]
 
   - name: dim_school
