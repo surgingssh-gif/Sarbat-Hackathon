@@ -1,6 +1,82 @@
 version: 2
 
 models:
+  - name: mrt_village_facilities
+    description: Atlas-ready current Punjab LGD villages with exact one-to-one SHRUG links and a curated set of Mission Antyodaya 2020 facility indicators. One row is one current LGD village. Missing source rows are retained and never interpreted as reported absence.
+    columns:
+      - name: village_key
+        data_tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('dim_village')
+                field: village_key
+      - name: lgd_village_code
+        data_tests: [not_null, unique]
+      - name: subdistrict_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_subdistrict')
+                field: subdistrict_key
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key
+      - name: shrid2
+        data_tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('stg_shrug_punjab_locations')
+                field: shrid2
+      - name: latitude
+        data_tests: [not_null]
+      - name: longitude
+        data_tests: [not_null]
+      - name: crosswalk_match_method
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [census_2011_village_code]
+      - name: crosswalk_match_confidence
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1.00]
+      - name: has_antyodaya_data
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: facility_data_status
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [observed, not_available]
+      - name: facility_source_year
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [2020]
+      - name: facility_source_name
+        data_tests: [not_null]
+      - name: facility_source_url
+        data_tests: [not_null]
+      - name: lgd_snapshot_date
+        data_tests: [not_null]
+
   - name: mart_district_indicators
     description: Privacy-aware, long-form district indicators for the atlas. One row is one indicator for one district and survey source.
     columns:

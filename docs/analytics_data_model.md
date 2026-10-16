@@ -24,6 +24,7 @@ The geography models represent the current LGD hierarchy; they are not a history
 | `fct_secondary_student_response` | One secondary-school student response linked to school and conformed district dimensions |
 | `fct_vocational_student_response` | One vocational response linked to institution and conformed district dimensions |
 | `mart_district_indicators` | One survey indicator for one conformed district |
+| `mrt_village_facilities` | One Atlas-ready current LGD village with curated Mission Antyodaya 2020 facility indicators |
 
 ## Key decisions
 
@@ -49,6 +50,7 @@ LGD raw files -> LGD staging -> conformed geography dimensions + village/block b
 survey raw files -> survey staging -> district mapping -> entity dimensions + sensitive facts
                                                                |
                                                                -> district indicator mart
+LGD village + exact SHRUG crosswalk + Antyodaya facilities -> village facilities mart
 ```
 
 ## Deferred crosswalk work
