@@ -23,6 +23,9 @@ Two Atlas-ready villages have no row in the LGD village-to-block source: LGD vil
 
 - Filter Atlas queries to this mart rather than joining the crosswalk independently.
 - `false` means the 2020 source reported that a facility was unavailable. `null` means there was no Antyodaya record for that village.
-- Coordinates are SHRUG centroids, not precise addresses or official LGD boundary geometry.
+- Coordinates are SHRUG centroids, not precise addresses. Atlas-ready villages
+  can be joined by `shrid2` to the reproducibly extracted SHRUG geometry
+  documented in `docs/shrug_boundary_geometry.md`; those polygons are not
+  official current LGD boundaries.
 - Facility values describe 2020 and must not be labeled as current conditions.
 - Student survey outcomes remain district-level and must not be assigned to these villages.

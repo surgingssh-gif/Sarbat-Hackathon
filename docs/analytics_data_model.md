@@ -4,7 +4,7 @@
 
 The core layer now combines the two supplied synthetic surveys with the current Punjab Local Government Directory (LGD) geography snapshot. Survey responses remain internal and sensitive. The district indicator mart remains the public-facing boundary: it aggregates responses and suppresses values whose denominator is below `minimum_public_cell_size` (10 by default).
 
-The geography models represent the current LGD hierarchy; they are not a history of boundary changes. SHRUG and Mission Antyodaya remain staged reference sources and are not yet joined to LGD villages. No village-name fuzzy matching has been introduced.
+The geography models represent the current LGD hierarchy; they are not a history of boundary changes. SHRUG and Mission Antyodaya are joined to Atlas-ready LGD villages only through exact Census-code matches. SHRUG polygon geometry can then join by `shrid2`. No village-name fuzzy matching has been introduced.
 
 ## Row grains
 
@@ -51,6 +51,7 @@ survey raw files -> survey staging -> district mapping -> entity dimensions + se
                                                                |
                                                                -> district indicator mart
 LGD village + exact SHRUG crosswalk + Antyodaya facilities -> village facilities mart
+                                                            -> SHRUG village polygons
 ```
 
 ## Deferred crosswalk work
