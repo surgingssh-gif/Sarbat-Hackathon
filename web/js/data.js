@@ -273,6 +273,65 @@ window.Atlas = window.Atlas || {};
     return (sign > 0) === (dir === "higher_better") ? "good" : "bad";
   }
 
+
+  // ---------- plain language ----------
+
+  // 0.142 -> "about 1 in 7"; 0.81 -> "about 8 in 10"; 0.5 -> "about half".
+  function freq(p) {
+    const pa = Atlas.lang === "pa";
+    if (p === null || p === undefined) return "";
+    if (p >= 0.97) return pa ? "ਲਗਭਗ ਸਾਰੇ" : "almost all";
+    if (p <= 0.02) return pa ? "50 ਵਿੱਚੋਂ 1 ਤੋਂ ਘੱਟ" : "fewer than 1 in 50";
+    if (Math.abs(p - 0.5) < 0.04) return pa ? "ਲਗਭਗ ਅੱਧੇ" : "about half";
+    let k, n;
+    if (p < 0.4) { k = 1; n = Math.round(1 / p); }
+    else { k = Math.round(p * 10); n = 10; }
+    return pa ? `ਲਗਭਗ ${n} ਵਿੱਚੋਂ ${k}` : `about ${k} in ${n}`;
+  }
+
+  // Meaning of a score on its scale: 2.2 -> "mild damage", 2.5 -> "between mild and moderate damage".
+  function scaleWord(ind, v) {
+    const m = meta(ind);
+    const words = m.scaleWords && (m.scaleWords[Atlas.lang] || m.scaleWords.en);
+    if (!words || v === null) return "";
+    const base = m.scale ? m.scale[0] : 1;
+    const x = v - base;
+    const r = Math.round(x);
+    if (Math.abs(x - r) < 0.2) return words[Math.max(0, Math.min(words.length - 1, r))];
+    const lo = words[Math.max(0, Math.floor(x))], hi = words[Math.min(words.length - 1, Math.ceil(x))];
+    return Atlas.lang === "pa" ? `${lo} ਅਤੇ ${hi} ਵਿਚਕਾਰ` : `between ${lo.replace(/ damage$/, "")} and ${hi}`;
+  }
+
+  // A plain-language clause for a value, e.g. "about 1 in 7 families own a car".
+  function say(ind, v) {
+    const m = meta(ind);
+    if (v === null || v === undefined) return "";
+    const phrase = m.say ? (m.say[Atlas.lang] || m.say.en) : "";
+    if (!phrase) return fmt(v, ind);
+    if (m.format === "percent") {
+      const f = freq(v);
+      return `${f}${/half$/.test(f) ? " of" : ""} ${phrase}`;
+    }
+    const val = fmt(v, ind).replace(/ yrs$/, " years");
+    return phrase.replace("{v}", val).replace("{word}", scaleWord(ind, v) || fmt(v, ind));
+  }
+
+  // Short tick text: "18%", "7.7", "2.1".
+  function fmtShort(v, ind) {
+    const m = meta(ind);
+    if (m.format === "percent") return Math.round(v * 100) + "%";
+    return v.toFixed(m.format === "years" ? 1 : 2);
+  }
+
+  // How unusual a place is on an indicator, in district standard deviations.
+  function zscore(ind, v) {
+    const vals = districtValues(ind).map((d) => d.value);
+    if (vals.length < 3 || v === null) return null;
+    const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+    const sd = Math.sqrt(vals.reduce((a, b) => a + (b - mean) ** 2, 0) / vals.length);
+    return sd ? (v - mean) / sd : null;
+  }
+
   function sourceHref(url) {
     if (!url) return "";
     if (/^https?:\/\//i.test(url)) return url;
@@ -299,6 +358,6 @@ window.Atlas = window.Atlas || {};
   Atlas.D = {
     parseCSV, build, load, meta, rec, isHidden, isSuppressed, visible, districts, districtValues,
     breaks, binOf, rank, warningThreshold, isWarning, overlaps, pearson,
-    fmt, fmtDelta, tone, sourceHref, slug,
+    fmt, fmtDelta, tone, sourceHref, slug, freq, scaleWord, say, fmtShort, zscore,
   };
 })();

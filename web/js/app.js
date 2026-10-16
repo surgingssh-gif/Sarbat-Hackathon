@@ -29,7 +29,8 @@ window.Atlas = window.Atlas || {};
     compare: null,
     mode: "single",
     pins: [],
-    labels: true,
+    labels: "names", // names | values | off
+    showAll: false,
   };
 
   // ---------- places ----------
@@ -65,6 +66,137 @@ window.Atlas = window.Atlas || {};
     const extras = [...inData].filter((i) => !listed.has(i));
     if (extras.length) list.push({ id: "other", label: { en: t("other"), pa: t("other") }, indicators: extras });
     return list;
+  }
+
+  const cap = (x) => (x ? x.charAt(0).toUpperCase() + x.slice(1) : x);
+  const ordinal = (n) => {
+    if (Atlas.lang === "pa") return `${n}ਵਾਂ`;
+    const s = ["th", "st", "nd", "rd"], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  };
+
+  function rankPhrase(rk) {
+    if (!rk) return "";
+    const { r, total } = rk;
+    if (r === 1) return t("rankHighest", { t: total });
+    if (r === total) return t("rankLowest", { t: total });
+    if (r <= 3) return t("rankNthHigh", { o: ordinal(r), t: total });
+    if (r > total - 3) return t("rankNthLow", { o: ordinal(total - r + 1), t: total });
+    return t("rankMid", { r, t: total });
+  }
+
+  // "about 1 in 4" for shares, otherwise the formatted value.
+  const brief = (ind, v) => {
+    if (v === null) return "—";
+    const m = D.meta(ind);
+    if (m.format === "percent") return D.freq(v);
+    if (m.scaleWords) return D.scaleWord(ind, v);
+    return D.fmt(v, ind).replace(/ yrs$/, " years");
+  };
+
+  // One sentence that says what the headline number means.
+  function sentence(ind, g) {
+    const v = D.visible(ind, g.id);
+    if (v === null) return "";
+    const pv = D.visible(ind, Atlas.data.stateId);
+    if (g.level === "state") return cap(t("acrossPunjab", { s: D.say(ind, v) }));
+    const rk = g.level === "district" ? D.rank(ind, g.id) : null;
+    const first = t("inPlace", { p: name(g), s: D.say(ind, v) }) + (rk ? `, ${rankPhrase(rk)}` : "") + ".";
+    const dist = districtOf(g);
+    const dv = g.level === "village" && dist ? D.visible(ind, dist.id) : null;
+    const ref = g.level === "village" && dv !== null ? dv : pv;
+    const refPlace = g.level === "village" && dv !== null ? name(dist) : t("punjab");
+    const same = ref !== null && brief(ind, ref) === brief(ind, v);
+    const second = ref === null ? "" : t("acrossPlaceBrief", { p: refPlace, f: same ? D.fmt(ref, ind) : brief(ind, ref) });
+    return `${cap(first)} ${second}`;
+  }
+
+  // The few things that stand out most about a place, as plain sentences.
+  function findings(g) {
+    const out = [];
+    const inds = availableIndicators();
+    if (g.level === "state") {
+      const ind = state.indicator;
+      const vals = D.districtValues(ind).sort((a, b) => b.value - a.value);
+      if (vals.length > 1) {
+        const hi = vals[0], lo = vals[vals.length - 1];
+        out.push({ ind, tone: "neutral", go: null,
+          head: label(ind),
+          text: t("extremes", { hi: name(hi.geo), hv: D.fmt(hi.value, ind), lo: name(lo.geo), lv: D.fmt(lo.value, ind) }) });
+      }
+      const sc = signCounts();
+      const total = Atlas.WARNING_SIGNS.filter((i) => Atlas.data.values[i]).length;
+      const max = Math.max(...Object.values(sc).map((f) => f.length));
+      if (max >= 2) {
+        const top = D.districts().filter((d) => sc[d.id].length === max);
+        out.push({ tone: "bad", mode: "signs", head: t("modeSigns"),
+          text: t(top.length > 1 ? "hotspotsMany" : "hotspotsOne", { names: top.map(name).join(t("and")), n: max, total }) });
+      }
+      const pair = strongestPair();
+      if (pair) {
+        out.push({ tone: "neutral", pair, head: t("pattern"),
+          text: t(pair.r > 0 ? "together" : "opposite", { a: label(pair.a), b: label(pair.b), r: pair.r.toFixed(2) }) });
+      }
+      return out;
+    }
+    const dist = districtOf(g);
+    const isVillage = g.level === "village";
+    const scored = inds.filter((ind) => ind !== state.indicator && D.meta(ind).tier !== "detail").map((ind) => {
+      const v = D.visible(ind, g.id);
+      const ref = isVillage && dist ? D.visible(ind, dist.id) : D.visible(ind, Atlas.data.stateId);
+      if (v === null || ref === null) return null;
+      const zv = D.zscore(ind, v), zr = D.zscore(ind, ref);
+      if (zv === null || zr === null) return null;
+      return { ind, v, ref, z: zv - zr };
+    }).filter(Boolean).sort((a, b) => Math.abs(b.z) - Math.abs(a.z)).slice(0, 3);
+    for (const f of scored) {
+      if (Math.abs(f.z) < 0.5) continue;
+      const tone = D.tone(Math.sign(f.z), f.ind);
+      const rk = !isVillage ? D.rank(f.ind, g.id) : null;
+      out.push({
+        ind: f.ind, tone,
+        head: label(f.ind) + (rk ? `: ${rankPhrase(rk)}` : ""),
+        text: (() => {
+          // If rounding makes both sides read the same, show exact values instead.
+          let a = brief(f.ind, f.v), b = brief(f.ind, f.ref);
+          if (a === b) { a = D.fmt(f.v, f.ind); b = D.fmt(f.ref, f.ind); }
+          return t("hereVs", { a: cap(a), b, p: isVillage && dist ? name(dist) : t("punjab") });
+        })(),
+      });
+    }
+    return out;
+  }
+
+  // Strongest district-level relationship between two core indicators from different topics.
+  function strongestPair() {
+    const core = availableIndicators().filter((i) => D.meta(i).tier !== "detail" && D.meta(i).direction !== "neutral");
+    const topic = (i) => (Atlas.THEMES.find((th) => th.indicators.includes(i)) || {}).id;
+    let best = null;
+    for (let i = 0; i < core.length; i++) {
+      for (let j = i + 1; j < core.length; j++) {
+        const a = core[i], b = core[j];
+        if (topic(a) === topic(b)) continue;
+        const pts = D.districts().map((d) => [D.visible(a, d.id), D.visible(b, d.id)]).filter(([x, y]) => x !== null && y !== null);
+        const r = D.pearson(pts.map((p) => p[0]), pts.map((p) => p[1]));
+        if (r !== null && (!best || Math.abs(r) > Math.abs(best.r))) best = { a, b, r };
+      }
+    }
+    return best && Math.abs(best.r) >= 0.3 ? best : null;
+  }
+
+  function findingsBlock(g) {
+    const list = findings(g);
+    if (!list.length) return "";
+    return `<section class="block">
+      <h3>${esc(t("keyFindings"))}</h3>
+      <ul class="findings">${list.map((f) => {
+        const attrs = f.pair ? `data-pair="${esc(f.pair.a)}|${esc(f.pair.b)}"` : f.mode ? `data-mode="${esc(f.mode)}"` : f.ind ? `data-ind="${esc(f.ind)}"` : "";
+        return `<li><button type="button" class="finding tone-${f.tone}" ${attrs}>
+          <span class="finding-head">${esc(f.head)}</span>
+          <span class="finding-text">${esc(f.text)}</span>
+        </button></li>`;
+      }).join("")}</ul>
+    </section>`;
   }
 
   // ---------- colour logic ----------
@@ -193,13 +325,14 @@ window.Atlas = window.Atlas || {};
     $("sim-badge").hidden = !synthetic;
     $("sim-badge").title = t("syntheticLong");
     $("foot").innerHTML = `${synthetic ? `<p>${esc(t("syntheticLong"))}</p>` : ""}<p>${esc(t("footCode"))}</p>`;
-    $("labels-toggle").setAttribute("aria-pressed", String(state.labels));
+    $("labels-toggle").setAttribute("aria-pressed", String(state.labels !== "off"));
+    $("labels-toggle").dataset.state = state.labels;
     $("zoom-in").setAttribute("aria-label", t("zoomIn"));
     $("zoom-out").setAttribute("aria-label", t("zoomOut"));
     $("zoom-reset").setAttribute("aria-label", t("zoomReset"));
-    $("labels-toggle").setAttribute("aria-label", t("labelsToggle"));
+    $("labels-toggle").setAttribute("aria-label", t("labelsCycle", { m: t("labels_" + state.labels) }));
     $("zoom-reset").title = t("zoomReset");
-    $("labels-toggle").title = t("labelsToggle");
+    $("labels-toggle").title = t("labelsCycle", { m: t("labels_" + state.labels) });
   }
 
   function renderCrumbs() {
@@ -226,8 +359,11 @@ window.Atlas = window.Atlas || {};
     const isOverlap = state.mode === "overlap";
     $("rail-sub").textContent = t("railFor", { p: name(g) });
     const ths = {};
+    const visibleInds = (th) => th.indicators.filter((ind) =>
+      state.showAll || D.meta(ind).tier !== "detail" || ind === state.indicator || (isOverlap && ind === state.compare));
+    const hiddenCount = availableIndicators().filter((i) => D.meta(i).tier === "detail").length;
     $("rail-body").innerHTML = themes().map((th) => {
-      const rows = th.indicators.map((ind) => {
+      const rows = visibleInds(th).map((ind) => {
         const r = D.rec(ind, g.id);
         const v = D.visible(ind, g.id);
         const pv = D.visible(ind, Atlas.data.stateId);
@@ -240,7 +376,7 @@ window.Atlas = window.Atlas || {};
         const isB = isOverlap && ind === state.compare;
         const valText = D.isSuppressed(r) ? t("hiddenShort") : v === null ? "—" : D.fmt(v, ind);
         return `<li class="ind${isA ? " is-a" : ""}${isB ? " is-b" : ""}${warn ? " is-warn" : ""}">
-          <button type="button" class="ind-main" data-ind="${esc(ind)}" aria-pressed="${isA}">
+          <button type="button" class="ind-main" data-ind="${esc(ind)}" aria-pressed="${isA}" title="${esc(v === null ? label(ind) : D.say(ind, v))}">
             <span class="ind-name">${isA && isOverlap ? `<b class="ab ab-a">A</b>` : ""}${isB ? `<b class="ab ab-b">B</b>` : ""}${esc(short(ind))}</span>
             <span class="ind-val${v === null ? " is-empty" : ""}">${esc(valText)}</span>
             <span class="ind-track" aria-hidden="true">
@@ -253,8 +389,10 @@ window.Atlas = window.Atlas || {};
       }).join("");
       const planned = (th.planned || []).map((p) =>
         `<li class="ind is-planned"><span class="ind-name">${esc(Atlas.tr(p))}</span><span class="ind-soon">${esc(t("planned"))}</span></li>`).join("");
+      if (!rows && !planned) return "";
       return `<section class="rail-group"><h3>${esc(Atlas.tr(th.label))}</h3><ul>${rows}${planned}</ul></section>`;
-    }).join("") + `<p class="rail-key"><span class="k k-mark"></span>${esc(name(g))}${g.level !== "state" ? ` <span class="k k-ref"></span>${esc(t("punjab"))}` : ""}<br>${esc(t("railKey"))}</p>`;
+    }).join("") + (hiddenCount ? `<button type="button" class="rail-more" data-toggle-all aria-expanded="${state.showAll}">
+      ${esc(state.showAll ? t("showFewer") : t("showAll", { n: availableIndicators().length }))}</button>` : "") + `<p class="rail-key"><span class="k k-mark"></span>${esc(name(g))}${g.level !== "state" ? ` <span class="k k-ref"></span>${esc(t("punjab"))}` : ""}<br>${esc(t("railKey"))}</p>`;
   }
 
   // ---------- canvas: modes, title, map, legend ----------
@@ -324,14 +462,29 @@ window.Atlas = window.Atlas || {};
       selected: dist ? dist.name : null,
       dimOthers: g.level === "village",
       label: (n) => `${mapLabel(n)}: ${stripTags(tooltip(n))}`,
-      labelText: (n) => (state.labels ? mapLabel(n) : ""),
+      labelText: (n) => {
+        if (state.labels === "off") return "";
+        if (state.labels === "names") return mapLabel(n);
+        const d = districtByName(n);
+        return [mapLabel(n), d ? labelValue(d) : ""];
+      },
     });
     if (zoom) Atlas.Map.zoomTo(dist ? dist.name : null);
     renderVillageDots(dist);
     renderLegend();
 
-    const missing = D.districts().filter((d) => !Atlas.Map.drawn().has(d.name)).map(name);
-    $("map-hint").textContent = [t("mapHint"), missing.length ? t("notOnMap", { list: missing.join(", ") }) : ""].filter(Boolean).join(" ");
+    $("map-hint").textContent = t("mapHint");
+  }
+
+  // Value shown under a district's name on the map.
+  function labelValue(d) {
+    if (state.mode === "signs") return String(signCounts()[d.id].length);
+    if (state.mode === "overlap") {
+      const a = D.visible(state.indicator, d.id), b = D.visible(state.compare, d.id);
+      return a === null || b === null ? "" : `${D.fmtShort(a, state.indicator)} · ${D.fmtShort(b, state.compare)}`;
+    }
+    const r = D.rec(state.indicator, d.id);
+    return D.isSuppressed(r) ? t("hiddenShort") : D.isHidden(r) ? "" : D.fmtShort(r.value, state.indicator);
   }
 
   function renderVillageDots(dist) {
@@ -354,6 +507,13 @@ window.Atlas = window.Atlas || {};
 
   function renderLegend() {
     const el = $("legend");
+    const missing = D.districts().filter((d) => !Atlas.Map.drawn().has(d.name)).map(name);
+    const note = missing.length ? `<p class="legend-note">${esc(t("notOnMapShort", { list: missing.join(", ") }))}</p>` : "";
+    renderLegendBody(el);
+    if (note && state.mode !== "grid") el.insertAdjacentHTML("beforeend", note);
+  }
+
+  function renderLegendBody(el) {
     el.hidden = false;
     el.className = "legend";
     if (state.mode === "overlap") {
@@ -378,7 +538,8 @@ window.Atlas = window.Atlas || {};
     el.innerHTML = `<p class="legend-title">${esc(short(ind))}</p>
       <div class="legend-scale">${[0, 1, 2, 3, 4].map((i) =>
         `<span style="background:var(--seq-${ramp}-${i})" title="${esc(D.fmt(edges[i], ind))} – ${esc(D.fmt(edges[i + 1], ind))}"></span>`).join("")}</div>
-      <div class="legend-ends"><span>${esc(D.fmt(lo, ind))}</span><span>${esc(D.fmt(hi, ind))}</span></div>
+      <div class="legend-ticks">${edges.map((e, i) => `<span style="left:${i * 20}%">${esc(D.fmtShort(e, ind))}</span>`).join("")}</div>
+      <p class="legend-note">${esc(t(D.meta(ind).direction === "higher_worse" ? "legendWorse" : D.meta(ind).direction === "higher_better" ? "legendBetter" : "legendNeutral"))}</p>
       <p class="legend-nodata"><i></i>${esc(t("legendNoData"))}</p>`;
   }
 
@@ -468,13 +629,15 @@ window.Atlas = window.Atlas || {};
     const compare = g.level === "state" ? "" : `<p class="figure-compare">
       ${g.level === "village" && dist ? delta(v, dv, ind, name(dist)) : ""}
       ${delta(v, pv, ind, t("punjab"))}
-      ${rk ? `<span class="rank">${esc(t("rank", { r: rk.r, total: rk.total }))}</span>` : ""}</p>`;
+      </p>`;
     const strip = !compact && v !== null && vals.length > 2
       ? Atlas.Charts.strip({ values: vals, mark: g.level === "state" ? null : v, ref: pv, ind, markLabel: `${name(g)} ${D.fmt(v, ind)}` })
       : "";
+    const says = compact ? "" : sentence(ind, g);
     return `<div class="figure${compact ? " is-compact" : ""}">
       <p class="figure-label">${esc(label(ind))}</p>
       ${valueBlock(ind, g)}
+      ${says ? `<p class="figure-say">${esc(says)}</p>` : ""}
       ${compare}${strip}
       ${citation(ind, g)}
     </div>`;
@@ -625,6 +788,7 @@ window.Atlas = window.Atlas || {};
     return `
       ${placeHead(s)}
       ${state.mode === "signs" ? "" : figure(ind, s)}
+      ${findingsBlock(s)}
       ${state.mode === "overlap" ? overlapBlock(s) : ""}
       ${signsBlock(s)}
       ${state.mode === "single" ? relationshipBlock(null) : ""}
@@ -640,6 +804,7 @@ window.Atlas = window.Atlas || {};
     return `
       ${placeHead(g)}
       ${figure(state.indicator, g)}
+      ${findingsBlock(g)}
       ${state.mode === "overlap" ? overlapBlock(g) : ""}
       ${signsBlock(g)}
       ${villagesBlock(g, null)}
@@ -652,6 +817,7 @@ window.Atlas = window.Atlas || {};
     return `
       ${placeHead(g)}
       ${figure(state.indicator, g)}
+      ${findingsBlock(g)}
       ${state.mode === "overlap" ? figure(state.compare, g, { compact: true }) : ""}
       ${dist ? villagesBlock(dist, g.id) : ""}
       ${pinsBlock()}`;
@@ -817,8 +983,14 @@ window.Atlas = window.Atlas || {};
 
     // One delegated handler for everything clickable that carries data.
     document.addEventListener("click", (e) => {
-      const el = e.target.closest("[data-go],[data-ind],[data-ind-b],[data-pin],[data-unpin-all],[data-mode],[data-mode-go],[data-grid-ind],circle.dot[data-id],.bar-item[data-id],.brand[data-nav]");
+      const el = e.target.closest("[data-toggle-all],[data-pair],[data-go],[data-ind],[data-ind-b],[data-pin],[data-unpin-all],[data-mode],[data-mode-go],[data-grid-ind],circle.dot[data-id],.bar-item[data-id],.brand[data-nav]");
       if (!el || el.closest("#search-results")) return;
+      if ("toggleAll" in el.dataset) { state.showAll = !state.showAll; renderRail(); return; }
+      if (el.dataset.pair) {
+        const [a, b] = el.dataset.pair.split("|");
+        state.indicator = a; state.compare = b; state.mode = "overlap";
+        render(); return;
+      }
       if (el.matches(".brand[data-nav]")) { e.preventDefault(); go(Atlas.data.stateId); return; }
       if (el.dataset.go) { e.preventDefault(); go(el.dataset.go, { scroll: true }); return; }
       if (el.dataset.id) { go(el.dataset.id, { scroll: !el.matches("circle") }); return; }
@@ -843,7 +1015,10 @@ window.Atlas = window.Atlas || {};
     $("zoom-in").addEventListener("click", () => Atlas.Map.zoomBy(1.6));
     $("zoom-out").addEventListener("click", () => Atlas.Map.zoomBy(1 / 1.6));
     $("zoom-reset").addEventListener("click", () => Atlas.Map.reset());
-    $("labels-toggle").addEventListener("click", () => { state.labels = !state.labels; renderStatic(); renderMap(); });
+    $("labels-toggle").addEventListener("click", () => {
+      state.labels = { names: "values", values: "off", off: "names" }[state.labels];
+      renderStatic(); renderMap();
+    });
 
     document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => {
       Atlas.lang = b.dataset.lang;

@@ -59,7 +59,9 @@ The current file is the team's sample (simulated survey, 23 districts, 5 **demo*
 
 ## Common changes (all in `js/config.js`)
 
-- **Add an indicator:** add its rows to the CSV, then add an entry to `Atlas.INDICATORS` (labels in English and Punjabi, description, `format`, `direction`) and put its id in a theme in `Atlas.THEMES`. Indicators in the data but not in the config still show up under "Other".
+- **Add an indicator:** add its rows to the CSV, then add an entry to `Atlas.INDICATORS` (labels in English and Punjabi, description, `format`, `direction`, `tier`, and a plain-language `say` phrase) and put its id in a theme in `Atlas.THEMES`. Indicators in the data but not in the config still show up under "Other".
+- **Plain-language sentences:** every number is also written as a sentence ("In Fazilka, about 1 in 7 families own a car, the lowest of 23 districts"). Shares become frequencies ("about 1 in 7"); scores use the indicator's `scaleWords` ("between mild and moderate damage"). The "What stands out" findings are generated from the data: the indicators where a place differs most from Punjab, and for Punjab the extremes, the warning-sign hotspots and the strongest cross-topic pattern.
+- **Core vs detail:** `tier: "detail"` indicators are hidden behind "Show all" in the rail and left out of findings, to keep the first view focused.
 - **Privacy threshold:** `minGroupSize` (placeholder 10, confirm with Parvaaz). Anything below it is hidden at every level, and its exact count is never printed.
 - **Warning signs:** `Atlas.WARNING_SIGNS` lists the indicators used for "Where warning signs line up".
 - **Connect the assistant:** set `assistantUrl`. The page sends

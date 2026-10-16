@@ -36,6 +36,10 @@ Atlas.config = {
  *   years    value in years
  * direction: which end is a warning sign
  *   higher_better | higher_worse | neutral
+ * tier: "core" indicators lead the list; "detail" ones sit behind "Show all"
+ * say: plain-language phrase used in sentences. For percentages it follows a
+ *   frequency ("about 1 in 7" + "families own a car"); otherwise {v} is the
+ *   value and {word} its meaning on the scale (scaleWords, one per scale point)
  */
 Atlas.INDICATORS = {
   car_ownership_share: {
@@ -46,6 +50,8 @@ Atlas.INDICATORS = {
       pa: "ਉਹਨਾਂ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਹਿੱਸਾ ਜਿਨ੍ਹਾਂ ਦੇ ਪਰਿਵਾਰ ਕੋਲ ਕਾਰ ਹੈ।",
     },
     format: "percent", direction: "higher_better",
+    tier: "core",
+    say: { en: "families own a car", pa: "ਪਰਿਵਾਰਾਂ ਕੋਲ ਕਾਰ ਹੈ" },
   },
   air_conditioner_ownership_share: {
     label: { en: "Families with an AC", pa: "ਏਸੀ ਵਾਲੇ ਪਰਿਵਾਰ" },
@@ -55,6 +61,8 @@ Atlas.INDICATORS = {
       pa: "ਉਹਨਾਂ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਹਿੱਸਾ ਜਿਨ੍ਹਾਂ ਦੇ ਪਰਿਵਾਰ ਕੋਲ ਏਸੀ ਹੈ।",
     },
     format: "percent", direction: "higher_better",
+    tier: "core",
+    say: { en: "families own an air conditioner", pa: "ਪਰਿਵਾਰਾਂ ਕੋਲ ਏਸੀ ਹੈ" },
   },
   two_wheeler_ownership_share: {
     label: { en: "Families with a two-wheeler", pa: "ਦੋਪਹੀਆ ਵਾਹਨ ਵਾਲੇ ਪਰਿਵਾਰ" },
@@ -64,6 +72,8 @@ Atlas.INDICATORS = {
       pa: "ਉਹਨਾਂ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਹਿੱਸਾ ਜਿਨ੍ਹਾਂ ਦੇ ਪਰਿਵਾਰ ਕੋਲ ਸਕੂਟਰ ਜਾਂ ਮੋਟਰਸਾਈਕਲ ਹੈ।",
     },
     format: "percent", direction: "higher_better",
+    tier: "detail",
+    say: { en: "families own a scooter or motorcycle", pa: "ਪਰਿਵਾਰਾਂ ਕੋਲ ਸਕੂਟਰ ਜਾਂ ਮੋਟਰਸਾਈਕਲ ਹੈ" },
   },
 
   college_or_higher_aspiration_share: {
@@ -74,6 +84,8 @@ Atlas.INDICATORS = {
       pa: "ਉਹਨਾਂ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਹਿੱਸਾ ਜੋ ਕਾਲਜ ਜਾਂ ਉਸ ਤੋਂ ਅੱਗੇ ਪੜ੍ਹਨਾ ਚਾਹੁੰਦੇ ਹਨ।",
     },
     format: "percent", direction: "higher_better",
+    tier: "core",
+    say: { en: "students hope to study at college or beyond", pa: "ਵਿਦਿਆਰਥੀ ਕਾਲਜ ਜਾਂ ਅੱਗੇ ਪੜ੍ਹਨਾ ਚਾਹੁੰਦੇ ਹਨ" },
   },
   avg_education_aspiration: {
     label: { en: "Education hopes (score)", pa: "ਪੜ੍ਹਾਈ ਦੀਆਂ ਉਮੀਦਾਂ (ਅੰਕ)" },
@@ -83,6 +95,9 @@ Atlas.INDICATORS = {
       pa: "ਔਸਤ ਟੀਚਾ: 1 = ਦਸਵੀਂ ਤੱਕ, 2 = ਬਾਰ੍ਹਵੀਂ, 3 = ਕਾਲਜ, 4 = ਮਾਸਟਰਜ਼, 5 = ਪੀਐਚਡੀ।",
     },
     format: "score", scale: [1, 5], direction: "higher_better",
+    tier: "detail",
+    say: { en: "the average student hopes to reach {word}", pa: "ਔਸਤ ਵਿਦਿਆਰਥੀ {word} ਤੱਕ ਪੜ੍ਹਨਾ ਚਾਹੁੰਦਾ ਹੈ" },
+    scaleWords: { en: ["up to grade 10", "grade 12", "college", "a master's", "a PhD"], pa: ["ਦਸਵੀਂ ਤੱਕ", "ਬਾਰ੍ਹਵੀਂ", "ਕਾਲਜ", "ਮਾਸਟਰਜ਼", "ਪੀਐਚਡੀ"] },
   },
   avg_mother_education_years: {
     label: { en: "Mother's schooling", pa: "ਮਾਂ ਦੀ ਪੜ੍ਹਾਈ" },
@@ -92,6 +107,8 @@ Atlas.INDICATORS = {
       pa: "ਵਿਦਿਆਰਥੀਆਂ ਦੀਆਂ ਮਾਵਾਂ ਦੀ ਪੜ੍ਹਾਈ ਦੇ ਔਸਤ ਸਾਲ।",
     },
     format: "years", direction: "higher_better",
+    tier: "core",
+    say: { en: "mothers have {v} of schooling on average", pa: "ਮਾਵਾਂ ਦੀ ਔਸਤ ਪੜ੍ਹਾਈ {v} ਹੈ" },
   },
   avg_father_education_years: {
     label: { en: "Father's schooling", pa: "ਪਿਤਾ ਦੀ ਪੜ੍ਹਾਈ" },
@@ -101,6 +118,8 @@ Atlas.INDICATORS = {
       pa: "ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਪਿਤਾਵਾਂ ਦੀ ਪੜ੍ਹਾਈ ਦੇ ਔਸਤ ਸਾਲ।",
     },
     format: "years", direction: "higher_better",
+    tier: "detail",
+    say: { en: "fathers have {v} of schooling on average", pa: "ਪਿਤਾਵਾਂ ਦੀ ਔਸਤ ਪੜ੍ਹਾਈ {v} ਹੈ" },
   },
 
   severe_or_total_house_damage_share: {
@@ -111,6 +130,8 @@ Atlas.INDICATORS = {
       pa: "ਕਿੱਤਾਮੁਖੀ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਹਿੱਸਾ ਜਿਨ੍ਹਾਂ ਦਾ ਘਰ 2025 ਦੇ ਹੜ੍ਹਾਂ ਵਿੱਚ ਬੁਰੀ ਤਰ੍ਹਾਂ ਜਾਂ ਪੂਰੀ ਤਰ੍ਹਾਂ ਨੁਕਸਾਨਿਆ ਗਿਆ।",
     },
     format: "percent", direction: "higher_worse",
+    tier: "core",
+    say: { en: "vocational students had their home severely or totally damaged in the 2025 floods", pa: "ਕਿੱਤਾਮੁਖੀ ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਘਰ 2025 ਦੇ ਹੜ੍ਹਾਂ ਵਿੱਚ ਬੁਰੀ ਤਰ੍ਹਾਂ ਨੁਕਸਾਨੇ ਗਏ" },
   },
   avg_house_damage: {
     label: { en: "Home damage (score)", pa: "ਘਰ ਦਾ ਨੁਕਸਾਨ (ਅੰਕ)" },
@@ -120,6 +141,9 @@ Atlas.INDICATORS = {
       pa: "ਘਰਾਂ ਦਾ ਔਸਤ ਨੁਕਸਾਨ: 1 = ਕੋਈ ਨਹੀਂ, 2 = ਥੋੜ੍ਹਾ, 3 = ਦਰਮਿਆਨਾ, 4 = ਬਹੁਤ, 5 = ਪੂਰਾ।",
     },
     format: "score", scale: [1, 5], direction: "higher_worse",
+    tier: "detail",
+    say: { en: "flood damage to homes averaged {word}", pa: "ਘਰਾਂ ਦਾ ਔਸਤ ਨੁਕਸਾਨ: {word}" },
+    scaleWords: { en: ["no damage", "mild damage", "moderate damage", "severe damage", "total loss"], pa: ["ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ", "ਥੋੜ੍ਹਾ ਨੁਕਸਾਨ", "ਦਰਮਿਆਨਾ ਨੁਕਸਾਨ", "ਵੱਡਾ ਨੁਕਸਾਨ", "ਪੂਰਾ ਨੁਕਸਾਨ"] },
   },
   avg_agricultural_land_damage_among_owners: {
     label: { en: "Farmland damage (owners)", pa: "ਖੇਤੀ ਜ਼ਮੀਨ ਦਾ ਨੁਕਸਾਨ (ਮਾਲਕ)" },
@@ -129,6 +153,9 @@ Atlas.INDICATORS = {
       pa: "ਖੇਤੀ ਜ਼ਮੀਨ ਵਾਲੇ ਪਰਿਵਾਰਾਂ ਵਿੱਚ ਜ਼ਮੀਨ ਦਾ ਔਸਤ ਨੁਕਸਾਨ (1 = ਕੋਈ ਨਹੀਂ ਤੋਂ 5 = ਪੂਰਾ)।",
     },
     format: "score", scale: [1, 5], direction: "higher_worse",
+    tier: "core",
+    say: { en: "farmland damage averaged {word} among families who own land", pa: "ਜ਼ਮੀਨ ਵਾਲੇ ਪਰਿਵਾਰਾਂ ਵਿੱਚ ਖੇਤਾਂ ਦਾ ਔਸਤ ਨੁਕਸਾਨ: {word}" },
+    scaleWords: { en: ["no damage", "mild damage", "moderate damage", "severe damage", "total loss"], pa: ["ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ", "ਥੋੜ੍ਹਾ ਨੁਕਸਾਨ", "ਦਰਮਿਆਨਾ ਨੁਕਸਾਨ", "ਵੱਡਾ ਨੁਕਸਾਨ", "ਪੂਰਾ ਨੁਕਸਾਨ"] },
   },
   avg_business_damage_among_owners: {
     label: { en: "Business damage (owners)", pa: "ਕਾਰੋਬਾਰ ਦਾ ਨੁਕਸਾਨ (ਮਾਲਕ)" },
@@ -138,6 +165,9 @@ Atlas.INDICATORS = {
       pa: "ਕਾਰੋਬਾਰ ਵਾਲੇ ਪਰਿਵਾਰਾਂ ਵਿੱਚ ਕਾਰੋਬਾਰ ਦਾ ਔਸਤ ਨੁਕਸਾਨ (1 = ਕੋਈ ਨਹੀਂ ਤੋਂ 5 = ਪੂਰਾ)।",
     },
     format: "score", scale: [1, 5], direction: "higher_worse",
+    tier: "detail",
+    say: { en: "business damage averaged {word} among families who own one", pa: "ਕਾਰੋਬਾਰ ਵਾਲੇ ਪਰਿਵਾਰਾਂ ਵਿੱਚ ਔਸਤ ਨੁਕਸਾਨ: {word}" },
+    scaleWords: { en: ["no damage", "mild damage", "moderate damage", "severe damage", "total loss"], pa: ["ਕੋਈ ਨੁਕਸਾਨ ਨਹੀਂ", "ਥੋੜ੍ਹਾ ਨੁਕਸਾਨ", "ਦਰਮਿਆਨਾ ਨੁਕਸਾਨ", "ਵੱਡਾ ਨੁਕਸਾਨ", "ਪੂਰਾ ਨੁਕਸਾਨ"] },
   },
 
   agricultural_land_ownership_share: {
@@ -148,6 +178,8 @@ Atlas.INDICATORS = {
       pa: "ਕਿੱਤਾਮੁਖੀ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਹਿੱਸਾ ਜਿਨ੍ਹਾਂ ਦੇ ਪਰਿਵਾਰ ਕੋਲ ਖੇਤੀ ਜ਼ਮੀਨ ਹੈ।",
     },
     format: "percent", direction: "neutral",
+    tier: "core",
+    say: { en: "families own farmland", pa: "ਪਰਿਵਾਰਾਂ ਕੋਲ ਖੇਤੀ ਜ਼ਮੀਨ ਹੈ" },
   },
   business_ownership_share: {
     label: { en: "Families owning a business", pa: "ਕਾਰੋਬਾਰ ਵਾਲੇ ਪਰਿਵਾਰ" },
@@ -157,6 +189,8 @@ Atlas.INDICATORS = {
       pa: "ਕਿੱਤਾਮੁਖੀ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਹਿੱਸਾ ਜਿਨ੍ਹਾਂ ਦੇ ਪਰਿਵਾਰ ਦਾ ਆਪਣਾ ਕਾਰੋਬਾਰ ਹੈ।",
     },
     format: "percent", direction: "neutral",
+    tier: "detail",
+    say: { en: "families own a business", pa: "ਪਰਿਵਾਰਾਂ ਦਾ ਆਪਣਾ ਕਾਰੋਬਾਰ ਹੈ" },
   },
 
   female_share: {
@@ -167,6 +201,8 @@ Atlas.INDICATORS = {
       pa: "ਸਰਵੇਖਣ ਕੀਤੇ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਵਿਦਿਆਰਥੀਆਂ ਵਿੱਚ ਕੁੜੀਆਂ ਦਾ ਹਿੱਸਾ।",
     },
     format: "percent", direction: "neutral",
+    tier: "detail",
+    say: { en: "students surveyed are girls", pa: "ਸਰਵੇਖਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਕੁੜੀਆਂ ਹਨ" },
   },
 };
 

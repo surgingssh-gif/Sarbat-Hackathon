@@ -173,7 +173,14 @@ window.Atlas = window.Atlas || {};
     const [x, y, w, h] = s.box;
     const aspect = fullBox[2] / fullBox[3];
     const bw = Math.min(fullBox[2], Math.max(w * 3.2, h * 3.2 * aspect, fullBox[2] * 0.55));
-    animateTo([x + w / 2 - bw / 2, y + h / 2 - bw / aspect / 2, bw, bw / aspect]);
+    const bh = bw / aspect;
+    // Keep the zoomed view inside Punjab's outline where possible.
+    const fit = (v, lo, size, full) => Math.min(Math.max(v, lo), Math.max(lo, lo + full - size));
+    animateTo([
+      fit(x + w / 2 - bw / 2, fullBox[0], bw, fullBox[2]),
+      fit(y + h / 2 - bh / 2, fullBox[1], bh, fullBox[3]),
+      bw, bh,
+    ]);
   }
 
   // Zoom by a factor around a point given in SVG units (defaults to the centre).
@@ -245,6 +252,8 @@ window.Atlas = window.Atlas || {};
 
   // ---------- painting ----------
 
+  const escText = (x) => String(x ?? "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
   /*
    * fills: { name: css colour }   selected: district name
    * dimOthers: fade everything but the selection
@@ -257,8 +266,14 @@ window.Atlas = window.Atlas || {};
       s.el.classList.toggle("is-dim", Boolean(dimOthers && selected && name !== selected));
       s.el.setAttribute("aria-label", label(name));
       s.el.setAttribute("aria-pressed", String(name === selected));
+      // A label is a name, or [name, value] for two lines.
       const txt = labelText ? labelText(name) : "";
-      s.label.textContent = txt;
+      if (Array.isArray(txt) && txt[1]) {
+        s.label.innerHTML = `<tspan x="${s.cx.toFixed(1)}" dy="-0.55em">${escText(txt[0])}</tspan>` +
+          `<tspan class="label-val" x="${s.cx.toFixed(1)}" dy="1.15em">${escText(txt[1])}</tspan>`;
+      } else {
+        s.label.textContent = Array.isArray(txt) ? txt[0] : txt;
+      }
       s.label.classList.toggle("is-selected", name === selected);
     }
     const sel = selected && shapes.get(selected);
