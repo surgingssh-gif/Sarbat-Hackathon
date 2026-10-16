@@ -93,10 +93,12 @@ window.Atlas = window.Atlas || {};
 
   function go(id, { focusPanel = false } = {}) {
     if (!geo(id)) return;
+    const changed = id !== state.geoId;
     state.geoId = id;
     render();
+    if (changed) $("sheet").scrollTop = 0;
     if (focusPanel && window.matchMedia("(max-width: 960px)").matches) {
-      $("panel").scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
+      $("sheet").scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
     }
   }
 
@@ -117,24 +119,22 @@ window.Atlas = window.Atlas || {};
     $("search-input").placeholder = t("searchPlaceholder");
     $("search-input").setAttribute("aria-label", t("searchPlaceholder"));
     document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === Atlas.lang)));
-    const synthetic = [...Atlas.data.sources.values()].some((s) => /synthetic|simulated/i.test(s.status + " " + s.name));
+    const synthetic = [...Atlas.data.sources.values()].some((src) => /synthetic|simulated/i.test(src.status + " " + src.name));
     $("sim-badge").hidden = !synthetic;
     $("sim-badge").title = t("syntheticLong");
-    $("foot-text").innerHTML = `${esc(t("tagline"))} <span class="sep">·</span> ${esc(t("rows", { n: Atlas.data.rowCount.toLocaleString() }))} <span class="sep">·</span> MIT`;
+    $("foot").innerHTML = `${synthetic ? `<p>${esc(t("syntheticLong"))}</p>` : ""}
+      <p>${esc(t("footCode"))}</p>`;
   }
 
   function renderCrumbs() {
     const g = current();
     const trail = [];
     for (let x = g; x; x = x.parentId ? geo(x.parentId) : null) trail.unshift(x);
+    $("crumbs").hidden = trail.length < 2;
     $("crumbs").innerHTML = `<ol>${trail
-      .map((x, i) => {
-        const last = i === trail.length - 1;
-        const level = `<span class="crumb-level">${esc(levelLabel(x.level))}</span>`;
-        return `<li>${last
-          ? `<span aria-current="page">${level}${esc(name(x))}</span>`
-          : `<a href="#" data-go="${esc(x.id)}">${level}${esc(name(x))}</a>`}</li>`;
-      })
+      .map((x, i) => `<li>${i === trail.length - 1
+        ? `<span aria-current="page">${esc(name(x))}</span>`
+        : `<a href="#" data-go="${esc(x.id)}">${esc(name(x))}</a>`}</li>`)
       .join("")}</ol>`;
   }
 
@@ -204,7 +204,7 @@ window.Atlas = window.Atlas || {};
     const box = $("village-grid");
     const ind = state.indicator;
     const kids = dist ? dist.children.map(geo) : [];
-    document.querySelector(".map-col").classList.toggle("has-villages", kids.length > 0);
+    document.querySelector(".map-pane").classList.toggle("has-villages", kids.length > 0);
     if (!kids.length) {
       box.hidden = true;
       Atlas.Map.setVillages([], go);
@@ -236,14 +236,11 @@ window.Atlas = window.Atlas || {};
     items.sort((a, b) => (b.value ?? -Infinity) - (a.value ?? -Infinity) || a.geo.name.localeCompare(b.geo.name, undefined, { numeric: true }));
     const demo = kids.some((k) => /demo/i.test(k.status || ""));
     $("village-grid-title").textContent = t("villages", { d: name(dist) });
-    $("village-grid-hint").textContent = [
-      withCoords.length === kids.length ? t("villagesWithCoords") : t("villagesNoCoords"),
-      demo ? t("villagesHint") : "",
-    ].filter(Boolean).join(" ");
+    $("village-grid-hint").textContent = demo ? t("villagesDemo") : withCoords.length === kids.length ? "" : t("villagesNoCoords");
     $("village-tiles").innerHTML = items
       .map((i) => `<li><button type="button" class="vg-tile${i.selected ? " is-selected" : ""}" data-village="${esc(i.geo.id)}"
           aria-pressed="${i.selected}">
-          <span class="vg-swatch" style="background:${i.fill}"></span>
+          <span class="vg-swatch" style="background:${i.fill}" aria-hidden="true"></span>
           <span class="vg-name">${esc(name(i.geo))}</span>
           <span class="vg-val${i.value === null ? " is-hidden" : ""}">${esc(i.text)}</span>
         </button></li>`)
@@ -264,53 +261,62 @@ window.Atlas = window.Atlas || {};
 
   function valueBlock(ind, g) {
     const r = D.rec(ind, g.id);
-    if (!D.isSuppressed(r) && D.isHidden(r)) return `<p class="big-hidden">${esc(t("noData"))}</p>`;
     if (D.isSuppressed(r)) {
-      return `<div class="big-hidden"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>
+      return `<div class="hidden-note" role="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>
         <div><strong>${esc(t("suppressed"))}</strong><p>${esc(t("suppressedLong", { n: Atlas.config.minGroupSize }))}</p></div></div>`;
     }
+    if (D.isHidden(r)) return `<p class="figure-empty">${esc(t("noData"))}</p>`;
     const txt = D.fmt(r.value, ind);
     const m = txt.match(/^([−\-\d.,]+%?)(.*)$/);
-    return `<p class="big"><span class="big-num">${esc(m ? m[1] : txt)}</span>${m && m[2] ? `<span class="big-unit">${esc(m[2])}</span>` : ""}</p>`;
+    return `<p class="figure-value"><span class="figure-num">${esc(m ? m[1] : txt)}</span>${m && m[2] ? `<span class="figure-unit">${esc(m[2])}</span>` : ""}</p>`;
   }
 
-  function deltaPill(a, b, ind, label) {
+  // "▲ 3.2 pts higher than Punjab" style comparison, coloured by whether that's good.
+  function delta(a, b, ind, against) {
     if (a === null || b === null) return "";
     const d = D.fmtDelta(a, b, ind);
     const tone = D.tone(d.sign, ind);
-    return `<span class="pill pill-${tone}">${esc(d.text)} <span class="pill-ctx">${esc(label)}</span></span>`;
+    const arrow = d.sign > 0 ? "▲" : d.sign < 0 ? "▼" : "";
+    const txt = d.sign ? `${d.text.replace(/^[+−]/, "")} ${t(d.sign > 0 ? "higherThan" : "lowerThan", { p: against })}` : t("sameAs", { p: against });
+    return `<span class="delta delta-${tone}">${arrow ? `<span class="delta-arrow" aria-hidden="true">${arrow}</span>` : ""}${esc(txt)}</span>`;
   }
 
-  function sourceCard(ind, g) {
+  function citation(ind, g) {
     const r = D.rec(ind, g.id);
     if (!r) return "";
     const href = D.sourceHref(r.source_url);
-    const bits = [];
-    bits.push(`<div class="src-name">${esc(r.source_name || "—")}</div>`);
-    const meta = [];
-    meta.push(r.year ? `${t("year")} ${esc(r.year)}` : esc(t("yearUnknown")));
-    // Never print the exact count behind a hidden number.
-    if (D.isSuppressed(r)) meta.push(esc(t("fewerThan", { n: Atlas.config.minGroupSize })));
-    else if (r.n !== null) meta.push(esc(t("basedOn", { n: r.n.toLocaleString() })));
-    if (r.data_status) meta.push(`<span class="tag">${esc(/synthetic/i.test(r.data_status) ? t("synthetic") : r.data_status)}</span>`);
-    bits.push(`<div class="src-meta">${meta.join(" <span class='sep'>·</span> ")}</div>`);
-    if (href) bits.push(`<a class="src-link" href="${esc(href)}" target="_blank" rel="noopener">${esc(t("openSource"))} <span aria-hidden="true">↗</span><span class="src-path">${esc(r.source_url)}</span></a>`);
-    if (r.match_confidence !== null) {
-      bits.push(`<div class="src-meta">Match confidence ${Math.round(r.match_confidence * 100)}%</div>`);
-    }
-    return `<section class="card card-source" aria-label="${esc(t("source"))}">
-      <h3 class="eyebrow">${esc(t("source"))}</h3>${bits.join("")}</section>`;
+    const parts = [];
+    parts.push(esc(r.source_name || "—") + (r.year ? `, ${esc(r.year)}` : ""));
+    if (D.isSuppressed(r)) parts.push(esc(t("fewerThan", { n: Atlas.config.minGroupSize })));
+    else if (r.n !== null) parts.push(esc(t("basedOn", { n: r.n.toLocaleString() })));
+    if (r.match_confidence !== null) parts.push(esc(t("matchConfidence", { p: Math.round(r.match_confidence * 100) })));
+    return `<p class="cite"><span class="cite-label">${esc(t("source"))}</span> ${parts.join(". ")}.
+      ${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(t("openSource"))}</a>` : ""}</p>`;
   }
 
-  function compareCard(highlightId) {
+  function figure(ind, g, extras = "") {
+    return `<div class="figure">
+      <p class="figure-label">${esc(Atlas.tr(D.meta(ind).label))}</p>
+      ${valueBlock(ind, g)}
+      ${extras}
+      ${citation(ind, g)}
+    </div>`;
+  }
+
+  function compareBlock(highlightId) {
     const xi = state.indicator;
     const opts = availableIndicators()
-      .map((i) => `<option value="${esc(i)}"${i === state.compare ? " selected" : ""}>${esc(Atlas.tr(D.meta(i).label))}</option>`)
+      .filter((i) => i !== xi)
+      .map((i) => `<option value="${esc(i)}">${esc(Atlas.tr(D.meta(i).label))}</option>`)
       .join("");
     let body;
+    if (state.compare === xi) {
+      const fallback = [Atlas.config.defaultCompare, Atlas.config.defaultIndicator].find((i) => i !== xi && Atlas.data.values[i]);
+      state.compare = fallback || availableIndicators().find((i) => i !== xi);
+    }
     const yi = state.compare;
-    if (yi === xi) body = `<p class="hint">${esc(t("sameIndicator"))}</p>`;
-    else {
+    {
       const pts = D.districts()
         .map((d) => ({ id: d.id, name: name(d), x: D.visible(xi, d.id), y: D.visible(yi, d.id) }))
         .filter((p) => p.x !== null && p.y !== null);
@@ -326,14 +332,14 @@ window.Atlas = window.Atlas || {};
         }) + `<p class="hint">${esc(t("scatterHint", { rel, r: r.toFixed(2) }))}</p>`;
       }
     }
-    return `<section class="card">
-      <div class="card-head">
-        <h3>${esc(t("compare"))}</h3>
-        <select id="compare-select" aria-label="${esc(t("compare"))}">${opts}</select>
+    return `<section class="block">
+      <div class="block-head">
+        <h3><label for="compare-select">${esc(t("compare"))}</label></h3>
+        <select id="compare-select">${opts.replace(`value="${esc(state.compare)}"`, `value="${esc(state.compare)}" selected`)}</select>
       </div>${body}</section>`;
   }
 
-  function profileCard(g) {
+  function profileBlock(g) {
     const isVillage = g.level === "village";
     const dist = districtOf(g);
     const ths = {};
@@ -352,12 +358,24 @@ window.Atlas = window.Atlas || {};
       };
     });
     const title = isVillage ? t("villageProfile", { v: name(g) }) : t("districtProfile", { d: name(g) });
-    const hint = isVillage ? t("profileHintVillage") : t("profileHint");
-    return `<section class="card">
+    const key = isVillage
+      ? `<span class="k k-mark"></span>${esc(name(g))} <span class="k k-alt"></span>${esc(name(dist))} <span class="k k-ref"></span>${esc(t("punjab"))}`
+      : `<span class="k k-mark"></span>${esc(name(g))} <span class="k k-ref"></span>${esc(t("punjab"))} <span class="k k-warn"></span>${esc(t("warningKey"))}`;
+    return `<section class="block">
       <h3>${esc(title)}</h3>
-      <p class="hint">${esc(hint)}</p>
+      <p class="hint">${esc(t("profileHintShort"))}</p>
+      <p class="profile-key">${key}</p>
       ${Atlas.Charts.profile(rows)}
     </section>`;
+  }
+
+  function placeHead(g, sub) {
+    const demo = /demo/i.test(g.status || "");
+    return `<header class="place-head">
+      <h2 class="place">${esc(name(g))}</h2>
+      <p class="place-sub">${esc(sub)}</p>
+      ${demo ? `<p class="demo-note">${esc(t("demoPlaceLong"))}</p>` : ""}
+    </header>`;
   }
 
   // ---------- panels by level ----------
@@ -365,29 +383,31 @@ window.Atlas = window.Atlas || {};
   function panelState() {
     const ind = state.indicator;
     const s = stateGeo();
-    const sr = D.rec(ind, s.id);
+    const nVillages = [...Atlas.data.geos.values()].filter((g) => g.level === "village").length;
 
-    const heads = Atlas.HEADLINES.filter((i) => Atlas.data.values[i]).map((i) => {
+    const figs = Atlas.HEADLINES.filter((i) => Atlas.data.values[i]).map((i) => {
       const v = D.visible(i, s.id);
       const dv = D.districtValues(i).map((d) => d.value);
-      const range = dv.length ? `${D.fmt(Math.min(...dv), i)} – ${D.fmt(Math.max(...dv), i)}` : "";
-      return `<button type="button" class="stat${i === ind ? " is-active" : ""}" data-ind="${esc(i)}">
-        <span class="stat-label">${esc(Atlas.tr(D.meta(i).short))}</span>
-        <span class="stat-value">${esc(D.fmt(v, i))}</span>
-        <span class="stat-range">${esc(t("districtRange"))} ${esc(range)}</span>
+      const range = dv.length ? t("rangeText", { lo: D.fmt(Math.min(...dv), i), hi: D.fmt(Math.max(...dv), i) }) : "";
+      return `<button type="button" class="kpi${i === ind ? " is-active" : ""}" data-ind="${esc(i)}" aria-pressed="${i === ind}">
+        <span class="kpi-label">${esc(Atlas.tr(D.meta(i).short))}</span>
+        <span class="kpi-value">${esc(D.fmt(v, i))}</span>
+        <span class="kpi-range">${esc(range)}</span>
       </button>`;
     }).join("");
 
     const ov = D.overlaps();
+    const total = Atlas.WARNING_SIGNS.filter((i) => Atlas.data.values[i]).length;
     const signList = Atlas.WARNING_SIGNS.filter((i) => Atlas.data.values[i]).map((i) => Atlas.tr(D.meta(i).short).toLowerCase());
-    const overlap = `<section class="card card-warn">
+    const overlap = `<section class="block">
       <h3>${esc(t("overlapTitle"))}</h3>
       <p class="hint">${esc(t("overlapIntro", { list: signList.join(", ") }))}</p>
       ${ov.length
-        ? `<ul class="overlap">${ov.map((o) => `<li><button type="button" class="overlap-item" data-go="${esc(o.geo.id)}">
-            <span class="overlap-name">${esc(name(o.geo))}<span class="overlap-count">${o.flags.length}</span></span>
-            <span class="overlap-flags">${o.flags.map((f) => `<span class="flag">${esc(Atlas.tr(D.meta(f).short))}</span>`).join("")}</span>
-          </button></li>`).join("")}</ul>`
+        ? `<ol class="overlap">${ov.map((o) => `<li><button type="button" class="overlap-row" data-go="${esc(o.geo.id)}">
+            <span class="overlap-name">${esc(name(o.geo))}</span>
+            <span class="overlap-meter" aria-label="${esc(t("signsOf", { n: o.flags.length, total }))}">${Array.from({ length: total }, (_, k) => `<span class="${k < o.flags.length ? "on" : ""}"></span>`).join("")}</span>
+            <span class="overlap-flags">${esc(o.flags.map((f) => Atlas.tr(D.meta(f).short)).join(", "))}</span>
+          </button></li>`).join("")}</ol>`
         : `<p class="hint">${esc(t("overlapNone"))}</p>`}
     </section>`;
 
@@ -399,23 +419,20 @@ window.Atlas = window.Atlas || {};
       .sort((a, b) => (b.value ?? -Infinity) - (a.value ?? -Infinity));
 
     return `
-      <header class="panel-head">
-        <p class="eyebrow">${esc(t("statewide"))}</p>
-        <h2 class="place">${esc(name(s))}</h2>
-        <p class="panel-sub">${esc(Atlas.tr(D.meta(ind).label))}</p>
-        ${valueBlock(ind, s)}
-        ${sr && sr.n !== null ? `<p class="panel-n">${esc(t("basedOn", { n: sr.n.toLocaleString() }))}</p>` : ""}
-      </header>
-      <div class="stats">${heads}</div>
+      ${placeHead(s, t("stateSub", { d: D.districts().length, v: nVillages }))}
+      ${figure(ind, s)}
+      <section class="block">
+        <h3>${esc(t("atAGlance"))}</h3>
+        <div class="kpis">${figs}</div>
+      </section>
       ${overlap}
-      ${compareCard(null)}
-      <section class="card">
+      ${compareBlock(null)}
+      <section class="block">
         <h3>${esc(t("ranking"))}</h3>
         <p class="hint">${esc(t("rankingHint"))}</p>
-        <ul class="bars" data-list="districts">${Atlas.Charts.bars({ items: ranking, ind, ref: D.visible(ind, s.id), numbered: true })}</ul>
-        <p class="hint bars-key"><span class="key-ref"></span>${esc(t("punjabAverage"))}</p>
-      </section>
-      ${sourceCard(ind, s)}`;
+        <ol class="bars" data-list="districts">${Atlas.Charts.bars({ items: ranking, ind, ref: D.visible(ind, s.id), numbered: true })}</ol>
+        <p class="bars-key"><span class="key-ref"></span>${esc(t("punjabAverage"))}</p>
+      </section>`;
   }
 
   function panelDistrict(g) {
@@ -425,24 +442,19 @@ window.Atlas = window.Atlas || {};
     const rk = D.rank(ind, g.id);
     const flags = Atlas.WARNING_SIGNS.filter((i) => Atlas.data.values[i] && D.isWarning(i, D.visible(i, g.id)));
     const dv = D.districtValues(ind).map((d) => d.value);
+    const extras = `
+      <p class="figure-compare">${delta(v, pv, ind, t("punjab"))}${rk ? `<span class="rank">${esc(t("rank", { r: rk.r, total: rk.total }))}</span>` : ""}</p>
+      ${v !== null && dv.length > 2 ? Atlas.Charts.strip({ values: dv, mark: v, ref: pv, ind, markLabel: `${name(g)} ${D.fmt(v, ind)}` }) : ""}`;
     return `
-      <header class="panel-head">
-        <a href="#" class="back" data-go="${esc(Atlas.data.stateId)}">← ${esc(t("back", { p: t("punjab") }))}</a>
-        <p class="eyebrow">${esc(levelLabel("district"))}</p>
-        <h2 class="place">${esc(name(g))}</h2>
-        <p class="panel-sub">${esc(Atlas.tr(D.meta(ind).label))}</p>
-        ${valueBlock(ind, g)}
-        <div class="pills">
-          ${deltaPill(v, pv, ind, t("vsPunjabShort"))}
-          ${rk ? `<span class="pill">${esc(t("rank", { r: rk.r, total: rk.total }))}</span>` : ""}
-        </div>
-        ${v !== null && dv.length > 2 ? Atlas.Charts.strip({ values: dv, mark: v, ref: pv, ind, markLabel: `${name(g)} ${D.fmt(v, ind)}` }) : ""}
-      </header>
-      ${flags.length ? `<section class="card card-warn"><h3>${esc(t("warningsHere", { n: flags.length }))}</h3>
-        <div class="flags">${flags.map((f) => `<button type="button" class="flag" data-ind="${esc(f)}">${esc(Atlas.tr(D.meta(f).short))}</button>`).join("")}</div></section>` : ""}
-      ${sourceCard(ind, g)}
-      ${compareCard(g.id)}
-      ${profileCard(g)}`;
+      ${placeHead(g, t("districtSub", { n: g.children.length }))}
+      ${figure(ind, g, extras)}
+      ${flags.length ? `<section class="block block-warn">
+        <h3>${esc(t("warningsHere", { n: flags.length }))}</h3>
+        <p class="hint">${esc(t("warningsHereHint"))}</p>
+        <div class="flags">${flags.map((f) => `<button type="button" class="flag${f === ind ? " is-active" : ""}" data-ind="${esc(f)}">${esc(Atlas.tr(D.meta(f).short))}</button>`).join("")}</div>
+      </section>` : ""}
+      ${compareBlock(g.id)}
+      ${profileBlock(g)}`;
   }
 
   function panelVillage(g) {
@@ -451,22 +463,12 @@ window.Atlas = window.Atlas || {};
     const v = D.visible(ind, g.id);
     const dv = dist ? D.visible(ind, dist.id) : null;
     const pv = D.visible(ind, Atlas.data.stateId);
-    const demo = /demo/i.test(g.status || "");
+    const extras = `<p class="figure-compare">
+      ${dist ? delta(v, dv, ind, name(dist)) : ""}${delta(v, pv, ind, t("punjab"))}</p>`;
     return `
-      <header class="panel-head">
-        ${dist ? `<a href="#" class="back" data-go="${esc(dist.id)}">← ${esc(t("back", { p: name(dist) }))}</a>` : ""}
-        <p class="eyebrow">${esc(levelLabel("village"))}${dist ? ` · ${esc(name(dist))}` : ""}</p>
-        <h2 class="place">${esc(name(g))}</h2>
-        ${demo ? `<p class="demo-note"><span class="tag tag-demo">${esc(t("demoPlace"))}</span>${esc(t("demoPlaceLong"))}</p>` : ""}
-        <p class="panel-sub">${esc(Atlas.tr(D.meta(ind).label))}</p>
-        ${valueBlock(ind, g)}
-        <div class="pills">
-          ${dist ? deltaPill(v, dv, ind, t("vsDistrictShort", { d: name(dist) })) : ""}
-          ${deltaPill(v, pv, ind, t("vsPunjabShort"))}
-        </div>
-      </header>
-      ${sourceCard(ind, g)}
-      ${profileCard(g)}`;
+      ${placeHead(g, t("villageSub", { d: dist ? name(dist) : "" }))}
+      ${figure(ind, g, extras)}
+      ${profileBlock(g)}`;
   }
 
   function renderPanel() {
@@ -607,7 +609,7 @@ window.Atlas = window.Atlas || {};
     list.innerHTML = searchHits.length
       ? searchHits.map((g, i) => `<li role="option" id="sr-${i}" aria-selected="${i === searchActive}" data-go="${esc(g.id)}">
           <span class="sr-name">${esc(name(g))}</span>
-          <span class="sr-sub">${esc(levelLabel(g.level))}${g.level === "village" ? " · " + esc(name(geo(g.parentId) || { level: "district", name: g.district })) : ""}</span>
+          <span class="sr-sub">${esc(g.level === "village" ? t("villageSub", { d: name(geo(g.parentId) || { level: "district", name: g.district }) }) : levelLabel(g.level))}</span>
         </li>`).join("")
       : `<li class="sr-none">${esc(t("searchNone"))}</li>`;
     list.hidden = false;
@@ -692,6 +694,7 @@ window.Atlas = window.Atlas || {};
         if (!$("about").hidden) renderAbout();
       }));
     $("about-open").addEventListener("click", () => openAbout(true));
+    $("sim-badge").addEventListener("click", () => openAbout(true));
     $("about").addEventListener("click", (e) => { if (e.target.closest("[data-close]")) openAbout(false); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("about").hidden) openAbout(false); });
     window.addEventListener("hashchange", () => { readHash(); render(); });
@@ -722,7 +725,7 @@ window.Atlas = window.Atlas || {};
       document.body.classList.add("is-ready");
     } catch (err) {
       console.error(err);
-      document.querySelector(".layout").innerHTML = `<section class="card load-error">
+      document.querySelector(".workspace").innerHTML = `<section class="load-error">
         <h2>${esc(t("loadError"))}</h2><p>${esc(err.message)}</p><p class="hint">${esc(t("loadErrorHint"))}</p></section>`;
     }
   }

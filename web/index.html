@@ -11,80 +11,85 @@
   <link rel="stylesheet" href="css/atlas.css">
 </head>
 <body>
-  <a class="skip" href="#panel">Skip to details</a>
+  <a class="skip" href="#sheet">Skip to details</a>
 
   <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#" data-nav="state">
-        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-          <rect x="1" y="1" width="30" height="30" rx="7" class="bm-bg"/>
-          <path d="M16 5 L27 16 L16 27 L5 16 Z" class="bm-a"/>
-          <path d="M16 10 L22 16 L16 22 L10 16 Z" class="bm-b"/>
-          <circle cx="16" cy="16" r="2.2" class="bm-c"/>
-        </svg>
-        <span class="brand-text">
-          <span class="brand-name" data-t="brand">Punjab Data Hub</span>
-          <span class="brand-by" data-t="by">with Parvaaz</span>
-        </span>
-      </a>
-      <div class="topbar-actions">
-        <span class="badge badge-sim" id="sim-badge" data-t="synthetic" hidden>Simulated data</span>
-        <div class="lang" role="group" aria-label="Language">
-          <button type="button" data-lang="en" aria-pressed="true">English</button>
-          <button type="button" data-lang="pa" aria-pressed="false" lang="pa">ਪੰਜਾਬੀ</button>
-        </div>
-        <button type="button" class="btn-ghost" id="about-open" data-t="about">About the data</button>
+    <a class="brand" href="#" data-nav="state">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="7" class="bm-bg"/>
+        <path d="M16 5 L27 16 L16 27 L5 16 Z" class="bm-a"/>
+        <path d="M16 10 L22 16 L16 22 L10 16 Z" class="bm-b"/>
+        <circle cx="16" cy="16" r="2.2" class="bm-c"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-name" data-t="brand">Punjab Data Hub</span>
+        <span class="brand-by" data-t="by">with Parvaaz</span>
+      </span>
+    </a>
+
+    <div class="search" id="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="search-input" type="search" autocomplete="off" spellcheck="false"
+        role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list">
+      <ul class="search-results" id="search-results" role="listbox" hidden></ul>
+    </div>
+
+    <div class="topbar-actions">
+      <button type="button" class="sim-note" id="sim-badge" hidden>
+        <span class="sim-dot" aria-hidden="true"></span><span data-t="synthetic">Simulated data</span>
+      </button>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">English</button>
+        <button type="button" data-lang="pa" aria-pressed="false" lang="pa">ਪੰਜਾਬੀ</button>
       </div>
+      <button type="button" class="btn-quiet" id="about-open"><span class="long" data-t="about">About the data</span><span class="short" data-t="aboutShort">About</span></button>
     </div>
   </header>
 
-  <div class="shell">
-    <div class="toolbar">
-      <nav class="crumbs" id="crumbs" aria-label="Location"></nav>
-      <div class="search" id="search">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-        <input id="search-input" type="search" autocomplete="off" spellcheck="false"
-          role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list">
-        <ul class="search-results" id="search-results" role="listbox" hidden></ul>
+  <main class="workspace">
+    <!-- Left: what you are looking at -->
+    <section class="map-pane" aria-labelledby="map-title">
+      <div class="picker">
+        <div class="tabs" id="tabs" role="tablist" aria-label="Topics"></div>
+        <div class="chips" id="indicator-chips" role="radiogroup" aria-labelledby="map-title"></div>
       </div>
-    </div>
 
-    <section class="picker" aria-label="Choose what the map shows">
-      <div class="tabs" id="tabs" role="tablist"></div>
-      <div class="chips" id="indicator-chips" role="radiogroup"></div>
-    </section>
+      <div class="map-head">
+        <h1 class="map-title" id="map-title"></h1>
+        <p class="map-desc" id="map-desc"></p>
+      </div>
 
-    <main class="layout">
-      <section class="map-col" aria-labelledby="map-title">
-        <div class="map-head">
-          <h1 class="map-title" id="map-title"></h1>
-          <p class="map-desc" id="map-desc"></p>
-        </div>
+      <div class="map-stage">
         <div class="map-wrap" id="map"></div>
-        <section class="village-grid" id="village-grid" hidden aria-labelledby="village-grid-title">
-          <div class="vg-head">
-            <h2 id="village-grid-title"></h2>
-            <p class="hint" id="village-grid-hint"></p>
-          </div>
-          <ul class="vg-tiles" id="village-tiles"></ul>
-        </section>
         <div class="legend" id="legend"></div>
-        <p class="map-note" id="map-note"></p>
+      </div>
+
+      <section class="village-strip" id="village-grid" hidden aria-labelledby="village-grid-title">
+        <div class="vs-head">
+          <h2 id="village-grid-title"></h2>
+          <p class="vs-hint" id="village-grid-hint"></p>
+        </div>
+        <ul class="vg-tiles" id="village-tiles"></ul>
       </section>
 
-      <aside class="panel" id="panel" tabindex="-1" aria-live="polite"></aside>
-    </main>
+      <p class="map-note" id="map-note"></p>
+    </section>
 
-    <footer class="foot">
-      <p id="foot-text"></p>
-    </footer>
-  </div>
+    <!-- Right: where you are -->
+    <aside class="sheet" id="sheet" tabindex="-1">
+      <nav class="crumbs" id="crumbs" aria-label="Location"></nav>
+      <div class="panel" id="panel" aria-live="polite"></div>
+      <footer class="foot" id="foot"></footer>
+    </aside>
+  </main>
 
   <section class="chat" id="chat" aria-label="Ask Parvaaz">
     <div class="chat-panel" id="chat-panel" hidden>
       <div class="chat-head">
         <strong data-t="chatTitle">Ask Parvaaz</strong>
-        <button type="button" class="icon-btn" id="chat-close" aria-label="Close">×</button>
+        <button type="button" class="icon-btn" id="chat-close" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
       </div>
       <div class="chat-log" id="chat-log">
         <div class="msg bot" id="chat-intro"></div>
@@ -106,7 +111,9 @@
     <div class="drawer-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
       <div class="drawer-head">
         <h2 id="about-title" data-t="about">About the data</h2>
-        <button type="button" class="icon-btn" data-close aria-label="Close">×</button>
+        <button type="button" class="icon-btn" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
       </div>
       <div class="drawer-body" id="about-body"></div>
     </div>
