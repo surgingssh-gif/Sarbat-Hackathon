@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: mart_district_indicators
+    description: Privacy-aware, long-form district indicators for the atlas. One row is one indicator for one district and survey source.
+    columns:
+      - name: district_indicator_key
+        data_tests: [not_null, unique]
+      - name: district_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_district')
+                field: district_key
+      - name: district
+        data_tests: [not_null]
+      - name: indicator
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - female_share
+                  - avg_father_education_years
+                  - avg_mother_education_years
+                  - two_wheeler_ownership_share
+                  - air_conditioner_ownership_share
+                  - car_ownership_share
+                  - avg_education_aspiration
+                  - college_or_higher_aspiration_share
+                  - avg_house_damage
+                  - severe_or_total_house_damage_share
+                  - business_ownership_share
+                  - avg_business_damage_among_owners
+                  - agricultural_land_ownership_share
+                  - avg_agricultural_land_damage_among_owners
+      - name: indicator_label
+        data_tests: [not_null]
+      - name: unit
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [proportion, years, score]
+      - name: n_students
+        data_tests: [not_null]
+      - name: is_suppressed
+        data_tests: [not_null]

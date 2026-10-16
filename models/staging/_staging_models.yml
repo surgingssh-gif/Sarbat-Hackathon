@@ -1,0 +1,99 @@
+version: 2
+
+models:
+  - name: stg_secondary_student_responses
+    description: Cleanly named, decoded, student-level secondary survey responses. Internal and sensitive; not a public output.
+    columns:
+      - name: student_response_id
+        data_tests: [not_null, unique]
+      - name: school_code
+        description: UDISE candidate exactly as supplied; no zero-padding or external reconciliation has been applied.
+        data_tests: [not_null]
+      - name: district_name
+        data_tests: [not_null]
+      - name: is_female
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: education_aspiration_code
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      - name: education_aspiration_label
+        data_tests: [not_null]
+
+  - name: stg_vocational_student_responses
+    description: Cleanly named, decoded, student-level vocational survey responses. Internal and sensitive; not a public output.
+    columns:
+      - name: student_response_id
+        data_tests: [not_null, unique]
+      - name: institution_code
+        description: Synthetic institution grouping code; it is not a UDISE identifier.
+        data_tests: [not_null]
+      - name: district_name
+        data_tests: [not_null]
+      - name: house_damage_code
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      - name: owns_business
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+      - name: owns_agricultural_land
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+
+  - name: stg_shrug_punjab_locations
+    description: One SHRUG v2 geographic unit assigned to Punjab, including source location names and spatial statistics. Names reflect SHRUG and 2011 Census geography and are not current LGD entities.
+    columns:
+      - name: shrid2
+        description: SHRUG v2 geographic identifier.
+        data_tests: [not_null, unique]
+      - name: state_name
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [punjab]
+      - name: census_2011_district_name
+        data_tests: [not_null]
+      - name: place_name
+        data_tests: [not_null]
+      - name: location_type
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [village, town]
+      - name: latitude
+        data_tests: [not_null]
+      - name: longitude
+        data_tests: [not_null]
+
+  - name: stg_punjab_local_facilities_2020
+    description: One observed Mission Antyodaya facilities record per Punjab SHRUG v2 geography. Locations without an Antyodaya record are retained only in the location spine, not imputed here.
+    columns:
+      - name: shrid2
+        data_tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('stg_shrug_punjab_locations')
+                field: shrid2
+      - name: census_2011_district_name
+        data_tests: [not_null]
+      - name: place_name
+        data_tests: [not_null]
