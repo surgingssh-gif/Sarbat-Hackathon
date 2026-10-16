@@ -21,3 +21,8 @@ __pycache__/
 
 # Redundant copy of the canonical simulated Parvaaz survey folder.
 /parvaazdata 2/
+
+# Secrets (API keys)
+.env
+.env.*
+!.env.example
