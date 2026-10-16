@@ -1,0 +1,109 @@
+version: 2
+
+models:
+  - name: raw_sec_school_survey
+    description: One simulated secondary-school student response per row. Source values and names are preserved.
+    columns:
+      - name: student_id
+        description: Synthetic row identifier composed from the supplied UDISE value and a sequence.
+        data_tests:
+          - not_null
+          - unique
+      - name: udise_code
+        description: School code candidate preserved exactly as supplied. Do not pad until checked against UDISE+.
+        data_tests:
+          - not_null
+      - name: school_name
+        data_tests:
+          - not_null
+      - name: district
+        data_tests:
+          - not_null
+      - name: female
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+      - name: father_edu_years
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+      - name: mother_edu_years
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+      - name: asset_twowheeler
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+      - name: asset_airconditioner
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+      - name: asset_car
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+      - name: edu_aspiration
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+
+  - name: raw_vi_survey
+    description: One simulated vocational-institute student response about 2025 flood exposure per row.
+    columns:
+      - name: student_id
+        description: Synthetic row identifier composed from inst_code and a sequence.
+        data_tests:
+          - not_null
+          - unique
+      - name: district
+        data_tests:
+          - not_null
+      - name: inst_code
+        description: Synthetic institution grouping code. It does not join to UDISE+.
+        data_tests:
+          - not_null
+      - name: damage_house
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      - name: own_business
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+      - name: damage_business
+        description: Damage scale from 1 to 5; null means not applicable when own_business is 0.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      - name: own_agriland
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+      - name: damage_agriland
+        description: Damage scale from 1 to 5; null means not applicable when own_agriland is 0.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
