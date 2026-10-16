@@ -18,6 +18,7 @@ clean-targets:
 
 vars:
   source_dir: parvaazdata
+  shrug_source_dir: data/raw/reference/shrug/antyodaya_2020
   minimum_public_cell_size: 10
 
 flags:

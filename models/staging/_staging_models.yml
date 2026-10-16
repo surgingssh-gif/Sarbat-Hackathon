@@ -54,3 +54,46 @@ models:
           - accepted_values:
               arguments:
                 values: [true, false]
+
+  - name: stg_shrug_punjab_locations
+    description: One SHRUG v2 geographic unit assigned to Punjab, including source location names and spatial statistics. Names reflect SHRUG and 2011 Census geography and are not current LGD entities.
+    columns:
+      - name: shrid2
+        description: SHRUG v2 geographic identifier.
+        data_tests: [not_null, unique]
+      - name: state_name
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [punjab]
+      - name: census_2011_district_name
+        data_tests: [not_null]
+      - name: place_name
+        data_tests: [not_null]
+      - name: location_type
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [village, town]
+      - name: latitude
+        data_tests: [not_null]
+      - name: longitude
+        data_tests: [not_null]
+
+  - name: stg_punjab_local_facilities_2020
+    description: One observed Mission Antyodaya facilities record per Punjab SHRUG v2 geography. Locations without an Antyodaya record are retained only in the location spine, not imputed here.
+    columns:
+      - name: shrid2
+        data_tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('stg_shrug_punjab_locations')
+                field: shrid2
+      - name: census_2011_district_name
+        data_tests: [not_null]
+      - name: place_name
+        data_tests: [not_null]
