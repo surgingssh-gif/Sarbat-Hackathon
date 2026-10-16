@@ -4,6 +4,22 @@
 
 The source is the Mission Antyodaya Village Facilities 2020 module distributed in SHRUG v2.2 (`pakora`) by Development Data Lab. The Ministry of Rural Development, Government of India produced the underlying survey. The downloaded files and SHRUG keys remain unchanged under `data/raw/reference/shrug/antyodaya_2020/` and are excluded from Git.
 
+## Reproducible local setup
+
+Download the SHRUG v2.2 CSV archives from the [Development Data Lab distribution page](https://www.devdatalab.org/shrug_download/) and place these unchanged files in `data/raw/reference/shrug/antyodaya_2020/`. The [Mission Antyodaya metadata page](https://docs.devdatalab.org/SHRUG-Metadata/Mission%20Antyodaya%20Village%20Facilities%20%282020%29/antyodaya-metadata/) documents the facilities module and release.
+
+- `shrug-antyodaya-csv.zip`
+- `shrug-pc-keys-csv.zip`
+- `shrug-shrid-keys-csv.zip`
+
+Then run:
+
+```bash
+bash scripts/setup_shrug_sources.sh
+```
+
+The setup script verifies pinned SHA-256 checksums before extracting the archives into the directories expected by dbt. It stops rather than using a missing or different source release. If Development Data Lab publishes a new release, review the metadata and model impacts before deliberately updating the filenames and checksums.
+
 The complete extracted source includes 21 CSV tables and 946 columns. Reproducible profiles are written to:
 
 - `data/exports/source_inventory.csv`
@@ -16,6 +32,7 @@ Run `python scripts/profile_shrug_sources.py` to regenerate the profiles. Identi
 | Model | One row means | Rows |
 | --- | --- | ---: |
 | `stg_shrug_punjab_locations` | One SHRUG v2 geographic unit assigned to Punjab | 12,380 |
+| `stg_shrug_punjab_census_2011_village_keys` | One Punjab Census 2011 rural village code mapped to a SHRUG unit | 12,168 |
 | `stg_punjab_local_facilities_2020` | One observed Antyodaya facilities record for a Punjab SHRUG unit | 9,452 |
 
 The location spine includes 12,163 village units and 217 town units across 20 SHRUG/2011 Census district names. All have latitude and longitude. Antyodaya coverage is incomplete and must not be interpreted as a negative response: 2,928 Punjab SHRUG locations have no Antyodaya record.
