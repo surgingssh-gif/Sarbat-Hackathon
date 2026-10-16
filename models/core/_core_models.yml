@@ -1,6 +1,54 @@
 version: 2
 
 models:
+  - name: map_lgd_village_to_shrug
+    description: Deterministic crosswalk containing every current Punjab LGD village and its exact SHRUG rural match when the Census 2011 village code agrees. Unmatched and non-one-to-one records are preserved and flagged for review.
+    columns:
+      - name: village_key
+        data_tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('dim_village')
+                field: village_key
+      - name: lgd_village_code
+        data_tests: [not_null, unique]
+      - name: shrid2
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_shrug_punjab_locations')
+                field: shrid2
+      - name: match_status
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [matched_exact, unmatched_missing_lgd_census_code, unmatched_no_shrug_census_record]
+      - name: match_method
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [census_2011_village_code]
+      - name: match_confidence
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1.00]
+      - name: match_cardinality
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [one_to_one, many_lgd_to_one_shrug, not_matched]
+      - name: requires_review
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
+
   - name: map_survey_district_to_lgd
     description: Explicit reviewed mapping from supplied survey district spellings to current LGD Punjab districts. Chandigarh is retained as a non-Punjab survey geography with no Punjab LGD district code.
     columns:

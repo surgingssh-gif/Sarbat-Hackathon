@@ -54,7 +54,7 @@ No fuzzy name matching was performed. The comparison uses the LGD `Census 2011 C
 - Among LGD records categorized as rural, 12,011 of 12,494 match exactly.
 - Urban and post-2011 administrative records should not be interpreted as failed village-name matches.
 
-This deterministic match is a strong starting point for a future crosswalk, but it is not yet a reviewed production crosswalk.
+The deterministic match is materialized in `map_lgd_village_to_shrug`. It preserves all current LGD villages, accepts only exact Census-code links, and identifies unmatched or combined-unit records for review. It is the accepted-match foundation for later candidate generation, not a complete reviewed production crosswalk.
 
 ## Data-quality findings
 
@@ -75,4 +75,4 @@ The profiler writes the following ignored working outputs to `data/exports/`:
 - `lgd_punjab_geography_summary.csv`
 - `lgd_punjab_district_profile.csv`
 
-The next modeling step is to stage the LGD district, subdistrict, village, and block-mapping tables while preserving their distinct grains. Do not flatten the block mapping into the village table without first defining how multi-block and multi-local-body records should be represented.
+The next crosswalk step is to generate candidates for unmatched villages using normalized names and administrative context. Fuzzy or transliteration-aware matches must carry confidence and review metadata and must not be silently accepted into the deterministic mapping.

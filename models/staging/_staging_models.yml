@@ -82,6 +82,25 @@ models:
       - name: longitude
         data_tests: [not_null]
 
+  - name: stg_shrug_punjab_census_2011_village_keys
+    description: One Punjab Census 2011 rural village code mapped to its SHRUG v2 geographic unit. A SHRUG unit may combine multiple Census villages, so shrid2 is intentionally not unique.
+    columns:
+      - name: census_2011_village_code
+        data_tests: [not_null, unique]
+      - name: shrid2
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_shrug_punjab_locations')
+                field: shrid2
+      - name: census_2011_state_code
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [3]
+
   - name: stg_punjab_local_facilities_2020
     description: One observed Mission Antyodaya facilities record per Punjab SHRUG v2 geography. Locations without an Antyodaya record are retained only in the location spine, not imputed here.
     columns:
