@@ -705,13 +705,13 @@ window.Atlas = window.Atlas || {};
   }
   function bindDense() {
     svg.addEventListener("pointermove", (e) => {
-      if (!dense || e.buttons) return;
+      if (!dense || !dense.onSelect || e.buttons) return;
       const p = nearestDense(e);
       if (p) { e.stopPropagation(); svg.style.cursor = "pointer"; showTip(e, p.tip); }
       else svg.style.cursor = "";
     }, true);
     svg.addEventListener("click", (e) => {
-      if (!dense || suppressClick) return;
+      if (!dense || !dense.onSelect || suppressClick) return;
       const p = nearestDense(e);
       if (p) { e.stopPropagation(); dense.onSelect(p.id); }
     }, true);

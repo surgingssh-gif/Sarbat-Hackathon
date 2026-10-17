@@ -19,7 +19,7 @@
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
       tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average", tabAtlas: "Big Map", atlasHead: "Every district and village in Punjab", atlasDeck: "23 districts, 161 blocks, 12,158 villages. Pick a measure, then click a district to fly in and see its villages.",
-      atlasColour: "Shade districts by", atlasShowV: "Show villages", atlasHint: "Hover a dot for a village · click a district to zoom in", atlasFind: "Find a village", atlasDotsH: "Villages: missing basic services", atlasDotsKey: "Each dot is a village: basic services it has", atlasDots04: "0 → 4", atlasMissMany: "All 4 missing", atlasMissNone: "None missing", atlasClickD: "Click to zoom in",
+      atlasColour: "Shade districts by", atlasShowV: "Show villages", atlasHint: "Click any district to zoom in to its villages", atlasFind: "Find a village", atlasDotsH: "Villages: missing basic services", atlasDotsKey: "Each dot is a village: basic services it has", atlasDots04: "0 → 4", atlasMissMany: "All 4 missing", atlasMissNone: "None missing", atlasClickD: "Click to zoom in",
       atlasBasic: "basic services (school, health centre, road, water)", atlasNoRec: "This village has no 2020 facility record.", atlasDistLine: "{m} in {place}: {v} (district-wide survey figure).",
       atlasOpenBlock: "Open {b} block →", vdWhere: "{block} block, {place} district", vdNoRec: "{name} has no 2020 facility record, so its services are unknown. It is still matched to the official village list.",
       vdAll4: "{name} has all four basic services: a high school, a health centre, an all-weather road and piped water.", vdNone: "{name} has none of the four basic services: no high school, health centre, all-weather road or piped water.",
@@ -540,7 +540,8 @@
         Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); }, { boxy: false });
         Atlas.Map.setDense(showV ? vs.map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr", tip: villageTip(v) })) : null, atlas.sel, selectVillage);
       } else { Atlas.Map.setBlocks(null, [], {}, () => {});
-        Atlas.Map.setDense(showV ? Atlas.villages.filter((v) => v.lat && v.lon).map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr", tip: villageTip(v) })) : null, atlas.sel, selectVillage); }
+        // statewide view: dots are just a picture (not clickable), so clicks reach the districts underneath
+        Atlas.Map.setDense(showV ? Atlas.villages.filter((v) => v.lat && v.lon).map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr" })) : null, atlas.sel, null); }
     }
     onMapSelect = (n) => selectDistrict(n);
     onMapHover = (n) => { const d = byName(n), v = d ? D.visible(ind, d.id) : null;
