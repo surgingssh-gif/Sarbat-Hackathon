@@ -199,27 +199,51 @@ window.Atlas = window.Atlas || {};
       setTimeout(() => svg.classList.remove("is-entering"), 1400);
     }
     bindGestures();
+    lastTarget = fullBox.slice();
+    box = fitBox(fullBox);
     applyBox();
   }
 
   // ---------- pan & zoom ----------
 
+  // Screen space covered by floating panels; fitted views keep Punjab inside the rest.
+  let pad = { l: 0, t: 0, r: 0, b: 0 };
+  let lastTarget = null;
+  const vp = () => ({ W: svg.clientWidth || 800, H: svg.clientHeight || 600 });
+
+  // A view box (with the screen's aspect) that shows target box T inside the open area.
+  function fitBox(T) {
+    const { W, H } = vp();
+    const fw = Math.max(80, W - pad.l - pad.r), fh = Math.max(80, H - pad.t - pad.b);
+    const sc = Math.min(fw / T[2], fh / T[3]);
+    const w = W / sc, h = H / sc;
+    const cx = T[0] + T[2] / 2, cy = T[1] + T[3] / 2;
+    return [cx - (pad.l + fw / 2) / sc, cy - (pad.t + fh / 2) / sc, w, h];
+  }
+
   function clampBox(b) {
     let [x, y, w, h] = b;
-    const aspect = fullBox[2] / fullBox[3];
-    w = Math.min(fullBox[2] * 1.1, Math.max(fullBox[2] / 10, w));
+    const { W, H } = vp();
+    const aspect = W / H;
+    const home = fitBox(fullBox);
+    w = Math.min(home[2] * 1.6, Math.max(home[2] / 9, w));
     h = w / aspect;
     // keep at least part of Punjab in view
-    x = Math.min(fullBox[0] + fullBox[2] - w * 0.25, Math.max(fullBox[0] - w * 0.75, x));
-    y = Math.min(fullBox[1] + fullBox[3] - h * 0.25, Math.max(fullBox[1] - h * 0.75, y));
+    x = Math.min(fullBox[0] + fullBox[2] - w * 0.2, Math.max(fullBox[0] - w * 0.8, x));
+    y = Math.min(fullBox[1] + fullBox[3] - h * 0.2, Math.max(fullBox[1] - h * 0.8, y));
     return [x, y, w, h];
+  }
+
+  function setPadding(p) {
+    pad = Object.assign({ l: 0, t: 0, r: 0, b: 0 }, p);
+    if (lastTarget) { cancelAnimationFrame(anim); box = clampBox(fitBox(lastTarget)); applyBox(); }
   }
 
   function applyBox() {
     svg.setAttribute("viewBox", box.map((v) => v.toFixed(2)).join(" "));
     // Labels and dots keep the same on-screen size at any zoom.
     // The map is letterboxed ("meet"), so one screen pixel is the larger of the two ratios.
-    const unit = Math.max(box[2] / (svg.clientWidth || 800), box[3] / (svg.clientHeight || 600));
+    const unit = Math.max(box[2] / vp().W, box[3] / vp().H);
     svg.style.setProperty("--label-size", (11.5 * unit).toFixed(3) + "px");
     svg.style.setProperty("--label-halo", (3.2 * unit).toFixed(3) + "px");
     gVillages.querySelectorAll("circle").forEach((c) => c.setAttribute("r", (c.dataset.sel ? 8 : 6) * unit));
@@ -233,7 +257,7 @@ window.Atlas = window.Atlas || {};
     svg.style.setProperty("--unit", unit.toFixed(4));
     declutter();
     placeCallout();
-    const zoomed = box[2] < fullBox[2] * 0.9;
+    const zoomed = box[2] < fitBox(fullBox)[2] * 0.9;
     wrap.classList.toggle("is-zoomed", zoomed);
     handlers.onView?.({ zoomed });
   }
@@ -307,28 +331,29 @@ window.Atlas = window.Atlas || {};
 
   function zoomTo(name) {
     const s = name && shapes.get(name);
-    if (!s) return animateTo(fullBox);
+    if (!s) { lastTarget = fullBox.slice(); return animateTo(fitBox(fullBox)); }
     const [x, y, w, h] = s.box;
-    const aspect = fullBox[2] / fullBox[3];
-    const bw = Math.min(fullBox[2], Math.max(w * 3.2, h * 3.2 * aspect, fullBox[2] * 0.55));
-    const bh = bw / aspect;
-    // Keep the zoomed view inside Punjab's outline where possible.
-    const fit = (v, lo, size, full) => Math.min(Math.max(v, lo), Math.max(lo, lo + full - size));
-    animateTo([
-      fit(x + w / 2 - bw / 2, fullBox[0], bw, fullBox[2]),
-      fit(y + h / 2 - bh / 2, fullBox[1], bh, fullBox[3]),
-      bw, bh,
-    ]);
+    // Show the district with its neighbours around it.
+    const size = Math.max(w, h) * 3.2;
+    const tw = Math.max(size, fullBox[2] * 0.55), th = Math.max(size, fullBox[3] * 0.55);
+    lastTarget = [x + w / 2 - tw / 2, y + h / 2 - th / 2, tw, th];
+    animateTo(fitBox(lastTarget));
   }
 
-  // Zoom by a factor around a point given in SVG units (defaults to the centre).
+  // Zoom by a factor around a point given in SVG units (defaults to the open area's centre).
   function zoomBy(factor, cx, cy) {
-    if (cx === undefined) { cx = box[0] + box[2] / 2; cy = box[1] + box[3] / 2; }
+    if (cx === undefined) {
+      const { W, H } = vp();
+      const sc = W / box[2];
+      cx = box[0] + (pad.l + (W - pad.l - pad.r) / 2) / sc;
+      cy = box[1] + (pad.t + (H - pad.t - pad.b) / 2) / sc;
+    }
     const w = box[2] / factor, h = box[3] / factor;
+    lastTarget = null;
     animateTo([cx - (cx - box[0]) / factor, cy - (cy - box[1]) / factor, w, h]);
   }
 
-  function reset() { animateTo(fullBox); }
+  function reset() { lastTarget = fullBox.slice(); animateTo(fitBox(fullBox)); }
 
   function toSvgPoint(clientX, clientY) {
     const r = svg.getBoundingClientRect();
@@ -350,6 +375,7 @@ window.Atlas = window.Atlas || {};
       if (!drag.moved) { drag.moved = true; svg.setPointerCapture?.(drag.id); wrap.classList.add("is-dragging"); hideTip(); }
       const [, , scale] = toSvgPoint(e.clientX, e.clientY);
       cancelAnimationFrame(anim);
+      lastTarget = null;
       box = clampBox([drag.box[0] - dx / scale, drag.box[1] - dy / scale, drag.box[2], drag.box[3]]);
       applyBox();
     });
@@ -365,11 +391,16 @@ window.Atlas = window.Atlas || {};
       const [x, y] = toSvgPoint(e.clientX, e.clientY);
       const factor = Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0022));
       cancelAnimationFrame(anim);
+      lastTarget = null;
       const w = box[2] / factor, h = box[3] / factor;
       box = clampBox([x - (x - box[0]) / factor, y - (y - box[1]) / factor, w, h]);
       applyBox();
     }, { passive: false });
-    window.addEventListener("resize", applyBox);
+    window.addEventListener("resize", () => {
+      if (lastTarget) { box = clampBox(fitBox(lastTarget)); }
+      else { const { W, H } = vp(); box = clampBox([box[0], box[1], box[2], box[2] * H / W]); }
+      applyBox();
+    });
   }
 
   // ---------- tooltip ----------
@@ -459,5 +490,5 @@ window.Atlas = window.Atlas || {};
 
   function drawn() { return new Set(shapes.keys()); }
 
-  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setVillages, miniSvg, drawn, hideTip };
+  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setPadding, setVillages, miniSvg, drawn, hideTip };
 })();

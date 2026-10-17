@@ -20,15 +20,16 @@ Opening `index.html` by double-clicking won't work, because browsers block the d
 
 ## What's on the page
 
-Two cards. On phones they stack.
+The map fills the screen and everything else floats on it. On phones the map, topic dock and details stack and the page scrolls.
 
 | Part | What it does |
 |---|---|
-| **Map card** | The title is the topic picker: tap "Families with a car ▾" to open the topic menu (grouped, filterable, with each topic's value for the current place). Three view tabs: **One topic**, **Compare two** (pick A and B; districts coloured on a 3×3 grid, darkest = worse on both) and **Problem areas** (how many topics each district is among Punjab's worst on). A slim legend, then the map: drag to pan, scroll or +/− to zoom, T cycles labels (names, names and values, off), click a district to open it. The menu's footer opens **every topic on small maps**. |
-| **Details card** | On Punjab: a **Start here** panel with tappable questions, the headline number, and districts ranked. On a district or village: the headline number (chips for the gap to Punjab and the rank, one plain sentence, a labelled range bar, the source), **How it compares** on every topic (most unusual first, with mini bars; red dot = warning sign), its villages, and **More detail** (relationship chart, side-by-side pins). |
+| **Map** | Punjab with neighbouring states for context. Drag to pan, scroll or +/− to zoom, T cycles labels, click a district to open it; a value card pins to the selected district. The map always fits Punjab into the space the floating panels leave open. |
+| **Title card** (top left) | The topic title is a button that opens the topic menu. Shows the description, the A/B pickers in Compare mode, and the legend. |
+| **Topic dock** (bottom) | View switch (**Map**, **Compare**, **Hotspots**), a row of topic pills, and **All topics** (the full menu, including the small-maps view). |
+| **Details card** (right) | On Punjab: **Start here** questions, the headline number, districts ranked. On a district or village: the headline number with chips, sentence, range bar and source; **How it compares** on every topic; villages; **More detail**. |
 | Search | Any district or village, English or Gurmukhi. Press `/`. |
 | Ask Parvaaz | Chat in the corner; sends the question plus place, topic and view. |
-| About | Sources, privacy rule, views, and a slot for crosswalk accuracy. |
 
 Links can point straight at a view: `web/#district.fazilka~car_ownership_share`, or with a view and second indicator, `web/#district.mansa~car_ownership_share~overlap~severe_or_total_house_damage_share`.
 

@@ -7,7 +7,7 @@
   <meta name="description" content="An open atlas of what Punjab's government-school students told Parvaaz, by district and village.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Public+Sans:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Figtree:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="css/atlas.css">
 </head>
 <body>
@@ -48,44 +48,47 @@
   </header>
 
   <main class="atlas">
-    <!-- The map card: choose what you see, then explore -->
-    <section class="mapcard" aria-labelledby="topic-title">
-      <div class="mapcard-head">
-        <div class="topic">
-          <button type="button" class="topic-btn" id="topic-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="topic-menu">
-            <span class="topic-eyebrow" id="topic-eyebrow"></span>
-            <span class="topic-line">
-              <h1 class="topic-title" id="topic-title"></h1>
-              <svg class="topic-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-            </span>
-          </button>
-          <p class="topic-desc" id="canvas-desc"></p>
-          <div class="canvas-pick" id="canvas-pick" hidden></div>
-        </div>
-        <div class="modes" id="modes" role="tablist" aria-label="Map view"></div>
+    <!-- The map fills the screen; everything else floats on it -->
+    <div class="stage" id="stage">
+      <div class="map-wrap" id="map"></div>
+      <div class="grid-view" id="grid-view" hidden></div>
+      <div class="map-controls" id="map-controls">
+        <button type="button" class="ctl" id="zoom-in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button type="button" class="ctl" id="zoom-out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+        <button type="button" class="ctl" id="zoom-reset" aria-label="Show all of Punjab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        <button type="button" class="ctl" id="labels-toggle" aria-pressed="true" aria-label="Map labels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></svg></button>
       </div>
+      <p class="map-hint" id="map-hint"></p>
+    </div>
 
+    <section class="title-float" id="title-float" aria-labelledby="topic-title">
+      <button type="button" class="topic-btn" id="topic-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="topic-menu">
+        <span class="topic-eyebrow" id="topic-eyebrow"></span>
+        <span class="topic-line">
+          <h1 class="topic-title" id="topic-title"></h1>
+          <svg class="topic-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </span>
+      </button>
+      <p class="topic-desc" id="canvas-desc"></p>
+      <div class="canvas-pick" id="canvas-pick" hidden></div>
       <div class="legend" id="legend"></div>
-
-      <div class="stage" id="stage">
-        <div class="map-wrap" id="map"></div>
-        <div class="grid-view" id="grid-view" hidden></div>
-        <div class="map-controls" id="map-controls">
-          <button type="button" class="ctl" id="zoom-in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
-          <button type="button" class="ctl" id="zoom-out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
-          <button type="button" class="ctl" id="zoom-reset" aria-label="Show all of Punjab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
-          <button type="button" class="ctl" id="labels-toggle" aria-pressed="true" aria-label="Map labels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></svg></button>
-        </div>
-        <p class="map-hint" id="map-hint"></p>
-      </div>
     </section>
 
-    <!-- The details card: where you are -->
     <aside class="inspector" id="inspector" tabindex="-1" aria-label="Details">
       <nav class="crumbs" id="crumbs" aria-label="Location"></nav>
       <div class="panel" id="panel" aria-live="polite"></div>
       <footer class="foot" id="foot"></footer>
     </aside>
+
+
+    <nav class="dock" id="dock" aria-label="Topics and views">
+      <div class="modes" id="modes" role="tablist" aria-label="Map view"></div>
+      <span class="dock-sep" aria-hidden="true"></span>
+      <div class="topicbar" id="topicbar"></div>
+      <button type="button" class="dock-more" id="dock-more" aria-haspopup="dialog" aria-controls="topic-menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-t="allTopicsShort">All topics</span>
+      </button>
+    </nav>
   </main>
 
   <!-- Topic menu -->
