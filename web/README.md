@@ -20,17 +20,15 @@ Opening `index.html` by double-clicking won't work, because browsers block the d
 
 ## What's on the page
 
-The atlas has three parts. On tablets the left rail becomes a drawer (the Indicators button); on phones everything stacks.
+Two cards. On phones they stack.
 
 | Part | What it does |
 |---|---|
-| **Topics rail** (left) | Every topic with the current place's value and its rank in words ("Lowest of 23", "#8 of 23"), or the district range at Punjab level. Red names are warning signs. Greyed rows are data that's coming. |
-| **Map canvas** (centre) | Four views: **One topic**; **Compare two** (two topics on a 3×3 colour grid, darkest = worse on both; pick A and B in the dropdowns above the map); **Problem areas** (districts coloured by how many topics they are among Punjab's worst on); **All topics** (a small map per topic). Drag to pan, scroll or +/− to zoom, toggle district names, click a district to open it. |
-| **Inspector** (right) | On Punjab, a **Start here** panel with tappable questions (hide it once you know your way around). Then the place, **Pin** button, headline number with a plain-language sentence and source, **What stands out**, villages, and a **More detail** fold with warning signs, the relationship chart, rankings and the **Side by side** table of pinned places. |
-| Search | Any district or village, in English or Gurmukhi. Press `/` to jump to it. |
-| Ask Parvaaz | Chat in the corner; sends the question plus what's on screen (place, indicator, view). |
-| About | Sources, privacy rule, the four views, and a slot for crosswalk accuracy. |
-| EN / ਪੰਜਾਬੀ | Switches all interface text; remembered on that device. |
+| **Map card** | The title is the topic picker: tap "Families with a car ▾" to open the topic menu (grouped, filterable, with each topic's value for the current place). Three view tabs: **One topic**, **Compare two** (pick A and B; districts coloured on a 3×3 grid, darkest = worse on both) and **Problem areas** (how many topics each district is among Punjab's worst on). A slim legend, then the map: drag to pan, scroll or +/− to zoom, T cycles labels (names, names and values, off), click a district to open it. The menu's footer opens **every topic on small maps**. |
+| **Details card** | On Punjab: a **Start here** panel with tappable questions, the headline number, and districts ranked. On a district or village: the headline number (chips for the gap to Punjab and the rank, one plain sentence, a labelled range bar, the source), **How it compares** on every topic (most unusual first, with mini bars; red dot = warning sign), its villages, and **More detail** (relationship chart, side-by-side pins). |
+| Search | Any district or village, English or Gurmukhi. Press `/`. |
+| Ask Parvaaz | Chat in the corner; sends the question plus place, topic and view. |
+| About | Sources, privacy rule, views, and a slot for crosswalk accuracy. |
 
 Links can point straight at a view: `web/#district.fazilka~car_ownership_share`, or with a view and second indicator, `web/#district.mansa~car_ownership_share~overlap~severe_or_total_house_damage_share`.
 

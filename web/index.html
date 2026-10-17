@@ -48,36 +48,24 @@
   </header>
 
   <main class="atlas">
-    <!-- Left: every indicator, with this place's value on each -->
-    <nav class="rail" id="rail" aria-label="Indicators">
-      <div class="rail-head">
-        <h2 data-t="indicators">Indicators</h2>
-        <p class="rail-sub" id="rail-sub"></p>
-        <button type="button" class="icon-btn rail-close" id="rail-close" aria-label="Close">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
-      </div>
-      <div class="rail-body" id="rail-body"></div>
-    </nav>
-
-    <!-- Centre: the map canvas -->
-    <section class="canvas" aria-labelledby="canvas-title">
-      <div class="canvas-top">
-        <div class="modes" id="modes" role="tablist" aria-label="Map view"></div>
-        <button type="button" class="btn-quiet rail-open" id="rail-open">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-          <span data-t="indicators">Indicators</span>
-        </button>
-      </div>
-
-      <div class="canvas-head">
-        <div class="canvas-title">
-          <h1 id="canvas-title"></h1>
-          <p id="canvas-desc"></p>
+    <!-- The map card: choose what you see, then explore -->
+    <section class="mapcard" aria-labelledby="topic-title">
+      <div class="mapcard-head">
+        <div class="topic">
+          <button type="button" class="topic-btn" id="topic-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="topic-menu">
+            <span class="topic-eyebrow" id="topic-eyebrow"></span>
+            <span class="topic-line">
+              <h1 class="topic-title" id="topic-title"></h1>
+              <svg class="topic-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <p class="topic-desc" id="canvas-desc"></p>
           <div class="canvas-pick" id="canvas-pick" hidden></div>
         </div>
-        <div class="legend" id="legend"></div>
+        <div class="modes" id="modes" role="tablist" aria-label="Map view"></div>
       </div>
+
+      <div class="legend" id="legend"></div>
 
       <div class="stage" id="stage">
         <div class="map-wrap" id="map"></div>
@@ -86,13 +74,13 @@
           <button type="button" class="ctl" id="zoom-in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
           <button type="button" class="ctl" id="zoom-out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
           <button type="button" class="ctl" id="zoom-reset" aria-label="Show all of Punjab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
-          <button type="button" class="ctl" id="labels-toggle" aria-pressed="true" aria-label="Show district names"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></svg></button>
+          <button type="button" class="ctl" id="labels-toggle" aria-pressed="true" aria-label="Map labels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></svg></button>
         </div>
         <p class="map-hint" id="map-hint"></p>
       </div>
     </section>
 
-    <!-- Right: where you are -->
+    <!-- The details card: where you are -->
     <aside class="inspector" id="inspector" tabindex="-1" aria-label="Details">
       <nav class="crumbs" id="crumbs" aria-label="Location"></nav>
       <div class="panel" id="panel" aria-live="polite"></div>
@@ -100,7 +88,24 @@
     </aside>
   </main>
 
-  <div class="scrim" id="rail-scrim" hidden></div>
+  <!-- Topic menu -->
+  <div class="menu-scrim" id="menu-scrim" hidden></div>
+  <div class="topic-menu" id="topic-menu" role="dialog" aria-modal="true" aria-labelledby="menu-title" hidden>
+    <div class="menu-head">
+      <h2 id="menu-title" data-t="chooseTopic">Choose a topic</h2>
+      <button type="button" class="icon-btn" id="menu-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="menu-filter">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="menu-input" type="search" autocomplete="off">
+    </div>
+    <div class="menu-body" id="menu-body"></div>
+    <div class="menu-foot">
+      <button type="button" class="link-btn" data-mode-go="grid" data-t="seeAllTopics">See every topic on small maps</button>
+    </div>
+  </div>
 
   <section class="chat" id="chat" aria-label="Ask Parvaaz">
     <div class="chat-panel" id="chat-panel" hidden>

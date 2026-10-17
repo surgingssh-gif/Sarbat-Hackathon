@@ -142,7 +142,8 @@ window.Atlas = window.Atlas || {};
   function applyBox() {
     svg.setAttribute("viewBox", box.map((v) => v.toFixed(2)).join(" "));
     // Labels and dots keep the same on-screen size at any zoom.
-    const unit = box[2] / (svg.clientWidth || 800);
+    // The map is letterboxed ("meet"), so one screen pixel is the larger of the two ratios.
+    const unit = Math.max(box[2] / (svg.clientWidth || 800), box[3] / (svg.clientHeight || 600));
     svg.style.setProperty("--label-size", (11.5 * unit).toFixed(3) + "px");
     svg.style.setProperty("--label-halo", (3.2 * unit).toFixed(3) + "px");
     gVillages.querySelectorAll("circle").forEach((c) => c.setAttribute("r", (c.dataset.sel ? 8 : 6) * unit));
