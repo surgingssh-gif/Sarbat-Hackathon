@@ -300,7 +300,7 @@ window.Atlas = window.Atlas || {};
   function clampBox(b) {
     let [x, y, w, h] = b;
     const aspect = fullBox[2] / fullBox[3];
-    w = Math.min(fullBox[2] * 1.1, Math.max(fullBox[2] / 10, w));
+    w = Math.min(fullBox[2] * 1.1, Math.max(fullBox[2] / 16, w));
     h = w / aspect;
     // keep at least part of Punjab in view
     x = Math.min(fullBox[0] + fullBox[2] - w * 0.25, Math.max(fullBox[0] - w * 0.75, x));
@@ -405,9 +405,14 @@ window.Atlas = window.Atlas || {};
     if (!s) return animateTo(fullBox);
     const [x, y, w, h] = s.box;
     // Fit to the map's on-screen shape so a tall district fills a wide map properly.
-    const aspect = (svg.clientWidth || fullBox[2]) / (svg.clientHeight || fullBox[3]);
-    const bw = Math.min(fullBox[2] * 1.2, Math.max(w * pad, h * pad * aspect, fullBox[2] * 0.2));
-    const bh = bw / aspect;
+    // The viewBox keeps Punjab's proportions and is letterboxed ("meet") into the screen,
+    // so work out the visible height we need, then convert to a viewBox of Punjab's shape.
+    const screen = (svg.clientWidth || fullBox[2]) / (svg.clientHeight || fullBox[3]);
+    const full = fullBox[2] / fullBox[3];
+    const visH = Math.max(h * pad, (w * pad) / screen);          // visible height needed
+    const bh0 = screen >= full ? visH : visH * (screen / full);   // viewBox height giving that
+    const bw = Math.min(fullBox[2] * 1.2, Math.max(bh0 * full, fullBox[2] * 0.08));
+    const bh = bw / full;
     // Keep the zoomed view inside Punjab's outline where possible.
     const fit = (v, lo, size, full) => Math.min(Math.max(v, lo), Math.max(lo, lo + full - size));
     animateTo([

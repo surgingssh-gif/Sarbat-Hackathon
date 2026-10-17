@@ -35,7 +35,7 @@
       betterUp: "here, higher is better", worseUp: "here, higher is worse",
       greyKey: "Grey = no data, or hidden to protect privacy",
       mapNote: "Click a district to see its numbers. Malerkotla (district since 2021) isn't drawn yet.",
-      rankTitle: "All 23 districts",
+      rankTitle: "Districts, highest first",
       avgLine: "Punjab average",
       hidden: "Hidden",
       punjabOverall: "Punjab overall",
@@ -68,7 +68,7 @@
       tipRank: "{r} of {n}",
       noValue: "No data",
       villagesN: "{n} villages",
-      punjab: "Punjab", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
+      punjab: "Punjab", rankAll: "Show all {n}", rankLess: "Show top 8", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
       blocksApprox: "Block areas on the map are approximate: each spot is shaded by its nearest village's block.",
       blocksNote: "Shaded areas are development blocks in {place}. Click one to see its villages.",
       aboveD: "{d} above {place}", belowD: "{d} below {place}", rankOfBlocks: "{r} of {n} blocks",
@@ -138,7 +138,7 @@
       tipRank: "{n} ਵਿੱਚੋਂ {r}",
       noValue: "ਡਾਟਾ ਨਹੀਂ",
       villagesN: "{n} ਪਿੰਡ",
-      punjab: "ਪੰਜਾਬ", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
+      punjab: "ਪੰਜਾਬ", rankAll: "ਸਾਰੇ {n} ਦਿਖਾਓ", rankLess: "ਸਿਰਫ਼ ਸਿਖਰਲੇ 8", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
       blocksApprox: "ਨਕਸ਼ੇ 'ਤੇ ਬਲਾਕ ਅੰਦਾਜ਼ਨ ਹਨ: ਹਰ ਥਾਂ ਨੇੜਲੇ ਪਿੰਡ ਦੇ ਬਲਾਕ ਨਾਲ ਰੰਗੀ ਹੈ।",
       blocksNote: "ਰੰਗੇ ਖੇਤਰ {place} ਦੇ ਬਲਾਕ ਹਨ। ਪਿੰਡ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ।",
       aboveD: "{place} ਤੋਂ {d} ਵੱਧ", belowD: "{place} ਤੋਂ {d} ਘੱਟ", rankOfBlocks: "{n} ਬਲਾਕਾਂ ਵਿੱਚੋਂ {r}",
@@ -263,16 +263,13 @@
 
   function renderKey(sc) {
     const ind = state.ind, r = ramp(ind), dir = D.meta(ind).direction;
-    const edges = [sc.min, ...sc.breaks, sc.max];
-    // Narrow percentage ranges get a decimal so labels don't repeat ("6%–6%").
-    const fine = D.meta(ind).format === "percent" && sc.max - sc.min < 0.2;
-    const kf = (v) => (fine ? (v * 100).toFixed(1) + "%" : D.fmtShort(v, ind));
-    const steps = [0, 1, 2, 3, 4].map((i) =>
-      `<span class="key-step"><i style="background:var(--seq-${r}-${i})"></i><b>${esc(kf(edges[i]))}–${esc(kf(edges[i + 1]))}</b></span>`).join("");
     const note = dir === "higher_better" ? s("betterUp") : dir === "higher_worse" ? s("worseUp") : "";
-    $("key").innerHTML = `<p class="key-h">${esc(s("howToRead"))}: <b>${esc(s("darker"))}</b>${note ? ` <span class="key-dir is-${r}">(${esc(note)})</span>` : ""}</p>
-      <div class="key-steps">${steps}</div>
-      <p class="key-grey"><i></i>${esc(s("greyKey"))}</p>`;
+    $("key").innerHTML = `<div class="key-simple">
+      <span class="key-end">${esc(D.fmtShort(sc.min, ind))}</span>
+      <span class="key-grad" style="background:linear-gradient(90deg,${[0,1,2,3,4].map((i) => `var(--seq-${r}-${i})`).join(",")})"></span>
+      <span class="key-end">${esc(D.fmtShort(sc.max, ind))}</span>
+      ${note ? `<span class="key-dir is-${r}">${esc(note)}</span>` : ""}
+    </div>`;
   }
 
   function tipHtml(n) {
@@ -299,7 +296,7 @@
       labelText: (n) => {
         const d = byName(n);
         const v = d ? D.visible(state.ind, d.id) : null;
-        return [mapName(n), v === null ? "–" : D.fmtShort(v, state.ind)];
+        return mapName(n);
       },
       calloutHtml: "",
     });
@@ -312,7 +309,7 @@
       for (const bl of bs.list) {
         blocks[bl.key] = {
           fill: bl.share === null ? "var(--nodata)" : sc.color(bl.share), label: bl.name,
-          value: bl.share === null ? "–" : D.fmtShort(bl.share, state.ind), selected: bl.key === state.block,
+          value: "", selected: bl.key === state.block,
           tip: `<strong>${esc(bl.name)} ${esc(s("blockWord"))}</strong><span class="tip-v">${esc(bl.share === null ? s("noValue") : D.fmt(bl.share, state.ind))}</span><span class="tip-r">${esc(s("blockTip", { k: bl.k, n: bl.n }))}</span>`,
         };
       }
@@ -329,7 +326,7 @@
         };
       }) : [];
       Atlas.Map.setVillages(pts, () => {});
-      if (state.zoomed !== sel.name) { Atlas.Map.zoomTo(sel.name, 1.25); state.zoomed = sel.name; }
+      if (state.zoomed !== sel.name) { Atlas.Map.zoomTo(sel.name, 1.12); state.zoomed = sel.name; }
     } else {
       Atlas.Map.setBlocks(null, [], {}, () => {});
       Atlas.Map.setVillages([], () => {});
@@ -454,7 +451,12 @@
           ${avgPos !== null ? `<span class="rank-avg" style="left:${avgPos.toFixed(1)}%"></span>` : ""}</span>
         <span class="rank-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>
       </button></li>`;
-    $("rank-list").innerHTML = shown.map((d, i) => row(d.geo, d.value, i)).join("") + hiddenOnes.map((d) => row(d, null, 0)).join("");
+    const all = shown.map((d, i) => row(d.geo, d.value, i)).concat(hiddenOnes.map((d) => row(d, null, 0)));
+    const LIMIT = 8;
+    const selIdx = shown.findIndex((d) => d.geo.id === state.district);
+    let rowsHtml = state.rankAll || all.length <= LIMIT + 2 ? all.join("")
+      : all.slice(0, LIMIT).join("") + (selIdx >= LIMIT ? `<li class="rank-gap">…</li>` + all[selIdx] : "");
+    $("rank-list").innerHTML = rowsHtml + (all.length > LIMIT + 2 ? `<li><button type="button" class="link rank-more" id="rank-more">${esc(state.rankAll ? s("rankLess") : s("rankAll", { n: all.length }))}</button></li>` : "");
   }
 
   // ---------- one district ----------
@@ -754,6 +756,7 @@
       const kpi = e.target.closest("[data-kpi]");
       if (kpi) { const d = D.districts().find((x) => x.name === A().get().home); state.district = d ? d.id : null; state.ind = kpi.dataset.kpi; return render(); }
       if (e.target.closest("[data-home]")) { const d = D.districts().find((x) => x.name === A().get().home); return selectDistrict(d ? d.id : null); }
+      if (e.target.closest("#rank-more")) { state.rankAll = !state.rankAll; return render(); }
       if (e.target.closest("#rows-toggle")) { state.allRows = !state.allRows; return renderTable(); }
       const brow = e.target.closest(".rank-row[data-block]");
       if (brow) return toggleBlock(brow.dataset.block);
@@ -833,6 +836,7 @@
       resetBtn.type = "button"; resetBtn.className = "map-reset"; resetBtn.textContent = "↺ Punjab";
       resetBtn.addEventListener("click", () => Atlas.Map.reset());
       $("map").appendChild(resetBtn);
+      document.querySelector(".lower").prepend($("table"));
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind();
       render();

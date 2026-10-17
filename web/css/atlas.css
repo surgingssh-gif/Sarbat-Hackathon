@@ -555,3 +555,30 @@ a:hover, .link:hover, .crumb:hover { text-decoration: underline !important; }
 .acct-menu { border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 20px 50px rgba(16,24,40,.16); }
 .drawer-card { border-radius: 20px 0 0 20px; }
 .toast { border-radius: 12px; }
+
+/* ---------- map-first layout, fewer numbers ---------- */
+.answer-body { grid-template-columns: minmax(0, 1fr) minmax(320px, 380px); grid-template-rows: auto 1fr; align-items: start; }
+.answer-body .mapbox { grid-column: 1; grid-row: 1 / span 2; }
+.answer-body .mid { grid-column: 2; grid-row: 1; }
+.answer-body .col.rank { grid-column: 2; grid-row: 2; }
+.map-wrap { height: calc(100vh - 330px); min-height: 480px; max-height: 900px; }
+.lower { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.lower > .table-wrap { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; }
+.lower:has(.villages[hidden]) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.key { margin-bottom: 10px; }
+.key-simple { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--muted); }
+.key-grad { flex: 0 1 220px; height: 8px; border-radius: 999px; }
+.key-end { font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.key-dir { margin-left: 6px; }
+.key-h, .key-steps, .key-grey { display: none; }
+.focus-value { font-size: 52px; }
+.rank-gap { list-style: none; text-align: center; color: var(--faint); line-height: 1; }
+.rank-more { margin: 8px 6px 0; font-size: 13px; font-weight: 600; }
+.cite { font-size: 11px; }
+.district-label { font-weight: 600; }
+@media (max-width: 1000px) {
+  .answer-body { grid-template-columns: 1fr; grid-template-rows: none; }
+  .answer-body .mapbox, .answer-body .mid, .answer-body .col.rank { grid-column: 1; grid-row: auto; }
+  .lower { grid-template-columns: 1fr; }
+  .map-wrap { height: 460px; min-height: 0; }
+}
