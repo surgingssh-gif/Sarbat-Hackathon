@@ -16,7 +16,7 @@ window.Atlas = window.Atlas || {};
   const W = 1000;
   let svg, gTop, gContext, gOutline, gShapes, gLabels, gVillages, tip, wrap, callout;
   let selectedName = null, calloutHtml = "";
-  let shapes = new Map(), project, fullBox, box, anim, handlers;
+  let shapes = new Map(), project, fullBox, box, anim, handlers, gBlocks, gBlockLabels;
   let drag = null, suppressClick = false;
 
   // ---------- geometry ----------
@@ -218,7 +218,12 @@ window.Atlas = window.Atlas || {};
     gTop = document.createElementNS(NS, "g");
     gTop.setAttribute("class", "map-top");
     gTop.setAttribute("aria-hidden", "true");
-    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gLabels, gTop, gVillages);
+    gBlocks = document.createElementNS(NS, "g");
+    gBlocks.setAttribute("class", "blocks");
+    gBlockLabels = document.createElementNS(NS, "g");
+    gBlockLabels.setAttribute("class", "block-labels");
+    gBlockLabels.setAttribute("aria-hidden", "true");
+    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gBlocks, gLabels, gBlockLabels, gTop, gVillages);
     drawContext(opts.context);
 
     for (const f of features) {
@@ -319,6 +324,7 @@ window.Atlas = window.Atlas || {};
     });
     svg.style.setProperty("--ctx-size", (13 * unit).toFixed(3) + "px");
     svg.style.setProperty("--unit", unit.toFixed(4));
+    svg.style.setProperty("--block-size", (11 * unit).toFixed(3) + "px");
     declutter();
     placeCallout();
     queueTiles();
@@ -550,7 +556,73 @@ window.Atlas = window.Atlas || {};
     return `<svg class="mini-svg" viewBox="${fullBox.join(" ")}" aria-hidden="true">${paths}</svg>`;
   }
 
+  /*
+   * Blocks inside one district, drawn as approximate areas: every spot in the district is
+   * given to the block of its nearest village (no official block boundaries are published).
+   * points: [{ lon, lat, key }]; blocks: { key: { fill, label, value, selected } }
+   */
+  function setBlocks(district, points, blocks, onSelect) {
+    gBlocks.innerHTML = ""; gBlockLabels.innerHTML = "";
+    wrap.classList.toggle("has-blocks", Boolean(district));
+    const s = district && shapes.get(district);
+    if (!s || !points.length) return;
+    const pts = points.map((p) => { const [x, y] = project([p.lon, p.lat]); return { x, y, key: p.key }; });
+    const [bx, by, bw, bh] = s.box;
+    const N = 120, cell = Math.max(bw, bh) / N;
+    const cols = Math.ceil(bw / cell), rows = Math.ceil(bh / cell);
+    const clipId = "blk-clip";
+    const defs = document.createElementNS(NS, "defs");
+    defs.innerHTML = `<clipPath id="${clipId}"><path d="${s.d}"/></clipPath>`;
+    gBlocks.appendChild(defs);
+    const g = document.createElementNS(NS, "g");
+    g.setAttribute("clip-path", `url(#${clipId})`);
+    let html = "";
+    const grid = [];
+    for (let r = 0; r < rows; r++) {
+      const rowKeys = []; grid.push(rowKeys);
+      const cy = by + (r + 0.5) * cell;
+      let runKey = null, runStart = 0;
+      const flush = (end) => {
+        if (runKey === null) return;
+        const b = blocks[runKey] || {};
+        html += `<rect x="${(bx + runStart * cell).toFixed(2)}" y="${(by + r * cell).toFixed(2)}" width="${((end - runStart) * cell + cell * 0.6).toFixed(2)}" height="${(cell * 1.6).toFixed(2)}" fill="${b.fill || "var(--nodata)"}" data-key="${String(runKey).replace(/"/g, "&quot;")}" class="blk${b.selected ? " is-sel" : ""}"/>`;
+      };
+      for (let c = 0; c < cols; c++) {
+        const cx = bx + (c + 0.5) * cell;
+        let best = null, bd = Infinity;
+        for (const p of pts) { const d = (p.x - cx) ** 2 + (p.y - cy) ** 2; if (d < bd) { bd = d; best = p.key; } }
+        rowKeys.push(best);
+        if (best !== runKey) { flush(c); runKey = best; runStart = c; }
+      }
+      flush(cols);
+    }
+    // Borders wherever neighbouring cells belong to different blocks.
+    let d = "";
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const k = grid[r][c], x = bx + c * cell, y = by + r * cell;
+      if (c + 1 < cols && grid[r][c + 1] !== k) d += `M${(x + cell).toFixed(2)} ${y.toFixed(2)}v${cell.toFixed(2)}`;
+      if (r + 1 < rows && grid[r + 1][c] !== k) d += `M${x.toFixed(2)} ${(y + cell).toFixed(2)}h${cell.toFixed(2)}`;
+    }
+    html += `<path class="blk-border" d="${d}"/>`;
+    g.innerHTML = html;
+    gBlocks.appendChild(g);
+    g.addEventListener("click", (e) => { const k = e.target.dataset && e.target.dataset.key; if (k && !suppressClick) onSelect(k); });
+    g.addEventListener("pointermove", (e) => { const k = e.target.dataset && e.target.dataset.key; if (k && blocks[k]) showTip(e, blocks[k].tip); });
+    g.addEventListener("pointerleave", hideTip);
+    // Labels at the middle of each block's villages.
+    const sums = {};
+    for (const p of pts) { const a = (sums[p.key] ||= { x: 0, y: 0, n: 0 }); a.x += p.x; a.y += p.y; a.n++; }
+    for (const [k, a] of Object.entries(sums)) {
+      const b = blocks[k]; if (!b) continue;
+      const t = document.createElementNS(NS, "text");
+      t.setAttribute("class", "block-label" + (b.selected ? " is-sel" : ""));
+      t.setAttribute("x", (a.x / a.n).toFixed(1)); t.setAttribute("y", (a.y / a.n).toFixed(1));
+      t.innerHTML = `<tspan x="${(a.x / a.n).toFixed(1)}" dy="-0.4em">${escText(b.label)}</tspan><tspan class="label-val" x="${(a.x / a.n).toFixed(1)}" dy="1.15em">${escText(b.value)}</tspan>`;
+      gBlockLabels.appendChild(t);
+    }
+  }
+
   function drawn() { return new Set(shapes.keys()); }
 
-  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setVillages, miniSvg, drawn, hideTip };
+  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setVillages, setBlocks, miniSvg, drawn, hideTip };
 })();

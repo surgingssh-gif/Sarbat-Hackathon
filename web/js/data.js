@@ -364,7 +364,7 @@ window.Atlas = window.Atlas || {};
       const vcsv = inline ? inline.villages : Atlas.config.villagesUrl
         ? await fetch(Atlas.config.villagesUrl).then((r) => (r.ok ? r.text() : "")) : "";
       if (vcsv) Atlas.villages = parseCSV(vcsv).map((r) => ({
-        code: r.lgd_village_code, name: r.village_name, district: r.district, subdistrict: r.subdistrict,
+        code: r.lgd_village_code, name: r.village_name, district: r.district, subdistrict: r.subdistrict, block: r.block || r.subdistrict,
         lat: num(r.latitude), lon: num(r.longitude), population: num(r.population), hasData: r.has_data === "1", raw: r,
       })).filter((v) => v.lat !== null && v.lon !== null);
     } catch (err) { console.warn("Villages not loaded", err); }

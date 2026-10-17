@@ -68,6 +68,11 @@
       tipRank: "{r} of {n}",
       noValue: "No data",
       villagesN: "{n} villages",
+      punjab: "Punjab", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
+      blocksApprox: "Block areas on the map are approximate: each spot is shaded by its nearest village's block.",
+      blocksNote: "Shaded areas are development blocks in {place}. Click one to see its villages.",
+      aboveD: "{d} above {place}", belowD: "{d} below {place}", rankOfBlocks: "{r} of {n} blocks",
+      blockSay: "{k} of {n} villages with a 2020 record have this: {topic}.", withRecord: "{n} with a record",
       signIn: "Sign in", signOut: "Sign out", editProfile: "Edit profile", savedViews: "Saved views", recent: "Recently viewed",
       noSaved: "Nothing saved yet. Use ☆ Save on any view.", save: "Save", saved: "Saved",
       welcome: "Welcome back, {name}.", openHome: "Open {place} →",
@@ -83,7 +88,7 @@
       vPick: "Pick a topic under Village facilities to see each village as a dot on the map.",
       vNone: "Village-level facility data isn't loaded.",
       vTipHas: "Has it", vTipNot: "Doesn't have it", vTipNa: "No record",
-      dotsNote: "Dots are villages in {place}. Click the district again to go back.",
+      dotsNote: "Dots are villages in {place}: filled = has it, white = doesn't, grey = no record.",
     },
     pa: {
       brand: "ਪੰਜਾਬ ਡਾਟਾ ਹੱਬ", by: "ਪਰਵਾਜ਼ ਵੱਲੋਂ", about: "ਡਾਟਾ ਬਾਰੇ",
@@ -133,6 +138,11 @@
       tipRank: "{n} ਵਿੱਚੋਂ {r}",
       noValue: "ਡਾਟਾ ਨਹੀਂ",
       villagesN: "{n} ਪਿੰਡ",
+      punjab: "ਪੰਜਾਬ", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
+      blocksApprox: "ਨਕਸ਼ੇ 'ਤੇ ਬਲਾਕ ਅੰਦਾਜ਼ਨ ਹਨ: ਹਰ ਥਾਂ ਨੇੜਲੇ ਪਿੰਡ ਦੇ ਬਲਾਕ ਨਾਲ ਰੰਗੀ ਹੈ।",
+      blocksNote: "ਰੰਗੇ ਖੇਤਰ {place} ਦੇ ਬਲਾਕ ਹਨ। ਪਿੰਡ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ।",
+      aboveD: "{place} ਤੋਂ {d} ਵੱਧ", belowD: "{place} ਤੋਂ {d} ਘੱਟ", rankOfBlocks: "{n} ਬਲਾਕਾਂ ਵਿੱਚੋਂ {r}",
+      blockSay: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡਾਂ ਵਿੱਚ ਇਹ ਹੈ: {topic}।", withRecord: "{n} ਰਿਕਾਰਡ ਵਾਲੇ",
       signIn: "ਸਾਈਨ ਇਨ", signOut: "ਸਾਈਨ ਆਊਟ", editProfile: "ਪ੍ਰੋਫਾਈਲ ਬਦਲੋ", savedViews: "ਸੰਭਾਲੇ ਦ੍ਰਿਸ਼", recent: "ਹਾਲ ਹੀ ਵਿੱਚ ਦੇਖੇ",
       noSaved: "ਅਜੇ ਕੁਝ ਨਹੀਂ ਸੰਭਾਲਿਆ। ਕਿਸੇ ਵੀ ਦ੍ਰਿਸ਼ 'ਤੇ ☆ ਸੰਭਾਲੋ ਵਰਤੋ।", save: "ਸੰਭਾਲੋ", saved: "ਸੰਭਾਲਿਆ",
       welcome: "ਜੀ ਆਇਆਂ ਨੂੰ, {name}।", openHome: "{place} ਖੋਲ੍ਹੋ →",
@@ -166,7 +176,7 @@
 
   // ---------- state ----------
 
-  const state = { ind: null, district: null, cmp: null, moreTopics: false, allRows: false, zoomed: null };
+  const state = { ind: null, district: null, block: null, cmp: null, moreTopics: false, allRows: false, zoomed: null };
 
   const geo = (id) => Atlas.data.geos.get(id);
   const stateId = () => Atlas.data.stateId;
@@ -182,6 +192,26 @@
     return Atlas.THEMES.map((th) => ({ ...th, indicators: th.indicators.filter((i) => have.has(i)) }));
   }
   const allIndicators = () => available().flatMap((th) => th.indicators);
+
+  // ---------- blocks (village-facility topics only) ----------
+
+  // Share of villages with a record that have the facility, per development block.
+  function blockStats(g, ind) {
+    const col = D.meta(ind).village;
+    if (!g || !col || !Atlas.villages.length) return null;
+    const by = {};
+    for (const v of Atlas.villages) {
+      if (v.district !== g.name) continue;
+      const b = (by[v.block] ||= { key: v.block, name: v.block, villages: 0, n: 0, k: 0 });
+      b.villages++;
+      if (v.hasData) { b.n++; if (v.raw[col] === "1") b.k++; }
+    }
+    const list = Object.values(by).map((b) => ({ ...b, share: b.n ? b.k / b.n : null }));
+    const ranked = list.filter((b) => b.share !== null).sort((a, b) => b.share - a.share);
+    ranked.forEach((b, i) => { b.rank = i + 1; });
+    return { list, ranked, byKey: Object.fromEntries(list.map((b) => [b.key, b])) };
+  }
+  const blockMode = () => Boolean(state.district && D.meta(state.ind).village && Atlas.villages.length);
 
   // ---------- colour ----------
 
@@ -274,27 +304,39 @@
       calloutHtml: "",
     });
     const col = D.meta(state.ind).village;
-    const showDots = Boolean(sel && col && Atlas.villages.length);
+    const showDots = blockMode();
     if (showDots) {
       const r = ramp(state.ind);
-      const pts = Atlas.villages.filter((v) => v.district === sel.name).map((v) => {
+      const bs = blockStats(sel, state.ind);
+      const blocks = {};
+      for (const bl of bs.list) {
+        blocks[bl.key] = {
+          fill: bl.share === null ? "var(--nodata)" : sc.color(bl.share), label: bl.name,
+          value: bl.share === null ? "–" : D.fmtShort(bl.share, state.ind), selected: bl.key === state.block,
+          tip: `<strong>${esc(bl.name)} ${esc(s("blockWord"))}</strong><span class="tip-v">${esc(bl.share === null ? s("noValue") : D.fmt(bl.share, state.ind))}</span><span class="tip-r">${esc(s("blockTip", { k: bl.k, n: bl.n }))}</span>`,
+        };
+      }
+      const inDist = Atlas.villages.filter((v) => v.district === sel.name);
+      Atlas.Map.setBlocks(sel.name, inDist.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => toggleBlock(k));
+      const pts = state.block ? inDist.filter((v) => v.block === state.block).map((v) => {
         const f = v.raw[col];
         const st = f === "1" ? "has" : f === "0" ? "not" : "na";
         return {
           id: v.code, lat: v.lat, lon: v.lon,
           fill: st === "has" ? `var(--seq-${r}-4)` : st === "not" ? "#ffffff" : "#b9b9b9",
           label: `${v.name}: ${s(st === "has" ? "vTipHas" : st === "not" ? "vTipNot" : "vTipNa")}`,
-          tip: `<strong>${esc(v.name)}</strong><span class="tip-r">${esc(v.subdistrict)}${v.population ? " · " + v.population.toLocaleString() : ""}</span><span class="tip-s is-${st}">${esc(s(st === "has" ? "vTipHas" : st === "not" ? "vTipNot" : "vTipNa"))}: ${esc(short(state.ind))}</span>`,
+          tip: `<strong>${esc(v.name)}</strong><span class="tip-r">${esc(v.block)}${v.population ? " · " + v.population.toLocaleString() : ""}</span><span class="tip-s is-${st}">${esc(s(st === "has" ? "vTipHas" : st === "not" ? "vTipNot" : "vTipNa"))}: ${esc(short(state.ind))}</span>`,
         };
-      });
+      }) : [];
       Atlas.Map.setVillages(pts, () => {});
       if (state.zoomed !== sel.name) { Atlas.Map.zoomTo(sel.name, 1.25); state.zoomed = sel.name; }
     } else {
+      Atlas.Map.setBlocks(null, [], {}, () => {});
       Atlas.Map.setVillages([], () => {});
       if (state.zoomed) { Atlas.Map.reset(); state.zoomed = null; }
     }
-    $("map").classList.toggle("has-dots", showDots);
-    $("map-note").textContent = showDots ? s("dotsNote", { place: placeName(sel) }) : s("mapNote");
+    $("map").classList.toggle("has-dots", Boolean(showDots && state.block));
+    $("map-note").textContent = showDots ? s(state.block ? "dotsNote" : "blocksNote", { place: state.block || placeName(sel) }) : s("mapNote");
   }
 
   function citation(ind, g) {
@@ -316,8 +358,38 @@
     return { text: s(d.sign > 0 ? "above" : "below", { d: d.text.replace(/^[+−]/, "") }), tone: D.tone(d.sign, ind) };
   }
 
+  function crumbs() {
+    if (!state.district) return "";
+    const g = geo(state.district);
+    const parts = [`<button type="button" class="crumb" data-clear>${esc(s("punjab"))}</button>`,
+      state.block ? `<button type="button" class="crumb" data-unblock>${esc(placeName(g))}</button>` : `<span>${esc(placeName(g))}</span>`];
+    if (state.block) parts.push(`<span>${esc(state.block)}</span>`);
+    return `<nav class="crumbs">${parts.join('<span class="crumb-sep">›</span>')}</nav>`;
+  }
+
+  function renderBlockFocus() {
+    const ind = state.ind, g = geo(state.district), bs = blockStats(g, ind), b = bs.byKey[state.block];
+    if (!b) { state.block = null; return false; }
+    const dv = D.visible(ind, g.id);
+    const dd = b.share !== null && dv !== null ? D.fmtDelta(b.share, dv, ind) : null;
+    $("focus").innerHTML = `${crumbs()}
+      <div class="focus-top"><p class="focus-place">${esc(b.name)} <span class="focus-kind">${esc(s("blockWord"))}</span></p>
+        <span class="focus-actions"><button type="button" class="link focus-clear" data-unblock>× ${esc(placeName(g))}</button></span></div>
+      <p class="focus-label">${esc(label(ind))}</p>
+      <p class="focus-value">${esc(b.share === null ? s("noValue") : D.fmt(b.share, ind))}</p>
+      <div class="focus-chips">
+        ${dd && dd.sign ? `<span class="chip is-${D.tone(dd.sign, ind)}">${esc(s(dd.sign > 0 ? "aboveD" : "belowD", { d: dd.text.replace(/^[+−]/, ""), place: placeName(g) }))}</span>` : ""}
+        ${b.rank ? `<span class="chip">${esc(s("rankOfBlocks", { r: ordinal(b.rank), n: bs.ranked.length }))}</span>` : ""}
+      </div>
+      <p class="focus-say">${esc(s("blockSay", { k: b.k, n: b.n, topic: short(ind).toLowerCase() }))}</p>
+      <p class="cite"><span class="cite-h">${esc(s("source"))}:</span> Mission Antyodaya 2020 via SHRUG v2.2, ${esc(s("villagesN", { n: b.villages }))} (${esc(s("withRecord", { n: b.n }))}). <a href="https://docs.devdatalab.org/SHRUG-Metadata/Mission%20Antyodaya%20Village%20Facilities%20%282020%29/antyodaya-metadata/" target="_blank" rel="noopener">${esc(s("openSource"))} ↗</a></p>`;
+    $("focus").classList.add("is-place");
+    return true;
+  }
+
   function renderFocus() {
     const ind = state.ind;
+    if (state.block && blockMode() && renderBlockFocus()) return;
     const g = state.district ? geo(state.district) : geo(stateId());
     const v = D.visible(ind, g.id);
     const isState = g.level === "state";
@@ -333,7 +405,7 @@
     }
     const said = v === null ? "" : D.say(ind, v);
     const sentence = !said ? "" : isState ? said.charAt(0).toUpperCase() + said.slice(1) + (Atlas.lang === "pa" ? "।" : ".") : s("inPlace", { place: placeName(g), say: said });
-    $("focus").innerHTML = `
+    $("focus").innerHTML = `${crumbs()}
       <div class="focus-top">
         <p class="focus-place">${esc(isState ? s("punjabOverall") : placeName(g))}</p>
         <span class="focus-actions">
@@ -353,6 +425,18 @@
 
   function renderRank(sc) {
     const ind = state.ind, m = D.meta(ind);
+    if (blockMode()) {
+      const g = geo(state.district), bs = blockStats(g, ind), dv = D.visible(ind, g.id);
+      const pos = (v) => Math.max(0, Math.min(100, v * 100 / Math.max(1e-9, Math.max(...bs.ranked.map((b) => b.share), dv ?? 0) * 1.06)));
+      $("rank-title").innerHTML = `<span>${esc(s("blocksIn", { place: placeName(g), n: bs.list.length }))}</span>${dv !== null ? `<span class="avg-key"><i></i>${esc(placeName(g))}: ${esc(D.fmt(dv, ind))}</span>` : ""}`;
+      $("rank-list").innerHTML = bs.ranked.concat(bs.list.filter((b) => b.share === null)).map((b) => `<li><button type="button" class="rank-row${b.key === state.block ? " is-sel" : ""}" data-block="${esc(b.key)}">
+        <span class="rank-name">${esc(b.name)}</span>
+        <span class="rank-track">${b.share === null ? "" : `<span class="rank-bar" style="width:${pos(b.share).toFixed(1)}%;background:${sc.color(b.share)}"></span>`}
+          ${dv !== null ? `<span class="rank-avg" style="left:${pos(dv).toFixed(1)}%"></span>` : ""}</span>
+        <span class="rank-v">${esc(b.share === null ? s("noValue") : D.fmt(b.share, ind))}</span></button></li>`).join("") +
+        `<li class="rank-note">${esc(s("blocksApprox"))}</li>`;
+      return;
+    }
     const shown = D.districtValues(ind).sort((a, b) => b.value - a.value);
     const hiddenOnes = D.districts().filter((d) => D.visible(ind, d.id) === null);
     const pv = D.visible(ind, stateId());
@@ -606,22 +690,26 @@
 
   function writeHash() {
     const d = state.district ? geo(state.district).id.split(":").pop() : "";
-    const h = "#" + [state.ind, d, state.cmp || ""].join("/").replace(/\/+$/, "");
+    const h = "#" + [state.ind, d, state.cmp || "", state.block ? encodeURIComponent(state.block) : ""].join("/").replace(/\/+$/, "");
     if (location.hash !== h) history.replaceState(null, "", h);
     A().visit({ hash: h.slice(1), title: viewTitle() });
   }
 
   function readHash() {
-    const [ind, d, cmp] = decodeURIComponent(location.hash.slice(1)).split("/");
+    const [ind, d, cmp, blk] = location.hash.slice(1).split("/").map((x) => decodeURIComponent(x || ""));
     const inds = allIndicators();
     state.ind = inds.includes(ind) ? ind : inds.includes(Atlas.config.defaultIndicator) ? Atlas.config.defaultIndicator : inds[0];
     const g = d && D.districts().find((x) => x.id.split(":").pop() === d);
     state.district = g ? g.id : null;
     state.cmp = inds.includes(cmp) ? cmp : null;
+    state.block = state.district && blk ? blk : null;
   }
+
+  function toggleBlock(k) { state.block = k === state.block ? null : k; render(); }
 
   function selectDistrict(id, { scroll = false } = {}) {
     state.district = id || null;
+    state.block = null;
     render();
     if (scroll && state.district && window.innerWidth < 900) $("focus").scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -630,6 +718,7 @@
   function setIndicator(ind) {
     if (!ind || ind === state.ind) return;
     state.ind = ind;
+    if (!D.meta(ind).village) state.block = null;
     render();
   }
 
@@ -666,6 +755,9 @@
       if (kpi) { const d = D.districts().find((x) => x.name === A().get().home); state.district = d ? d.id : null; state.ind = kpi.dataset.kpi; return render(); }
       if (e.target.closest("[data-home]")) { const d = D.districts().find((x) => x.name === A().get().home); return selectDistrict(d ? d.id : null); }
       if (e.target.closest("#rows-toggle")) { state.allRows = !state.allRows; return renderTable(); }
+      const brow = e.target.closest(".rank-row[data-block]");
+      if (brow) return toggleBlock(brow.dataset.block);
+      if (e.target.closest("[data-unblock]")) { state.block = null; return render(); }
       const row = e.target.closest(".rank-row");
       if (row) return toggleDistrict(row.dataset.id, { scroll: true });
       if (e.target.closest("[data-clear]")) return selectDistrict(null);

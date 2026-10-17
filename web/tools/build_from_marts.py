@@ -144,14 +144,14 @@ def main(path):
         w.writerows(rows)
 
     # Villages: just what the map needs.
-    vcols = ["lgd_village_code", "village_name", "district", "subdistrict", "latitude", "longitude", "population", "has_data"] + [c for _, c in FACILITIES.values()]
+    vcols = ["lgd_village_code", "village_name", "district", "subdistrict", "block", "latitude", "longitude", "population", "has_data"] + [c for _, c in FACILITIES.values()]
     with OUT_VILLAGES.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(vcols)
         for v in villages:
             obs = v["facility_data_status"] == "observed"
             pop = num(v["antyodaya_population"])
-            w.writerow([v["lgd_village_code"], v["village_name"], v["district_name"], v["subdistrict_name"],
+            w.writerow([v["lgd_village_code"], v["village_name"], v["district_name"], v["subdistrict_name"], v["development_block_name"],
                         v["latitude"], v["longitude"], int(pop) if pop else "", 1 if obs else 0] +
                        [("1" if test(v) else "0") if obs else "" for test, _ in FACILITIES.values()])
 
