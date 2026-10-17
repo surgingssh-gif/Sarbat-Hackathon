@@ -76,7 +76,14 @@ window.Atlas = window.Atlas || {};
 
     const url = Atlas.config.assistantUrl;
     if (!url) {
-      add("bot is-note", esc(Atlas.t("chatOffline")));
+      // Built-in mode: answer from the atlas data, with sources.
+      const pending = add("bot is-pending", esc(Atlas.t("chatThinking")));
+      await new Promise((r) => setTimeout(r, 450));
+      const out = Atlas.Answer.answer(question, lang, getContext());
+      pending.classList.remove("is-pending");
+      const cites = out.sources.map((x) => x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>` : esc(x.name)).join(" · ");
+      pending.innerHTML = `<div lang="${lang}">${out.html}</div>` + (cites ? `<div class="msg-cites">${esc(Atlas.t("chatSources"))}: ${cites}</div>` : "");
+      els.log.scrollTop = els.log.scrollHeight;
       return;
     }
     const pending = add("bot is-pending", esc(Atlas.t("chatThinking")));

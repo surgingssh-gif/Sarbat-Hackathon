@@ -716,8 +716,10 @@
     const place = g ? g.name : "Punjab";
     const placePa = g ? Atlas.DISTRICT_PA[g.name] || g.name : "ਪੰਜਾਬ";
     return [
-      `What do we know about "${Atlas.D.meta(state.ind).label.en}" in ${place}?`,
-      `${placePa} ਵਿੱਚ 2025 ਦੇ ਹੜ੍ਹਾਂ ਨੇ ਕਿੰਨਾ ਨੁਕਸਾਨ ਕੀਤਾ?`,
+      `Tell me about ${place}`,
+      "Which district had the worst flood damage?",
+      `${placePa} ਵਿੱਚ ਕਿੰਨੇ ਪਿੰਡਾਂ ਵਿੱਚ ਸਕੂਲ ਹੈ?`,
+      "I want to understand farm debt in Sangrur",
     ];
   }
 
