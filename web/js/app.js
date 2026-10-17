@@ -525,7 +525,7 @@
         for (const v of vs) { if (blocks[v.block]) continue; const b = byB[v.block];
           blocks[v.block] = { fill: dc, label: v.block, value: "", selected: false,
             tip: `<strong>${esc(v.block)}</strong>` + (b ? SVC.map(([c, , l]) => `<span class="tip-r">${esc(s(l))}: ${pct(b.shares[c])}</span>`).join("") : "") }; }
-        Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); });
+        Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); }, { boxy: true });
         Atlas.Map.setDense(showV ? vs.map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr", tip: villageTip(v) })) : null, atlas.sel, selectVillage);
       } else { Atlas.Map.setBlocks(null, [], {}, () => {}); Atlas.Map.setDense(null); }
     }

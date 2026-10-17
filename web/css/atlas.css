@@ -384,7 +384,7 @@ body.on-atlas footer { margin-top: 0; }
 .atlas-legend .al-h { margin: 4px 0 0; font: 600 12px/1.3 var(--sans); color: var(--ink-2); }
 .atlas-legend .legend { margin-top: 4px; }
 @media (min-width: 641px) { .atlas-card { right: max(16px, calc(50vw - 580px)); top: 18px; width: 320px; } }
-.block-lines .blk-line { fill: none; stroke: var(--paper); stroke-opacity: .75; stroke-width: .9; vector-effect: non-scaling-stroke; pointer-events: none; }
+.block-lines .blk-line { fill: none; stroke: var(--paper); stroke-opacity: .8; stroke-width: 1; stroke-linejoin: miter; vector-effect: non-scaling-stroke; pointer-events: none; }
 .map-wrap.is-dense .block-lines { opacity: .35; }
 .dense-ripple { fill: none; stroke: var(--ink); stroke-width: 2; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; animation: ripple 1.8s cubic-bezier(.2,.7,.2,1) infinite; }
 @keyframes ripple { from { transform: scale(1); opacity: .8; } to { transform: scale(3.2); opacity: 0; } }

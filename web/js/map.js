@@ -575,7 +575,7 @@ window.Atlas = window.Atlas || {};
 
   // Approximate block areas inside one district: nearest-village regions on an N-cell grid, traced and smoothed.
   // Returns { blockKey: pathData }.
-  function traceBlocks(s, pts, N) {
+  function traceBlocks(s, pts, N, boxy = false) {
     const [bx, by, bw, bh] = s.box;
     const cell = Math.max(bw, bh) / N;
     const cols = Math.ceil(bw / cell), rows = Math.ceil(bh / cell);
@@ -629,7 +629,7 @@ window.Atlas = window.Atlas || {};
         const a = loop[(i - 1 + loop.length) % loop.length], b = loop[(i + 1) % loop.length];
         return !((a[0] === q[0] && q[0] === b[0]) || (a[1] === q[1] && q[1] === b[1]));
       }).map(([c, r]) => [X(c), Y(r)]);
-      for (let it = 0; it < 3 && p.length > 2; it++) {
+      for (let it = 0; it < (boxy ? 0 : 3) && p.length > 2; it++) {
         const o = [];
         for (let i = 0; i < p.length; i++) {
           const a = p[i], b = p[(i + 1) % p.length];
@@ -653,7 +653,7 @@ window.Atlas = window.Atlas || {};
       Object.entries(byDistrict).forEach(([name, points], i) => {
         const s = shapes.get(name); if (!s || !points.length) return;
         const pts = points.map((p) => { const [x, y] = project([p.lon, p.lat]); return { x, y, key: p.key }; });
-        const id = "bl-clip-" + i, d = Object.values(traceBlocks(s, pts, 46)).join("");
+        const id = "bl-clip-" + i, d = Object.values(traceBlocks(s, pts, 46, true)).join("");
         html += `<clipPath id="${id}"><path d="${s.d}"/></clipPath><path class="blk-line" pathLength="1" clip-path="url(#${id})" d="${d}"/>`;
       });
       blockLinesCache = html;
@@ -714,7 +714,7 @@ window.Atlas = window.Atlas || {};
    * given to the block of its nearest village (no official block boundaries are published).
    * points: [{ lon, lat, key }]; blocks: { key: { fill, label, value, selected } }
    */
-  function setBlocks(district, points, blocks, onSelect) {
+  function setBlocks(district, points, blocks, onSelect, opts = {}) {
     gBlocks.innerHTML = ""; gBlockLabels.innerHTML = "";
     wrap.classList.toggle("has-blocks", Boolean(district));
     const s = district && shapes.get(district);
@@ -726,7 +726,7 @@ window.Atlas = window.Atlas || {};
     gBlocks.appendChild(defs);
     const g = document.createElementNS(NS, "g");
     g.setAttribute("clip-path", `url(#${clipId})`);
-    const traced = traceBlocks(s, pts, 120);
+    const traced = traceBlocks(s, pts, opts.boxy ? 60 : 120, !!opts.boxy);
     let html = "";
     const keys = [...new Set(pts.map((p) => p.key))];
     for (const k of keys) {
