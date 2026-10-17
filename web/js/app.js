@@ -82,7 +82,7 @@
       whyH: "Why it ranks here", blocksH: "Its blocks", blocksSub: "Share of villages with each service, weakest blocks first. Click a block.",
       above: "{d} above Punjab", below: "{d} below Punjab", same: "Same as Punjab",
       modalMap: "Blocks shaded by missing services (darker = fewer). Click a block. Block areas are approximate.",
-      modalMapBlock: "Dots are villages: darker = more of the 4 basic services, white = none, grey = no record.",
+      modalMapBlock: "Each dot is a village: darker = missing more of the 4 basic services; rings = none missing or no record. Click another block to move there.",
       blockDeck: "{hs}% of {place}'s villages have a high school and {hc}% a health centre, against {dhs}% and {dhc}% across {district}.",
       blockGap: "{k} of its {n} villages with a record have no {svc}.",
       servicesH: "Basic services", districtAvg: "{place} average", seeVillages: "See all {n} villages in the table →", backDistrict: "← Back to {place}",
@@ -266,7 +266,7 @@
     for (const d of D.districts()) fills[d.name] = color(byId[d.id]?.score);
     return { fills, byId };
   }
-  function clearDetail() { Atlas.Map.setBlocks(null, [], {}, () => {}); Atlas.Map.setVillages([], () => {}); $("map").classList.remove("has-dots"); }
+  function clearDetail() { Atlas.Map.setBlocks(null, [], {}, () => {}); Atlas.Map.setVillages([], () => {}); Atlas.Map.setDense(null); $("map").classList.remove("has-dots", "is-dense", "is-blockview"); }
 
   // ---------- markets strip ----------
 
@@ -511,7 +511,11 @@
     for (const d of D.districts()) fills[d.name] = sc.color(D.visible(ind, d.id));
     Atlas.Map.paint({ fills, selected: atlas.district, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
     $("atlas-hint").hidden = !!dg;
-    document.querySelectorAll(".slot-big path.district").forEach((pth, i) => pth.style.setProperty("--d", i));
+    if (atlas.animFor !== ind) {
+      atlas.animFor = ind;
+      const order = Object.fromEntries(D.districtValues(ind).sort((a, b) => a.value - b.value).map((d, i) => [d.geo.name, i]));
+      document.querySelectorAll(".slot-big path.district").forEach((pth) => { pth.style.setProperty("--d", order[pth.dataset.name] ?? 0); pth.classList.remove("fill-in"); void pth.getBBox(); pth.classList.add("fill-in"); });
+    }
     const key = [atlas.district, showV, atlas.sel, ind].join("|");
     if (atlas.drawnFor !== key) {
       atlas.drawnFor = key;
@@ -519,7 +523,7 @@
       if (dg) {
         const vs = Atlas.villages.filter((v) => v.district === dg.name && v.lat && v.lon), bn = Atlas.Need.blockNeeds(dg.name), byB = Object.fromEntries(bn.map((b) => [b.name, b])), blocks = {}, dc = fills[dg.name];
         for (const v of vs) { if (blocks[v.block]) continue; const b = byB[v.block];
-          blocks[v.block] = { fill: dc, label: v.block, value: "", selected: false,
+          blocks[v.block] = { fill: "var(--card)", label: v.block, value: "", selected: false,
             tip: `<strong>${esc(v.block)}</strong>` + (b ? SVC.map(([c, , l]) => `<span class="tip-r">${esc(s(l))}: ${pct(b.shares[c])}</span>`).join("") : "") }; }
         Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); }, { boxy: false });
         Atlas.Map.setDense(showV ? vs.map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr", tip: villageTip(v) })) : null, atlas.sel, selectVillage);
@@ -660,6 +664,7 @@
     const bn = Atlas.Need.blockNeeds(g.name);
     if (state.block) { renderBlockSheet(g, bn); return; }
     if (state.sheetFor !== state.sheet) { state.sheetFor = state.sheet; state.stopic = state.tab === "map" && state.ind ? themeOf(state.ind).id : "overview"; }
+    Atlas.Map.setDense(null); $("map").classList.remove("is-dense", "is-blockview");
     if (state.stopic !== "overview" && available().some((th) => th.id === state.stopic)) { renderTopicSheet(g); return; }
     const r = needOf(g), rows = need();
     const vs = Atlas.villages.filter((v) => v.district === g.name), nb = new Set(vs.map((v) => v.block)).size;
@@ -802,17 +807,30 @@
       <p class="tb-link"><a href="#villages" data-filter-district="${esc(g.name)}" data-filter-block="${esc(state.block)}">${esc(s("seeVillages", { n: vs.length }))}</a></p>`;
     $("modal-more").innerHTML = "";
     $("modal-note").textContent = s("modalMapBlock");
-    $("modal-key").innerHTML = [0, 1, 2, 3, 4].map((k) => `<i class="dot" style="background:${k ? `var(--seq-good-${k})` : "#fff"}"></i>`).join("") + `<span>0 → 4</span>`;
-    drawSheetMap(g, bn, state.block);
-    Atlas.Map.setVillages(vs.map((v) => { const k = svcCount(v);
-      return { id: v.code, lat: v.lat, lon: v.lon, fill: !v.hasData ? "#c9c7c1" : k ? `var(--seq-good-${k})` : "#ffffff", label: v.name,
-        tip: `<strong>${esc(v.name)}</strong>${v.population ? `<span class="tip-r">${esc(s("colPop"))} ${v.population.toLocaleString()}</span>` : ""}` +
-          (v.hasData ? SVC.map(([c, , l]) => `<span class="tip-r">${v.raw[c] === "1" ? "✓" : "✗"} ${esc(s(l))}</span>`).join("") : `<span class="tip-r">${esc(s("noRecord"))}</span>`) }; }), () => {});
-    $("map").classList.add("has-dots");
+    $("modal-key").innerHTML = `<span>${esc(s("atlasMissMany"))}</span>${[1, .8, .5, .22].map((o) => `<i class="al-dot" style="opacity:${o}"></i>`).join("")}<i class="al-dot" style="background:var(--paper);border:1px solid var(--hair)"></i><span>${esc(s("atlasMissNone"))}</span>`;
+    // block view: quiet map, the chosen block lifted, its villages as small ink dots, zoomed to the block
+    mapTo(".slot-modal");
+    const fills = {}; for (const d of D.districts()) fills[d.name] = "var(--paper-2)";
+    Atlas.Map.paint({ fills, selected: g.name, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
+    const byB = Object.fromEntries(bn.map((x) => [x.name, x])), blocks = {}, all = Atlas.villages.filter((v) => v.district === g.name);
+    for (const v of all) { if (blocks[v.block]) continue; const bb = byB[v.block];
+      blocks[v.block] = { fill: v.block === state.block ? "var(--card)" : "var(--paper-2)", label: v.block, value: "", selected: v.block === state.block,
+        tip: `<strong>${esc(v.block)}</strong>` + (bb ? SVC.map(([c, , l]) => `<span class="tip-r">${esc(s(l))}: ${pct(bb.shares[c])}</span>`).join("") : "") }; }
+    Atlas.Map.setBlocks(g.name, all.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(g, k); }, { boxy: false });
+    Atlas.Map.setVillages([], () => {});
+    $("map").classList.add("is-dense", "is-blockview"); $("map").classList.remove("has-dots");
+    Atlas.Map.setDense(vs.filter((v) => v.lat && v.lon).map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr",
+      tip: `<strong>${esc(v.name.replace(/\s*\(\d+\)$/, ""))}</strong>${v.population ? `<span class="tip-r">${esc(s("colPop"))} ${v.population.toLocaleString()}</span>` : ""}` +
+        (v.hasData ? SVC.map(([c, , l]) => `<span class="tip-r">${v.raw[c] === "1" ? "✓" : "✗"} ${esc(s(l))}</span>`).join("") : `<span class="tip-r">${esc(s("noRecord"))}</span>`) })), null, () => {});
+    onMapSelect = (n) => { const d = byName(n); if (d) location.hash = sheetUrl(d); };
+    onMapHover = (n) => { const d = byName(n); return `<strong>${esc(d ? placeName(d) : n)}</strong>`; };
+    state.zoomed = "block:" + state.block;
+    requestAnimationFrame(() => Atlas.Map.zoomToPoints(vs.filter((v) => v.lat && v.lon).map((v) => [v.lon, v.lat]), 1.5));
   }
 
   function drawSheetMap(g, bn, sel) {
     mapTo(".slot-modal");
+    Atlas.Map.setDense(null); $("map").classList.remove("is-dense", "is-blockview");
     const { fills } = paintNeedMap();
     Atlas.Map.paint({ fills, selected: g.name, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
     const byB = Object.fromEntries(bn.map((b) => [b.name, b])), blocks = {};

@@ -441,6 +441,21 @@ window.Atlas = window.Atlas || {};
     ]);
   }
 
+  // Fit the view to a set of [lon, lat] points (e.g. one block's villages).
+  function zoomToPoints(lonlats, pad = 1.6) {
+    if (!lonlats.length) return;
+    const xy = lonlats.map((p) => project(p)), xs = xy.map((p) => p[0]), ys = xy.map((p) => p[1]);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const w = Math.max(x1 - x0, fullBox[2] * 0.04) * pad, h = Math.max(y1 - y0, fullBox[3] * 0.04) * pad;
+    const screen = (svg.clientWidth || fullBox[2]) / (svg.clientHeight || fullBox[3]);
+    let bw = Math.max(w, h * screen), bh = bw / screen;
+    const full = fullBox[2] / fullBox[3];
+    if (screen < full) { bh = Math.max(h, w / screen); bw = bh * screen; }
+    // the viewBox keeps Punjab's proportions (letterboxed), so convert
+    const vbw = screen >= full ? bh * full : bw, vbh = vbw / full;
+    animateTo([(x0 + x1) / 2 - vbw / 2, (y0 + y1) / 2 - vbh / 2, vbw, vbh]);
+  }
+
   // Zoom by a factor around a point given in SVG units (defaults to the centre).
   function zoomBy(factor, cx, cy) {
     if (cx === undefined) { cx = box[0] + box[2] / 2; cy = box[1] + box[3] / 2; }
@@ -756,5 +771,5 @@ window.Atlas = window.Atlas || {};
 
   function drawn() { return new Set(shapes.keys()); }
 
-  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setVillages, setDense, setBlockLines, setBlocks, miniSvg, drawn, hideTip };
+  Atlas.Map = { init, paint, zoomTo, zoomToPoints, zoomBy, reset, setVillages, setDense, setBlockLines, setBlocks, miniSvg, drawn, hideTip };
 })();
