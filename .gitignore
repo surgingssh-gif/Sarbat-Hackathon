@@ -21,3 +21,6 @@ __pycache__/
 
 # Redundant copy of the canonical simulated Parvaaz survey folder.
 /parvaazdata 2/
+
+# Generated one-file atlas previews
+web/dist/
