@@ -726,7 +726,8 @@ window.Atlas = window.Atlas || {};
     gBlocks.appendChild(defs);
     const g = document.createElementNS(NS, "g");
     g.setAttribute("clip-path", `url(#${clipId})`);
-    const traced = traceBlocks(s, pts, opts.boxy ? 60 : 120, !!opts.boxy);
+    // Block areas are drawn straight-edged (boxy) everywhere; pass { boxy: false } for smoothed curves.
+    const boxy = opts.boxy !== false, traced = traceBlocks(s, pts, boxy ? 60 : 120, boxy);
     let html = "";
     const keys = [...new Set(pts.map((p) => p.key))];
     for (const k of keys) {
