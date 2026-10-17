@@ -43,9 +43,9 @@
   --bv-02: #be64ac; --bv-12: #8c62aa; --bv-22: #3b4994;
   --canvas: #eef0ec;
   --dot: rgba(22, 30, 36, 0.07);
-  --font-display: "Literata", Georgia, "Noto Serif", serif;
-  --font-body: "Public Sans", "Noto Sans Gurmukhi", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-pa: "Noto Sans Gurmukhi", "Public Sans", sans-serif;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "Libre Franklin", "Noto Sans Gurmukhi", "Helvetica Neue", Arial, sans-serif;
+  --font-pa: "Noto Sans Gurmukhi", "Libre Franklin", sans-serif;
 
   --radius: 18px;
   --radius-sm: 8px;
@@ -733,3 +733,72 @@ svg { flex: none; }
 .map-callout .co-row { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; margin-top: 3px; }
 .map-callout .ab { width: 18px; height: 18px; font-size: 10px; }
 .map-tip { z-index: 6; }
+
+/* =====================================================================
+   Editorial pass (New York Times graphics feel) + real base map
+   ===================================================================== */
+
+:root {
+  --paper: #f7f7f5; --surface: #ffffff; --sunk: #f1f1ef; --ink: #121212; --muted: #5a5a5a; --faint: #8f8f8f; --line: #e2e2e2;
+  --accent: #326891; --accent-ink: #ffffff; --accent-soft: #eaf1f7;
+  --map-sea: #e9eef1;
+  --shadow: none; --shadow-pop: 0 2px 6px rgba(0,0,0,0.08), 0 16px 40px -12px rgba(0,0,0,0.25);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper: #111111; --surface: #181818; --sunk: #222222; --ink: #f2f2f2; --muted: #b0b0b0; --faint: #7a7a7a; --line: #2e2e2e; --accent: #7fb2dc; --accent-ink: #0d1a24; --accent-soft: #1b2833; --map-sea: #141a1e; }
+}
+:root[data-theme="dark"] { --paper: #111111; --surface: #181818; --sunk: #222222; --ink: #f2f2f2; --muted: #b0b0b0; --faint: #7a7a7a; --line: #2e2e2e; --accent: #7fb2dc; --accent-ink: #0d1a24; --accent-soft: #1b2833; --map-sea: #141a1e; }
+
+body { background: var(--paper); font-size: 15px; }
+
+/* flat, hairline cards instead of soft shadows */
+.mapcard, .inspector { border-radius: 8px; box-shadow: none; border: 1px solid var(--line); }
+.search input { border-radius: 6px; box-shadow: none; border: 1px solid var(--line); background: var(--surface); }
+.btn-quiet { border-radius: 6px; box-shadow: none; border: 1px solid var(--line); }
+.lang, .lang button { border-radius: 6px; }
+.figure, .start { border-radius: 6px; }
+.figure { background: var(--sunk); }
+.start { background: var(--surface); border: 1px solid var(--line); }
+.question { border-radius: 4px; background: var(--sunk); box-shadow: none; }
+.question:hover { background: var(--accent-soft); transform: none; box-shadow: none; }
+.stage { border-radius: 4px; }
+.modes { border-radius: 6px; }
+.mode { border-radius: 4px; }
+.mode[aria-selected="true"] { box-shadow: 0 0 0 1px var(--line); }
+.chip-stat, .pill, .rb-tag, .pin-btn, .place-chip, .flag { border-radius: 4px; }
+.map-controls { border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+.ctl { border-radius: 4px; }
+.chat-toggle { border-radius: 6px; background: var(--ink); color: var(--surface); }
+.topic-menu, .chat-panel, .drawer-card { border-radius: 8px; }
+
+/* editorial type */
+.brand-name, .topic-title, .place, .figure-num, .start-head h3, .menu-head h2, .drawer-head h2, .co-val, .tip-val {
+  font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em;
+}
+.topic-title { font-size: 32px; line-height: 1.1; }
+.place { font-size: 32px; }
+.topic-eyebrow { color: var(--muted); text-transform: none; font-weight: 700; font-size: 13px; }
+.topic-desc, .figure-say { font-size: 15px; }
+.block h3 { font-weight: 800; font-size: 15px; }
+.district-label { font-family: var(--font-body); font-weight: 600; }
+
+/* real base map underneath: districts become slightly see-through so roads and rivers show */
+.has-tiles .ctx-land, .has-tiles .ctx-capital { display: none; }
+.has-tiles .ctx-label { fill: #6b7680; }
+.has-tiles .outline path { fill: none; stroke: rgba(20, 20, 20, 0.75); stroke-width: 2.2; }
+.has-tiles .outline { filter: none; }
+.has-tiles .district { fill-opacity: 0.78; stroke: rgba(255, 255, 255, 0.95); stroke-width: 1.2; }
+.has-tiles .district:hover { fill-opacity: 0.9; transform: none; filter: none; }
+.has-tiles .district.is-selected { fill-opacity: 0.9; filter: none; }
+.has-tiles .has-selection .district:not(.is-selected):not(:hover), .has-tiles.has-selection .district:not(.is-selected):not(:hover) { opacity: 1; fill-opacity: 0.55; }
+.tiles image, .tile-labels image { pointer-events: none; }
+.tile-labels { opacity: 0.9; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tiles { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); } }
+:root[data-theme="dark"] .tiles { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }
+.map-attrib {
+  position: absolute; right: 6px; bottom: 4px; z-index: 3; margin: 0; font-size: 10px; color: var(--muted);
+  background: color-mix(in srgb, var(--surface) 80%, transparent); padding: 1px 5px; border-radius: 3px;
+}
+.map-attrib a { color: inherit; }
+.no-tiles .map-attrib { display: none; }
+.map-controls { bottom: 26px; }

@@ -2,7 +2,11 @@
 
 The public face of the project: a map of Punjab you can drill into, **Punjab → district → village**, with every number traced to its source and nothing shown for groups too small to protect a family.
 
-It is a static website (HTML, CSS, plain JavaScript). No build step, no backend, no map library or tile server, so Parvaaz can host it anywhere or embed it in their site.
+It is a static website (HTML, CSS, plain JavaScript). No build step, no backend, no map library, so Parvaaz can host it anywhere or embed it in their site.
+
+**Live:** https://surgingssh-gif.github.io/Sarbat-Hackathon/web/ (GitHub Pages, served from the `atlas` branch).
+
+**Base map.** Under the districts sits a real street map (roads, rivers, towns) from free CARTO "Voyager" tiles built on OpenStreetMap. The credit line in the corner is required, so keep it. If the tiles can't load (offline, or a host that blocks outside images, like the Claude preview), the map falls back to plain shapes with the neighbouring states drawn from `geo/context.geojson`, so nothing breaks. To change or remove the base map, edit `TILE_BASE` / `TILE_LABELS` at the top of `js/map.js` (set `TILE_BASE` to `""` to turn it off).
 
 ## Run it
 

@@ -23,17 +23,90 @@ window.Atlas = window.Atlas || {};
 
   const polysOf = (g) => (g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : []);
 
+  // Web Mercator, so standard map tiles line up exactly under the districts.
+  const RAD = Math.PI / 180;
+  const mercY = (lat) => Math.log(Math.tan(Math.PI / 4 + (lat * RAD) / 2));
+
   function makeProjection(features) {
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     features.forEach((f) => polysOf(f.geometry).forEach((p) => p.forEach((ring) => ring.forEach(([x, y]) => {
       minX = Math.min(minX, x); maxX = Math.max(maxX, x);
       minY = Math.min(minY, y); maxY = Math.max(maxY, y);
     }))));
-    const k = Math.cos(((minY + maxY) / 2) * Math.PI / 180); // keep shapes from looking stretched
-    const scale = W / ((maxX - minX) * k);
-    const fn = ([x, y]) => [(x - minX) * k * scale, (maxY - y) * scale];
-    fn.height = (maxY - minY) * scale;
+    const lam0 = minX * RAD, ymax = mercY(maxY);
+    const scale = W / ((maxX - minX) * RAD); // svg units per radian
+    const fn = ([lon, lat]) => [(lon * RAD - lam0) * scale, (ymax - mercY(lat)) * scale];
+    fn.height = (ymax - mercY(minY)) * scale;
+    fn.lam0 = lam0; fn.ymax = ymax; fn.scale = scale;
     return fn;
+  }
+
+  // ---------- basemap tiles (real roads, rivers, towns) ----------
+
+  const TILE_BASE = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}@2x.png";
+  const TILE_LABELS = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}@2x.png";
+  let gTiles, gTileLabels, tileState = "unknown", tilesQueued = false;
+  const tileCache = new Map();
+
+  function tileUrl(tpl, z, x, y) {
+    return tpl.replace("{s}", "abcd"[(x + y) % 4]).replace("{z}", z).replace("{x}", x).replace("{y}", y);
+  }
+
+  function queueTiles() {
+    if (tilesQueued || tileState === "failed" || !gTiles) return;
+    tilesQueued = true;
+    requestAnimationFrame(() => { tilesQueued = false; drawTiles(); });
+  }
+
+  function drawTiles() {
+    if (!TILE_BASE || tileState === "failed") return;
+    const sw = svg.clientWidth || 800, sh = svg.clientHeight || 600;
+    const pxPerUnit = Math.min(sw / box[2], sh / box[3]);
+    // Pick the zoom level whose 256px tiles appear about 256px wide on screen.
+    const z = Math.max(5, Math.min(13, Math.round(Math.log2((2 * Math.PI * project.scale * pxPerUnit) / 256))));
+    const n = 2 ** z;
+    const tileW = ((2 * Math.PI) / n) * project.scale; // svg units
+    const toTx = (x) => ((x / project.scale + project.lam0 + Math.PI) / (2 * Math.PI)) * n;
+    const toTy = (y) => ((Math.PI - (project.ymax - y / project.scale)) / (2 * Math.PI)) * n;
+    const m = 0.25 + Math.max(0, (sw / pxPerUnit - box[2]) / box[2] / 2, (sh / pxPerUnit - box[3]) / box[3] / 2);
+    const x0 = Math.floor(toTx(box[0] - box[2] * m)), x1 = Math.floor(toTx(box[0] + box[2] * (1 + m)));
+    const y0 = Math.floor(toTy(box[1] - box[3] * m)), y1 = Math.floor(toTy(box[1] + box[3] * (1 + m)));
+    const want = new Set();
+    const place = (layer, tpl, key, tx, ty) => {
+      want.add(key);
+      let img = tileCache.get(key);
+      if (!img) {
+        img = document.createElementNS(NS, "image");
+        img.setAttribute("preserveAspectRatio", "none");
+        img.addEventListener("load", () => {
+          if (tileState !== "ok") { tileState = "ok"; wrap.classList.add("has-tiles"); }
+        });
+        img.addEventListener("error", () => {
+          if (tileState === "unknown") { tileState = "failed"; wrap.classList.add("no-tiles"); gTiles.innerHTML = ""; gTileLabels.innerHTML = ""; tileCache.clear(); }
+        });
+        img.setAttribute("href", tileUrl(tpl, z, tx, ty));
+        tileCache.set(key, img);
+      }
+      const x = ((2 * Math.PI * tx) / n - Math.PI - project.lam0) * project.scale;
+      const y = (project.ymax - (Math.PI - (2 * Math.PI * ty) / n)) * project.scale;
+      img.setAttribute("x", x.toFixed(2)); img.setAttribute("y", y.toFixed(2));
+      img.setAttribute("width", (tileW + 0.6).toFixed(2)); img.setAttribute("height", (tileW + 0.6).toFixed(2));
+      if (img.parentNode !== layer) layer.appendChild(img);
+    };
+    for (let tx = x0; tx <= x1; tx++) {
+      for (let ty = y0; ty <= y1; ty++) {
+        if (ty < 0 || ty >= n) continue;
+        place(gTiles, TILE_BASE, `b${z}/${tx}/${ty}`, tx, ty);
+        if (z >= 10) place(gTileLabels, TILE_LABELS, `l${z}/${tx}/${ty}`, tx, ty);
+      }
+    }
+    // Drop tiles from other zoom levels once enough of the new level is in.
+    for (const [key, img] of tileCache) {
+      if (!want.has(key)) { img.remove(); if (!key.includes(`${z}/`)) tileCache.delete(key); }
+    }
+    if (tileCache.size > 400) {
+      for (const key of [...tileCache.keys()]) if (!want.has(key)) tileCache.delete(key);
+    }
   }
 
   // Path, bounding box, and a label point (area-weighted centre of the largest ring).
@@ -122,6 +195,12 @@ window.Atlas = window.Atlas || {};
     svg.setAttribute("class", "map-svg");
     svg.setAttribute("role", "group");
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    gTiles = document.createElementNS(NS, "g");
+    gTiles.setAttribute("class", "tiles");
+    gTiles.setAttribute("aria-hidden", "true");
+    gTileLabels = document.createElementNS(NS, "g");
+    gTileLabels.setAttribute("class", "tile-labels");
+    gTileLabels.setAttribute("aria-hidden", "true");
     gContext = document.createElementNS(NS, "g");
     gContext.setAttribute("class", "context");
     gContext.setAttribute("aria-hidden", "true");
@@ -138,7 +217,7 @@ window.Atlas = window.Atlas || {};
     gTop = document.createElementNS(NS, "g");
     gTop.setAttribute("class", "map-top");
     gTop.setAttribute("aria-hidden", "true");
-    svg.append(gContext, gOutline, gShapes, gLabels, gTop, gVillages);
+    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gLabels, gTop, gVillages);
     drawContext(opts.context);
 
     for (const f of features) {
@@ -192,7 +271,10 @@ window.Atlas = window.Atlas || {};
     callout = document.createElement("div");
     callout.className = "map-callout";
     callout.hidden = true;
-    el.append(svg, callout, tip);
+    const attr = document.createElement("p");
+    attr.className = "map-attrib";
+    attr.innerHTML = 'Base map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, © <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>';
+    el.append(svg, callout, tip, attr);
     // One entrance moment: districts settle in, then the class is removed.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       svg.classList.add("is-entering");
@@ -233,6 +315,7 @@ window.Atlas = window.Atlas || {};
     svg.style.setProperty("--unit", unit.toFixed(4));
     declutter();
     placeCallout();
+    queueTiles();
     const zoomed = box[2] < fullBox[2] * 0.9;
     wrap.classList.toggle("is-zoomed", zoomed);
     handlers.onView?.({ zoomed });
