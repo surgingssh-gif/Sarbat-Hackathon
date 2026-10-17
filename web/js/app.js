@@ -648,13 +648,13 @@
       const pill = e.target.closest(".pill[data-ind], .sub[data-ind]");
       if (pill) return setIndicator(pill.dataset.ind);
       if (e.target.closest("#more-topics")) { state.moreTopics = !state.moreTopics; return renderTopics(); }
-      if (e.target.closest("[data-signin]")) { $("acct-menu") && ($("acct-menu").hidden = true); return openSignin(true); }
+      if (e.target.closest("[data-signin]")) { location.href = "signin.html"; return; }
       if (e.target.closest("[data-close-signin]")) return openSignin(false);
       if (e.target.closest("[data-signout]")) { A().signOut(); return render(); }
       if (e.target.closest("#acct-btn")) { const m = $("acct-menu"); m.hidden = !m.hidden; return; }
       if ($("acct-menu") && !e.target.closest(".acct")) $("acct-menu").hidden = true;
       if (e.target.closest("[data-save]")) {
-        if (!A().get()) return openSignin(true);
+        if (!A().get()) { location.href = "signin.html"; return; }
         const on = A().toggleSave({ hash: location.hash.slice(1), title: viewTitle() }); toast(s(on ? "savedToast" : "removedToast")); return render();
       }
       if (e.target.closest("[data-share]")) {
@@ -745,6 +745,7 @@
       bind();
       render();
       document.body.classList.add("is-ready");
+      try { if (sessionStorage.getItem("pdh-welcome") && A().get()) { sessionStorage.removeItem("pdh-welcome"); toast(s("welcomeToast", { name: A().get().name.split(" ")[0] })); } } catch (err) { /* ignore */ }
     } catch (err) {
       console.error(err);
       document.querySelector(".page").innerHTML = `<section class="load-error"><h2>The data didn't load</h2><p>${esc(err.message)}</p>
