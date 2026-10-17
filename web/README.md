@@ -38,28 +38,26 @@ One page, read top to bottom. It answers one question at a time: **"how does eac
 
 Links remember the view: `web/#car_ownership_share/sangrur/severe_or_total_house_damage_share` (topic / district / comparison topic).
 
-## The data file
+## The data files
 
-`data/punjab_geographic_indicators.csv`, long format, one row per indicator per place:
+The atlas reads two files made from the team's **Punjab Atlas marts** workbook (dbt output):
 
-| Column | Meaning |
+```bash
+python web/tools/build_from_marts.py path/to/Punjab_Atlas_Marts.txt   # the workbook exported as text, all sheets
+```
+
+| File | What's in it |
 |---|---|
-| `geography_level` | `state`, `district` or `village` |
-| `geography_id` | Stable id, e.g. `state:punjab`, `district:fazilka`, `village-demo:fazilka:01` |
-| `state`, `district`, `village` | Names (blank where they don't apply). Village rows need `district` to find their parent. |
-| `indicator` | Machine name, e.g. `car_ownership_share` |
-| `value` | The number. Blank when suppressed. |
-| `unit` | `proportion` (0–1, shown as %), `score`, or `years` |
-| `year` | Survey year (blank if unknown) |
-| `source_name`, `source_url` | Where the number came from. Repo-relative paths link to GitHub. |
-| `n_students` | Group size behind the number |
-| `is_suppressed` | `TRUE` hides the value |
-| `data_status` | e.g. `synthetic` (shows the "Simulated data" badge) |
-| `geography_status` | e.g. `demo_only` (marks made-up demo villages) |
-| `match_confidence` | *Optional*, villages: crosswalk score 0–1, shown on the source card |
-| `lat`, `lon` | *Optional*, villages: coordinates. With them, villages appear as dots on the map. SHRUG village data can supply these. |
+| `data/punjab_atlas.csv` | Long format, one row per place × indicator, for Punjab and its 23 districts. Columns: `geography_level, geography_id, state, district, village, indicator, value, unit, year, source_name, source_url, n_students, n_villages, is_suppressed, data_status, geography_status`. |
+| `data/punjab_villages.csv` | One row per village (12,158, LGD-coded, matched to SHRUG) with coordinates, population and six key facilities as 1 / 0 / blank. Blank = no Mission Antyodaya record, never "no". |
 
-The current file is the team's sample (simulated survey, 23 districts, 5 **demo** villages each). When the pipeline produces the real one, replace the file; nothing else needs to change.
+How the numbers are made:
+- **Survey topics** (cars, schooling, floods…) are the district values from the marts. Punjab's value is the student-weighted average of the districts. Chandigarh is left out (not a Punjab district).
+- **Village facilities** are "share of villages that have X", counting only villages with a 2020 Mission Antyodaya record. "Homes without a toilet" is household-weighted.
+- District names follow LGD spellings (Ferozepur, Rupnagar, Tarn Taran, Fatehgarh Sahib, Shahid Bhagat Singh Nagar); the map's boundary file uses the same names.
+- `minGroupSize` hides any survey value from fewer than 10 students.
+
+After editing JS/CSS, run `sh web/tools/stamp.sh` so visitors' browsers don't mix old and new files.
 
 ## Common changes (all in `js/config.js`)
 

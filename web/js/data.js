@@ -92,6 +92,7 @@ window.Atlas = window.Atlas || {};
       const rec = {
         value: num(r.value),
         n: num(r.n_students),
+        nVillages: num(r.n_villages),
         suppressed: truthy(r.is_suppressed),
         year: r.year || "",
         unit: r.unit || "",
@@ -357,6 +358,16 @@ window.Atlas = window.Atlas || {};
       [csv, geo] = await Promise.all([a.text(), b.json()]);
     }
     Atlas.data = build(parseCSV(csv));
+    // Village points are optional: the atlas works at district level without them.
+    Atlas.villages = [];
+    try {
+      const vcsv = inline ? inline.villages : Atlas.config.villagesUrl
+        ? await fetch(Atlas.config.villagesUrl).then((r) => (r.ok ? r.text() : "")) : "";
+      if (vcsv) Atlas.villages = parseCSV(vcsv).map((r) => ({
+        code: r.lgd_village_code, name: r.village_name, district: r.district, subdistrict: r.subdistrict,
+        lat: num(r.latitude), lon: num(r.longitude), population: num(r.population), hasData: r.has_data === "1", raw: r,
+      })).filter((v) => v.lat !== null && v.lon !== null);
+    } catch (err) { console.warn("Villages not loaded", err); }
     Atlas.boundaries = geo;
     return Atlas.data;
   }

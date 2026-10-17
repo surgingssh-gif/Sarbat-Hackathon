@@ -394,12 +394,13 @@ window.Atlas = window.Atlas || {};
     anim = requestAnimationFrame(step);
   }
 
-  function zoomTo(name) {
+  function zoomTo(name, pad = 3.2) {
     const s = name && shapes.get(name);
     if (!s) return animateTo(fullBox);
     const [x, y, w, h] = s.box;
-    const aspect = fullBox[2] / fullBox[3];
-    const bw = Math.min(fullBox[2], Math.max(w * 3.2, h * 3.2 * aspect, fullBox[2] * 0.55));
+    // Fit to the map's on-screen shape so a tall district fills a wide map properly.
+    const aspect = (svg.clientWidth || fullBox[2]) / (svg.clientHeight || fullBox[3]);
+    const bw = Math.min(fullBox[2] * 1.2, Math.max(w * pad, h * pad * aspect, fullBox[2] * 0.2));
     const bh = bw / aspect;
     // Keep the zoomed view inside Punjab's outline where possible.
     const fit = (v, lo, size, full) => Math.min(Math.max(v, lo), Math.max(lo, lo + full - size));

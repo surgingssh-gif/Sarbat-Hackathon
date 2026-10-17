@@ -67,6 +67,16 @@
       chatTitle: "Ask Parvaaz", chatSend: "Ask",
       tipRank: "{r} of {n}",
       noValue: "No data",
+      villagesN: "{n} villages",
+      showAllRows: "Show all {n} topics", showFewerRows: "Show key topics only",
+      villagesTitle2: "Villages in {place}",
+      vStats: "<b>{n}</b> villages matched to official village codes (LGD). <b>{d}</b> have a facility record from 2020; the rest have no record, which is not the same as \"no\".",
+      vHave: "Of the {d} villages with a record, <b>{k} ({p})</b> have this: <b>{topic}</b>.",
+      vDots: "On the map, each dot is a village: <i class=\"vd has\"></i> has it, <i class=\"vd not\"></i> doesn't, <i class=\"vd na\"></i> no record.",
+      vPick: "Pick a topic under Village facilities to see each village as a dot on the map.",
+      vNone: "Village-level facility data isn't loaded.",
+      vTipHas: "Has it", vTipNot: "Doesn't have it", vTipNa: "No record",
+      dotsNote: "Dots are villages in {place}. Click the district again to go back.",
     },
     pa: {
       brand: "ਪੰਜਾਬ ਡਾਟਾ ਹੱਬ", by: "ਪਰਵਾਜ਼ ਵੱਲੋਂ", about: "ਡਾਟਾ ਬਾਰੇ",
@@ -115,6 +125,16 @@
       chatTitle: "ਪਰਵਾਜ਼ ਨੂੰ ਪੁੱਛੋ", chatSend: "ਪੁੱਛੋ",
       tipRank: "{n} ਵਿੱਚੋਂ {r}",
       noValue: "ਡਾਟਾ ਨਹੀਂ",
+      villagesN: "{n} ਪਿੰਡ",
+      showAllRows: "ਸਾਰੇ {n} ਵਿਸ਼ੇ ਦਿਖਾਓ", showFewerRows: "ਸਿਰਫ਼ ਮੁੱਖ ਵਿਸ਼ੇ",
+      villagesTitle2: "{place} ਦੇ ਪਿੰਡ",
+      vStats: "<b>{n}</b> ਪਿੰਡ ਸਰਕਾਰੀ ਪਿੰਡ ਕੋਡਾਂ (LGD) ਨਾਲ ਮਿਲੇ। <b>{d}</b> ਦਾ 2020 ਦਾ ਸਹੂਲਤ ਰਿਕਾਰਡ ਹੈ; ਬਾਕੀਆਂ ਦਾ ਰਿਕਾਰਡ ਨਹੀਂ, ਜਿਸਦਾ ਮਤਲਬ \"ਨਹੀਂ\" ਨਹੀਂ।",
+      vHave: "ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ <b>{k} ({p})</b> ਵਿੱਚ ਇਹ ਹੈ: <b>{topic}</b>।",
+      vDots: "ਨਕਸ਼ੇ 'ਤੇ ਹਰ ਬਿੰਦੂ ਇੱਕ ਪਿੰਡ ਹੈ: <i class=\"vd has\"></i> ਹੈ, <i class=\"vd not\"></i> ਨਹੀਂ, <i class=\"vd na\"></i> ਰਿਕਾਰਡ ਨਹੀਂ।",
+      vPick: "ਹਰ ਪਿੰਡ ਨੂੰ ਨਕਸ਼ੇ 'ਤੇ ਬਿੰਦੂ ਵਜੋਂ ਦੇਖਣ ਲਈ ਪਿੰਡ ਦੀਆਂ ਸਹੂਲਤਾਂ ਹੇਠੋਂ ਵਿਸ਼ਾ ਚੁਣੋ।",
+      vNone: "ਪਿੰਡ-ਪੱਧਰ ਦਾ ਡਾਟਾ ਲੋਡ ਨਹੀਂ ਹੋਇਆ।",
+      vTipHas: "ਹੈ", vTipNot: "ਨਹੀਂ", vTipNa: "ਰਿਕਾਰਡ ਨਹੀਂ",
+      dotsNote: "ਬਿੰਦੂ {place} ਦੇ ਪਿੰਡ ਹਨ। ਵਾਪਸ ਜਾਣ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਦੁਬਾਰਾ ਕਲਿੱਕ ਕਰੋ।",
     },
   };
 
@@ -132,7 +152,7 @@
 
   // ---------- state ----------
 
-  const state = { ind: null, district: null, cmp: null, moreTopics: false };
+  const state = { ind: null, district: null, cmp: null, moreTopics: false, allRows: false, zoomed: null };
 
   const geo = (id) => Atlas.data.geos.get(id);
   const stateId = () => Atlas.data.stateId;
@@ -140,7 +160,7 @@
   const short = (ind) => Atlas.tr(D.meta(ind).short);
   const placeName = (g) => Atlas.placeName(g);
   const byName = (n) => D.districts().find((d) => d.name === n);
-  const SHORT_NAMES = { "Shaheed Bhagat Singh Nagar": "SBS Nagar", "Shri Fatehgarh Sahib": "Fatehgarh Sahib", "Sri Muktsar Sahib": "Muktsar" };
+  const SHORT_NAMES = { "Shahid Bhagat Singh Nagar": "SBS Nagar", "Sri Muktsar Sahib": "Muktsar" };
   const mapName = (n) => (Atlas.lang === "pa" ? Atlas.DISTRICT_PA[n] || n : SHORT_NAMES[n] || n);
 
   function available() {
@@ -244,7 +264,28 @@
       },
       calloutHtml: "",
     });
-    $("map-note").textContent = s("mapNote");
+    const col = D.meta(state.ind).village;
+    const showDots = Boolean(sel && col && Atlas.villages.length);
+    if (showDots) {
+      const r = ramp(state.ind);
+      const pts = Atlas.villages.filter((v) => v.district === sel.name).map((v) => {
+        const f = v.raw[col];
+        const st = f === "1" ? "has" : f === "0" ? "not" : "na";
+        return {
+          id: v.code, lat: v.lat, lon: v.lon,
+          fill: st === "has" ? `var(--seq-${r}-4)` : st === "not" ? "#ffffff" : "#b9b9b9",
+          label: `${v.name}: ${s(st === "has" ? "vTipHas" : st === "not" ? "vTipNot" : "vTipNa")}`,
+          tip: `<strong>${esc(v.name)}</strong><span class="tip-r">${esc(v.subdistrict)}${v.population ? " · " + v.population.toLocaleString() : ""}</span><span class="tip-s is-${st}">${esc(s(st === "has" ? "vTipHas" : st === "not" ? "vTipNot" : "vTipNa"))}: ${esc(short(state.ind))}</span>`,
+        };
+      });
+      Atlas.Map.setVillages(pts, () => {});
+      if (state.zoomed !== sel.name) { Atlas.Map.zoomTo(sel.name, 1.25); state.zoomed = sel.name; }
+    } else {
+      Atlas.Map.setVillages([], () => {});
+      if (state.zoomed) { Atlas.Map.reset(); state.zoomed = null; }
+    }
+    $("map").classList.toggle("has-dots", showDots);
+    $("map-note").textContent = showDots ? s("dotsNote", { place: placeName(sel) }) : s("mapNote");
   }
 
   function citation(ind, g) {
@@ -254,6 +295,7 @@
     const bits = [esc(r.source_name || "—") + (r.year ? `, ${esc(r.year)}` : "")];
     if (D.isSuppressed(r)) bits.push(esc(s("fewer", { n: Atlas.config.minGroupSize })));
     else if (r.n !== null) bits.push(esc(s("students", { n: r.n.toLocaleString() })));
+    else if (r.nVillages !== null) bits.push(esc(s("villagesN", { n: r.nVillages.toLocaleString() })));
     return `<p class="cite"><span class="cite-h">${esc(s("source"))}:</span> ${bits.join(", ")}.
       ${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(s("openSource"))} ↗</a>` : ""}</p>`;
   }
@@ -328,9 +370,12 @@
       ? `<tr><th>${esc(s("colTopic"))}</th><th class="t-num">${esc(s("colPunjab"))}</th><th class="t-num">${esc(s("colRange"))}</th></tr>`
       : `<tr><th>${esc(s("colTopic"))}</th><th class="t-num">${esc(place)}</th><th class="t-num">${esc(s("colPunjab"))}</th><th class="t-num">${esc(s("colDiff"))}</th></tr>`;
     const cols = isState ? 3 : 4;
+    const isCore = (i) => (D.meta(i).tier || "core") === "core";
+    const total = allIndicators().length;
     const rows = available().map((th) => {
-      if (!th.indicators.length) return "";
-      return `<tr class="grp"><th colspan="${cols}">${esc(Atlas.tr(th.label))}</th></tr>` + th.indicators.map((ind) => {
+      const list = th.indicators.filter((i) => state.allRows || isCore(i) || i === state.ind);
+      if (!list.length) return "";
+      return `<tr class="grp"><th colspan="${cols}">${esc(Atlas.tr(th.label))}</th></tr>` + list.map((ind) => {
         const v = D.visible(ind, g.id), pv = D.visible(ind, stateId());
         let tail;
         if (isState) {
@@ -349,24 +394,30 @@
       }).join("");
     }).join("");
     $("table").innerHTML = `<h2 class="col-h">${esc(s(isState ? "tableTitleState" : "tableTitle", { place }))}</h2>
-      <table class="ptable"><thead>${head}</thead><tbody>${rows}</tbody></table>`;
+      <table class="ptable"><thead>${head}</thead><tbody>${rows}</tbody></table>
+      <button type="button" class="link rows-toggle" id="rows-toggle">${esc(s(state.allRows ? "showFewerRows" : "showAllRows", { n: total }))}</button>`;
   }
 
   function renderVillages() {
     const el = $("villages");
     const g = state.district && geo(state.district);
-    const vill = g ? g.children.map((id) => geo(id)).filter(Boolean) : [];
-    if (!vill.length) { el.hidden = true; el.innerHTML = ""; return; }
+    if (!g) { el.hidden = true; el.innerHTML = ""; return; }
     el.hidden = false;
     const place = placeName(g);
-    const vv = vill.map((v) => ({ v, x: D.visible(state.ind, v.id) }));
-    const vmax = Math.max(...vv.map((o) => o.x ?? 0), D.visible(state.ind, g.id) ?? 0) || 1;
-    el.innerHTML = `<h2 class="sec-h">${esc(s("villagesTitle", { place, topic: label(state.ind) }))}</h2>
-      <ul class="vill">${vv.sort((a, b) => (b.x ?? -1) - (a.x ?? -1)).map(({ v, x }) => `<li>
-        <span class="vill-name">${esc(v.name)}</span>
-        <span class="vill-track">${x === null ? "" : `<span style="width:${((x / vmax) * 100).toFixed(1)}%"></span>`}</span>
-        <span class="vill-v">${esc(x === null ? s("hidden") : D.fmt(x, state.ind))}</span></li>`).join("")}</ul>
-      <p class="note">${esc(s("villagesNote"))}</p>`;
+    const vs = Atlas.villages.filter((v) => v.district === g.name);
+    if (!vs.length) { el.innerHTML = `<h2 class="sec-h">${esc(s("villagesTitle2", { place }))}</h2><p class="note">${esc(s("vNone"))}</p>`; return; }
+    const withData = vs.filter((v) => v.hasData);
+    const col = D.meta(state.ind).village;
+    let topic = `<p class="note">${esc(s("vPick"))}</p>`;
+    if (col) {
+      const k = withData.filter((v) => v.raw[col] === "1").length;
+      topic = `<p class="v-line">${s("vHave", { k: k.toLocaleString(), d: withData.length.toLocaleString(),
+        p: esc(D.fmt(withData.length ? k / withData.length : null, state.ind)), topic: esc(short(state.ind)) })}</p>
+        <p class="v-key">${s("vDots")}</p>`;
+    }
+    el.innerHTML = `<h2 class="sec-h">${esc(s("villagesTitle2", { place }))}</h2>
+      <p class="v-line">${s("vStats", { n: vs.length.toLocaleString(), d: withData.length.toLocaleString() })}</p>
+      ${topic}`;
   }
 
   // ---------- two topics ----------
@@ -507,6 +558,7 @@
       const pill = e.target.closest(".pill[data-ind]");
       if (pill) return setIndicator(pill.dataset.ind);
       if (e.target.closest("#more-topics")) { state.moreTopics = !state.moreTopics; return renderTopics(); }
+      if (e.target.closest("#rows-toggle")) { state.allRows = !state.allRows; return renderTable(); }
       const row = e.target.closest(".rank-row");
       if (row) return toggleDistrict(row.dataset.id, { scroll: true });
       if (e.target.closest("[data-clear]")) return selectDistrict(null);

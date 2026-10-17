@@ -19,7 +19,8 @@ SCRIPTS = ["config.js", "i18n.js", "data.js", "map.js", "charts.js", "chat.js", 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data", default=str(ROOT / "data" / "punjab_geographic_indicators.csv"))
+    ap.add_argument("--data", default=str(ROOT / "data" / "punjab_atlas.csv"))
+    ap.add_argument("--villages", default=str(ROOT / "data" / "punjab_villages.csv"))
     ap.add_argument("--out", default=str(WEB / "dist" / "punjab-data-hub.html"))
     ap.add_argument("--fragment", action="store_true")
     args = ap.parse_args()
@@ -28,6 +29,7 @@ def main():
     css = (WEB / "css" / "atlas.css").read_text()
     inline = {
         "csv": Path(args.data).read_text(),
+        "villages": Path(args.villages).read_text() if Path(args.villages).exists() else "",
         "boundaries": json.loads((WEB / "geo" / "punjab_districts.geojson").read_text()),
         "context": json.loads((WEB / "geo" / "context.geojson").read_text()),
     }

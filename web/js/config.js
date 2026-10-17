@@ -10,7 +10,8 @@
 window.Atlas = window.Atlas || {};
 
 Atlas.config = {
-  dataUrl: "../data/punjab_geographic_indicators.csv",
+  dataUrl: "../data/punjab_atlas.csv",
+  villagesUrl: "../data/punjab_villages.csv", // one row per village with coordinates + key facilities
   boundariesUrl: "geo/punjab_districts.geojson",
   contextUrl: "geo/context.geojson", // neighbouring states, for orientation only
 
@@ -27,7 +28,7 @@ Atlas.config = {
   assistantUrl: "",
 
   defaultIndicator: "car_ownership_share",
-  defaultCompare: "severe_or_total_house_damage_share",
+  defaultCompare: "village_high_school_share",
 };
 
 /*
@@ -179,7 +180,7 @@ Atlas.INDICATORS = {
       pa: "ਕਿੱਤਾਮੁਖੀ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਹਿੱਸਾ ਜਿਨ੍ਹਾਂ ਦੇ ਪਰਿਵਾਰ ਕੋਲ ਖੇਤੀ ਜ਼ਮੀਨ ਹੈ।",
     },
     format: "percent", direction: "neutral",
-    tier: "core",
+    tier: "detail",
     say: { en: "families own farmland", pa: "ਪਰਿਵਾਰਾਂ ਕੋਲ ਖੇਤੀ ਜ਼ਮੀਨ ਹੈ" },
   },
   business_ownership_share: {
@@ -205,6 +206,57 @@ Atlas.INDICATORS = {
     tier: "detail",
     say: { en: "students surveyed are girls", pa: "ਸਰਵੇਖਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਕੁੜੀਆਂ ਹਨ" },
   },
+
+  // ----- village facilities (Mission Antyodaya 2020 via SHRUG), summarised per district -----
+  village_high_school_share: {
+    label: { en: "Villages with a high school", pa: "ਹਾਈ ਸਕੂਲ ਵਾਲੇ ਪਿੰਡ" },
+    short: { en: "High school in village", pa: "ਪਿੰਡ ਵਿੱਚ ਹਾਈ ਸਕੂਲ" },
+    desc: { en: "Share of villages with a high or senior secondary school (2020).", pa: "ਹਾਈ ਜਾਂ ਸੀਨੀਅਰ ਸੈਕੰਡਰੀ ਸਕੂਲ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ (2020)।" },
+    format: "percent", direction: "higher_better", tier: "core", village: "high_school",
+    say: { en: "villages have a high school", pa: "ਪਿੰਡਾਂ ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਹੈ" },
+  },
+  village_health_centre_share: {
+    label: { en: "Villages with a health centre", pa: "ਸਿਹਤ ਕੇਂਦਰ ਵਾਲੇ ਪਿੰਡ" },
+    short: { en: "Health centre", pa: "ਸਿਹਤ ਕੇਂਦਰ" },
+    desc: { en: "Share of villages with a health sub-centre, primary or community health centre (2020).", pa: "ਸਿਹਤ ਉਪ-ਕੇਂਦਰ, ਮੁੱਢਲੇ ਜਾਂ ਕਮਿਊਨਿਟੀ ਸਿਹਤ ਕੇਂਦਰ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ (2020)।" },
+    format: "percent", direction: "higher_better", tier: "core", village: "health_centre",
+    say: { en: "villages have a health centre", pa: "ਪਿੰਡਾਂ ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਹੈ" },
+  },
+  village_all_weather_road_share: {
+    label: { en: "Villages on an all-weather road", pa: "ਪੱਕੀ ਸੜਕ ਵਾਲੇ ਪਿੰਡ" },
+    short: { en: "All-weather road", pa: "ਪੱਕੀ ਸੜਕ" },
+    desc: { en: "Share of villages connected by an all-weather road (2020).", pa: "ਹਰ ਮੌਸਮ ਵਾਲੀ ਸੜਕ ਨਾਲ ਜੁੜੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ (2020)।" },
+    format: "percent", direction: "higher_better", tier: "core", village: "all_weather_road",
+    say: { en: "villages are on an all-weather road", pa: "ਪਿੰਡ ਪੱਕੀ ਸੜਕ 'ਤੇ ਹਨ" },
+  },
+  village_broadband_share: {
+    label: { en: "Villages with broadband", pa: "ਬ੍ਰਾਡਬੈਂਡ ਵਾਲੇ ਪਿੰਡ" },
+    short: { en: "Broadband", pa: "ਬ੍ਰਾਡਬੈਂਡ" },
+    desc: { en: "Share of villages with a broadband internet connection (2020).", pa: "ਬ੍ਰਾਡਬੈਂਡ ਇੰਟਰਨੈੱਟ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ (2020)।" },
+    format: "percent", direction: "higher_better", tier: "detail", village: "broadband",
+    say: { en: "villages have broadband", pa: "ਪਿੰਡਾਂ ਵਿੱਚ ਬ੍ਰਾਡਬੈਂਡ ਹੈ" },
+  },
+  village_public_transport_share: {
+    label: { en: "Villages with public transport", pa: "ਜਨਤਕ ਆਵਾਜਾਈ ਵਾਲੇ ਪਿੰਡ" },
+    short: { en: "Public transport", pa: "ਜਨਤਕ ਆਵਾਜਾਈ" },
+    desc: { en: "Share of villages with public transport (2020).", pa: "ਜਨਤਕ ਆਵਾਜਾਈ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ (2020)।" },
+    format: "percent", direction: "higher_better", tier: "detail", village: "public_transport",
+    say: { en: "villages have public transport", pa: "ਪਿੰਡਾਂ ਵਿੱਚ ਜਨਤਕ ਆਵਾਜਾਈ ਹੈ" },
+  },
+  village_piped_water_share: {
+    label: { en: "Villages with piped water everywhere", pa: "ਹਰ ਥਾਂ ਨਲਕੇ ਦੇ ਪਾਣੀ ਵਾਲੇ ਪਿੰਡ" },
+    short: { en: "Piped water", pa: "ਨਲਕੇ ਦਾ ਪਾਣੀ" },
+    desc: { en: "Share of villages where every habitation has piped water (2020).", pa: "ਉਹ ਪਿੰਡ ਜਿੱਥੇ ਹਰ ਬਸਤੀ ਵਿੱਚ ਨਲਕੇ ਦਾ ਪਾਣੀ ਹੈ (2020)।" },
+    format: "percent", direction: "higher_better", tier: "detail", village: "piped_water",
+    say: { en: "villages have piped water in every habitation", pa: "ਪਿੰਡਾਂ ਵਿੱਚ ਹਰ ਥਾਂ ਨਲਕੇ ਦਾ ਪਾਣੀ ਹੈ" },
+  },
+  household_no_latrine_share: {
+    label: { en: "Homes without a toilet", pa: "ਪਖਾਨੇ ਤੋਂ ਬਿਨਾਂ ਘਰ" },
+    short: { en: "No toilet", pa: "ਪਖਾਨਾ ਨਹੀਂ" },
+    desc: { en: "Share of village households without a sanitary latrine (2020).", pa: "ਪਿੰਡਾਂ ਦੇ ਘਰ ਜਿਨ੍ਹਾਂ ਕੋਲ ਸਾਫ਼ ਪਖਾਨਾ ਨਹੀਂ (2020)।" },
+    format: "percent", direction: "higher_worse", tier: "detail",
+    say: { en: "village households have no sanitary toilet", pa: "ਪਿੰਡਾਂ ਦੇ ਘਰਾਂ ਕੋਲ ਪਖਾਨਾ ਨਹੀਂ" },
+  },
 };
 
 // Order of tabs and the indicators inside each.
@@ -218,34 +270,26 @@ Atlas.THEMES = [
   {
     id: "education",
     label: { en: "Education", pa: "ਸਿੱਖਿਆ" },
-    indicators: [
-      "college_or_higher_aspiration_share",
-      "avg_education_aspiration",
-      "avg_mother_education_years",
-      "avg_father_education_years",
-    ],
+    indicators: ["college_or_higher_aspiration_share", "avg_mother_education_years", "avg_father_education_years", "avg_education_aspiration"],
     planned: [{ en: "Learning levels (ASER)", pa: "ਸਿੱਖਣ ਦਾ ਪੱਧਰ (ASER)" }],
+  },
+  {
+    id: "villages",
+    label: { en: "Village facilities", pa: "ਪਿੰਡ ਦੀਆਂ ਸਹੂਲਤਾਂ" },
+    indicators: [
+      "village_high_school_share", "village_health_centre_share", "village_all_weather_road_share",
+      "village_broadband_share", "village_public_transport_share", "village_piped_water_share", "household_no_latrine_share",
+    ],
   },
   {
     id: "floods",
     label: { en: "2025 floods", pa: "2025 ਦੇ ਹੜ੍ਹ" },
-    indicators: [
-      "severe_or_total_house_damage_share",
-      "avg_house_damage",
-      "avg_agricultural_land_damage_among_owners",
-      "avg_business_damage_among_owners",
-    ],
-  },
-  {
-    id: "livelihoods",
-    label: { en: "Livelihoods", pa: "ਰੋਜ਼ੀ-ਰੋਟੀ" },
-    indicators: ["agricultural_land_ownership_share", "business_ownership_share"],
+    indicators: ["severe_or_total_house_damage_share", "avg_agricultural_land_damage_among_owners", "avg_house_damage", "avg_business_damage_among_owners"],
   },
   {
     id: "people",
-    label: { en: "Students", pa: "ਵਿਦਿਆਰਥੀ" },
-    indicators: ["female_share"],
-    planned: [{ en: "Village facilities (Mission Antyodaya)", pa: "ਪਿੰਡ ਦੀਆਂ ਸਹੂਲਤਾਂ (ਮਿਸ਼ਨ ਅੰਤੋਦਿਆ)" }],
+    label: { en: "Families & students", pa: "ਪਰਿਵਾਰ ਅਤੇ ਵਿਦਿਆਰਥੀ" },
+    indicators: ["agricultural_land_ownership_share", "business_ownership_share", "female_share"],
   },
 ];
 

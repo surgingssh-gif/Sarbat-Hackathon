@@ -423,7 +423,7 @@ Atlas.DISTRICT_PA = {
   "Bathinda": "ਬਠਿੰਡਾ",
   "Faridkot": "ਫ਼ਰੀਦਕੋਟ",
   "Fazilka": "ਫ਼ਾਜ਼ਿਲਕਾ",
-  "Firozpur": "ਫ਼ਿਰੋਜ਼ਪੁਰ",
+  "Ferozepur": "ਫ਼ਿਰੋਜ਼ਪੁਰ",
   "Gurdaspur": "ਗੁਰਦਾਸਪੁਰ",
   "Hoshiarpur": "ਹੁਸ਼ਿਆਰਪੁਰ",
   "Jalandhar": "ਜਲੰਧਰ",
@@ -434,13 +434,13 @@ Atlas.DISTRICT_PA = {
   "Moga": "ਮੋਗਾ",
   "Pathankot": "ਪਠਾਨਕੋਟ",
   "Patiala": "ਪਟਿਆਲਾ",
-  "Roop Nagar": "ਰੂਪਨਗਰ",
+  "Rupnagar": "ਰੂਪਨਗਰ",
   "S.A.S Nagar": "ਐਸ.ਏ.ਐਸ. ਨਗਰ",
   "Sangrur": "ਸੰਗਰੂਰ",
-  "Shaheed Bhagat Singh Nagar": "ਸ਼ਹੀਦ ਭਗਤ ਸਿੰਘ ਨਗਰ",
-  "Shri Fatehgarh Sahib": "ਸ੍ਰੀ ਫ਼ਤਹਿਗੜ੍ਹ ਸਾਹਿਬ",
+  "Shahid Bhagat Singh Nagar": "ਸ਼ਹੀਦ ਭਗਤ ਸਿੰਘ ਨਗਰ",
+  "Fatehgarh Sahib": "ਸ੍ਰੀ ਫ਼ਤਹਿਗੜ੍ਹ ਸਾਹਿਬ",
   "Sri Muktsar Sahib": "ਸ੍ਰੀ ਮੁਕਤਸਰ ਸਾਹਿਬ",
-  "Tarn Tarn": "ਤਰਨ ਤਾਰਨ",
+  "Tarn Taran": "ਤਰਨ ਤਾਰਨ",
 };
 
 Atlas.lang = "en";

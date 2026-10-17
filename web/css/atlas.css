@@ -142,7 +142,22 @@ a { color: var(--accent); }
 .district-label .label-val { font-weight: 800; font-size: 1.1em; }
 .district-label.is-crowded { display: none; }
 .district-label.is-selected { font-size: calc(var(--label-size, 11px) * 1.15); }
-.village-dot { stroke: #fff; stroke-width: 1.5; cursor: pointer; }
+.village-dot { stroke: rgba(0,0,0,.6); stroke-width: 0.8; vector-effect: non-scaling-stroke; r: calc(var(--unit, 1) * 3.4px); cursor: pointer; }
+.village-dot:hover { stroke: var(--ink); stroke-width: 2; }
+.has-dots .district { fill-opacity: 0.22; }
+.has-dots .district.is-selected { fill-opacity: 0.35; }
+.has-dots .district-label:not(.is-selected) { opacity: .55; }
+.map-tip .tip-s { display: block; margin-top: 2px; font-weight: 700; }
+.map-tip .tip-s.is-has { color: #9fe0cf; }
+.map-tip .tip-s.is-not { color: #ffb3c4; }
+.map-tip .tip-s.is-na { color: #c9c9c9; }
+.vd { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,.6); vertical-align: -1px; margin: 0 2px; }
+.vd.has { background: var(--good); }
+.vd.not { background: #fff; }
+.vd.na { background: #b9b9b9; }
+.v-line { margin: 6px 0 0; font-size: 13.5px; }
+.v-key { margin: 6px 0 0; font-size: 12.5px; color: var(--ink-2); }
+.rows-toggle { margin-top: 6px; font-size: 12.5px; }
 
 .map-tip {
   position: absolute; left: 0; top: 0; z-index: 5; pointer-events: none;
