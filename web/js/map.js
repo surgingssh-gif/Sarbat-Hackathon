@@ -226,7 +226,7 @@ window.Atlas = window.Atlas || {};
     gBlockLabels = document.createElementNS(NS, "g");
     gBlockLabels.setAttribute("class", "block-labels");
     gBlockLabels.setAttribute("aria-hidden", "true");
-    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gBlocks, gLabels, gBlockLabels, gTop, gDense, gVillages);
+    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gBlocks, gDense, gLabels, gBlockLabels, gTop, gVillages);
     bindDense();
     drawContext(opts.context);
     // Re-fit whenever the map's box changes size (layout changes, full-screen toggle).
@@ -330,7 +330,7 @@ window.Atlas = window.Atlas || {};
     svg.style.setProperty("--label-size", (11.5 * unit).toFixed(3) + "px");
     svg.style.setProperty("--label-halo", (3.2 * unit).toFixed(3) + "px");
     // Dense mode (every village in Punjab): small dots that grow as you zoom in.
-    const dense = wrap.classList.contains("is-dense"), dr = Math.min(5, Math.max(1.4, 1.4 / Math.sqrt(box[2] / fullBox[2])));
+    const dense = wrap.classList.contains("is-dense"), dr = Math.min(4.5, Math.max(1.1, 1.1 / Math.sqrt(box[2] / fullBox[2])));
     gVillages.querySelectorAll("circle").forEach((c) => c.setAttribute("r", (c.dataset.sel ? (dense ? Math.max(7, dr * 1.8) : 8) : dense ? dr : 6) * unit));
     drawDense(unit, dr);
     gTop.querySelectorAll(".ctx-city circle").forEach((c) => c.setAttribute("r", 4.5 * unit));
