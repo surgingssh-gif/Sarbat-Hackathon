@@ -938,3 +938,14 @@ body.map-full .chat { z-index: 50; }
   .story .answer-title { font-size: 32px; }
   .mine { flex-direction: column; align-items: stretch; }
 }
+
+/* map: smaller, framed like a picture (outer rule, mat, inner rule) */
+.story { grid-template-columns: minmax(360px, 6fr) minmax(0, 6fr); }
+.mapfig .map-wrap, body:has(.mine:not([hidden])) .mapfig .map-wrap {
+  height: min(470px, calc(100vh - 230px)); min-height: 340px; margin-top: 12px;
+  border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 6px;
+  box-shadow: 0 0 0 6px #fff; background: #fff;
+}
+.mapfig { padding: 0 8px 8px; }
+.mapfig .map-note { padding-top: 16px; }
+body.map-full .mapfig .map-wrap { outline-offset: 6px; margin: 14px 8px 8px; }
