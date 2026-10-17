@@ -388,40 +388,6 @@ window.Atlas = window.Atlas || {};
     return (L[Atlas.lang] || L.en)[level];
   }
 
-  // ---------- bottom dock: topic pills ----------
-
-  function renderTopicbar() {
-    const core = availableIndicators().filter((i) => D.meta(i).tier !== "detail" || i === state.indicator);
-    const activeOn = state.mode === "single" || state.mode === "overlap";
-    $("topicbar").innerHTML = core.map((ind) => {
-      const on = activeOn && ind === state.indicator;
-      const isB = state.mode === "overlap" && ind === state.compare;
-      return `<button type="button" class="tp${on ? " is-on" : ""}${isB ? " is-b" : ""}" data-ind="${esc(ind)}" aria-pressed="${on}">
-        ${state.mode === "overlap" && on ? `<b class="ab ab-a">A</b>` : ""}${isB ? `<b class="ab ab-b">B</b>` : ""}${esc(short(ind))}</button>`;
-    }).join("");
-    const onEl = $("topicbar").querySelector(".tp.is-on");
-    if (onEl) {
-      const bar = $("topicbar");
-      const l = onEl.offsetLeft, r = l + onEl.offsetWidth;
-      if (l < bar.scrollLeft || r > bar.scrollLeft + bar.clientWidth) bar.scrollTo({ left: l - 24, behavior: prefersReduced() ? "auto" : "smooth" });
-    }
-  }
-
-  // Tell the map which parts of the screen the floating panels cover.
-  function updatePadding() {
-    if (isNarrow()) { Atlas.Map.setPadding({ l: 12, t: 12, r: 12, b: 12 }); return; }
-    const st = $("stage").getBoundingClientRect();
-    const tf = $("title-float").getBoundingClientRect();
-    const ins = $("inspector").getBoundingClientRect();
-    const dk = $("dock").getBoundingClientRect();
-    Atlas.Map.setPadding({
-      l: 40,
-      t: Math.max(24, tf.bottom - st.top + 16),
-      r: Math.max(24, st.right - ins.left + 24),
-      b: Math.max(24, st.bottom - dk.top + 20),
-    });
-  }
-
   // ---------- topic menu ----------
 
   let menuTarget = "a"; // which slot the menu fills: "a" (main) or "b" (compare)
@@ -460,20 +426,11 @@ window.Atlas = window.Atlas || {};
       menuReturn = document.activeElement;
       $("menu-input").value = "";
       renderMenu();
-      menu.style.top = ""; menu.style.left = ""; menu.style.bottom = "";
       if (!isNarrow()) {
-        const fromDock = document.activeElement && document.activeElement.closest?.("#dock");
-        if (fromDock) {
-          const d = $("dock").getBoundingClientRect();
-          menu.style.bottom = Math.round(window.innerHeight - d.top + 10) + "px";
-          menu.style.top = "auto";
-          menu.style.left = Math.round(Math.max(16, d.left)) + "px";
-        } else {
-          const r = $("topic-btn").getBoundingClientRect();
-          menu.style.top = Math.round(r.bottom + 8) + "px";
-          menu.style.left = Math.round(Math.max(16, r.left - 8)) + "px";
-        }
-      }
+        const r = $("topic-btn").getBoundingClientRect();
+        menu.style.top = Math.round(r.bottom + 8) + "px";
+        menu.style.left = Math.round(Math.max(16, r.left - 8)) + "px";
+      } else { menu.style.top = ""; menu.style.left = ""; }
       menu.hidden = false;
       $("menu-scrim").hidden = false;
       $("topic-btn").setAttribute("aria-expanded", "true");
@@ -491,7 +448,7 @@ window.Atlas = window.Atlas || {};
   // ---------- canvas: modes, title, map, legend ----------
 
   function renderModes() {
-    const labels = { single: t("modeSingleShort"), overlap: t("modeOverlapShort"), signs: t("modeSignsShort"), grid: t("modeGrid") };
+    const labels = { single: t("modeSingle"), overlap: t("modeOverlap"), signs: t("modeSigns"), grid: t("modeGrid") };
     const icons = {
       single: '<path d="M4 18V8l5-3 6 3 5-3v10l-5 3-6-3z"/>',
       overlap: '<circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/>',
@@ -1080,9 +1037,7 @@ window.Atlas = window.Atlas || {};
     renderStatic();
     renderCrumbs();
     renderModes();
-    renderTopicbar();
     renderCanvasTitle();
-    updatePadding();
     renderMap({ zoom });
     renderPanel();
     Atlas.Chat.refresh();
@@ -1232,13 +1187,6 @@ window.Atlas = window.Atlas || {};
       else if (state.mode === "overlap") openMenu(true, "a");
       else { openMenu(true, "a"); }
     });
-    $("dock-more").addEventListener("click", () => openMenu(true, "a"));
-    if (window.ResizeObserver) {
-      let raf = 0;
-      const ro = new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(updatePadding); });
-      ["title-float", "inspector", "dock"].forEach((id) => ro.observe($(id)));
-    }
-    window.addEventListener("resize", updatePadding);
     $("menu-close").addEventListener("click", () => openMenu(false));
     $("menu-scrim").addEventListener("click", () => openMenu(false));
     $("menu-input").addEventListener("input", renderMenu);
