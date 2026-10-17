@@ -18,7 +18,7 @@
     en: {
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
-      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average", pickTopic: "Topic", pickMeasure: "Measures in this topic", measuresN: "{n} measures", tabVillages: "Villages", tabAbout: "How It Works",
+      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average", pickTopic: "Topic", exNavH: "Topics · Punjab average", highest: "Highest", lowest: "Lowest", pickMeasure: "Measures in this topic", measuresN: "{n} measures", tabVillages: "Villages", tabAbout: "How It Works",
       kickerLead: "Where help is needed", leadHead: "{a}, {b} and {c} need help most",
       leadDeck: "Ranking Punjab's 23 districts on {areas}, these three come out furthest behind. Below: the five districts to look at first, and why.",
       sixty: "In 60 seconds", sMost: "Most need", sGap: "Biggest gap", sGapV: "{k} of {d} villages with a 2020 record have no high school; {h} have no health centre.",
@@ -74,7 +74,7 @@
     pa: {
       brand: "ਪਰਵਾਜ਼ ਡਾਟਾ ਹੱਬ", byTitle: "ਪਰਵਾਜ਼ ਵੱਲੋਂ ਬਣਾਇਆ", byText: "ਪਰਵਾਜ਼ ਇੱਕ ਗੈਰ-ਮੁਨਾਫ਼ਾ ਸੰਸਥਾ ਹੈ ਜਿਸਨੇ ਪੰਜਾਬ ਦੇ ਹਰ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਦੇ ਲਗਭਗ 3 ਲੱਖ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ। ਇਹ ਹੱਬ ਜ਼ਿਲ੍ਹਾ-ਵਾਰ ਨਤੀਜੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ। ਅਸਲ ਜਵਾਬ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ, ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਔਸਤ।", edition: "ਪੰਜਾਬ ਐਡੀਸ਼ਨ", volume: "ਅੰਕ 1 · ਪਰਵਾਜ਼ ਵੱਲੋਂ", simLine: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
       darkMode: "ਗੂੜ੍ਹਾ", lightMode: "ਹਲਕਾ", findPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ",
-      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", pickTopic: "ਵਿਸ਼ਾ", pickMeasure: "ਇਸ ਵਿਸ਼ੇ ਦੇ ਮਾਪ", measuresN: "{n} ਮਾਪ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
+      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", pickTopic: "ਵਿਸ਼ਾ", exNavH: "ਵਿਸ਼ੇ · ਪੰਜਾਬ ਔਸਤ", highest: "ਸਭ ਤੋਂ ਵੱਧ", lowest: "ਸਭ ਤੋਂ ਘੱਟ", pickMeasure: "ਇਸ ਵਿਸ਼ੇ ਦੇ ਮਾਪ", measuresN: "{n} ਮਾਪ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
       kickerLead: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", leadHead: "{a}, {b} ਅਤੇ {c} ਨੂੰ ਸਭ ਤੋਂ ਵੱਧ ਮਦਦ ਦੀ ਲੋੜ",
       leadDeck: "{areas} ਵਿੱਚ ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰਨ 'ਤੇ ਇਹ ਤਿੰਨ ਸਭ ਤੋਂ ਪਿੱਛੇ ਹਨ। ਹੇਠਾਂ: ਪਹਿਲਾਂ ਦੇਖਣ ਵਾਲੇ ਪੰਜ ਜ਼ਿਲ੍ਹੇ।",
       sixty: "60 ਸਕਿੰਟਾਂ ਵਿੱਚ", sMost: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ", sGap: "ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਟ", sGapV: "ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਨਹੀਂ; {h} ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਨਹੀਂ।",
@@ -318,20 +318,23 @@
 
   function renderMapTab() {
     const ind = state.ind, m = D.meta(ind), th = themeOf(ind), sc = scaleFor(ind);
-    $("topic-sel").innerHTML = available().map((t) => `<option value="${esc(t.indicators[0])}"${t.id === th.id ? " selected" : ""}>${esc(Atlas.tr(t.label))}</option>`).join("");
-    $("measure-sel").innerHTML = th.indicators.map((i) => `<option value="${esc(i)}"${i === ind ? " selected" : ""}>${esc(label(i))}</option>`).join("");
-    $("measure-sel").disabled = th.indicators.length < 2;
-    fitSelect($("topic-sel")); fitSelect($("measure-sel"));
+    const pval = (i) => { const v = D.visible(i, stateId()); return v === null ? "–" : D.fmt(v, i); };
+    $("ex-nav").innerHTML = available().map((t) => { const on = t.id === th.id, i0 = t.indicators[0];
+      return `<div class="ex-topic${on ? " is-on" : ""}"><a class="ex-t" href="#explore/${esc(on ? ind : i0)}"${on ? ' aria-current="true"' : ""}><span>${esc(Atlas.tr(t.label))}</span><b>${esc(on ? "" : pval(i0))}</b></a>
+        ${on ? `<div class="ex-measures">${t.indicators.map((i) => `<a class="ex-m${i === ind ? " is-on" : ""}" href="#explore/${esc(i)}"><span>${esc(label(i))}</span><b>${esc(pval(i))}</b></a>`).join("")}</div>` : ""}</div>`; }).join("");
+    $("ex-kicker").textContent = Atlas.tr(th.label);
+    $("map-title").textContent = label(ind);
     $("map-desc").textContent = Atlas.tr(m.desc || "");
     const dir = m.direction === "higher_better" ? s("higherBetter") : m.direction === "higher_worse" ? s("higherWorse") : "";
     $("map-key").innerHTML = `<span>${esc(D.fmtShort(sc.min, ind))}</span><i class="grad" style="background:${grad(ramp(ind))}"></i><span>${esc(D.fmtShort(sc.max, ind))}</span>${dir ? `<em>${esc(dir)}</em>` : ""}`;
     const pv = D.visible(ind, stateId()), list = D.districtValues(ind).sort((a, b) => b.value - a.value), hi = list[0], lo = list[list.length - 1];
     const lo0 = m.format === "score" && m.scale ? m.scale[0] : 0, hi0 = (Math.max(sc.max, pv ?? 0) * 1.05) || 1;
     const pos = (x) => Math.max(0, Math.min(100, ((x - lo0) / (hi0 - lo0)) * 100));
-    $("map-side").innerHTML = `<p class="hero-label">${esc(s("punjabAvgOf"))}</p><p class="hero-figure">${esc(pv === null ? "–" : D.fmt(pv, ind))}</p>
-      <p class="hero-note">${esc(pv === null ? "" : D.say(ind, pv).replace(/^\w/, (c) => c.toUpperCase()))}</p>
-      ${source(ind, geo(stateId()))}
-      <div class="ranking"><h3>${esc(s("rankTitle"))}</h3>${list.map((d, i) => `<a class="meter-row" href="${sheetUrl(d.geo)}" data-name="${esc(d.geo.name)}">
+    $("ex-stats").innerHTML = `<div class="ex-stat main"><span class="lbl">${esc(s("punjabAvgOf"))}</span><span class="big">${esc(pv === null ? "–" : D.fmt(pv, ind))}</span><span class="note">${esc(pv === null ? "" : D.say(ind, pv).replace(/^\w/, (c) => c.toUpperCase()))}</span></div>
+      ${hi ? `<a class="ex-stat" href="${sheetUrl(hi.geo)}"><span class="lbl">${esc(s("highest"))}</span><span class="mid">${esc(D.fmt(hi.value, ind))}</span><span class="note">${esc(placeName(hi.geo))}</span></a>
+      <a class="ex-stat" href="${sheetUrl(lo.geo)}"><span class="lbl">${esc(s("lowest"))}</span><span class="mid">${esc(D.fmt(lo.value, ind))}</span><span class="note">${esc(placeName(lo.geo))}</span></a>` : ""}
+      <div class="ex-src">${source(ind, geo(stateId()))}</div>`;
+    $("map-side").innerHTML = `<div class="ranking"><h3>${esc(s("rankTitle"))}</h3>${list.map((d, i) => `<a class="meter-row" href="${sheetUrl(d.geo)}" data-name="${esc(d.geo.name)}">
         <span class="name">${i + 1}. ${esc(placeName(d.geo))}</span><span class="meter"><span style="width:${pos(d.value).toFixed(1)}%;background:${sc.color(d.value)}"></span>${pv !== null ? `<b style="left:${pos(pv).toFixed(1)}%"></b>` : ""}</span>
         <span class="val">${esc(D.fmt(d.value, ind))}</span></a>`).join("")}
       ${pv !== null ? `<p class="legend-note"><i class="tick"></i>${esc(s("punjabAvg"))} ${esc(D.fmt(pv, ind))}</p>` : ""}</div>`;
@@ -345,16 +348,6 @@
       onMapHover = (n) => { const d = byName(n), v = d ? D.visible(ind, d.id) : null, rk = d && D.rank(ind, d.id);
         return `<strong>${esc(d ? placeName(d) : n)}</strong><span class="tip-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>${rk ? `<span class="tip-r">${esc(s("rankOf", { r: ordinal(rk.r), n: rk.total }))}</span>` : ""}`; };
     }
-  }
-
-  // size a <select> to its chosen option, so the caret sits right after the text
-  function fitSelect(sel) {
-    const o = sel.options[sel.selectedIndex]; if (!o) return;
-    const probe = document.createElement("span"), cs = getComputedStyle(sel);
-    probe.style.cssText = `position:absolute;visibility:hidden;white-space:pre;font:${cs.font};letter-spacing:${cs.letterSpacing};text-transform:${cs.textTransform}`;
-    probe.textContent = o.textContent; document.body.appendChild(probe);
-    sel.style.width = Math.ceil(probe.getBoundingClientRect().width + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + 2) + "px";
-    probe.remove();
   }
 
   // ---------- VILLAGES (the record) ----------
@@ -620,7 +613,6 @@
     document.addEventListener("change", (e) => {
       if (e.target.id === "vf-district") { state.vd = e.target.value; state.vb = ""; state.vhl = null; state.vlimit = 60; renderVillageFilters(); renderVillages(); }
       if (e.target.id === "vf-block") { state.vb = e.target.value; state.vhl = null; state.vlimit = 60; renderVillages(); }
-      if (e.target.id === "topic-sel" || e.target.id === "measure-sel") { location.hash = "#explore/" + e.target.value; return; }
       if (e.target.id === "vf-missing") { state.vm = e.target.value; state.vlimit = 60; renderVillages(); }
     });
     document.addEventListener("mouseover", (e) => { if (e.buttons) return; const row = e.target.closest("[data-name]"); if (!row || row.closest(".map-wrap")) return;
@@ -646,7 +638,6 @@
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind(); parse(); render();
       document.body.classList.add("is-ready");
-      if (document.fonts) document.fonts.ready.then(() => { fitSelect($("topic-sel")); fitSelect($("measure-sel")); });
     } catch (err) {
       console.error(err);
       document.body.insertAdjacentHTML("afterbegin", `<p style="padding:40px">The data didn't load: ${esc(err.message)}</p>`);
