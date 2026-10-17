@@ -214,6 +214,8 @@ window.Atlas = window.Atlas || {};
     gLabels = document.createElementNS(NS, "g");
     gLabels.setAttribute("class", "labels");
     gLabels.setAttribute("aria-hidden", "true");
+    gBlockLines = document.createElementNS(NS, "g");
+    gBlockLines.setAttribute("class", "block-lines");
     gDense = document.createElementNS(NS, "g");
     gDense.setAttribute("class", "dense");
     gVillages = document.createElementNS(NS, "g");
@@ -226,7 +228,7 @@ window.Atlas = window.Atlas || {};
     gBlockLabels = document.createElementNS(NS, "g");
     gBlockLabels.setAttribute("class", "block-labels");
     gBlockLabels.setAttribute("aria-hidden", "true");
-    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gBlocks, gDense, gLabels, gBlockLabels, gTop, gVillages);
+    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gBlockLines, gBlocks, gDense, gLabels, gBlockLabels, gTop, gVillages);
     bindDense();
     drawContext(opts.context);
     // Re-fit whenever the map's box changes size (layout changes, full-screen toggle).
@@ -571,72 +573,12 @@ window.Atlas = window.Atlas || {};
     applyBox();
   }
 
-  /*
-   * Every village at once (the big map). Drawn as one path per colour group instead of thousands of
-   * elements; hover and click find the nearest village to the pointer.
-   * points: [{ id, lon, lat, cls, tip }]  cls: "0".."4" (services) or "nr" (no record)
-   */
-  function setDense(points, selId, onSelect) {
-    if (!points) { dense = null; gDense.innerHTML = ""; return; }
-    dense = { pts: points.map((p) => { const [x, y] = project([p.lon, p.lat]); return { ...p, x, y }; }), sel: selId, onSelect, r: 1 };
-    applyBox();
-  }
-  function drawDense(unit, dr) {
-    if (!dense) return;
-    const r = dr * unit; dense.r = r;
-    const groups = {};
-    for (const p of dense.pts) (groups[p.cls] = groups[p.cls] || []).push(`M${(p.x - r).toFixed(1)},${p.y.toFixed(1)}a${r.toFixed(2)},${r.toFixed(2)} 0 1,0 ${(2 * r).toFixed(2)},0a${r.toFixed(2)},${r.toFixed(2)} 0 1,0 ${(-2 * r).toFixed(2)},0`);
-    const sel = dense.sel && dense.pts.find((p) => p.id === dense.sel);
-    gDense.innerHTML = Object.entries(groups).map(([k, d]) => `<path class="dense-dots d-${k}" d="${d.join("")}"/>`).join("") +
-      (sel ? `<circle class="dense-sel" cx="${sel.x.toFixed(1)}" cy="${sel.y.toFixed(1)}" r="${(Math.max(7, dr * 1.8) * unit).toFixed(2)}"/>` : "");
-  }
-  function nearestDense(e) {
-    const [x, y, scale] = toSvgPoint(e.clientX, e.clientY), lim = Math.max(dense.r * 1.8, 5 / scale);
-    let best = null, bd = lim * lim;
-    for (const p of dense.pts) { const dx = p.x - x, dy = p.y - y, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = p; } }
-    return best;
-  }
-  function bindDense() {
-    svg.addEventListener("pointermove", (e) => {
-      if (!dense || e.buttons) return;
-      const p = nearestDense(e);
-      if (p) { e.stopPropagation(); svg.style.cursor = "pointer"; showTip(e, p.tip); }
-      else svg.style.cursor = "";
-    }, true);
-    svg.addEventListener("click", (e) => {
-      if (!dense || suppressClick) return;
-      const p = nearestDense(e);
-      if (p) { e.stopPropagation(); dense.onSelect(p.id); }
-    }, true);
-  }
-
-  // A small static copy of the map (for the "all indicators" grid).
-  function miniSvg(fills, selected) {
-    const paths = [...shapes].map(([name, s]) =>
-      `<path d="${s.d}" style="fill:${fills[name] || "var(--nodata)"}"${name === selected ? ' class="is-selected"' : ""}/>`).join("");
-    return `<svg class="mini-svg" viewBox="${fullBox.join(" ")}" aria-hidden="true">${paths}</svg>`;
-  }
-
-  /*
-   * Blocks inside one district, drawn as approximate areas: every spot in the district is
-   * given to the block of its nearest village (no official block boundaries are published).
-   * points: [{ lon, lat, key }]; blocks: { key: { fill, label, value, selected } }
-   */
-  function setBlocks(district, points, blocks, onSelect) {
-    gBlocks.innerHTML = ""; gBlockLabels.innerHTML = "";
-    wrap.classList.toggle("has-blocks", Boolean(district));
-    const s = district && shapes.get(district);
-    if (!s || !points.length) return;
-    const pts = points.map((p) => { const [x, y] = project([p.lon, p.lat]); return { x, y, key: p.key }; });
+  // Approximate block areas inside one district: nearest-village regions on an N-cell grid, traced and smoothed.
+  // Returns { blockKey: pathData }.
+  function traceBlocks(s, pts, N) {
     const [bx, by, bw, bh] = s.box;
-    const N = 120, cell = Math.max(bw, bh) / N;
+    const cell = Math.max(bw, bh) / N;
     const cols = Math.ceil(bw / cell), rows = Math.ceil(bh / cell);
-    const clipId = "blk-clip";
-    const defs = document.createElementNS(NS, "defs");
-    defs.innerHTML = `<clipPath id="${clipId}"><path d="${s.d}"/></clipPath>`;
-    gBlocks.appendChild(defs);
-    const g = document.createElementNS(NS, "g");
-    g.setAttribute("clip-path", `url(#${clipId})`);
     // 1) Assign every grid cell to the block of its nearest village.
     const grid = [];
     for (let r = 0; r < rows; r++) {
@@ -697,11 +639,99 @@ window.Atlas = window.Atlas || {};
       }
       return "M" + p.map((q) => q[0].toFixed(1) + " " + q[1].toFixed(1)).join("L") + "Z";
     }
+    const out = {};
+    for (const k of new Set(pts.map((p) => p.key))) { const d = loopsFor(k).map(smooth).join(""); if (d) out[k] = d; }
+    return out;
+  }
+
+  // Block outlines for every district at once (the big map). Traced at a coarse grid and cached.
+  let gBlockLines, blockLinesCache = null;
+  function setBlockLines(byDistrict) {
+    if (!byDistrict) { gBlockLines.innerHTML = ""; return; }
+    if (!blockLinesCache) {
+      let html = "";
+      Object.entries(byDistrict).forEach(([name, points], i) => {
+        const s = shapes.get(name); if (!s || !points.length) return;
+        const pts = points.map((p) => { const [x, y] = project([p.lon, p.lat]); return { x, y, key: p.key }; });
+        const id = "bl-clip-" + i, d = Object.values(traceBlocks(s, pts, 46)).join("");
+        html += `<clipPath id="${id}"><path d="${s.d}"/></clipPath><path class="blk-line" pathLength="1" clip-path="url(#${id})" d="${d}"/>`;
+      });
+      blockLinesCache = html;
+    }
+    gBlockLines.innerHTML = blockLinesCache;
+  }
+
+  /*
+   * Every village at once (the big map). Drawn as one path per colour group instead of thousands of
+   * elements; hover and click find the nearest village to the pointer.
+   * points: [{ id, lon, lat, cls, tip }]  cls: "0".."4" (services) or "nr" (no record)
+   */
+  function setDense(points, selId, onSelect) {
+    if (!points) { dense = null; gDense.innerHTML = ""; return; }
+    const fresh = !dense || dense.pts.length !== points.length || dense.pts[0]?.id !== points[0]?.id;
+    dense = { pts: points.map((p) => { const [x, y] = project([p.lon, p.lat]); return { ...p, x, y }; }), sel: selId, onSelect, r: 1 };
+    if (fresh) { gDense.classList.remove("in"); void gDense.getBoundingClientRect(); gDense.classList.add("in"); }
+    applyBox();
+  }
+  function drawDense(unit, dr) {
+    if (!dense) return;
+    const r = dr * unit; dense.r = r;
+    const groups = {};
+    for (const p of dense.pts) (groups[p.cls] = groups[p.cls] || []).push(`M${(p.x - r).toFixed(1)},${p.y.toFixed(1)}a${r.toFixed(2)},${r.toFixed(2)} 0 1,0 ${(2 * r).toFixed(2)},0a${r.toFixed(2)},${r.toFixed(2)} 0 1,0 ${(-2 * r).toFixed(2)},0`);
+    const sel = dense.sel && dense.pts.find((p) => p.id === dense.sel);
+    gDense.innerHTML = Object.entries(groups).map(([k, d]) => `<path class="dense-dots d-${k}" d="${d.join("")}"/>`).join("") +
+      (sel ? `<circle class="dense-ripple" cx="${sel.x.toFixed(1)}" cy="${sel.y.toFixed(1)}" r="${(Math.max(7, dr * 1.8) * unit).toFixed(2)}"/><circle class="dense-sel" cx="${sel.x.toFixed(1)}" cy="${sel.y.toFixed(1)}" r="${(Math.max(7, dr * 1.8) * unit).toFixed(2)}"/>` : "");
+  }
+  function nearestDense(e) {
+    const [x, y, scale] = toSvgPoint(e.clientX, e.clientY), lim = Math.max(dense.r * 1.8, 5 / scale);
+    let best = null, bd = lim * lim;
+    for (const p of dense.pts) { const dx = p.x - x, dy = p.y - y, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = p; } }
+    return best;
+  }
+  function bindDense() {
+    svg.addEventListener("pointermove", (e) => {
+      if (!dense || e.buttons) return;
+      const p = nearestDense(e);
+      if (p) { e.stopPropagation(); svg.style.cursor = "pointer"; showTip(e, p.tip); }
+      else svg.style.cursor = "";
+    }, true);
+    svg.addEventListener("click", (e) => {
+      if (!dense || suppressClick) return;
+      const p = nearestDense(e);
+      if (p) { e.stopPropagation(); dense.onSelect(p.id); }
+    }, true);
+  }
+
+  // A small static copy of the map (for the "all indicators" grid).
+  function miniSvg(fills, selected) {
+    const paths = [...shapes].map(([name, s]) =>
+      `<path d="${s.d}" style="fill:${fills[name] || "var(--nodata)"}"${name === selected ? ' class="is-selected"' : ""}/>`).join("");
+    return `<svg class="mini-svg" viewBox="${fullBox.join(" ")}" aria-hidden="true">${paths}</svg>`;
+  }
+
+  /*
+   * Blocks inside one district, drawn as approximate areas: every spot in the district is
+   * given to the block of its nearest village (no official block boundaries are published).
+   * points: [{ lon, lat, key }]; blocks: { key: { fill, label, value, selected } }
+   */
+  function setBlocks(district, points, blocks, onSelect) {
+    gBlocks.innerHTML = ""; gBlockLabels.innerHTML = "";
+    wrap.classList.toggle("has-blocks", Boolean(district));
+    const s = district && shapes.get(district);
+    if (!s || !points.length) return;
+    const pts = points.map((p) => { const [x, y] = project([p.lon, p.lat]); return { x, y, key: p.key }; });
+    const clipId = "blk-clip";
+    const defs = document.createElementNS(NS, "defs");
+    defs.innerHTML = `<clipPath id="${clipId}"><path d="${s.d}"/></clipPath>`;
+    gBlocks.appendChild(defs);
+    const g = document.createElementNS(NS, "g");
+    g.setAttribute("clip-path", `url(#${clipId})`);
+    const traced = traceBlocks(s, pts, 120);
     let html = "";
     const keys = [...new Set(pts.map((p) => p.key))];
     for (const k of keys) {
       const b = blocks[k] || {};
-      const d = loopsFor(k).map(smooth).join("");
+      const d = traced[k] || "";
       if (!d) continue;
       html += `<path d="${d}" fill="${b.fill || "var(--nodata)"}" fill-rule="evenodd" data-key="${String(k).replace(/"/g, "&quot;")}" class="blk${b.selected ? " is-sel" : ""}"/>`;
     }
@@ -725,5 +755,5 @@ window.Atlas = window.Atlas || {};
 
   function drawn() { return new Set(shapes.keys()); }
 
-  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setVillages, setDense, setBlocks, miniSvg, drawn, hideTip };
+  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setVillages, setDense, setBlockLines, setBlocks, miniSvg, drawn, hideTip };
 })();

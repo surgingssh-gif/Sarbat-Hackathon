@@ -18,7 +18,7 @@
     en: {
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
-      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average", tabAtlas: "Big Map", atlasHead: "Every district and village in Punjab", atlasDeck: "Districts are shaded by the measure you pick. Click a district to see its blocks and villages (darker dots are missing more basic services), or search for any of the 12,158 villages.",
+      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average", tabAtlas: "Big Map", atlasHead: "Every district and village in Punjab", atlasDeck: "23 districts, 161 blocks, 12,158 villages. Click a district to fly in and see its villages; darker dots are missing more basic services.",
       atlasColour: "Shade districts by", atlasShowV: "Show villages when zoomed in", atlasHint: "Click a district (or search a village) to see its blocks and villages.", atlasFind: "Find a village", atlasDotsH: "Villages: missing basic services", atlasMissMany: "All 4 missing", atlasMissNone: "None missing", atlasClickD: "Click to zoom in",
       atlasBasic: "basic services (school, health centre, road, water)", atlasNoRec: "This village has no 2020 facility record.", atlasDistLine: "{m} in {place}: {v} (district-wide survey figure).",
       atlasOpenBlock: "Open {b} block →", overview: "Overview", topicDeck: "{place}: {say}. That ranks {pos} (Punjab: {pv}).", topicHidden: "{place}: too few students in this group to show safely (fewer than {n}).",
@@ -513,6 +513,8 @@
     for (const d of D.districts()) fills[d.name] = sc.color(D.visible(ind, d.id));
     Atlas.Map.paint({ fills, selected: atlas.district, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
     $("atlas-hint").hidden = !!dg;
+    if (!atlas.lines) { const by = {}; for (const v of Atlas.villages) if (v.lat && v.lon) (by[v.district] = by[v.district] || []).push({ lon: v.lon, lat: v.lat, key: v.block }); Atlas.Map.setBlockLines(by); atlas.lines = true; }
+    document.querySelectorAll(".slot-big path.district").forEach((pth, i) => pth.style.setProperty("--d", i));
     const key = [atlas.district, showV, atlas.sel, ind].join("|");
     if (atlas.drawnFor !== key) {
       atlas.drawnFor = key;
@@ -963,7 +965,8 @@
   function render() {
     renderStatic();
     TABS.forEach((t) => { $("tab-" + t).hidden = t !== state.tab; });
-    if ((state.tab !== "atlas" || state.sheet) && atlas.drawnFor) { Atlas.Map.setDense(null); atlas.drawnFor = ""; $("map").classList.remove("is-dense"); }
+    if ((state.tab !== "atlas" || state.sheet) && (atlas.drawnFor || atlas.lines)) { Atlas.Map.setDense(null); Atlas.Map.setBlockLines(null); atlas.drawnFor = ""; atlas.lines = false; $("map").classList.remove("is-dense"); }
+    document.body.classList.toggle("on-atlas", state.tab === "atlas" && !state.sheet);
     if (state.tab !== lastTab) { lastTab = state.tab; if (!state.sheet) window.scrollTo({ top: 0 }); state.zoomed = undefined; }
     if (state.tab === "today") renderToday();
     else if (state.tab === "districts") renderDistricts();
