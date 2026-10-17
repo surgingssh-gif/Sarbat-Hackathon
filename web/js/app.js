@@ -318,14 +318,10 @@
 
   function renderMapTab() {
     const ind = state.ind, m = D.meta(ind), th = themeOf(ind), sc = scaleFor(ind);
-    const pval = (i) => { const v = D.visible(i, stateId()); return v === null ? "–" : D.fmt(v, i); };
-    $("topic-pills").innerHTML = available().map((t) => { const on = t.id === th.id, i0 = on ? ind : t.indicators[0];
-      return `<a class="topic-card" href="#explore/${esc(i0)}"${on ? ' aria-current="true"' : ""}>
-        <span class="tc-name">${esc(Atlas.tr(t.label))}</span><span class="tc-val">${esc(pval(i0))}</span><span class="tc-sub">${esc(label(i0))}</span>
-        <span class="tc-n">${esc(s("measuresN", { n: t.indicators.length }))}</span></a>`; }).join("");
-    $("measure-pills").innerHTML = th.indicators.map((i) => `<a class="measure" href="#explore/${esc(i)}"${i === ind ? ' aria-current="true"' : ""}><span class="m-name">${esc(label(i))}</span><span class="m-val">${esc(pval(i))}</span></a>`).join("");
-    $("measure-row").hidden = th.indicators.length < 2;
-    $("map-title").textContent = label(ind);
+    $("topic-sel").innerHTML = available().map((t) => `<option value="${esc(t.indicators[0])}"${t.id === th.id ? " selected" : ""}>${esc(Atlas.tr(t.label))}</option>`).join("");
+    $("measure-sel").innerHTML = th.indicators.map((i) => `<option value="${esc(i)}"${i === ind ? " selected" : ""}>${esc(label(i))}</option>`).join("");
+    $("measure-sel").disabled = th.indicators.length < 2;
+    fitSelect($("topic-sel")); fitSelect($("measure-sel"));
     $("map-desc").textContent = Atlas.tr(m.desc || "");
     const dir = m.direction === "higher_better" ? s("higherBetter") : m.direction === "higher_worse" ? s("higherWorse") : "";
     $("map-key").innerHTML = `<span>${esc(D.fmtShort(sc.min, ind))}</span><i class="grad" style="background:${grad(ramp(ind))}"></i><span>${esc(D.fmtShort(sc.max, ind))}</span>${dir ? `<em>${esc(dir)}</em>` : ""}`;
@@ -334,7 +330,6 @@
     const pos = (x) => Math.max(0, Math.min(100, ((x - lo0) / (hi0 - lo0)) * 100));
     $("map-side").innerHTML = `<p class="hero-label">${esc(s("punjabAvgOf"))}</p><p class="hero-figure">${esc(pv === null ? "–" : D.fmt(pv, ind))}</p>
       <p class="hero-note">${esc(pv === null ? "" : D.say(ind, pv).replace(/^\w/, (c) => c.toUpperCase()))}</p>
-      ${hi ? `<p class="find-note">${s("findingTopic", { hi: esc(placeName(hi.geo)), hiV: esc(D.fmt(hi.value, ind)), lo: esc(placeName(lo.geo)), loV: esc(D.fmt(lo.value, ind)) })}</p>` : ""}
       ${source(ind, geo(stateId()))}
       <div class="ranking"><h3>${esc(s("rankTitle"))}</h3>${list.map((d, i) => `<a class="meter-row" href="${sheetUrl(d.geo)}" data-name="${esc(d.geo.name)}">
         <span class="name">${i + 1}. ${esc(placeName(d.geo))}</span><span class="meter"><span style="width:${pos(d.value).toFixed(1)}%;background:${sc.color(d.value)}"></span>${pv !== null ? `<b style="left:${pos(pv).toFixed(1)}%"></b>` : ""}</span>
@@ -350,6 +345,16 @@
       onMapHover = (n) => { const d = byName(n), v = d ? D.visible(ind, d.id) : null, rk = d && D.rank(ind, d.id);
         return `<strong>${esc(d ? placeName(d) : n)}</strong><span class="tip-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>${rk ? `<span class="tip-r">${esc(s("rankOf", { r: ordinal(rk.r), n: rk.total }))}</span>` : ""}`; };
     }
+  }
+
+  // size a <select> to its chosen option, so the caret sits right after the text
+  function fitSelect(sel) {
+    const o = sel.options[sel.selectedIndex]; if (!o) return;
+    const probe = document.createElement("span"), cs = getComputedStyle(sel);
+    probe.style.cssText = `position:absolute;visibility:hidden;white-space:pre;font:${cs.font};letter-spacing:${cs.letterSpacing};text-transform:${cs.textTransform}`;
+    probe.textContent = o.textContent; document.body.appendChild(probe);
+    sel.style.width = Math.ceil(probe.getBoundingClientRect().width + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + 2) + "px";
+    probe.remove();
   }
 
   // ---------- VILLAGES (the record) ----------
@@ -615,6 +620,7 @@
     document.addEventListener("change", (e) => {
       if (e.target.id === "vf-district") { state.vd = e.target.value; state.vb = ""; state.vhl = null; state.vlimit = 60; renderVillageFilters(); renderVillages(); }
       if (e.target.id === "vf-block") { state.vb = e.target.value; state.vhl = null; state.vlimit = 60; renderVillages(); }
+      if (e.target.id === "topic-sel" || e.target.id === "measure-sel") { location.hash = "#explore/" + e.target.value; return; }
       if (e.target.id === "vf-missing") { state.vm = e.target.value; state.vlimit = 60; renderVillages(); }
     });
     document.addEventListener("mouseover", (e) => { if (e.buttons) return; const row = e.target.closest("[data-name]"); if (!row || row.closest(".map-wrap")) return;
@@ -640,6 +646,7 @@
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind(); parse(); render();
       document.body.classList.add("is-ready");
+      if (document.fonts) document.fonts.ready.then(() => { fitSelect($("topic-sel")); fitSelect($("measure-sel")); });
     } catch (err) {
       console.error(err);
       document.body.insertAdjacentHTML("afterbegin", `<p style="padding:40px">The data didn't load: ${esc(err.message)}</p>`);
