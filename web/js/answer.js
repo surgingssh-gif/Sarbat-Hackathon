@@ -196,6 +196,9 @@
     const q = question.trim(), low = q.toLowerCase(), src = new Map();
     const done = (html, followups) => ({ html, followups, _src: src });
     let dists = findDistricts(q), topics = findTopics(q);
+    // a whole topic ("education", "floods", "household") means every measure in it
+    const THEME_WORDS = { education: /\beducation|schooling|ਸਿੱਖਿਆ|ਪੜ੍ਹਾਈ/, floods: /\bflood|ਹੜ੍ਹ/, wealth: /\bhousehold|assets|ਘਰੇਲੂ/, villages: /\binfrastructure|facilities|services|ਸਹੂਲਤ/, people: /\blivelihood|ਰੋਜ਼ੀ/ };
+    for (const th of Atlas.THEMES) { const re = THEME_WORDS[th.id]; if (re && re.test(low + " " + q) && dists.length) { const add = th.indicators.filter((i) => Atlas.data.values[i]); topics = add.concat(th.id === "education" ? ["village_high_school_share"] : []).concat(topics.filter((x) => !add.includes(x))); break; } }
     const village = findVillage(q, dists), block = village ? null : findBlock(q, dists);
     const wantRank = /\b(which|where|highest|lowest|most|least|worst|best|top|rank|\w+est)\b/.test(low) || /ਕਿਹੜ|ਕਿੱਥੇ|ਸਭ ਤੋਂ/.test(q);
     let wantLow = /\b(lowest|least|fewest|poorest)\b/.test(low) || /ਸਭ ਤੋਂ ਘੱਟ/.test(q);
@@ -264,7 +267,7 @@
       if (top) fu.push(T(`${name(top.geo, lang)} ਬਾਰੇ ਹੋਰ ਦੱਸੋ`, `Tell me more about ${name(top.geo, lang)}`, lang));
       fu.push(T(`${wantLow ? "ਸਭ ਤੋਂ ਵੱਧ" : "ਸਭ ਤੋਂ ਘੱਟ"} ਕਿੱਥੇ ਹੈ?`, `And where is it ${wantLow ? "highest" : "lowest"}?`, lang));
     } else if (dists.length && topics.length) {
-      for (const d of dists.slice(0, 3)) parts.push(`<b>${esc(name(d, lang))}</b><br>` + topics.slice(0, 3).map((ind) => factLine(ind, d, lang, src)).join("<br>"));
+      for (const d of dists.slice(0, 3)) parts.push(`<b>${esc(name(d, lang))}</b><br>` + topics.slice(0, 5).map((ind) => factLine(ind, d, lang, src)).join("<br>"));
       parts.push(rankingAnswer(topics[0], lang, src, D.meta(topics[0]).direction === "higher_better", dists[0].name));
       fu.push(T(`${name(dists[0], lang)} ਵਿੱਚ ਕਿਹੜੇ ਬਲਾਕ ਸਭ ਤੋਂ ਪਿੱਛੇ ਹਨ?`, `Which blocks in ${name(dists[0], lang)} are furthest behind?`, lang));
     } else if (dists.length) {

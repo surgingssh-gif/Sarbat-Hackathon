@@ -96,25 +96,37 @@ window.Atlas = window.Atlas || {};
     const key = getKey();
     if (!url && key) {
       const pending = add("bot is-pending", TYPING);
+      let text = "", why = "";
       try {
+        const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 30000);
         const res = await fetch("https://api.anthropic.com/v1/messages", {
-          method: "POST",
+          method: "POST", signal: ctl.signal,
           headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
-          body: JSON.stringify({ model: Atlas.config.claudeModel, max_tokens: 900, system: systemPrompt(lang),
+          body: JSON.stringify({ model: Atlas.config.claudeModel, max_tokens: 2000, thinking: { type: "disabled" }, system: systemPrompt(lang),
             messages: history.concat([{ role: "user", content: question }]) }),
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error?.message || res.status);
-        const text = (data.content || []).filter((c) => c.type === "text").map((c) => c.text).join("\n");
+        clearTimeout(timer);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data?.error?.message || "HTTP " + res.status);
+        text = (data.content || []).filter((c) => c.type === "text").map((c) => c.text).join("\n").trim();
+        if (data.stop_reason === "max_tokens" && text) text += "…";
+        if (!text) why = "empty reply (" + (data.stop_reason || "unknown") + ")";
+      } catch (err) { why = err.name === "AbortError" ? "timed out" : err.message; }
+      pending.classList.remove("is-pending");
+      if (text) {
         history.push({ role: "user", content: question }, { role: "assistant", content: text });
         history = history.slice(-8);
-        pending.classList.remove("is-pending");
         const fu = [], body = text.split("\n").filter((l) => { const m = l.match(/^\s*(?:→|->)\s*(.+)$/); if (m) { fu.push(m[1].trim()); return false; } return true; }).join("\n");
         pending.innerHTML = `<div lang="${lang}">${md(body)}</div>`;
         followups(pending, fu.slice(0, 3));
-      } catch (err) {
-        pending.classList.remove("is-pending"); pending.classList.add("is-note");
-        pending.textContent = "Claude couldn't answer: " + err.message;
+      } else {
+        // never leave the user with nothing: fall back to the built-in answer
+        const out = Atlas.Answer.answer(question, lang, getContext());
+        const cites = out.sources.map((x) => x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>` : esc(x.name)).join(" · ");
+        pending.innerHTML = `<div lang="${lang}">${out.html}</div>` + (cites ? `<div class="msg-cites">${esc(Atlas.t("chatSources"))}: ${cites}</div>` : "") +
+          `<div class="msg-limit">${esc(lang === "pa" ? "Claude ਜਵਾਬ ਨਹੀਂ ਦੇ ਸਕਿਆ, ਇਸ ਲਈ ਇਹ ਬਿਲਟ-ਇਨ ਜਵਾਬ ਹੈ" : "Claude didn't answer (" + why + "), so this is the built-in answer")}.</div>`;
+        followups(pending, out.followups);
+        console.warn("Ask Parvaaz: Claude failed:", why);
       }
       els.log.scrollTop = els.log.scrollHeight;
       return;
@@ -165,7 +177,7 @@ window.Atlas = window.Atlas || {};
   function getKey() { try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; } }
   function setKey(k) { try { k ? localStorage.setItem(KEY, k) : localStorage.removeItem(KEY); } catch (e) { /* ignore */ } }
   function md(t) {
-    return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    return esc(t).replace(/^#{1,4}\s*(.+)$/gm, "<b>$1</b>").replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*\*/g, "").replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
       .replace(/^[-•] (.*)$/gm, "• $1").replace(/\n/g, "<br>");
   }
   // Everything Claude needs: every district's number for every topic, with sources and limits.
