@@ -24,19 +24,18 @@ Opening `index.html` by double-clicking won't work, because browsers block the d
 
 ## What's on the page
 
-Read top to bottom, the page follows one story: **understand Punjab → find where help is needed → open a place → see why → check the evidence.**
+The atlas works like a profile site: **search for any place, and every place has its own page.**
 
-| Part | What it does |
-|---|---|
-| **Header** | Name, Research (jumps to the evidence), About the data, EN/ਪੰਜਾਬੀ, sign in. |
-| **Intro** | One headline and one sentence, plus the "survey figures are simulated" label. |
-| **Topic bar** (sticky) | One row: **Where help is needed** (the calculated need score) and the five data topics. The line under it is the secondary choice: which areas to combine (need) or which measure to map (topics). |
-| **Map (≈60%)** | Click a district to zoom in and see its blocks; click a block to see its villages as dots. "← All of Punjab" steps back; "Expand map" goes full screen. No dragging or manual zoom. Block areas are approximate (nearest village) and labelled as such. |
-| **Panel (≈40%)** | Changes with the level. *Punjab:* the statewide finding and a ranking. *District:* name, the number (or need score), where it sits among 23 districts, three reasons (need) or the comparison with Punjab, and the way down to blocks. *Block:* the share of its villages with a high school, health centre, all-weather road and piped water, against the district average. Methods sit behind "Method and more numbers". |
-| **The evidence** | Every-topic table for the place, "Do two topics go together?", village summary, and sources and methodology. |
-| **Ask Parvaaz** | Chat in the corner; built-in answers from the data, or Claude if a key is connected. |
+| Page | Address | What it shows |
+|---|---|---|
+| **Home** | `#/` | "Where does Punjab need help?", a big search box (any district, block or village), the need map with focus-area toggles, the ranked list of districts most in need, topic cards, and the data caveats. |
+| **Topic** | `#/topic/<indicator>` | One measure mapped and ranked for all 23 districts, the Punjab figure with its source, and "Do two topics go together?". |
+| **District profile** | `#/district/<slug>` | Need score and rank, a plain-language summary, why it ranks here (district vs Punjab bars), key numbers per topic, a block table (share of villages with school, health centre, road, water), every indicator, sources. Map of its blocks on the right. |
+| **Block profile** | `#/block/<slug>/<block>[/<village code>]` | Basic services vs the district average, and a filterable table of every village with ✓/✗ per service. Village dots on the map; click a dot or row to highlight it. |
 
-Styles live in one file, `css/atlas.css`, organised in numbered sections (tokens, base, header, topics, explore, map drawing, panel, research, overlays, responsive). Colours and fonts are tokens at the top.
+The header search (press `/`) jumps to any district, block or village. Save, Share and Print sit on every profile. Ask Parvaaz is in the corner.
+
+Styles are one file, `css/atlas.css`, in numbered sections; colours and fonts are tokens at the top. The page logic is `js/app.js` (routing, pages, search).
 
 ## The data files
 

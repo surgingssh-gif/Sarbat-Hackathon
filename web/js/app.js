@@ -1,14 +1,13 @@
 /*
- * Punjab Data Hub — the page.
+ * Punjab Data Hub: the app.
  *
- * One idea at a time: pick a topic, and the page answers "how does each district compare?"
- *   - a headline sentence states the finding (highest, lowest, Punjab overall)
- *   - the map prints each district's number on it
- *   - the list ranks all districts with a Punjab-average line
- *   - clicking a district shows its number, its source, and every other topic
- *   - "Do two topics go together?" plots one topic against another
+ * Built like a profile site: search for any place, and every place has its own page.
+ *   #/                         Home: "Where does Punjab need help?" (need map + most-in-need list)
+ *   #/topic/<indicator>        Topic: one measure mapped and ranked for all districts
+ *   #/district/<slug>          District profile: need score, reasons, key numbers, blocks, all indicators
+ *   #/block/<slug>/<block>[/<village code>]   Block profile: services and every village
  *
- * Data, map drawing and formatting live in data.js, map.js and charts.js.
+ * One map (map.js) is moved into whichever page is showing.
  */
 (function () {
   "use strict";
@@ -17,241 +16,134 @@
   const esc = Atlas.Charts.esc;
   const $ = (id) => document.getElementById(id);
 
-  // ---------- words on this page ----------
+  // ---------- words ----------
 
   const S = {
     en: {
       brand: "Punjab Data Hub", by: "by Parvaaz", about: "About the data",
-      kicker: "Punjab, district by district",
-      introTitle: "What 300,000 government-school students told us, district by district",
-      introSub: "Pick a topic. The map and the list show how each of Punjab's 23 districts compares.",
-      simNote: "Survey figures are simulated for this demo.",
-      pickTopic: "Pick a topic",
-      moreTopics: "Show more topics", fewerTopics: "Show fewer topics",
-      comingSoon: "coming soon",
-      finding: "Highest in <b>{hi}</b> ({hiV}). Lowest in <b>{lo}</b> ({loV}). Across Punjab: <b>{pV}</b>, {say}.",
-      howToRead: "Map key",
-      darker: "Darker = higher",
-      betterUp: "here, higher is better", worseUp: "here, higher is worse",
-      greyKey: "Grey = no data, or hidden to protect privacy",
-      mapNote: "Click a district to see its numbers. Malerkotla (district since 2021) isn't drawn yet.",
-      rankTitle: "Districts, highest first",
-      avgLine: "Punjab average",
-      hidden: "Hidden",
-      punjabOverall: "Punjab overall",
-      clickHint: "Choose a district on the map or in the list.",
-      inPlace: "In {place}, {say}.",
-      above: "{d} above Punjab", below: "{d} below Punjab", same: "Same as Punjab",
-      rankOf: "{r} of {n} districts",
-      ordN: "{n}th",
-      source: "Source", openSource: "See the source",
-      students: "{n} students", fewer: "based on fewer than {n} students, so it is hidden",
-      seeAll: "Everything about {place}", clear: "All Punjab",
-      profileTitle: "Everything we know about {place}",
-      profileSub: "Every topic for {place}, next to the Punjab average. Click a topic to map it.",
-      colTopic: "Topic", colPunjab: "Punjab", colDiff: "vs Punjab", colRank: "Rank", colRange: "District range",
-      tableTitle: "Every topic: {place}", tableTitleState: "Every topic: Punjab",
-      higher: "higher", lower: "lower",
-      villagesTitle: "Villages in {place}: {topic}",
-      villagesNote: "Sample villages for testing. Real villages arrive once the village matching (crosswalk) is finished.",
-      compareTitle: "Do two topics go together?",
-      compareSub: "Each dot is one district. Pick a second topic to see whether districts that are high on one are also high on the other.",
-      compareWith: "Compare {a} with",
+      navNeed: "Where help is needed", navTopics: "Topics",
+      searchPh: "Search a district, block or village", searchHero: "Search a district, block or village, e.g. Mansa or Budhlada",
+      heroKicker: "Punjab, district by district", heroTitle: "Where does Punjab need help?",
+      heroSub: "Search any district, block or village, or start from the map. Every number shows its source.",
+      quickLbl: "Most in need:", meHello: "Welcome back, {name}.", meOpen: "Open {place} →",
+      needMapTitle: "Need across Punjab", calcTag: "Calculated score", measuredTag: "Measured",
+      needSub: "Combines {areas}. Darker = more need.", mapHintHome: "Click a district to open its profile",
+      mapHintTopic: "Click a district to open its profile",
+      mostNeedTitle: "Districts most in need", mostNeedSub: "Ranked 1–23 on the areas you chose", showAll: "Show all {n}", showFewer: "Show fewer",
+      topicsTitle: "Explore by topic", topicsSub: "Measured indicators, mapped for all 23 districts",
+      acrossPunjab: "across Punjab", lessNeed: "Less need", moreNeed: "More need",
+      trustSim: "Survey figures are simulated for this demo", trustSimBody: "Household, education and flood numbers come from a simulated version of Parvaaz's survey of 300,000 students. Village infrastructure is real 2020 public data.",
+      trustPriv: "Privacy first", trustPrivBody: "No survey number is shown for a group of fewer than {n} students, so no family can be identified.",
+      trustSrc: "Every number is sourced", trustSrcBody: "Each figure links to the dataset it came from. See About the data for methods.",
+      rankTitle: "All districts", topicCrumb: "Topics", punjab: "Punjab", punjabAvg: "Punjab average",
+      highest: "Highest", lowest: "Lowest", higherBetter: "Higher is better", higherWorse: "Higher is worse",
+      findingTopic: "Highest in <b>{hi}</b> ({hiV}), lowest in <b>{lo}</b> ({loV}).",
+      openSource: "Source", district: "District", block: "Block", village: "Village",
+      blockIn: "Block in {place}", villageIn: "{block}, {place}",
+      districtSub: "District · {v} villages · {b} development blocks",
+      blockSub: "Development block in {place} · {v} villages ({d} with a 2020 record)",
+      needScore: "Need score", needRank: "{r} most in need of {n}", needTop: "Most in need of {n} districts",
+      save: "Save", saved: "Saved", share: "Share", print: "Print profile",
+      summaryH: "Summary", whyH: "Why it ranks here", keyH: "Key numbers", keySub: "Click a number to see it on the map",
+      blocksH: "Blocks", blocksSub: "Share of villages with each service. Click a block for its villages.",
+      allH: "All indicators", allSub: "{place} next to the Punjab average",
+      sourcesH: "Sources", vsPunjab: "vs Punjab", rankCol: "Rank",
+      summaryText: "{place} is {rankPhrase} of Punjab's 23 districts on the need score ({score}/100). The biggest reasons are {r1} and {r2}.",
+      summaryVill: " Of {d} villages with a 2020 record, {k} have no high school and {h} have no health centre.",
+      rankPhrase1: "the most in need", rankPhraseN: "{r} most in need",
+      lowestOf: "Lowest of all {n}", highestOf: "Highest of all {n}", nthLowest: "{r} lowest of {n}", nthHighest: "{r} highest of {n}",
+      colBlock: "Block", colVillages: "Villages", svcHS: "High school", svcHC: "Health centre", svcRD: "All-weather road", svcPW: "Piped water",
+      svcHSs: "School", svcHCs: "Health", svcRDs: "Road", svcPWs: "Water",
+      colTopic: "Indicator", showAllInd: "Show all {n} indicators", showFewerInd: "Show fewer",
+      pmapDistrict: "Blocks of {place}", pmapDistrictSub: "Darker = fewer basic services in its villages",
+      pmapBlock: "Villages of {place}", pmapBlockSub: "Each dot is a village. Darker = more of the 4 basic services.",
+      noteApprox: "Block areas are approximate: no official block boundaries are published, so each area is drawn around its villages.",
+      fewerSvc: "Fewer services", moreSvc: "More services", svcDots: "Services in village:",
+      blockSummary: "{place} block: {hs}% of villages have a high school and {hc}% a health centre, against {dhs}% and {dhc}% across {district}.",
+      blockGap: "{k} of its {n} villages with a record have no {svc}.",
+      servicesH: "Basic services", servicesSub: "Share of villages with each service; the line marks the {place} average",
+      villagesH: "Villages", villagesSub: "Fewest services first. {n} villages.", filterPh: "Filter villages",
+      colVillage: "Village", colPop: "Population", noRecord: "no record", showMoreV: "Show all {n} villages",
+      blockNoData: "Survey figures (households, education, floods) exist only at district level, so they are not shown for blocks.",
+      districtLink: "See {place} district profile",
+      compareTitle: "Do two topics go together?", compareSub: "Each dot is a district.", compareWith: "Compare {a} with",
       cmpStrong: "a strong link", cmpModerate: "a moderate link", cmpWeak: "a weak link", cmpNone: "no clear link",
       cmpSentence: "Districts higher on <b>{a}</b> tend to be <b>{dir}</b> on <b>{b}</b>: {strength}.",
-      cmpNoneSentence: "Across districts, <b>{a}</b> and <b>{b}</b> show {strength}.",
-      cmpCaveat: "Going together is not proof that one causes the other.",
-      plannedNote: "Learning levels from ASER will appear here once that report is turned into a table.",
-      footSources: "Sources", footPrivacy: "No number is shown for a group of fewer than {n} students, so no family can be identified.",
+      cmpNoneSentence: "<b>{a}</b> and <b>{b}</b> show {strength} across districts.",
+      cmpCaveat: "Going together is not proof that one causes the other.", higher: "higher", lower: "lower",
+      hidden: "Hidden", noValue: "No data", students: "{n} students", villagesN: "{n} villages", fewer: "fewer than {n} students, hidden",
+      above: "{d} above Punjab", below: "{d} below Punjab", same: "Same as Punjab",
+      rankOf: "{r} of {n}", tipOpen: "Click to open profile",
+      footSources: "Sources", footPrivacy: "No number is shown for a group of fewer than {n} students.",
       footLicense: "Open source (MIT). Built with Parvaaz for Sarbat Build Day.",
-      chatTitle: "Ask Parvaaz", chatSend: "Ask",
-      tipRank: "{r} of {n}",
-      noValue: "No data",
-      villagesN: "{n} villages",
-      measure: "Measure",
-      topicNeed: "Where help is needed", combine: "Combine", heroTitle: "Understanding where Punjab needs help",
-      heroSub: "District by district, from what 300,000 government-school students told Parvaaz and public records on every village.",
-      navResearch: "Research", researchTitle: "The evidence", researchSub: "Every number behind the map, how places compare, and where the data comes from.",
-      expandMap: "Expand map", closeMap: "Close full map", measuredTag: "Measured", calcTag: "Calculated score",
-      acrossPunjab: "Across Punjab", lowest: "Lowest", highest: "Highest",
-      findingShort: "Highest in <b>{hi}</b> ({hiV}), lowest in <b>{lo}</b> ({loV}).",
-      blockCtaFac: "Its {n} blocks are shaded on the map. Choose one to see its villages.",
-      blockCtaSurvey: "Survey figures stop at district level. Village infrastructure goes down to blocks and villages.",
-      seeInfra: "See village infrastructure in {place} →", infraEyebrow: "Village infrastructure, 2020",
-      servicesH: "Share of its villages with each service", svcHS: "High school", svcHC: "Health centre", svcRD: "All-weather road", svcPW: "Piped water",
-      worstGap: "{k} of its {n} villages with a record have no {svc}.", districtTick: "{place} average",
-      blockSource: "Mission Antyodaya 2020 via SHRUG: {n} villages, {d} with a record.",
-      dotsSvc: "Dots are villages in {place}: darker = more of the four basic services, white = none, grey = no record.",
-      svcOf: "Has {k} of 4 basic services", pop: "pop. {n}", needRankShort: "{r} most in need of {n}",
-      reasonsH: "Three main reasons", keyGap: "Biggest village gap",
-      gapLine: "{k} of {n} villages with a record have no {svc}.", blockNeedLine: "Block most in need: {b}, where {p}% of villages have a high school.",
-      chooseBlock: "Choose a block on the map to see what its villages have.", moreDetail: "Method and more numbers",
-      areasUsed: "Areas included: {areas}.", needFindingShort: "Need is highest in <b>{a}</b>, <b>{b}</b> and <b>{c}</b>.",
-      needExplain: "A calculated score that combines {areas}, comparing Punjab's 23 districts with each other. Click a district for its brief.",
-      blocksByNeed: "Blocks in {place}, by village services", methodTitle: "Sources and methodology",
-      mSources: "Sources", mPrivacy: "Privacy", mNeed: "Need score", mGeo: "Places and boundaries",
-      mGeoBody: "Districts follow the official LGD list. Villages are matched to SHRUG by 2011 census code. Development blocks have no published boundaries, so block areas on the map are approximate: each spot is shaded by the block of its nearest village.",
-      mLevels: "What exists at each level", mLevelsBody: "Survey figures (households, education, floods) exist for districts only. Village infrastructure exists for every village, so it can be shown for blocks and villages too.",
-      simTag: "simulated",
-      modeNeed: "Where help is needed", modeExplore: "Explore the data", iFund: "I want to help with",
-      needTitle: "Where help is needed most", needDesc: "Districts ranked by need across {areas}, compared with each other.",
-      needFinding: "Need is highest in <b>{a}</b>, <b>{b}</b> and <b>{c}</b>. Click a district for its brief: why it ranks here and which blocks need help most.",
-      lessNeed: "Less need", moreNeed: "More need", scoreOf: "need score {v}/100",
-      needMapNote: "Darker = more need. Click a district to zoom in and see which of its blocks need help most.",
-      needBlocksNote: "Blocks in {place}, darker where fewer of their villages have a high school, health centre, all-weather road and piped water (relative to the district's other blocks). Block areas are approximate.",
-      blockCoverage: "Villages have {p}% of four basic services on average",
-      printBrief: "Print brief", needScoreLbl: "Need score", needRank: "{r} most in need of {n} districts",
-      whyHere: "Why it ranks here", punjabIs: "Punjab {v}", nthLowest: "{r} lowest of {n}", nthHighest: "{r} highest of {n}", lowestOf: "Lowest of all {n} districts", highestOf: "Highest of all {n} districts", needTop: "Most in need of {n} districts",
-      blocksHelp: "Blocks that need help most",
-      blockLine: "{hs}% of villages have a high school, {hc}% a health centre, {rd}% an all-weather road ({n} villages)",
-      villagesH: "Villages",
-      villagesGap: "Of {d} villages with a 2020 record, <b>{hs}</b> have no high school, <b>{hc}</b> no health centre and <b>{rd}</b> no all-weather road.",
-      needCaveat: "The need score compares districts with each other; it is not an absolute measure. Survey figures are simulated in this demo; village services are real 2020 public data (Mission Antyodaya via SHRUG).",
-      howScore: "How the need score works",
-      howScoreBody: "For each area you pick, we compare every district with the others on its indicators (fewer cars and ACs, less schooling, fewer village services, more flood damage), then average. 100 = most need of Punjab's 23 districts, 0 = least.",
-      needHint: "Click a district on the map or in the list to open its brief.",
-      priorityList: "Priority list", allPunjab: "All of Punjab",
-      noBlockData: "Block numbers exist for Village facilities topics.",
-      blocksOutline: "Lines show the development blocks of {place}. Pick a Villages topic to see a number for each block.",
-      clickToZoom: "Click a district to zoom in and see its blocks.", punjab: "Punjab", rankAll: "Show all {n}", rankLess: "Show top 8", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
-      blocksApprox: "Block areas on the map are approximate: each spot is shaded by its nearest village's block.",
-      blocksNote: "Shaded areas are development blocks in {place}. Click one to see its villages.",
-      aboveD: "{d} above {place}", belowD: "{d} below {place}", rankOfBlocks: "{r} of {n} blocks",
-      blockSay: "{k} of {n} villages with a 2020 record have this: {topic}.", withRecord: "{n} with a record",
-      signIn: "Sign in", signOut: "Sign out", editProfile: "Edit profile", savedViews: "Saved views", recent: "Recently viewed",
-      noSaved: "Nothing saved yet. Use ☆ Save on any view.", save: "Save", saved: "Saved",
-      welcome: "Welcome back, {name}.", openHome: "Open {place} →",
-      gMorning: "Good morning", gAfternoon: "Good afternoon", gEvening: "Good evening",
-      atGlance: "{place} at a glance, compared with Punjab", customize: "Customize", followSome: "Follow a few topics to see them here.",
-      follow: "Topics you follow", share: "Share", copied: "Link copied. Anyone with it sees this exact view.",
-      savedToast: "Saved to your views", removedToast: "Removed from your views", welcomeToast: "You're in, {name}. Showing your district.",
-      showAllRows: "Show all {n} topics", showFewerRows: "Show one per section",
-      villagesTitle2: "Villages in {place}",
-      vStats: "<b>{n}</b> villages matched to official village codes (LGD). <b>{d}</b> have a facility record from 2020; the rest have no record, which is not the same as \"no\".",
-      vHave: "Of the {d} villages with a record, <b>{k} ({p})</b> have this: <b>{topic}</b>.",
-      vDots: "On the map, each dot is a village: <i class=\"vd has\"></i> has it, <i class=\"vd not\"></i> doesn't, <i class=\"vd na\"></i> no record.",
-      vPick: "Pick a topic under Village facilities to see each village as a dot on the map.",
-      vNone: "Village-level facility data isn't loaded.",
-      vTipHas: "Has it", vTipNot: "Doesn't have it", vTipNa: "No record",
-      dotsNote: "Dots are villages in {place}: filled = has it, white = doesn't, grey = no record.",
+      signIn: "Sign in", signOut: "Sign out", editProfile: "Edit profile", savedViews: "Saved", recent: "Recently viewed",
+      noSaved: "Nothing saved yet.", savedToast: "Saved", removedToast: "Removed", copied: "Link copied",
+      welcomeToast: "Welcome, {name}", chatTitle: "Ask Parvaaz", chatSend: "Ask",
+      noResults: "No matches", ordN: "{n}th", blockWorst: "Fewest services of {n} blocks", blockNth: "{r} fewest services of {n} blocks",
     },
     pa: {
       brand: "ਪੰਜਾਬ ਡਾਟਾ ਹੱਬ", by: "ਪਰਵਾਜ਼ ਵੱਲੋਂ", about: "ਡਾਟਾ ਬਾਰੇ",
-      kicker: "ਪੰਜਾਬ, ਜ਼ਿਲ੍ਹਾ ਦਰ ਜ਼ਿਲ੍ਹਾ",
-      introTitle: "3 ਲੱਖ ਸਰਕਾਰੀ ਸਕੂਲ ਵਿਦਿਆਰਥੀਆਂ ਨੇ ਕੀ ਦੱਸਿਆ, ਜ਼ਿਲ੍ਹਾ ਦਰ ਜ਼ਿਲ੍ਹਾ",
-      introSub: "ਇੱਕ ਵਿਸ਼ਾ ਚੁਣੋ। ਨਕਸ਼ਾ ਅਤੇ ਸੂਚੀ ਦਿਖਾਉਂਦੇ ਹਨ ਕਿ ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹੇ ਕਿਵੇਂ ਹਨ।",
-      simNote: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
-      pickTopic: "ਵਿਸ਼ਾ ਚੁਣੋ",
-      moreTopics: "ਹੋਰ ਵਿਸ਼ੇ ਦਿਖਾਓ", fewerTopics: "ਘੱਟ ਵਿਸ਼ੇ ਦਿਖਾਓ",
-      comingSoon: "ਜਲਦੀ ਆ ਰਿਹਾ",
-      finding: "ਸਭ ਤੋਂ ਵੱਧ <b>{hi}</b> ({hiV})। ਸਭ ਤੋਂ ਘੱਟ <b>{lo}</b> ({loV})। ਪੂਰੇ ਪੰਜਾਬ ਵਿੱਚ: <b>{pV}</b>, {say}।",
-      howToRead: "ਨਕਸ਼ਾ ਕਿਵੇਂ ਪੜ੍ਹੀਏ",
-      darker: "ਗੂੜ੍ਹਾ = ਵੱਧ",
-      betterUp: "ਇੱਥੇ ਵੱਧ ਚੰਗਾ ਹੈ", worseUp: "ਇੱਥੇ ਵੱਧ ਮਾੜਾ ਹੈ",
-      greyKey: "ਸਲੇਟੀ = ਡਾਟਾ ਨਹੀਂ, ਜਾਂ ਨਿੱਜਤਾ ਲਈ ਲੁਕਾਇਆ",
-      mapNote: "ਹਰ ਜ਼ਿਲ੍ਹੇ ਉੱਤੇ ਉਸਦਾ ਅੰਕੜਾ ਲਿਖਿਆ ਹੈ। ਹੋਰ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ। ਮਲੇਰਕੋਟਲਾ (2021 ਤੋਂ ਜ਼ਿਲ੍ਹਾ) ਅਜੇ ਨਕਸ਼ੇ 'ਤੇ ਨਹੀਂ।",
-      rankTitle: "ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹੇ",
-      avgLine: "ਪੰਜਾਬ ਔਸਤ",
-      hidden: "ਲੁਕਿਆ",
-      punjabOverall: "ਪੂਰਾ ਪੰਜਾਬ",
-      clickHint: "ਅੰਕੜਾ ਇੱਥੇ ਦੇਖਣ ਲਈ ਨਕਸ਼ੇ ਜਾਂ ਸੂਚੀ ਵਿੱਚ ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
-      inPlace: "{place} ਵਿੱਚ, {say}।",
-      above: "ਪੰਜਾਬ ਔਸਤ ਤੋਂ {d} ਵੱਧ", below: "ਪੰਜਾਬ ਔਸਤ ਤੋਂ {d} ਘੱਟ", same: "ਪੰਜਾਬ ਔਸਤ ਦੇ ਬਰਾਬਰ",
-      rankOf: "{n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ {r}",
-      ordN: "{n}ਵਾਂ",
-      source: "ਸਰੋਤ", openSource: "ਸਰੋਤ ਦੇਖੋ",
-      students: "{n} ਵਿਦਿਆਰਥੀ", fewer: "{n} ਤੋਂ ਘੱਟ ਵਿਦਿਆਰਥੀ, ਇਸ ਲਈ ਲੁਕਾਇਆ",
-      seeAll: "{place} ਬਾਰੇ ਸਭ ਕੁਝ", clear: "ਪੂਰਾ ਪੰਜਾਬ",
-      profileTitle: "{place} ਬਾਰੇ ਸਭ ਕੁਝ",
-      profileSub: "{place} ਦਾ ਹਰ ਵਿਸ਼ਾ, ਪੰਜਾਬ ਔਸਤ ਦੇ ਨਾਲ। ਨਕਸ਼ੇ 'ਤੇ ਦੇਖਣ ਲਈ ਵਿਸ਼ੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
-      colTopic: "ਵਿਸ਼ਾ", colPunjab: "ਪੰਜਾਬ", colDiff: "ਪੰਜਾਬ ਨਾਲ", colRank: "ਦਰਜਾ", colRange: "ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਰੇਂਜ",
-      tableTitle: "ਹਰ ਵਿਸ਼ਾ: {place}", tableTitleState: "ਹਰ ਵਿਸ਼ਾ: ਪੰਜਾਬ",
-      higher: "ਵੱਧ", lower: "ਘੱਟ",
-      villagesTitle: "{place} ਦੇ ਪਿੰਡ: {topic}",
-      villagesNote: "ਜਾਂਚ ਲਈ ਨਮੂਨਾ ਪਿੰਡ। ਅਸਲ ਪਿੰਡ ਪਿੰਡ-ਮਿਲਾਨ (ਕ੍ਰਾਸਵਾਕ) ਪੂਰਾ ਹੋਣ 'ਤੇ ਆਉਣਗੇ।",
-      compareTitle: "ਕੀ ਦੋ ਵਿਸ਼ੇ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?",
-      compareSub: "ਹਰ ਬਿੰਦੂ ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਹੈ। ਦੂਜਾ ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਕਿ ਕੀ ਇੱਕ ਵਿੱਚ ਉੱਚੇ ਜ਼ਿਲ੍ਹੇ ਦੂਜੇ ਵਿੱਚ ਵੀ ਉੱਚੇ ਹਨ।",
-      compareWith: "{a} ਦੀ ਤੁਲਨਾ ਕਰੋ",
+      navNeed: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", navTopics: "ਵਿਸ਼ੇ",
+      searchPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ", searchHero: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ, ਜਿਵੇਂ ਮਾਨਸਾ",
+      heroKicker: "ਪੰਜਾਬ, ਜ਼ਿਲ੍ਹਾ ਦਰ ਜ਼ਿਲ੍ਹਾ", heroTitle: "ਪੰਜਾਬ ਨੂੰ ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ?",
+      heroSub: "ਕੋਈ ਵੀ ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ, ਜਾਂ ਨਕਸ਼ੇ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ। ਹਰ ਅੰਕੜੇ ਦਾ ਸਰੋਤ ਦਿੱਤਾ ਹੈ।",
+      quickLbl: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ:", meHello: "ਜੀ ਆਇਆਂ ਨੂੰ, {name}।", meOpen: "{place} ਖੋਲ੍ਹੋ →",
+      needMapTitle: "ਪੰਜਾਬ ਵਿੱਚ ਲੋੜ", calcTag: "ਗਿਣਿਆ ਅੰਕ", measuredTag: "ਮਾਪਿਆ",
+      needSub: "{areas} ਨੂੰ ਜੋੜਦਾ ਹੈ। ਗੂੜ੍ਹਾ = ਵੱਧ ਲੋੜ।", mapHintHome: "ਜ਼ਿਲ੍ਹੇ ਦਾ ਪੰਨਾ ਖੋਲ੍ਹਣ ਲਈ ਕਲਿੱਕ ਕਰੋ",
+      mapHintTopic: "ਜ਼ਿਲ੍ਹੇ ਦਾ ਪੰਨਾ ਖੋਲ੍ਹਣ ਲਈ ਕਲਿੱਕ ਕਰੋ",
+      mostNeedTitle: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ ਵਾਲੇ ਜ਼ਿਲ੍ਹੇ", mostNeedSub: "ਚੁਣੇ ਖੇਤਰਾਂ ਮੁਤਾਬਕ 1–23", showAll: "ਸਾਰੇ {n} ਦਿਖਾਓ", showFewer: "ਘੱਟ ਦਿਖਾਓ",
+      topicsTitle: "ਵਿਸ਼ੇ ਮੁਤਾਬਕ ਦੇਖੋ", topicsSub: "ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਲਈ ਮਾਪੇ ਸੂਚਕ",
+      acrossPunjab: "ਪੂਰੇ ਪੰਜਾਬ ਵਿੱਚ", lessNeed: "ਘੱਟ ਲੋੜ", moreNeed: "ਵੱਧ ਲੋੜ",
+      trustSim: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ", trustSimBody: "ਘਰ, ਸਿੱਖਿਆ ਅਤੇ ਹੜ੍ਹ ਦੇ ਅੰਕੜੇ ਨਕਲੀ ਹਨ। ਪਿੰਡਾਂ ਦਾ ਢਾਂਚਾ ਅਸਲ 2020 ਜਨਤਕ ਡਾਟਾ ਹੈ।",
+      trustPriv: "ਨਿੱਜਤਾ ਪਹਿਲਾਂ", trustPrivBody: "{n} ਤੋਂ ਘੱਟ ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਸਮੂਹ ਦਾ ਕੋਈ ਅੰਕੜਾ ਨਹੀਂ ਦਿਖਾਇਆ ਜਾਂਦਾ।",
+      trustSrc: "ਹਰ ਅੰਕੜੇ ਦਾ ਸਰੋਤ", trustSrcBody: "ਹਰ ਅੰਕੜਾ ਆਪਣੇ ਡਾਟਾਸੈੱਟ ਨਾਲ ਜੁੜਿਆ ਹੈ।",
+      rankTitle: "ਸਾਰੇ ਜ਼ਿਲ੍ਹੇ", topicCrumb: "ਵਿਸ਼ੇ", punjab: "ਪੰਜਾਬ", punjabAvg: "ਪੰਜਾਬ ਔਸਤ",
+      highest: "ਸਭ ਤੋਂ ਵੱਧ", lowest: "ਸਭ ਤੋਂ ਘੱਟ", higherBetter: "ਵੱਧ ਚੰਗਾ ਹੈ", higherWorse: "ਵੱਧ ਮਾੜਾ ਹੈ",
+      findingTopic: "ਸਭ ਤੋਂ ਵੱਧ <b>{hi}</b> ({hiV}), ਸਭ ਤੋਂ ਘੱਟ <b>{lo}</b> ({loV})।",
+      openSource: "ਸਰੋਤ", district: "ਜ਼ਿਲ੍ਹਾ", block: "ਬਲਾਕ", village: "ਪਿੰਡ",
+      blockIn: "{place} ਵਿੱਚ ਬਲਾਕ", villageIn: "{block}, {place}",
+      districtSub: "ਜ਼ਿਲ੍ਹਾ · {v} ਪਿੰਡ · {b} ਬਲਾਕ",
+      blockSub: "{place} ਵਿੱਚ ਬਲਾਕ · {v} ਪਿੰਡ ({d} ਰਿਕਾਰਡ ਵਾਲੇ)",
+      needScore: "ਲੋੜ ਅੰਕ", needRank: "{n} ਵਿੱਚੋਂ ਲੋੜ ਵਿੱਚ {r}", needTop: "{n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ",
+      save: "ਸੰਭਾਲੋ", saved: "ਸੰਭਾਲਿਆ", share: "ਸਾਂਝਾ ਕਰੋ", print: "ਛਾਪੋ",
+      summaryH: "ਸਾਰ", whyH: "ਇਹ ਇੱਥੇ ਕਿਉਂ ਹੈ", keyH: "ਮੁੱਖ ਅੰਕੜੇ", keySub: "ਨਕਸ਼ੇ 'ਤੇ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ",
+      blocksH: "ਬਲਾਕ", blocksSub: "ਹਰ ਸਹੂਲਤ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ। ਪਿੰਡ ਦੇਖਣ ਲਈ ਬਲਾਕ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
+      allH: "ਸਾਰੇ ਸੂਚਕ", allSub: "{place} ਅਤੇ ਪੰਜਾਬ ਔਸਤ",
+      sourcesH: "ਸਰੋਤ", vsPunjab: "ਪੰਜਾਬ ਨਾਲ", rankCol: "ਦਰਜਾ",
+      summaryText: "ਲੋੜ ਅੰਕ ({score}/100) ਵਿੱਚ {place} ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ {rankPhrase} ਹੈ। ਮੁੱਖ ਕਾਰਨ {r1} ਅਤੇ {r2} ਹਨ।",
+      summaryVill: " ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਨਹੀਂ ਅਤੇ {h} ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਨਹੀਂ।",
+      rankPhrase1: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ ਵਾਲਾ", rankPhraseN: "ਲੋੜ ਵਿੱਚ {r}",
+      lowestOf: "ਸਾਰੇ {n} ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਘੱਟ", highestOf: "ਸਾਰੇ {n} ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਧ", nthLowest: "{n} ਵਿੱਚੋਂ {r} ਸਭ ਤੋਂ ਘੱਟ", nthHighest: "{n} ਵਿੱਚੋਂ {r} ਸਭ ਤੋਂ ਵੱਧ",
+      colBlock: "ਬਲਾਕ", colVillages: "ਪਿੰਡ", svcHS: "ਹਾਈ ਸਕੂਲ", svcHC: "ਸਿਹਤ ਕੇਂਦਰ", svcRD: "ਪੱਕੀ ਸੜਕ", svcPW: "ਨਲਕੇ ਦਾ ਪਾਣੀ",
+      svcHSs: "ਸਕੂਲ", svcHCs: "ਸਿਹਤ", svcRDs: "ਸੜਕ", svcPWs: "ਪਾਣੀ",
+      colTopic: "ਸੂਚਕ", showAllInd: "ਸਾਰੇ {n} ਸੂਚਕ ਦਿਖਾਓ", showFewerInd: "ਘੱਟ ਦਿਖਾਓ",
+      pmapDistrict: "{place} ਦੇ ਬਲਾਕ", pmapDistrictSub: "ਗੂੜ੍ਹਾ = ਪਿੰਡਾਂ ਵਿੱਚ ਘੱਟ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ",
+      pmapBlock: "{place} ਦੇ ਪਿੰਡ", pmapBlockSub: "ਹਰ ਬਿੰਦੂ ਇੱਕ ਪਿੰਡ ਹੈ। ਗੂੜ੍ਹਾ = ਵੱਧ ਸਹੂਲਤਾਂ।",
+      noteApprox: "ਬਲਾਕ ਖੇਤਰ ਅੰਦਾਜ਼ਨ ਹਨ: ਸਰਕਾਰੀ ਹੱਦਾਂ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ।",
+      fewerSvc: "ਘੱਟ ਸਹੂਲਤਾਂ", moreSvc: "ਵੱਧ ਸਹੂਲਤਾਂ", svcDots: "ਪਿੰਡ ਵਿੱਚ ਸਹੂਲਤਾਂ:",
+      blockSummary: "{place} ਬਲਾਕ: {hs}% ਪਿੰਡਾਂ ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਅਤੇ {hc}% ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਹੈ; {district} ਵਿੱਚ {dhs}% ਅਤੇ {dhc}%।",
+      blockGap: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ {svc} ਨਹੀਂ।",
+      servicesH: "ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ", servicesSub: "ਹਰ ਸਹੂਲਤ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ; ਲਕੀਰ {place} ਦੀ ਔਸਤ ਹੈ",
+      villagesH: "ਪਿੰਡ", villagesSub: "ਸਭ ਤੋਂ ਘੱਟ ਸਹੂਲਤਾਂ ਪਹਿਲਾਂ। {n} ਪਿੰਡ।", filterPh: "ਪਿੰਡ ਲੱਭੋ",
+      colVillage: "ਪਿੰਡ", colPop: "ਆਬਾਦੀ", noRecord: "ਰਿਕਾਰਡ ਨਹੀਂ", showMoreV: "ਸਾਰੇ {n} ਪਿੰਡ ਦਿਖਾਓ",
+      blockNoData: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਪੱਧਰ 'ਤੇ ਹਨ, ਇਸ ਲਈ ਬਲਾਕਾਂ ਲਈ ਨਹੀਂ ਦਿਖਾਏ ਜਾਂਦੇ।",
+      districtLink: "{place} ਜ਼ਿਲ੍ਹੇ ਦਾ ਪੰਨਾ ਦੇਖੋ",
+      compareTitle: "ਕੀ ਦੋ ਵਿਸ਼ੇ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?", compareSub: "ਹਰ ਬਿੰਦੂ ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਹੈ।", compareWith: "{a} ਦੀ ਤੁਲਨਾ",
       cmpStrong: "ਮਜ਼ਬੂਤ ਸਬੰਧ", cmpModerate: "ਦਰਮਿਆਨਾ ਸਬੰਧ", cmpWeak: "ਕਮਜ਼ੋਰ ਸਬੰਧ", cmpNone: "ਕੋਈ ਸਾਫ਼ ਸਬੰਧ ਨਹੀਂ",
       cmpSentence: "<b>{a}</b> ਵਿੱਚ ਉੱਚੇ ਜ਼ਿਲ੍ਹੇ <b>{b}</b> ਵਿੱਚ ਅਕਸਰ <b>{dir}</b> ਹਨ: {strength}।",
-      cmpNoneSentence: "ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ <b>{a}</b> ਅਤੇ <b>{b}</b> ਵਿਚਕਾਰ {strength}।",
-      cmpCaveat: "ਨਾਲ-ਨਾਲ ਚੱਲਣ ਦਾ ਮਤਲਬ ਇਹ ਨਹੀਂ ਕਿ ਇੱਕ ਦੂਜੇ ਦਾ ਕਾਰਨ ਹੈ।",
-      plannedNote: "ASER ਦੇ ਸਿੱਖਣ ਦੇ ਪੱਧਰ ਇੱਥੇ ਆਉਣਗੇ ਜਦੋਂ ਉਹ ਰਿਪੋਰਟ ਸਾਰਣੀ ਵਿੱਚ ਬਦਲ ਜਾਵੇਗੀ।",
-      footSources: "ਸਰੋਤ", footPrivacy: "{n} ਤੋਂ ਘੱਟ ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਸਮੂਹ ਦਾ ਕੋਈ ਅੰਕੜਾ ਨਹੀਂ ਦਿਖਾਇਆ ਜਾਂਦਾ, ਤਾਂ ਜੋ ਕਿਸੇ ਪਰਿਵਾਰ ਦੀ ਪਛਾਣ ਨਾ ਹੋਵੇ।",
+      cmpNoneSentence: "<b>{a}</b> ਅਤੇ <b>{b}</b> ਵਿਚਕਾਰ {strength}।",
+      cmpCaveat: "ਨਾਲ-ਨਾਲ ਚੱਲਣ ਦਾ ਮਤਲਬ ਕਾਰਨ ਨਹੀਂ।", higher: "ਵੱਧ", lower: "ਘੱਟ",
+      hidden: "ਲੁਕਿਆ", noValue: "ਡਾਟਾ ਨਹੀਂ", students: "{n} ਵਿਦਿਆਰਥੀ", villagesN: "{n} ਪਿੰਡ", fewer: "{n} ਤੋਂ ਘੱਟ ਵਿਦਿਆਰਥੀ, ਲੁਕਾਇਆ",
+      above: "ਪੰਜਾਬ ਤੋਂ {d} ਵੱਧ", below: "ਪੰਜਾਬ ਤੋਂ {d} ਘੱਟ", same: "ਪੰਜਾਬ ਦੇ ਬਰਾਬਰ",
+      rankOf: "{n} ਵਿੱਚੋਂ {r}", tipOpen: "ਪੰਨਾ ਖੋਲ੍ਹਣ ਲਈ ਕਲਿੱਕ ਕਰੋ",
+      footSources: "ਸਰੋਤ", footPrivacy: "{n} ਤੋਂ ਘੱਟ ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਸਮੂਹ ਦਾ ਅੰਕੜਾ ਨਹੀਂ ਦਿਖਾਇਆ ਜਾਂਦਾ।",
       footLicense: "ਖੁੱਲ੍ਹਾ ਸਰੋਤ (MIT)। ਸਰਬੱਤ ਬਿਲਡ ਡੇ ਲਈ ਪਰਵਾਜ਼ ਨਾਲ ਬਣਾਇਆ।",
-      chatTitle: "ਪਰਵਾਜ਼ ਨੂੰ ਪੁੱਛੋ", chatSend: "ਪੁੱਛੋ",
-      tipRank: "{n} ਵਿੱਚੋਂ {r}",
-      noValue: "ਡਾਟਾ ਨਹੀਂ",
-      villagesN: "{n} ਪਿੰਡ",
-      measure: "ਮਾਪ",
-      topicNeed: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", combine: "ਮਿਲਾਓ", heroTitle: "ਪੰਜਾਬ ਨੂੰ ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ, ਇਹ ਸਮਝਣਾ",
-      heroSub: "ਜ਼ਿਲ੍ਹਾ ਦਰ ਜ਼ਿਲ੍ਹਾ, 3 ਲੱਖ ਸਰਕਾਰੀ ਸਕੂਲ ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਜਵਾਬਾਂ ਅਤੇ ਹਰ ਪਿੰਡ ਦੇ ਜਨਤਕ ਰਿਕਾਰਡ ਤੋਂ।",
-      navResearch: "ਖੋਜ", researchTitle: "ਸਬੂਤ", researchSub: "ਨਕਸ਼ੇ ਪਿੱਛੇ ਹਰ ਅੰਕੜਾ, ਥਾਵਾਂ ਦੀ ਤੁਲਨਾ, ਅਤੇ ਡਾਟਾ ਕਿੱਥੋਂ ਆਇਆ।",
-      expandMap: "ਨਕਸ਼ਾ ਵੱਡਾ ਕਰੋ", closeMap: "ਬੰਦ ਕਰੋ", measuredTag: "ਮਾਪਿਆ", calcTag: "ਗਿਣਿਆ ਅੰਕ",
-      acrossPunjab: "ਪੂਰੇ ਪੰਜਾਬ ਵਿੱਚ", lowest: "ਸਭ ਤੋਂ ਘੱਟ", highest: "ਸਭ ਤੋਂ ਵੱਧ",
-      findingShort: "ਸਭ ਤੋਂ ਵੱਧ <b>{hi}</b> ({hiV}), ਸਭ ਤੋਂ ਘੱਟ <b>{lo}</b> ({loV})।",
-      blockCtaFac: "ਇਸਦੇ {n} ਬਲਾਕ ਨਕਸ਼ੇ 'ਤੇ ਰੰਗੇ ਹਨ। ਪਿੰਡ ਦੇਖਣ ਲਈ ਇੱਕ ਚੁਣੋ।",
-      blockCtaSurvey: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਜ਼ਿਲ੍ਹਾ ਪੱਧਰ ਤੱਕ ਹਨ। ਪਿੰਡਾਂ ਦਾ ਢਾਂਚਾ ਬਲਾਕ ਅਤੇ ਪਿੰਡ ਤੱਕ ਜਾਂਦਾ ਹੈ।",
-      seeInfra: "{place} ਵਿੱਚ ਪਿੰਡਾਂ ਦਾ ਢਾਂਚਾ ਦੇਖੋ →", infraEyebrow: "ਪਿੰਡਾਂ ਦਾ ਢਾਂਚਾ, 2020",
-      servicesH: "ਹਰ ਸਹੂਲਤ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ", svcHS: "ਹਾਈ ਸਕੂਲ", svcHC: "ਸਿਹਤ ਕੇਂਦਰ", svcRD: "ਪੱਕੀ ਸੜਕ", svcPW: "ਨਲਕੇ ਦਾ ਪਾਣੀ",
-      worstGap: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ {svc} ਨਹੀਂ।", districtTick: "{place} ਔਸਤ",
-      blockSource: "ਮਿਸ਼ਨ ਅੰਤੋਦਿਆ 2020 (SHRUG): {n} ਪਿੰਡ, {d} ਰਿਕਾਰਡ ਵਾਲੇ।",
-      dotsSvc: "ਬਿੰਦੂ {place} ਦੇ ਪਿੰਡ ਹਨ: ਗੂੜ੍ਹਾ = ਵੱਧ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ, ਚਿੱਟਾ = ਕੋਈ ਨਹੀਂ, ਸਲੇਟੀ = ਰਿਕਾਰਡ ਨਹੀਂ।",
-      svcOf: "4 ਵਿੱਚੋਂ {k} ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ", pop: "ਆਬਾਦੀ {n}", needRankShort: "{n} ਵਿੱਚੋਂ ਲੋੜ ਵਿੱਚ {r}",
-      reasonsH: "ਤਿੰਨ ਮੁੱਖ ਕਾਰਨ", keyGap: "ਪਿੰਡਾਂ ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਟ",
-      gapLine: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ {svc} ਨਹੀਂ।", blockNeedLine: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ ਵਾਲਾ ਬਲਾਕ: {b}, ਜਿੱਥੇ {p}% ਪਿੰਡਾਂ ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਹੈ।",
-      chooseBlock: "ਪਿੰਡਾਂ ਦੀਆਂ ਸਹੂਲਤਾਂ ਦੇਖਣ ਲਈ ਨਕਸ਼ੇ 'ਤੇ ਬਲਾਕ ਚੁਣੋ।", moreDetail: "ਤਰੀਕਾ ਅਤੇ ਹੋਰ ਅੰਕੜੇ",
-      areasUsed: "ਸ਼ਾਮਲ ਖੇਤਰ: {areas}।", needFindingShort: "ਲੋੜ ਸਭ ਤੋਂ ਵੱਧ <b>{a}</b>, <b>{b}</b> ਅਤੇ <b>{c}</b> ਵਿੱਚ ਹੈ।",
-      needExplain: "{areas} ਨੂੰ ਜੋੜ ਕੇ ਗਿਣਿਆ ਅੰਕ, ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਆਪਸੀ ਤੁਲਨਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
-      blocksByNeed: "{place} ਦੇ ਬਲਾਕ, ਪਿੰਡ ਸਹੂਲਤਾਂ ਮੁਤਾਬਕ", methodTitle: "ਸਰੋਤ ਅਤੇ ਤਰੀਕਾ",
-      mSources: "ਸਰੋਤ", mPrivacy: "ਨਿੱਜਤਾ", mNeed: "ਲੋੜ ਅੰਕ", mGeo: "ਥਾਵਾਂ ਅਤੇ ਹੱਦਾਂ",
-      mGeoBody: "ਜ਼ਿਲ੍ਹੇ ਸਰਕਾਰੀ LGD ਸੂਚੀ ਮੁਤਾਬਕ ਹਨ। ਪਿੰਡ 2011 ਜਨਗਣਨਾ ਕੋਡ ਨਾਲ SHRUG ਨਾਲ ਮਿਲਾਏ ਗਏ। ਬਲਾਕਾਂ ਦੀਆਂ ਹੱਦਾਂ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ, ਇਸ ਲਈ ਨਕਸ਼ੇ 'ਤੇ ਬਲਾਕ ਅੰਦਾਜ਼ਨ ਹਨ।",
-      mLevels: "ਹਰ ਪੱਧਰ 'ਤੇ ਕੀ ਹੈ", mLevelsBody: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਿਆਂ ਲਈ ਹਨ। ਪਿੰਡਾਂ ਦਾ ਢਾਂਚਾ ਹਰ ਪਿੰਡ ਲਈ ਹੈ, ਇਸ ਲਈ ਬਲਾਕ ਅਤੇ ਪਿੰਡ ਤੱਕ ਦਿਖਾਇਆ ਜਾ ਸਕਦਾ ਹੈ।",
-      simTag: "ਨਕਲੀ",
-      modeNeed: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", modeExplore: "ਡਾਟਾ ਦੇਖੋ", iFund: "ਮੈਂ ਇਸ ਵਿੱਚ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦਾ ਹਾਂ",
-      needTitle: "ਮਦਦ ਦੀ ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ ਕਿੱਥੇ ਹੈ", needDesc: "{areas} ਵਿੱਚ ਲੋੜ ਦੇ ਹਿਸਾਬ ਨਾਲ ਜ਼ਿਲ੍ਹੇ, ਇੱਕ ਦੂਜੇ ਦੇ ਮੁਕਾਬਲੇ।",
-      needFinding: "ਲੋੜ ਸਭ ਤੋਂ ਵੱਧ <b>{a}</b>, <b>{b}</b> ਅਤੇ <b>{c}</b> ਵਿੱਚ ਹੈ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
-      lessNeed: "ਘੱਟ ਲੋੜ", moreNeed: "ਵੱਧ ਲੋੜ", scoreOf: "ਲੋੜ ਅੰਕ {v}/100",
-      needMapNote: "ਗੂੜ੍ਹਾ = ਵੱਧ ਲੋੜ। ਬਲਾਕ ਦੇਖਣ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
-      needBlocksNote: "{place} ਦੇ ਬਲਾਕ, ਗੂੜ੍ਹੇ ਜਿੱਥੇ ਘੱਟ ਪਿੰਡਾਂ ਵਿੱਚ ਸਕੂਲ, ਸਿਹਤ ਕੇਂਦਰ, ਸੜਕ ਅਤੇ ਪਾਣੀ ਹੈ।",
-      blockCoverage: "ਪਿੰਡਾਂ ਵਿੱਚ ਔਸਤਨ ਚਾਰ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ ਦਾ {p}%",
-      printBrief: "ਛਾਪੋ", needScoreLbl: "ਲੋੜ ਅੰਕ", needRank: "{n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਲੋੜ ਵਿੱਚ {r}",
-      whyHere: "ਇਹ ਇੱਥੇ ਕਿਉਂ ਹੈ", punjabIs: "ਪੰਜਾਬ {v}", nthLowest: "{n} ਵਿੱਚੋਂ {r} ਸਭ ਤੋਂ ਘੱਟ", nthHighest: "{n} ਵਿੱਚੋਂ {r} ਸਭ ਤੋਂ ਵੱਧ", lowestOf: "ਸਾਰੇ {n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਘੱਟ", highestOf: "ਸਾਰੇ {n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਧ", needTop: "{n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ",
-      blocksHelp: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ ਵਾਲੇ ਬਲਾਕ",
-      blockLine: "{hs}% ਪਿੰਡਾਂ ਵਿੱਚ ਹਾਈ ਸਕੂਲ, {hc}% ਸਿਹਤ ਕੇਂਦਰ, {rd}% ਪੱਕੀ ਸੜਕ ({n} ਪਿੰਡ)",
-      villagesH: "ਪਿੰਡ",
-      villagesGap: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ <b>{hs}</b> ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਨਹੀਂ, <b>{hc}</b> ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਨਹੀਂ ਅਤੇ <b>{rd}</b> ਵਿੱਚ ਪੱਕੀ ਸੜਕ ਨਹੀਂ।",
-      needCaveat: "ਲੋੜ ਅੰਕ ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਆਪਸੀ ਤੁਲਨਾ ਹੈ। ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਵਿੱਚ ਨਕਲੀ ਹਨ; ਪਿੰਡ ਸਹੂਲਤਾਂ ਅਸਲ 2020 ਜਨਤਕ ਡਾਟਾ ਹਨ।",
-      howScore: "ਲੋੜ ਅੰਕ ਕਿਵੇਂ ਬਣਦਾ ਹੈ",
-      howScoreBody: "ਹਰ ਚੁਣੇ ਖੇਤਰ ਵਿੱਚ ਹਰ ਜ਼ਿਲ੍ਹੇ ਦੀ ਬਾਕੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕਰਕੇ ਔਸਤ ਕੱਢੀ ਜਾਂਦੀ ਹੈ। 100 = ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ, 0 = ਸਭ ਤੋਂ ਘੱਟ।",
-      needHint: "ਵੇਰਵਾ ਖੋਲ੍ਹਣ ਲਈ ਨਕਸ਼ੇ ਜਾਂ ਸੂਚੀ ਵਿੱਚ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
-      priorityList: "ਤਰਜੀਹ ਸੂਚੀ", allPunjab: "ਪੂਰਾ ਪੰਜਾਬ",
-      noBlockData: "ਬਲਾਕ ਅੰਕੜੇ ਪਿੰਡ ਸਹੂਲਤਾਂ ਵਾਲੇ ਵਿਸ਼ਿਆਂ ਲਈ ਹਨ।",
-      blocksOutline: "ਲਕੀਰਾਂ {place} ਦੇ ਬਲਾਕ ਦਿਖਾਉਂਦੀਆਂ ਹਨ। ਹਰ ਬਲਾਕ ਦਾ ਅੰਕੜਾ ਦੇਖਣ ਲਈ ਪਿੰਡ ਵਾਲਾ ਵਿਸ਼ਾ ਚੁਣੋ।",
-      clickToZoom: "ਜ਼ੂਮ ਕਰਨ ਅਤੇ ਬਲਾਕ ਦੇਖਣ ਲਈ ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjab: "ਪੰਜਾਬ", rankAll: "ਸਾਰੇ {n} ਦਿਖਾਓ", rankLess: "ਸਿਰਫ਼ ਸਿਖਰਲੇ 8", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
-      blocksApprox: "ਨਕਸ਼ੇ 'ਤੇ ਬਲਾਕ ਅੰਦਾਜ਼ਨ ਹਨ: ਹਰ ਥਾਂ ਨੇੜਲੇ ਪਿੰਡ ਦੇ ਬਲਾਕ ਨਾਲ ਰੰਗੀ ਹੈ।",
-      blocksNote: "ਰੰਗੇ ਖੇਤਰ {place} ਦੇ ਬਲਾਕ ਹਨ। ਪਿੰਡ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ।",
-      aboveD: "{place} ਤੋਂ {d} ਵੱਧ", belowD: "{place} ਤੋਂ {d} ਘੱਟ", rankOfBlocks: "{n} ਬਲਾਕਾਂ ਵਿੱਚੋਂ {r}",
-      blockSay: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡਾਂ ਵਿੱਚ ਇਹ ਹੈ: {topic}।", withRecord: "{n} ਰਿਕਾਰਡ ਵਾਲੇ",
-      signIn: "ਸਾਈਨ ਇਨ", signOut: "ਸਾਈਨ ਆਊਟ", editProfile: "ਪ੍ਰੋਫਾਈਲ ਬਦਲੋ", savedViews: "ਸੰਭਾਲੇ ਦ੍ਰਿਸ਼", recent: "ਹਾਲ ਹੀ ਵਿੱਚ ਦੇਖੇ",
-      noSaved: "ਅਜੇ ਕੁਝ ਨਹੀਂ ਸੰਭਾਲਿਆ। ਕਿਸੇ ਵੀ ਦ੍ਰਿਸ਼ 'ਤੇ ☆ ਸੰਭਾਲੋ ਵਰਤੋ।", save: "ਸੰਭਾਲੋ", saved: "ਸੰਭਾਲਿਆ",
-      welcome: "ਜੀ ਆਇਆਂ ਨੂੰ, {name}।", openHome: "{place} ਖੋਲ੍ਹੋ →",
-      gMorning: "ਸ਼ੁਭ ਸਵੇਰ", gAfternoon: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", gEvening: "ਸ਼ੁਭ ਸ਼ਾਮ",
-      atGlance: "{place} ਇੱਕ ਨਜ਼ਰ ਵਿੱਚ, ਪੰਜਾਬ ਦੇ ਮੁਕਾਬਲੇ", customize: "ਬਦਲੋ", followSome: "ਇੱਥੇ ਦੇਖਣ ਲਈ ਕੁਝ ਵਿਸ਼ੇ ਚੁਣੋ।",
-      follow: "ਤੁਹਾਡੇ ਵਿਸ਼ੇ", share: "ਸਾਂਝਾ ਕਰੋ", copied: "ਲਿੰਕ ਕਾਪੀ ਹੋ ਗਿਆ।",
-      savedToast: "ਸੰਭਾਲਿਆ ਗਿਆ", removedToast: "ਹਟਾਇਆ ਗਿਆ", welcomeToast: "ਜੀ ਆਇਆਂ ਨੂੰ, {name}।",
-      showAllRows: "ਸਾਰੇ {n} ਵਿਸ਼ੇ ਦਿਖਾਓ", showFewerRows: "ਸਿਰਫ਼ ਮੁੱਖ ਵਿਸ਼ੇ",
-      villagesTitle2: "{place} ਦੇ ਪਿੰਡ",
-      vStats: "<b>{n}</b> ਪਿੰਡ ਸਰਕਾਰੀ ਪਿੰਡ ਕੋਡਾਂ (LGD) ਨਾਲ ਮਿਲੇ। <b>{d}</b> ਦਾ 2020 ਦਾ ਸਹੂਲਤ ਰਿਕਾਰਡ ਹੈ; ਬਾਕੀਆਂ ਦਾ ਰਿਕਾਰਡ ਨਹੀਂ, ਜਿਸਦਾ ਮਤਲਬ \"ਨਹੀਂ\" ਨਹੀਂ।",
-      vHave: "ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ <b>{k} ({p})</b> ਵਿੱਚ ਇਹ ਹੈ: <b>{topic}</b>।",
-      vDots: "ਨਕਸ਼ੇ 'ਤੇ ਹਰ ਬਿੰਦੂ ਇੱਕ ਪਿੰਡ ਹੈ: <i class=\"vd has\"></i> ਹੈ, <i class=\"vd not\"></i> ਨਹੀਂ, <i class=\"vd na\"></i> ਰਿਕਾਰਡ ਨਹੀਂ।",
-      vPick: "ਹਰ ਪਿੰਡ ਨੂੰ ਨਕਸ਼ੇ 'ਤੇ ਬਿੰਦੂ ਵਜੋਂ ਦੇਖਣ ਲਈ ਪਿੰਡ ਦੀਆਂ ਸਹੂਲਤਾਂ ਹੇਠੋਂ ਵਿਸ਼ਾ ਚੁਣੋ।",
-      vNone: "ਪਿੰਡ-ਪੱਧਰ ਦਾ ਡਾਟਾ ਲੋਡ ਨਹੀਂ ਹੋਇਆ।",
-      vTipHas: "ਹੈ", vTipNot: "ਨਹੀਂ", vTipNa: "ਰਿਕਾਰਡ ਨਹੀਂ",
-      dotsNote: "ਬਿੰਦੂ {place} ਦੇ ਪਿੰਡ ਹਨ। ਵਾਪਸ ਜਾਣ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਦੁਬਾਰਾ ਕਲਿੱਕ ਕਰੋ।",
+      signIn: "ਸਾਈਨ ਇਨ", signOut: "ਸਾਈਨ ਆਊਟ", editProfile: "ਪ੍ਰੋਫਾਈਲ", savedViews: "ਸੰਭਾਲੇ", recent: "ਹਾਲ ਹੀ ਵਿੱਚ",
+      noSaved: "ਅਜੇ ਕੁਝ ਨਹੀਂ ਸੰਭਾਲਿਆ।", savedToast: "ਸੰਭਾਲਿਆ", removedToast: "ਹਟਾਇਆ", copied: "ਲਿੰਕ ਕਾਪੀ ਹੋਇਆ",
+      welcomeToast: "ਜੀ ਆਇਆਂ ਨੂੰ, {name}", chatTitle: "ਪਰਵਾਜ਼ ਨੂੰ ਪੁੱਛੋ", chatSend: "ਪੁੱਛੋ",
+      noResults: "ਕੁਝ ਨਹੀਂ ਮਿਲਿਆ", ordN: "{n}ਵਾਂ", blockWorst: "{n} ਬਲਾਕਾਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਘੱਟ ਸਹੂਲਤਾਂ", blockNth: "{n} ਬਲਾਕਾਂ ਵਿੱਚੋਂ ਘੱਟ ਸਹੂਲਤਾਂ ਵਿੱਚ {r}",
     },
   };
-
   function s(key, vars) {
     let str = (S[Atlas.lang] && S[Atlas.lang][key]) ?? S.en[key] ?? key;
     if (vars) for (const k in vars) str = str.split("{" + k + "}").join(vars[k]);
@@ -260,135 +152,83 @@
   function ordinal(n) {
     if (Atlas.lang !== "en") return s("ordN", { n });
     const t = n % 100;
-    if (t >= 11 && t <= 13) return `${n}th`;
+    if (t >= 11 && t <= 13) return n + "th";
     return n + ({ 1: "st", 2: "nd", 3: "rd" }[n % 10] || "th");
   }
 
-  // ---------- state ----------
+  // ---------- state + small helpers ----------
 
-  const state = { mode: "need", areas: ["poverty", "education", "services", "floods"], ind: null, district: null, block: null, cmp: null, moreTopics: false, allRows: false, zoomed: null };
+  const state = { route: "home", ind: null, district: null, block: null, village: null, areas: ["poverty", "education", "services", "floods"],
+    homeAll: false, allInd: false, vAll: false, vFilter: "", cmp: null, zoomed: undefined };
 
   const geo = (id) => Atlas.data.geos.get(id);
   const stateId = () => Atlas.data.stateId;
   const label = (ind) => Atlas.tr(D.meta(ind).label);
   const short = (ind) => Atlas.tr(D.meta(ind).short);
   const placeName = (g) => Atlas.placeName(g);
+  const slugOf = (g) => g.id.split(":").pop();
   const byName = (n) => D.districts().find((d) => d.name === n);
-  const SHORT_NAMES = { "Shahid Bhagat Singh Nagar": "SBS Nagar", "Sri Muktsar Sahib": "Muktsar" };
-  const mapName = (n) => (Atlas.lang === "pa" ? Atlas.DISTRICT_PA[n] || n : SHORT_NAMES[n] || n);
+  const bySlug = (sl) => D.districts().find((d) => slugOf(d) === sl);
+  const SHORT = { "Shahid Bhagat Singh Nagar": "SBS Nagar", "Sri Muktsar Sahib": "Muktsar" };
+  const mapName = (n) => (Atlas.lang === "pa" ? Atlas.DISTRICT_PA[n] || n : SHORT[n] || n);
+  const districtUrl = (g) => "#/district/" + slugOf(g);
+  const blockUrl = (g, b, v) => "#/block/" + slugOf(g) + "/" + encodeURIComponent(b) + (v ? "/" + encodeURIComponent(v) : "");
+  const pct = (x) => Math.round(x * 100) + "%";
 
   function available() {
     const have = new Set(Object.keys(Atlas.data.values));
-    return Atlas.THEMES.map((th) => ({ ...th, indicators: th.indicators.filter((i) => have.has(i)) }));
+    return Atlas.THEMES.map((th) => ({ ...th, indicators: th.indicators.filter((i) => have.has(i)) })).filter((th) => th.indicators.length);
   }
   const allIndicators = () => available().flatMap((th) => th.indicators);
-
-  // ---------- blocks (village-facility topics only) ----------
-
-  // Share of villages with a record that have the facility, per development block.
-  function blockStats(g, ind) {
-    const col = D.meta(ind).village;
-    if (!g || !col || !Atlas.villages.length) return null;
-    const by = {};
-    for (const v of Atlas.villages) {
-      if (v.district !== g.name) continue;
-      const b = (by[v.block] ||= { key: v.block, name: v.block, villages: 0, n: 0, k: 0 });
-      b.villages++;
-      if (v.hasData) { b.n++; if (v.raw[col] === "1") b.k++; }
-    }
-    const list = Object.values(by).map((b) => ({ ...b, share: b.n ? b.k / b.n : null }));
-    const ranked = list.filter((b) => b.share !== null).sort((a, b) => b.share - a.share);
-    ranked.forEach((b, i) => { b.rank = i + 1; });
-    return { list, ranked, byKey: Object.fromEntries(list.map((b) => [b.key, b])) };
-  }
-  const blockMode = () => Boolean(state.district && D.meta(state.ind).village && Atlas.villages.length);
-
-  // ---------- colour ----------
-
-  function ramp(ind) {
-    const dir = D.meta(ind).direction;
-    return dir === "higher_better" ? "good" : dir === "higher_worse" ? "bad" : "neutral";
-  }
-  function scaleFor(ind) {
-    const vals = D.districtValues(ind).map((d) => d.value);
-    const b = D.breaks(vals);
-    const r = ramp(ind);
-    return {
-      breaks: b, min: Math.min(...vals), max: Math.max(...vals),
-      color: (v) => (v === null ? "var(--nodata)" : `var(--seq-${r}-${D.binOf(v, b)})`),
-    };
-  }
-
-  // ---------- topics: one bar, "Where help is needed" first ----------
-
   const themeOf = (ind) => available().find((th) => th.indicators.includes(ind));
-  function renderTopics() {
-    const isNeed = state.mode === "need";
-    const cur = isNeed ? null : themeOf(state.ind);
-    const tabs = [`<button type="button" class="ttab ttab-need${isNeed ? " is-on" : ""}" data-topic="need" aria-pressed="${isNeed}">${esc(s("topicNeed"))}</button>`]
-      .concat(available().filter((th) => th.indicators.length).map((th) => {
-        const on = Boolean(cur && th.id === cur.id);
-        return `<button type="button" class="ttab${on ? " is-on" : ""}" data-ind="${esc(on ? state.ind : th.indicators[0])}" aria-pressed="${on}">${esc(Atlas.tr(th.label))}</button>`;
-      })).join("");
-    let sub;
-    if (isNeed) {
-      sub = `<span class="sub-h">${esc(s("combine"))}</span>` + Atlas.NEED_AREAS.map((a) => {
-        const on = state.areas.includes(a.id);
-        return `<button type="button" class="opt opt-check${on ? " is-on" : ""}" data-area="${a.id}" aria-pressed="${on}">${esc(Atlas.tr(a.label))}</button>`;
-      }).join("");
-    } else {
-      sub = `<span class="sub-h">${esc(s("measure"))}</span>` + cur.indicators.map((i) =>
-        `<button type="button" class="opt${i === state.ind ? " is-on" : ""}" data-ind="${esc(i)}" aria-pressed="${i === state.ind}">${esc(label(i))}</button>`).join("") +
-        (cur.planned || []).map((p) => `<span class="opt is-planned">${esc(Atlas.tr(p))} · ${esc(s("comingSoon"))}</span>`).join("");
-    }
-    $("topics").innerHTML = `<div class="ttabs" role="tablist">${tabs}</div><div class="subsel">${sub}</div>`;
+  const defaultInd = () => (allIndicators().includes(Atlas.config.defaultIndicator) ? Atlas.config.defaultIndicator : allIndicators()[0]);
+
+  function ramp(ind) { const d = D.meta(ind).direction; return d === "higher_better" ? "good" : d === "higher_worse" ? "bad" : "neutral"; }
+  function scaleFor(ind) {
+    const vals = D.districtValues(ind).map((d) => d.value), b = D.breaks(vals), r = ramp(ind);
+    return { min: Math.min(...vals), max: Math.max(...vals), color: (v) => (v === null ? "var(--nodata)" : `var(--seq-${r}-${D.binOf(v, b)})`) };
+  }
+  const grad = (r) => `linear-gradient(90deg,${[0, 1, 2, 3, 4].map((i) => `var(--seq-${r}-${i})`).join(",")})`;
+
+  const ICONS = {
+    wealth: '<path d="M3 13l2-5h14l2 5v5h-3v-2H6v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/>',
+    education: '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
+    villages: '<path d="M3 20V10l5-4 5 4v10"/><path d="M13 20v-6h8v6"/><path d="M7 20v-4h2v4"/>',
+    floods: '<path d="M2 16c2 0 2-1.5 4-1.5S8 16 10 16s2-1.5 4-1.5S16 16 18 16s2-1.5 4-1.5"/><path d="M2 20c2 0 2-1.5 4-1.5S8 20 10 20s2-1.5 4-1.5S16 20 18 20s2-1.5 4-1.5"/><path d="M12 3c2 3 3 4.5 3 6a3 3 0 0 1-6 0c0-1.5 1-3 3-6z"/>',
+    people: '<path d="M4 20c0-3 2-5 5-5s5 2 5 5"/><circle cx="9" cy="9" r="3"/><path d="M15 6h6M15 10h6M15 14h4"/>',
+  };
+  const icon = (id) => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[id] || ""}</svg>`;
+
+  const SVC = [["high_school", "svcHS", "svcHSs"], ["health_centre", "svcHC", "svcHCs"], ["all_weather_road", "svcRD", "svcRDs"], ["piped_water", "svcPW", "svcPWs"]];
+
+  // ---------- need score (cached per area choice) ----------
+
+  let needCache = { key: "", rows: [] };
+  function need() {
+    const key = state.areas.join(",");
+    if (needCache.key !== key) needCache = { key, rows: Atlas.Need.score(state.areas) };
+    return needCache.rows;
+  }
+  const needOf = (g) => need().find((r) => r.geo.id === g.id);
+  function needColor() {
+    const b = D.breaks(need().map((r) => r.score));
+    return (v) => (v === null || v === undefined ? "var(--nodata)" : `var(--seq-bad-${D.binOf(v, b)})`);
+  }
+  const areaLabel = (id) => Atlas.tr(Atlas.NEED_AREAS.find((a) => a.id === id).label);
+  function posPhrase(ind, geoId) {
+    const m = D.meta(ind), rk = D.rank(ind, geoId);
+    if (!rk) return "";
+    const low = m.direction === "higher_better", k = low ? rk.total - rk.r + 1 : rk.r;
+    return k === 1 ? s(low ? "lowestOf" : "highestOf", { n: rk.total }) : s(low ? "nthLowest" : "nthHighest", { r: ordinal(k), n: rk.total });
+  }
+  function blockBin(needV, list) {
+    const vals = list.map((x) => x.need), lo = Math.min(...vals), hi = Math.max(...vals);
+    return hi > lo ? Math.round(((needV - lo) / (hi - lo)) * 4) : 2;
   }
 
-  // ---------- small shared pieces ----------
+  // ---------- shared fragments ----------
 
-  function renderKey(sc) {
-    const ind = state.ind, r = ramp(ind), dir = D.meta(ind).direction;
-    const note = dir === "higher_better" ? s("betterUp") : dir === "higher_worse" ? s("worseUp") : "";
-    $("key").innerHTML = `<span class="key-t">${esc(short(ind))}</span>
-      <span class="key-end">${esc(D.fmtShort(sc.min, ind))}</span>
-      <span class="key-grad" style="background:linear-gradient(90deg,${[0, 1, 2, 3, 4].map((i) => `var(--seq-${r}-${i})`).join(",")})"></span>
-      <span class="key-end">${esc(D.fmtShort(sc.max, ind))}</span>
-      ${note ? `<span class="key-dir">${esc(note)}</span>` : ""}`;
-  }
-
-  function tipHtml(n) {
-    const d = byName(n);
-    if (!d) return `<strong>${esc(mapName(n))}</strong>`;
-    if (state.mode === "need") {
-      const r = needRows.find((x) => x.geo.id === d.id);
-      return `<strong>${esc(placeName(d))}</strong><span class="tip-v">${r ? r.score : "–"}<small>/100</small></span><span class="tip-r">${r ? esc(s("needRankShort", { r: ordinal(r.rank), n: needRows.length })) : ""}</span>`;
-    }
-    const v = D.visible(state.ind, d.id), rk = D.rank(state.ind, d.id);
-    return `<strong>${esc(placeName(d))}</strong><span class="tip-v">${esc(v === null ? s("hidden") : D.fmt(v, state.ind))}</span>` +
-      (rk ? `<span class="tip-r">${esc(s("tipRank", { r: ordinal(rk.r), n: rk.total }))}</span>` : "");
-  }
-
-  // Where one place sits among all districts: a strip of ticks, the place in ink, Punjab marked.
-  function strip(items, selId, ref, lowLbl, highLbl) {
-    const vals = items.map((x) => x.v);
-    const lo = Math.min(...vals), hi = Math.max(...vals);
-    const pos = (v) => (hi > lo ? ((v - lo) / (hi - lo)) * 100 : 50);
-    return `<div class="strip" aria-hidden="true"><div class="strip-track">
-        ${items.map((x) => `<i class="${x.id === selId ? "is-sel" : ""}" style="left:${pos(x.v).toFixed(1)}%"></i>`).join("")}
-        ${ref !== null && ref !== undefined ? `<b class="strip-ref" style="left:${pos(ref).toFixed(1)}%"><span>${esc(s("punjab"))}</span></b>` : ""}
-      </div><div class="strip-ends"><span>${esc(lowLbl)}</span><span>${esc(highLbl)}</span></div></div>`;
-  }
-
-  // Place vs Punjab as two thin bars.
-  function pair(placeLbl, v, pv, ind, max) {
-    const w = (x) => Math.max(1, Math.min(100, (x / max) * 100)).toFixed(1);
-    return `<div class="pair">
-      <span class="pair-l">${esc(placeLbl)}</span><span class="pair-bar"><i style="width:${w(v)}%"></i></span><span class="pair-v">${esc(D.fmt(v, ind))}</span>
-      <span class="pair-l is-ref">${esc(s("punjab"))}</span><span class="pair-bar is-ref"><i style="width:${w(pv)}%"></i></span><span class="pair-v is-ref">${esc(D.fmt(pv, ind))}</span>
-    </div>`;
-  }
-
-  function citation(ind, g) {
+  function source(ind, g) {
     const r = D.rec(ind, g.id);
     if (!r) return "";
     const href = D.sourceHref(r.source_url);
@@ -396,684 +236,497 @@
     if (D.isSuppressed(r)) bits.push(esc(s("fewer", { n: Atlas.config.minGroupSize })));
     else if (r.n !== null) bits.push(esc(s("students", { n: r.n.toLocaleString() })));
     else if (r.nVillages !== null) bits.push(esc(s("villagesN", { n: r.nVillages.toLocaleString() })));
-    return `<p class="cite">${bits.join(", ")}. ${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(s("openSource"))} ↗</a>` : ""}</p>`;
+    return `<p class="src">${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(s("openSource"))}</a>: ` : ""}${bits.join(", ")}</p>`;
   }
-
-  function crumbs() {
-    if (!state.district) return "";
-    const g = geo(state.district);
-    const parts = [`<button type="button" class="crumb" data-clear>${esc(s("punjab"))}</button>`,
-      state.block ? `<button type="button" class="crumb" data-unblock>${esc(placeName(g))}</button>` : `<span>${esc(placeName(g))}</span>`];
-    if (state.block) parts.push(`<span>${esc(state.block)}</span>`);
-    return `<nav class="crumbs" aria-label="Location">${parts.join('<span class="crumb-sep">/</span>')}</nav>`;
+  function deltaChip(v, pv, ind) {
+    if (v === null || pv === null) return "";
+    const d = D.fmtDelta(v, pv, ind);
+    if (!d.sign) return `<span class="chip">${esc(s("same"))}</span>`;
+    return `<span class="chip is-${D.tone(d.sign, ind)}">${d.sign > 0 ? "▲" : "▼"} ${esc(s(d.sign > 0 ? "above" : "below", { d: d.text.replace(/^[+−]/, "") }))}</span>`;
   }
-
-  const actions = (print) => `<div class="actions">
-      ${print ? `<button type="button" class="text-btn" data-print>${esc(s("printBrief"))}</button>` : ""}
-      <button type="button" class="text-btn" data-save>${A().isSaved(location.hash.slice(1)) ? "★ " + esc(s("saved")) : "☆ " + esc(s("save"))}</button>
-      <button type="button" class="text-btn" data-share>${esc(s("share"))}</button></div>`;
-
-  // ---------- village dots + block areas ----------
-
-  const SVC = [["high_school", "svcHS"], ["health_centre", "svcHC"], ["all_weather_road", "svcRD"], ["piped_water", "svcPW"]];
-  function villageDots(sel, col) {
-    if (!state.block) return [];
-    return Atlas.villages.filter((v) => v.district === sel.name && v.block === state.block).map((v) => {
-      let fill, line;
-      if (col) {
-        const f = v.raw[col], st = f === "1" ? "has" : f === "0" ? "not" : "na";
-        fill = st === "has" ? `var(--seq-${ramp(state.ind)}-4)` : st === "not" ? "#ffffff" : "#c9c7c1";
-        line = `${s(st === "has" ? "vTipHas" : st === "not" ? "vTipNot" : "vTipNa")}: ${short(state.ind)}`;
-      } else if (!v.hasData) { fill = "#c9c7c1"; line = s("vTipNa"); }
-      else {
-        const k = SVC.filter(([c]) => v.raw[c] === "1").length;
-        fill = k === 0 ? "#ffffff" : `var(--seq-good-${k})`; line = s("svcOf", { k });
-      }
-      return { id: v.code, lat: v.lat, lon: v.lon, fill, label: `${v.name}: ${line}`,
-        tip: `<strong>${esc(v.name)}</strong><span class="tip-r">${esc(v.block)}${v.population ? " · " + esc(s("pop", { n: v.population.toLocaleString() })) : ""}</span><span class="tip-r">${esc(line)}</span>` };
-    });
+  function crumbs(parts) {
+    return parts.map((p, i) => (i < parts.length - 1 ? `<a href="${p[1]}">${esc(p[0])}</a><span class="sep">/</span>` : `<span>${esc(p[0])}</span>`)).join("");
   }
-
-  function drawBlocks(sel, blocks) {
-    const inDist = Atlas.villages.filter((v) => v.district === sel.name);
-    Atlas.Map.setBlocks(sel.name, inDist.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => toggleBlock(k));
-    if (state.zoomed !== sel.name) { Atlas.Map.zoomTo(sel.name, 1.12); state.zoomed = sel.name; }
+  function legendNeed(el) {
+    $(el).innerHTML = `<span>${esc(s("lessNeed"))}</span><i class="grad" style="background:${grad("bad")}"></i><span>${esc(s("moreNeed"))}</span>`;
   }
-  function clearBlocks() {
-    Atlas.Map.setBlocks(null, [], {}, () => {});
-    Atlas.Map.setVillages([], () => {});
-    if (state.zoomed) { Atlas.Map.reset(); state.zoomed = null; }
+  function mapTo(slotSel) {
+    const slot = document.querySelector(slotSel), m = $("map");
+    if (m.parentNode !== slot) slot.appendChild(m);
   }
-  function mapChrome(sel, note) {
-    $("map-back").hidden = !sel;
-    $("map-back").textContent = state.block ? "← " + placeName(sel) : "← " + s("allPunjab");
-    $("map").classList.toggle("has-dots", Boolean(sel && state.block));
-    $("map-note").textContent = note;
+  function zoom(name) {
+    if (state.zoomed === name) return;
+    state.zoomed = name;
+    requestAnimationFrame(() => (name ? Atlas.Map.zoomTo(name, 1.15) : Atlas.Map.reset()));
   }
+  let onMapSelect = () => {}, onMapHover = () => "";
 
-  // ---------- explore: map ----------
+  // ---------- HOME ----------
 
-  function renderMap(sc) {
-    const fills = {};
-    for (const d of D.districts()) fills[d.name] = sc.color(D.visible(state.ind, d.id));
-    const sel = state.district && geo(state.district);
-    Atlas.Map.paint({ fills, selected: sel ? sel.name : null, calloutHtml: "",
-      label: (n) => { const d = byName(n), v = d ? D.visible(state.ind, d.id) : null; return `${mapName(n)}: ${v === null ? s("noValue") : D.fmt(v, state.ind)}`; },
-      labelText: (n) => mapName(n) });
-    const col = D.meta(state.ind).village;
-    if (sel && Atlas.villages.length) {
-      const blocks = {};
-      if (col) {
-        for (const bl of blockStats(sel, state.ind).list) blocks[bl.key] = {
-          fill: bl.share === null ? "var(--nodata)" : sc.color(bl.share), label: bl.name, value: "", selected: bl.key === state.block,
-          tip: `<strong>${esc(bl.name)}</strong><span class="tip-v">${esc(bl.share === null ? s("noValue") : D.fmt(bl.share, state.ind))}</span><span class="tip-r">${esc(s("blockTip", { k: bl.k, n: bl.n }))}</span>` };
-      } else {
-        for (const v of Atlas.villages) if (v.district === sel.name) blocks[v.block] ||= { fill: fills[sel.name], label: v.block, value: "", selected: v.block === state.block,
-          tip: `<strong>${esc(v.block)}</strong><span class="tip-r">${esc(s("noBlockData"))}</span>` };
-      }
-      drawBlocks(sel, blocks);
-      Atlas.Map.setVillages(villageDots(sel, col), () => {});
-    } else clearBlocks();
-    mapChrome(sel, !sel ? s("clickToZoom") : state.block ? s(col ? "dotsNote" : "dotsSvc", { place: state.block }) : s(col ? "blocksNote" : "blocksOutline", { place: placeName(sel) }));
-  }
-
-  // ---------- explore: context panel ----------
-
-  function renderPanel() {
-    const ind = state.ind, m = D.meta(ind);
-    if (state.district && state.block && renderBlockPanel()) return;
-    const g = state.district ? geo(state.district) : geo(stateId());
-    const v = D.visible(ind, g.id), pv = D.visible(ind, stateId());
-    const items = D.districtValues(ind).map((d) => ({ id: d.geo.id, v: d.value }));
-    const lowHigh = [s("lowest"), s("highest")];
-    if (g.level === "state") {
-      const list = D.districtValues(ind).sort((a, b) => b.value - a.value);
-      const hi = list[0], lo = list[list.length - 1];
-      $("focus").innerHTML = `
-        <p class="eyebrow">${esc(s("acrossPunjab"))} <span class="tag">${esc(s("measuredTag"))}</span></p>
-        <h2 class="ctx-title">${esc(label(ind))}</h2>
-        <p class="big">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</p>
-        <p class="lede">${esc(v === null ? "" : D.say(ind, v).replace(/^\w/, (c) => c.toUpperCase()))}${Atlas.lang === "pa" ? "।" : "."}</p>
-        ${hi ? `<p class="finding">${s("findingShort", { hi: esc(placeName(hi.geo)), hiV: esc(D.fmt(hi.value, ind)), lo: esc(placeName(lo.geo)), loV: esc(D.fmt(lo.value, ind)) })}</p>` : ""}
-        <p class="explain">${esc(Atlas.tr(m.desc))}</p>
-        ${citation(ind, g)}
-        <p class="hint">${esc(s("clickHint"))}</p>`;
-      return;
-    }
-    const rk = D.rank(ind, g.id), d = v !== null && pv !== null ? D.fmtDelta(v, pv, ind) : null;
-    const tone = d && d.sign ? D.tone(d.sign, ind) : "neutral";
-    const cmp = !d ? "" : d.sign ? s(d.sign > 0 ? "above" : "below", { d: d.text.replace(/^[+−]/, "") }) : s("same");
-    const col = m.village;
-    const bs = col ? blockStats(g, ind) : null;
-    $("focus").innerHTML = `${crumbs()}
-      <p class="eyebrow">${esc(label(ind))} <span class="tag">${esc(s("measuredTag"))}</span></p>
-      <h2 class="ctx-name">${esc(placeName(g))}</h2>
-      <p class="big">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</p>
-      <p class="delta is-${tone}">${esc(cmp)}${rk ? ` · ${esc(s("rankOf", { r: ordinal(rk.r), n: rk.total }))}` : ""}</p>
-      ${v !== null && items.length > 2 ? strip(items, g.id, pv, lowHigh[0], lowHigh[1]) : ""}
-      <p class="lede">${esc(v === null ? "" : s("inPlace", { place: placeName(g), say: D.say(ind, v) }))}</p>
-      ${citation(ind, g)}
-      <div class="next">${col
-        ? `<p>${esc(s("blockCtaFac", { n: bs.list.length }))}</p>`
-        : `<p>${esc(s("blockCtaSurvey"))}</p><button type="button" class="text-btn" data-ind="village_high_school_share">${esc(s("seeInfra", { place: placeName(g) }))}</button>`}</div>
-      ${actions(false)}`;
-  }
-
-  // A block: what its villages have (village infrastructure is the only block-level data).
-  function renderBlockPanel() {
-    const g = geo(state.district);
-    const bn = Atlas.Need.blockNeeds(g.name).find((b) => b.name === state.block);
-    const all = Atlas.villages.filter((v) => v.district === g.name && v.block === state.block);
-    if (!all.length) { state.block = null; return false; }
-    const withData = all.filter((v) => v.hasData).length;
-    const col = state.mode === "explore" ? D.meta(state.ind).village : null;
-    let head = "";
-    if (col) {
-      const st = blockStats(g, state.ind), b = st.byKey[state.block], dv = D.visible(state.ind, g.id);
-      const d = b && b.share !== null && dv !== null ? D.fmtDelta(b.share, dv, state.ind) : null;
-      head = `<p class="eyebrow">${esc(label(state.ind))} <span class="tag">${esc(s("measuredTag"))}</span></p>
-        <h2 class="ctx-name">${esc(state.block)} <span class="kind">${esc(s("blockWord"))}</span></h2>
-        <p class="big">${esc(b && b.share !== null ? D.fmt(b.share, state.ind) : s("noValue"))}</p>
-        <p class="delta is-${d && d.sign ? D.tone(d.sign, state.ind) : "neutral"}">${d && d.sign ? esc(s(d.sign > 0 ? "aboveD" : "belowD", { d: d.text.replace(/^[+−]/, ""), place: placeName(g) })) : ""}${b && b.rank ? ` · ${esc(s("rankOfBlocks", { r: ordinal(b.rank), n: st.ranked.length }))}` : ""}</p>`;
-    } else {
-      head = `<p class="eyebrow">${esc(s("infraEyebrow"))}</p>
-        <h2 class="ctx-name">${esc(state.block)} <span class="kind">${esc(s("blockWord"))}</span></h2>`;
-    }
-    const rows = bn ? SVC.map(([c, key]) => {
-      const p = bn.shares[c], dist = D.visible(`village_${c}_share`, g.id);
-      return `<li><span class="svc-l">${esc(s(key))}</span><span class="svc-bar"><i style="width:${(p * 100).toFixed(0)}%"></i>${dist !== null ? `<b style="left:${(dist * 100).toFixed(0)}%"></b>` : ""}</span><span class="svc-v">${Math.round(p * 100)}%</span></li>`;
-    }).join("") : "";
-    let gap = "";
-    if (bn) {
-      const [c, key] = SVC.slice().sort((a, b) => bn.shares[a[0]] - bn.shares[b[0]])[0];
-      gap = s("worstGap", { k: (bn.n - bn.has[c]).toLocaleString(), n: bn.n.toLocaleString(), svc: s(key).toLowerCase() });
-    }
-    $("focus").innerHTML = `${crumbs()}${head}
-      ${bn ? `<p class="sub-h">${esc(s("servicesH"))}</p><ul class="svc">${rows}</ul><p class="svc-key"><b></b> ${esc(s("districtTick", { place: placeName(g) }))}</p>
-      <p class="lede">${esc(gap)}</p>` : ""}
-      <p class="cite">${esc(s("blockSource", { n: all.length.toLocaleString(), d: withData.toLocaleString() }))}</p>
-      <p class="hint">${esc(s(col ? "dotsNote" : "dotsSvc", { place: state.block }))}</p>
-      <p class="caveat">${esc(s("blocksApprox"))}</p>`;
-    return true;
-  }
-
-  function renderRank(sc) {
-    const ind = state.ind, m = D.meta(ind);
-    if (blockMode()) {
-      const g = geo(state.district), bs = blockStats(g, ind), dv = D.visible(ind, g.id);
-      const max = Math.max(...bs.ranked.map((b) => b.share), dv ?? 0) * 1.06 || 1;
-      const pos = (x) => Math.max(0, Math.min(100, (x / max) * 100));
-      $("rank-title").innerHTML = `${esc(s("blocksIn", { place: placeName(g), n: bs.list.length }))}`;
-      $("rank-list").innerHTML = bs.ranked.concat(bs.list.filter((b) => b.share === null)).map((b) => `<li><button type="button" class="rank-row${b.key === state.block ? " is-sel" : ""}" data-block="${esc(b.key)}">
-        <span class="rank-name">${esc(b.name)}</span>
-        <span class="rank-track">${b.share === null ? "" : `<i style="width:${pos(b.share).toFixed(1)}%;background:${sc.color(b.share)}"></i>`}${dv !== null ? `<b style="left:${pos(dv).toFixed(1)}%"></b>` : ""}</span>
-        <span class="rank-v">${esc(b.share === null ? s("noValue") : D.fmt(b.share, ind))}</span></button></li>`).join("");
-      return;
-    }
-    const shown = D.districtValues(ind).sort((a, b) => b.value - a.value);
-    const hiddenOnes = D.districts().filter((d) => D.visible(ind, d.id) === null);
-    const pv = D.visible(ind, stateId());
-    const lo = m.format === "score" && m.scale ? m.scale[0] : 0;
-    let hi = Math.max(sc.max, pv ?? 0) * 1.06;
-    if (m.scale) hi = Math.min(hi, m.scale[1]);
-    const pos = (x) => Math.max(0, Math.min(100, ((x - lo) / (hi - lo)) * 100));
-    $("rank-title").innerHTML = esc(s("rankTitle"));
-    const row = (d, v, i) => `<li><button type="button" class="rank-row${d.id === state.district ? " is-sel" : ""}" data-id="${esc(d.id)}" data-name="${esc(d.name)}">
-        <span class="rank-name"><span class="rank-n">${v === null ? "" : i + 1}</span>${esc(placeName(d))}</span>
-        <span class="rank-track">${v === null ? "" : `<i style="width:${pos(v).toFixed(1)}%;background:${sc.color(v)}"></i>`}${pv !== null ? `<b style="left:${pos(pv).toFixed(1)}%"></b>` : ""}</span>
-        <span class="rank-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span></button></li>`;
-    const all = shown.map((d, i) => row(d.geo, d.value, i)).concat(hiddenOnes.map((d) => row(d, null, 0)));
-    const LIMIT = 6, selIdx = shown.findIndex((d) => d.geo.id === state.district);
-    const rowsHtml = state.rankAll || all.length <= LIMIT + 2 ? all.join("")
-      : all.slice(0, LIMIT).join("") + (selIdx >= LIMIT ? `<li class="rank-gap">⋯</li>` + all[selIdx] : "");
-    $("rank-list").innerHTML = rowsHtml + (all.length > LIMIT + 2 ? `<li class="rank-more-li"><button type="button" class="text-btn" id="rank-more">${esc(state.rankAll ? s("rankLess") : s("rankAll", { n: all.length }))}</button></li>` : "") +
-      (pv !== null ? `<li class="rank-legend"><b></b> ${esc(s("avgLine"))} ${esc(D.fmt(pv, ind))}</li>` : "");
-  }
-
-  // ---------- one district ----------
-
-  function renderTable() {
-    const g = state.district ? geo(state.district) : geo(stateId());
-    const isState = g.level === "state";
-    const place = placeName(g);
-    const head = isState
-      ? `<tr><th>${esc(s("colTopic"))}</th><th class="t-num">${esc(s("colPunjab"))}</th><th class="t-num">${esc(s("colRange"))}</th></tr>`
-      : `<tr><th>${esc(s("colTopic"))}</th><th class="t-num">${esc(place)}</th><th class="t-num">${esc(s("colPunjab"))}</th><th class="t-num">${esc(s("colDiff"))}</th></tr>`;
-    const cols = isState ? 3 : 4;
-    const isCore = (i) => (D.meta(i).tier || "core") === "core";
-    const total = allIndicators().length;
-    const rows = available().map((th) => {
-      const list = th.indicators.filter((i, k) => state.allRows || k === 0 || i === state.ind);
-      if (!list.length) return "";
-      return `<tr class="grp"><th colspan="${cols}">${esc(Atlas.tr(th.label))}</th></tr>` + list.map((ind) => {
-        const v = D.visible(ind, g.id), pv = D.visible(ind, stateId());
-        let tail;
-        if (isState) {
-          const vals = D.districtValues(ind).map((d) => d.value);
-          tail = `<td class="t-num t-muted">${vals.length ? esc(D.fmtShort(Math.min(...vals), ind) + " – " + D.fmtShort(Math.max(...vals), ind)) : ""}</td>`;
-        } else {
-          const dd = v !== null && pv !== null ? D.fmtDelta(v, pv, ind) : null;
-          const cell = !dd ? "" : dd.sign
-            ? `<span class="chip is-${D.tone(dd.sign, ind)}">${dd.sign > 0 ? "▲" : "▼"} ${esc(dd.text.replace(/^[+−]/, ""))}</span>`
-            : `<span class="chip">=</span>`;
-          tail = `<td class="t-num t-muted">${esc(pv === null ? "–" : D.fmt(pv, ind))}</td><td class="t-num">${cell}</td>`;
-        }
-        return `<tr class="prow${ind === state.ind ? " is-on" : ""}" data-ind="${esc(ind)}" tabindex="0">
-          <td class="t-topic">${esc(label(ind))}</td>
-          <td class="t-num t-strong">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</td>${tail}</tr>`;
-      }).join("");
+  function renderHome() {
+    const rows = need(), color = needColor(), byId = Object.fromEntries(rows.map((r) => [r.geo.id, r]));
+    // hero
+    $("hero-quick").innerHTML = `<span>${esc(s("quickLbl"))}</span> ` + rows.slice(0, 3).map((r) => `<a href="${districtUrl(r.geo)}">${esc(placeName(r.geo))}</a>`).join("");
+    const me = Atlas.Account.get(), home = me && byName(me.home);
+    $("hero-me").hidden = !home;
+    if (home) $("hero-me").innerHTML = `${esc(s("meHello", { name: me.name.split(" ")[0] }))} <a href="${districtUrl(home)}">${esc(s("meOpen", { place: placeName(home) }))}</a>`;
+    // areas + map
+    $("need-sub").textContent = s("needSub", { areas: state.areas.map(areaLabel).join(", ").toLowerCase() });
+    $("home-areas").innerHTML = Atlas.NEED_AREAS.map((a) => {
+      const on = state.areas.includes(a.id);
+      return `<button type="button" class="toggle${on ? " is-on" : ""}" data-area="${a.id}" aria-pressed="${on}"><span class="box"></span>${esc(Atlas.tr(a.label))}</button>`;
     }).join("");
-    $("table").innerHTML = `<h2 class="col-h">${esc(s(isState ? "tableTitleState" : "tableTitle", { place }))}</h2>
-      <table class="ptable"><thead>${head}</thead><tbody>${rows}</tbody></table>
-      <button type="button" class="link rows-toggle" id="rows-toggle">${esc(s(state.allRows ? "showFewerRows" : "showAllRows", { n: total }))}</button>`;
+    legendNeed("home-key");
+    mapTo(".slot-home");
+    const fills = {};
+    for (const d of D.districts()) fills[d.name] = color(byId[d.id]?.score);
+    Atlas.Map.paint({ fills, selected: null, calloutHtml: "", labelText: (n) => mapName(n),
+      label: (n) => { const d = byName(n), r = d && byId[d.id]; return `${mapName(n)}: ${r ? r.score + "/100" : s("noValue")}`; } });
+    Atlas.Map.setBlocks(null, [], {}, () => {}); Atlas.Map.setVillages([], () => {});
+    zoom(null);
+    onMapSelect = (n) => { const d = byName(n); if (d) location.hash = districtUrl(d); };
+    onMapHover = (n) => { const d = byName(n), r = d && byId[d.id];
+      return `<strong>${esc(d ? placeName(d) : n)}</strong>${r ? `<span class="tip-v">${r.score}<small>/100</small></span><span class="tip-r">${esc(r.rank === 1 ? s("needTop", { n: rows.length }) : s("needRank", { r: ordinal(r.rank), n: rows.length }))}</span>` : ""}<span class="tip-r">${esc(s("tipOpen"))}</span>`; };
+    // list
+    const N = state.homeAll ? rows.length : 8;
+    $("home-list").innerHTML = rows.slice(0, N).map((r) => `<li><a class="need-row" href="${districtUrl(r.geo)}" data-name="${esc(r.geo.name)}">
+        <span class="nr-rank">${r.rank}</span>
+        <span class="nr-main"><b>${esc(placeName(r.geo))}</b><small>${esc(r.drivers.slice(0, 2).map((d) => short(d.ind)).join(" · "))}</small></span>
+        <span class="nr-bar"><i style="width:${Math.max(3, r.score)}%;background:${color(r.score)}"></i></span>
+        <span class="nr-score">${r.score}</span></a></li>`).join("") +
+      `<li class="list-more"><button type="button" class="link" id="home-more">${esc(state.homeAll ? s("showFewer") : s("showAll", { n: rows.length }))}</button></li>`;
+    // topic cards
+    $("home-topics").innerHTML = available().map((th) => {
+      const ind = th.indicators[0], v = D.visible(ind, stateId());
+      return `<a class="topic-card" href="#/topic/${esc(ind)}">${icon(th.id)}<span class="tc-name">${esc(Atlas.tr(th.label))}</span>
+        <span class="tc-val">${esc(v === null ? "–" : D.fmt(v, ind))}</span><span class="tc-lbl">${esc(short(ind))} · ${esc(s("acrossPunjab"))}</span>
+        <span class="tc-n">${th.indicators.length} →</span></a>`;
+    }).join("");
+    $("home-trust").innerHTML = [["trustSim", "trustSimBody"], ["trustPriv", "trustPrivBody"], ["trustSrc", "trustSrcBody"]].map(([h, b]) =>
+      `<div class="trust-item"><h3>${esc(s(h))}</h3><p>${esc(s(b, { n: Atlas.config.minGroupSize }))}</p></div>`).join("");
   }
 
-  function renderVillages() {
-    const el = $("villages");
-    const g = state.district && geo(state.district);
-    if (!g) { el.hidden = true; el.innerHTML = ""; return; }
-    el.hidden = false;
-    const place = placeName(g);
-    const vs = Atlas.villages.filter((v) => v.district === g.name);
-    if (!vs.length) { el.innerHTML = `<h2 class="sec-h">${esc(s("villagesTitle2", { place }))}</h2><p class="note">${esc(s("vNone"))}</p>`; return; }
-    const withData = vs.filter((v) => v.hasData);
-    const col = D.meta(state.ind).village;
-    let topic = `<p class="note">${esc(s("vPick"))}</p>`;
-    if (col) {
-      const k = withData.filter((v) => v.raw[col] === "1").length;
-      topic = `<p class="v-line">${s("vHave", { k: k.toLocaleString(), d: withData.length.toLocaleString(),
-        p: esc(D.fmt(withData.length ? k / withData.length : null, state.ind)), topic: esc(short(state.ind)) })}</p>
-        <p class="v-key">${s("vDots")}</p>`;
-    }
-    el.innerHTML = `<h2 class="sec-h">${esc(s("villagesTitle2", { place }))}</h2>
-      <p class="v-line">${s("vStats", { n: vs.length.toLocaleString(), d: withData.length.toLocaleString() })}</p>
-      ${topic}`;
-  }
+  // ---------- TOPIC ----------
 
-  // ---------- two topics ----------
+  function renderTopic() {
+    const ind = state.ind, m = D.meta(ind), th = themeOf(ind), sc = scaleFor(ind);
+    $("topic-crumbs").innerHTML = crumbs([[s("punjab"), "#/"], [s("topicCrumb"), "#/topic"], [Atlas.tr(th.label), ""]]);
+    $("topic-tabs").innerHTML = available().map((t) => `<a class="tab${t.id === th.id ? " is-on" : ""}" href="#/topic/${esc(t.id === th.id ? ind : t.indicators[0])}">${icon(t.id)}${esc(Atlas.tr(t.label))}</a>`).join("");
+    $("topic-measures").innerHTML = th.indicators.map((i) => `<a class="pill${i === ind ? " is-on" : ""}" href="#/topic/${esc(i)}">${esc(label(i))}</a>`).join("") +
+      (th.planned || []).map((p) => `<span class="pill is-planned">${esc(Atlas.tr(p))}</span>`).join("");
+    $("topic-title").textContent = label(ind);
+    $("topic-desc").textContent = Atlas.tr(m.desc);
+    const dir = m.direction === "higher_better" ? s("higherBetter") : m.direction === "higher_worse" ? s("higherWorse") : "";
+    $("topic-key").innerHTML = `<span>${esc(D.fmtShort(sc.min, ind))}</span><i class="grad" style="background:${grad(ramp(ind))}"></i><span>${esc(D.fmtShort(sc.max, ind))}</span>${dir ? `<em>${esc(dir)}</em>` : ""}`;
+    // stat
+    const pv = D.visible(ind, stateId()), list = D.districtValues(ind).sort((a, b) => b.value - a.value);
+    const hi = list[0], lo = list[list.length - 1];
+    $("topic-stat").innerHTML = `<p class="eyebrow">${esc(s("punjab"))}</p><p class="stat">${esc(pv === null ? "–" : D.fmt(pv, ind))}</p>
+      <p class="stat-say">${esc(pv === null ? "" : D.say(ind, pv).replace(/^\w/, (c) => c.toUpperCase()))}</p>
+      ${hi ? `<p class="stat-find">${s("findingTopic", { hi: esc(placeName(hi.geo)), hiV: esc(D.fmt(hi.value, ind)), lo: esc(placeName(lo.geo)), loV: esc(D.fmt(lo.value, ind)) })}</p>` : ""}
+      ${source(ind, geo(stateId()))}`;
+    // map
+    mapTo(".slot-topic");
+    const fills = {};
+    for (const d of D.districts()) fills[d.name] = sc.color(D.visible(ind, d.id));
+    Atlas.Map.paint({ fills, selected: null, calloutHtml: "", labelText: (n) => mapName(n),
+      label: (n) => { const d = byName(n), v = d ? D.visible(ind, d.id) : null; return `${mapName(n)}: ${v === null ? s("noValue") : D.fmt(v, ind)}`; } });
+    Atlas.Map.setBlocks(null, [], {}, () => {}); Atlas.Map.setVillages([], () => {});
+    zoom(null);
+    onMapSelect = (n) => { const d = byName(n); if (d) location.hash = districtUrl(d); };
+    onMapHover = (n) => { const d = byName(n), v = d ? D.visible(ind, d.id) : null, rk = d && D.rank(ind, d.id);
+      return `<strong>${esc(d ? placeName(d) : n)}</strong><span class="tip-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>${rk ? `<span class="tip-r">${esc(s("rankOf", { r: ordinal(rk.r), n: rk.total }))}</span>` : ""}`; };
+    // ranking
+    const lo0 = m.format === "score" && m.scale ? m.scale[0] : 0;
+    const hi0 = Math.max(sc.max, pv ?? 0) * 1.05;
+    const pos = (x) => Math.max(0, Math.min(100, ((x - lo0) / (hi0 - lo0)) * 100));
+    $("topic-rank").innerHTML = list.map((d, i) => `<li><a class="rank-row" href="${districtUrl(d.geo)}" data-name="${esc(d.geo.name)}">
+        <span class="rr-n">${i + 1}</span><span class="rr-name">${esc(placeName(d.geo))}</span>
+        <span class="rr-bar"><i style="width:${pos(d.value).toFixed(1)}%;background:${sc.color(d.value)}"></i>${pv !== null ? `<b style="left:${pos(pv).toFixed(1)}%"></b>` : ""}</span>
+        <span class="rr-v">${esc(D.fmt(d.value, ind))}</span></a></li>`).join("") +
+      (pv !== null ? `<li class="rank-legend"><b></b>${esc(s("punjabAvg"))} ${esc(D.fmt(pv, ind))}</li>` : "");
+    renderCompare();
+  }
 
   function renderCompare() {
-    const a = state.ind;
-    const inds = allIndicators();
+    const a = state.ind, inds = allIndicators();
     if (!state.cmp || state.cmp === a) state.cmp = inds.find((i) => i !== a && i === Atlas.config.defaultCompare) || inds.find((i) => i !== a);
     const b = state.cmp;
-    const pts = D.districts().map((d) => ({ id: d.id, name: placeName(d), x: D.visible(a, d.id), y: D.visible(b, d.id) }))
-      .filter((p) => p.x !== null && p.y !== null);
-    const r = D.pearson(pts.map((p) => p.x), pts.map((p) => p.y));
-    const ar = Math.abs(r ?? 0);
+    const pts = D.districts().map((d) => ({ id: d.id, name: placeName(d), x: D.visible(a, d.id), y: D.visible(b, d.id) })).filter((p) => p.x !== null && p.y !== null);
+    const r = D.pearson(pts.map((p) => p.x), pts.map((p) => p.y)), ar = Math.abs(r ?? 0);
     const strength = ar >= 0.6 ? s("cmpStrong") : ar >= 0.35 ? s("cmpModerate") : ar >= 0.15 ? s("cmpWeak") : s("cmpNone");
-    const sentence = ar >= 0.15
-      ? s("cmpSentence", { a: esc(label(a)), b: esc(label(b)), dir: esc(s(r > 0 ? "higher" : "lower")), strength: esc(strength) })
+    const sentence = ar >= 0.15 ? s("cmpSentence", { a: esc(label(a)), b: esc(label(b)), dir: esc(s(r > 0 ? "higher" : "lower")), strength: esc(strength) })
       : s("cmpNoneSentence", { a: esc(label(a)), b: esc(label(b)), strength: esc(strength) });
-    const opts = available().map((th) => {
-      const list = th.indicators.filter((i) => i !== a);
-      return list.length ? `<optgroup label="${esc(Atlas.tr(th.label))}">${list.map((i) =>
-        `<option value="${esc(i)}"${i === b ? " selected" : ""}>${esc(label(i))}</option>`).join("")}</optgroup>` : "";
-    }).join("");
-
-    $("compare").innerHTML = `
-      <h2 class="sec-h">${esc(s("compareTitle"))}</h2>
-      <p class="sec-sub">${esc(s("compareSub"))}</p>
-      <label class="cmp-pick"><span>${esc(s("compareWith", { a: label(a) }))}</span>
-        <select id="cmp-select">${opts}</select></label>
-      <div class="cmp-body">
-        <div class="cmp-chart">${pts.length > 2 ? Atlas.Charts.scatter({ points: pts, xInd: a, yInd: b, selectedId: state.district,
-          refX: D.visible(a, stateId()), refY: D.visible(b, stateId()) }) : ""}</div>
-        <div class="cmp-text">
-          <p class="cmp-sentence">${sentence}</p>
-          <p class="note">${esc(s("cmpCaveat"))}</p>
-          <p class="note">${esc(s("plannedNote"))}</p>
-        </div>
-      </div>`;
+    const opts = available().map((th) => { const l = th.indicators.filter((i) => i !== a);
+      return l.length ? `<optgroup label="${esc(Atlas.tr(th.label))}">${l.map((i) => `<option value="${esc(i)}"${i === b ? " selected" : ""}>${esc(label(i))}</option>`).join("")}</optgroup>` : ""; }).join("");
+    $("topic-compare").innerHTML = `<div class="cmp-grid"><div><h2 class="card-title">${esc(s("compareTitle"))}</h2><p class="card-sub">${esc(s("compareSub"))}</p>
+        <label class="cmp-pick">${esc(s("compareWith", { a: label(a) }))}<select id="cmp-select">${opts}</select></label>
+        <p class="cmp-sentence">${sentence}</p><p class="muted small">${esc(s("cmpCaveat"))}</p></div>
+      <div>${pts.length > 2 ? Atlas.Charts.scatter({ points: pts, xInd: a, yInd: b, selectedId: null, refX: D.visible(a, stateId()), refY: D.visible(b, stateId()) }) : ""}</div></div>`;
   }
 
-  // ---------- page furniture ----------
+  // ---------- DISTRICT ----------
+
+  function placeActions(printable) {
+    const on = Atlas.Account.isSaved(location.hash.slice(1));
+    return `<button type="button" class="btn-out" data-save>${on ? "★ " + esc(s("saved")) : "☆ " + esc(s("save"))}</button>
+      <button type="button" class="btn-out" data-share>${esc(s("share"))}</button>
+      ${printable ? `<button type="button" class="btn-out" data-print>${esc(s("print"))}</button>` : ""}`;
+  }
+
+  function renderDistrict() {
+    const g = geo(state.district), rows = need(), r = needOf(g), color = needColor();
+    const vs = Atlas.villages.filter((v) => v.district === g.name);
+    const bn = Atlas.Need.blockNeeds(g.name);
+    const blocksAll = [...new Set(vs.map((v) => v.block))];
+    const vl = Atlas.Need.villagesLacking(g.name);
+    $("place-crumbs").innerHTML = crumbs([[s("punjab"), "#/"], [placeName(g), ""]]);
+    $("place-title").textContent = placeName(g);
+    $("place-sub").textContent = s("districtSub", { v: vs.length.toLocaleString(), b: blocksAll.length });
+    $("place-score").innerHTML = r ? `<div class="score"><span class="score-lbl">${esc(s("needScore"))} <i class="badge">${esc(s("calcTag"))}</i></span>
+        <span class="score-v" style="--c:${color(r.score)}">${r.score}<small>/100</small></span>
+        <span class="score-rank">${esc(r.rank === 1 ? s("needTop", { n: rows.length }) : s("needRank", { r: ordinal(r.rank), n: rows.length }))}</span>
+        <span class="score-bar"><i style="width:${r.score}%;background:${color(r.score)}"></i></span></div>` : "";
+    $("place-actions").innerHTML = placeActions(true);
+
+    // summary
+    const d1 = r && r.drivers[0], d2 = r && r.drivers[1];
+    let summary = r ? s("summaryText", { place: placeName(g), rankPhrase: r.rank === 1 ? s("rankPhrase1") : s("rankPhraseN", { r: ordinal(r.rank) }), score: r.score,
+      r1: label(d1.ind).toLowerCase(), r2: label(d2.ind).toLowerCase() }) : "";
+    if (vl.withData) summary += s("summaryVill", { d: vl.withData.toLocaleString(), k: vl.noHighSchool.toLocaleString(), h: vl.noHealth.toLocaleString() });
+
+    // reasons
+    const reasons = r ? r.drivers.slice(0, 3).map((dr) => {
+      const pv = D.visible(dr.ind, stateId()), max = Math.max(...D.districtValues(dr.ind).map((x) => x.value), pv ?? 0) || 1;
+      const w = (x) => Math.max(1, Math.min(100, (x / max) * 100)).toFixed(1);
+      return `<li class="reason"><div class="reason-head"><b>${esc(label(dr.ind))}</b><span class="tag-bad">${esc(posPhrase(dr.ind, g.id))}</span></div>
+        <div class="bars"><span>${esc(placeName(g))}</span><i><u style="width:${w(dr.v)}%"></u></i><em>${esc(D.fmt(dr.v, dr.ind))}</em>
+          <span class="ref">${esc(s("punjab"))}</span><i class="ref"><u style="width:${w(pv)}%"></u></i><em class="ref">${esc(D.fmt(pv, dr.ind))}</em></div></li>`;
+    }).join("") : "";
+
+    // key numbers: first indicator of each theme
+    const keys = available().map((th) => th.indicators[0]).map((ind) => {
+      const v = D.visible(ind, g.id), pv = D.visible(ind, stateId()), rk = D.rank(ind, g.id), th = themeOf(ind);
+      return `<a class="kpi" href="#/topic/${esc(ind)}"><span class="kpi-t">${icon(th.id)}${esc(Atlas.tr(th.label))}</span>
+        <span class="kpi-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span><span class="kpi-l">${esc(label(ind))}</span>
+        <span class="kpi-d">${deltaChip(v, pv, ind)}${rk ? `<small>${esc(s("rankOf", { r: ordinal(rk.r), n: rk.total }))}</small>` : ""}</span></a>`;
+    }).join("");
+
+    // blocks table
+    const heat = (p) => `<td class="heat h${Math.min(4, Math.floor(p * 5))}"><span>${pct(p)}</span></td>`;
+    const blockRows = bn.slice().sort((a, b) => a.coverage - b.coverage).map((b) => `<tr data-href="${blockUrl(g, b.name)}" tabindex="0">
+        <td><a href="${blockUrl(g, b.name)}">${esc(b.name)}</a></td><td class="num">${b.n}</td>${SVC.map(([c]) => heat(b.shares[c])).join("")}</tr>`).join("");
+    const dRow = `<tr class="avg"><td>${esc(placeName(g))}</td><td class="num">${vl.withData}</td>${SVC.map(([c]) => { const v = D.visible(`village_${c}_share`, g.id); return `<td class="num">${v === null ? "–" : pct(v)}</td>`; }).join("")}</tr>`;
+
+    // all indicators
+    const total = allIndicators().length;
+    const indRows = available().map((th) => {
+      const list = th.indicators.filter((i, k) => state.allInd || k < 2);
+      return `<tr class="grp"><th colspan="4">${icon(th.id)}${esc(Atlas.tr(th.label))}</th></tr>` + list.map((ind) => {
+        const v = D.visible(ind, g.id), pv = D.visible(ind, stateId()), rk = D.rank(ind, g.id);
+        return `<tr data-href="#/topic/${esc(ind)}" tabindex="0"><td>${esc(label(ind))}</td><td class="num strong">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</td>
+          <td class="num muted">${esc(pv === null ? "–" : D.fmt(pv, ind))}</td><td class="num">${rk ? esc(s("rankOf", { r: ordinal(rk.r), n: rk.total })) : ""}</td></tr>`;
+      }).join("");
+    }).join("");
+
+    const srcs = [...Atlas.data.sources.values()];
+    $("place-main").innerHTML = `
+      <section class="card pad"><h2 class="sec">${esc(s("summaryH"))}</h2><p class="lede">${esc(summary)}</p></section>
+      ${reasons ? `<section class="card pad"><h2 class="sec">${esc(s("whyH"))}</h2><ol class="reasons">${reasons}</ol>
+        <p class="muted small">${esc(s("needSub", { areas: state.areas.map(areaLabel).join(", ").toLowerCase() }))}</p></section>` : ""}
+      <section class="card pad"><div class="sec-row"><h2 class="sec">${esc(s("keyH"))}</h2><span class="muted small">${esc(s("keySub"))}</span></div><div class="kpis">${keys}</div></section>
+      ${bn.length ? `<section class="card pad"><h2 class="sec">${esc(s("blocksH"))}</h2><p class="muted small">${esc(s("blocksSub"))}</p>
+        <div class="table-scroll"><table class="tbl heat-tbl"><thead><tr><th>${esc(s("colBlock"))}</th><th class="num">${esc(s("colVillages"))}</th>${SVC.map(([, , k]) => `<th class="num">${esc(s(k))}</th>`).join("")}</tr></thead>
+        <tbody>${blockRows}${dRow}</tbody></table></div></section>` : ""}
+      <section class="card pad"><h2 class="sec">${esc(s("allH"))}</h2><p class="muted small">${esc(s("allSub", { place: placeName(g) }))}</p>
+        <div class="table-scroll"><table class="tbl"><thead><tr><th>${esc(s("colTopic"))}</th><th class="num">${esc(placeName(g))}</th><th class="num">${esc(s("punjab"))}</th><th class="num">${esc(s("rankCol"))}</th></tr></thead><tbody>${indRows}</tbody></table></div>
+        <button type="button" class="link" id="all-ind">${esc(state.allInd ? s("showFewerInd") : s("showAllInd", { n: total }))}</button></section>
+      <section class="card pad"><h2 class="sec">${esc(s("sourcesH"))}</h2><ul class="src-list">${srcs.map((x) => { const h = D.sourceHref(x.url); return `<li>${h ? `<a href="${esc(h)}" target="_blank" rel="noopener">${esc(x.name)}</a>` : esc(x.name)}</li>`; }).join("")}</ul>
+        <p class="muted small">${esc(s("trustSimBody"))}</p></section>`;
+
+    // map: district zoomed, blocks shaded by service gaps
+    $("pmap-title").textContent = s("pmapDistrict", { place: placeName(g) });
+    $("pmap-sub").textContent = s("pmapDistrictSub");
+    $("place-key").innerHTML = `<span>${esc(s("moreSvc"))}</span><i class="grad" style="background:${grad("bad")}"></i><span>${esc(s("fewerSvc"))}</span>`;
+    $("place-note").textContent = s("noteApprox");
+    drawPlaceMap(g, bn, null);
+    Atlas.Map.setVillages([], () => {});
+    $("map").classList.remove("has-dots");
+  }
+
+  function drawPlaceMap(g, bn, selBlock) {
+    mapTo(".slot-place");
+    const color = needColor(), byId = Object.fromEntries(need().map((r) => [r.geo.id, r]));
+    const fills = {};
+    for (const d of D.districts()) fills[d.name] = color(byId[d.id]?.score);
+    Atlas.Map.paint({ fills, selected: g.name, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
+    const byB = Object.fromEntries(bn.map((b) => [b.name, b]));
+    const blocks = {};
+    for (const v of Atlas.villages) {
+      if (v.district !== g.name || blocks[v.block]) continue;
+      const b = byB[v.block];
+      blocks[v.block] = { fill: b ? `var(--seq-bad-${blockBin(b.need, bn)})` : "var(--nodata)", label: v.block, value: "", selected: v.block === selBlock,
+        tip: `<strong>${esc(v.block)}</strong>` + (b ? SVC.map(([c, k]) => `<span class="tip-r">${esc(s(k))}: ${pct(b.shares[c])}</span>`).join("") : "") };
+    }
+    Atlas.Map.setBlocks(g.name, Atlas.villages.filter((v) => v.district === g.name).map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks,
+      (k) => { location.hash = blockUrl(g, k); });
+    onMapSelect = (n) => { const d = byName(n); if (d && d.id !== g.id) location.hash = districtUrl(d); };
+    onMapHover = (n) => { const d = byName(n); return `<strong>${esc(d ? placeName(d) : n)}</strong>${d && d.id !== g.id ? `<span class="tip-r">${esc(s("tipOpen"))}</span>` : ""}`; };
+    zoom(g.name);
+  }
+
+  // ---------- BLOCK ----------
+
+  function renderBlock() {
+    const g = geo(state.district), bn = Atlas.Need.blockNeeds(g.name), b = bn.find((x) => x.name === state.block);
+    const vs = Atlas.villages.filter((v) => v.district === g.name && v.block === state.block);
+    if (!vs.length) { location.hash = districtUrl(g); return; }
+    const withData = vs.filter((v) => v.hasData).length;
+    $("place-crumbs").innerHTML = crumbs([[s("punjab"), "#/"], [placeName(g), districtUrl(g)], [state.block, ""]]);
+    $("place-title").innerHTML = `${esc(state.block)} <span class="kind">${esc(s("block"))}</span>`;
+    $("place-sub").textContent = s("blockSub", { place: placeName(g), v: vs.length, d: withData });
+    $("place-actions").innerHTML = placeActions(true);
+    const dv = (c) => D.visible(`village_${c}_share`, g.id);
+    $("place-score").innerHTML = b ? `<div class="score"><span class="score-lbl">${esc(s("servicesH"))}</span>
+      <span class="score-v">${pct(b.coverage)}</span><span class="score-rank">${esc(blockRankText(b, bn))}</span></div>` : "";
+
+    let services = "", summary = "";
+    if (b) {
+      services = SVC.map(([c, k]) => { const p = b.shares[c], d = dv(c);
+        return `<li><span class="svc-l">${esc(s(k))}</span><span class="svc-bar"><i style="width:${(p * 100).toFixed(0)}%"></i>${d !== null ? `<b style="left:${(d * 100).toFixed(0)}%"></b>` : ""}</span><span class="svc-v">${pct(p)}</span></li>`; }).join("");
+      const [wc, wk] = SVC.slice().sort((x, y) => b.shares[x[0]] - b.shares[y[0]])[0];
+      summary = s("blockSummary", { place: state.block, hs: Math.round(b.shares.high_school * 100), hc: Math.round(b.shares.health_centre * 100),
+        dhs: dv("high_school") === null ? "–" : Math.round(dv("high_school") * 100), dhc: dv("health_centre") === null ? "–" : Math.round(dv("health_centre") * 100), district: placeName(g) }) +
+        " " + s("blockGap", { k: b.n - b.has[wc], n: b.n, svc: s(wk).toLowerCase() });
+    }
+    $("place-main").innerHTML = `
+      <section class="card pad"><h2 class="sec">${esc(s("summaryH"))}</h2><p class="lede">${esc(summary)}</p>
+        <p class="muted small">${esc(s("blockNoData"))} <a href="${districtUrl(g)}">${esc(s("districtLink", { place: placeName(g) }))} →</a></p></section>
+      ${b ? `<section class="card pad"><h2 class="sec">${esc(s("servicesH"))}</h2><p class="muted small">${esc(s("servicesSub", { place: placeName(g) }))}</p><ul class="svc">${services}</ul></section>` : ""}
+      <section class="card pad"><div class="sec-row"><h2 class="sec">${esc(s("villagesH"))}</h2>
+        <input type="search" class="filter" id="v-filter" placeholder="${esc(s("filterPh"))}" value="${esc(state.vFilter)}"></div>
+        <p class="muted small">${esc(s("villagesSub", { n: vs.length }))}</p>
+        <div class="table-scroll"><table class="tbl v-tbl"><thead><tr><th>${esc(s("colVillage"))}</th><th class="num">${esc(s("colPop"))}</th>${SVC.map(([, , k]) => `<th class="c">${esc(s(k))}</th>`).join("")}</tr></thead>
+        <tbody id="v-body"></tbody></table></div><div id="v-more"></div></section>`;
+    renderVillageRows();
+
+    $("pmap-title").textContent = s("pmapBlock", { place: state.block });
+    $("pmap-sub").textContent = s("pmapBlockSub");
+    $("place-key").innerHTML = `<span>${esc(s("svcDots"))}</span>${[0, 1, 2, 3, 4].map((k) => `<i class="dot" style="background:${k ? `var(--seq-good-${k})` : "#fff"}"></i>`).join("")}<span>0 → 4</span>`;
+    $("place-note").textContent = s("noteApprox");
+    drawPlaceMap(g, bn, state.block);
+    drawVillageDots(vs);
+    $("map").classList.add("has-dots");
+  }
+
+  function blockRankText(b, bn) {
+    const k = bn.slice().sort((x, y) => x.coverage - y.coverage).findIndex((x) => x.name === b.name) + 1;
+    return k === 1 ? s("blockWorst", { n: bn.length }) : s("blockNth", { r: ordinal(k), n: bn.length });
+  }
+  function svcCount(v) { return SVC.filter(([c]) => v.raw[c] === "1").length; }
+  function drawVillageDots(vs) {
+    Atlas.Map.setVillages(vs.map((v) => {
+      const k = svcCount(v);
+      return { id: v.code, lat: v.lat, lon: v.lon, selected: v.code === state.village,
+        fill: !v.hasData ? "#c9ccd2" : k ? `var(--seq-good-${k})` : "#ffffff",
+        label: v.name, tip: `<strong>${esc(v.name)}</strong>${v.population ? `<span class="tip-r">${esc(s("colPop"))} ${v.population.toLocaleString()}</span>` : ""}` +
+          (v.hasData ? SVC.map(([c, key]) => `<span class="tip-r">${v.raw[c] === "1" ? "✓" : "✗"} ${esc(s(key))}</span>`).join("") : `<span class="tip-r">${esc(s("noRecord"))}</span>`) };
+    }), (code) => { state.village = code === state.village ? null : code; history.replaceState(null, "", blockUrl(geo(state.district), state.block, state.village)); renderVillageRows(); drawVillageDots(vs); });
+  }
+
+  function renderVillageRows() {
+    const g = geo(state.district);
+    const q = state.vFilter.trim().toLowerCase();
+    let vs = Atlas.villages.filter((v) => v.district === g.name && v.block === state.block);
+    vs.sort((a, b) => (a.hasData ? svcCount(a) : 9) - (b.hasData ? svcCount(b) : 9) || (b.population || 0) - (a.population || 0));
+    if (state.village) vs = vs.filter((v) => v.code === state.village).concat(vs.filter((v) => v.code !== state.village));
+    if (q) vs = vs.filter((v) => v.name.toLowerCase().includes(q));
+    const LIMIT = 40, shown = state.vAll || q ? vs : vs.slice(0, LIMIT);
+    const cell = (v, c) => (!v.hasData ? `<td class="c na">–</td>` : v.raw[c] === "1" ? `<td class="c yes">✓</td>` : `<td class="c no">✗</td>`);
+    $("v-body").innerHTML = shown.map((v) => `<tr class="${v.code === state.village ? "is-sel" : ""}" data-village="${esc(v.code)}" tabindex="0">
+        <td>${esc(v.name)}${v.hasData ? "" : ` <small class="muted">${esc(s("noRecord"))}</small>`}</td><td class="num">${v.population ? v.population.toLocaleString() : ""}</td>
+        ${SVC.map(([c]) => cell(v, c)).join("")}</tr>`).join("") || `<tr><td colspan="6" class="muted">${esc(s("noResults"))}</td></tr>`;
+    $("v-more").innerHTML = !state.vAll && !q && vs.length > LIMIT ? `<button type="button" class="link" id="v-all">${esc(s("showMoreV", { n: vs.length }))}</button>` : "";
+  }
+
+  // ---------- search ----------
+
+  let INDEX = [];
+  const norm = (x) => String(x).toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/\(\d+\)/g, "").replace(/[^a-z0-9਀-੿]+/g, " ").trim();
+  function buildIndex() {
+    INDEX = [];
+    for (const d of D.districts()) INDEX.push({ t: 0, n: norm(d.name) + " " + (Atlas.DISTRICT_PA[d.name] || ""), label: () => placeName(d), sub: () => s("district"), href: districtUrl(d) });
+    const seen = new Set();
+    for (const v of Atlas.villages) {
+      const d = byName(v.district); if (!d) continue;
+      const k = v.district + "|" + v.block;
+      if (!seen.has(k)) { seen.add(k); INDEX.push({ t: 1, n: norm(v.block), label: () => v.block, sub: () => s("blockIn", { place: placeName(d) }), href: blockUrl(d, v.block) }); }
+      INDEX.push({ t: 2, n: norm(v.name), label: () => v.name.replace(/\s*\(\d+\)$/, ""), sub: () => s("villageIn", { block: v.block, place: placeName(d) }), href: blockUrl(d, v.block, v.code) });
+    }
+  }
+  function find(q) {
+    const nq = norm(q), raw = q.trim();
+    if (!nq && !raw) return [];
+    const out = [[], [], []], caps = [5, 5, 8];
+    for (const it of INDEX) {
+      if (out[it.t].length >= caps[it.t] * 3) continue;
+      const i = nq ? it.n.indexOf(nq) : -1, j = raw && it.n.includes(raw);
+      if (i < 0 && !j) continue;
+      const score = i === 0 ? 0 : i > 0 && it.n[i - 1] === " " ? 1 : 2;
+      out[it.t].push({ ...it, score });
+    }
+    return out.map((l, t) => l.sort((a, b) => a.score - b.score || a.n.length - b.n.length).slice(0, caps[t])).flat();
+  }
+  function attachSearch(input, list) {
+    let items = [], cur = -1;
+    const close = () => { list.hidden = true; input.setAttribute("aria-expanded", "false"); cur = -1; };
+    const draw = () => {
+      items = find(input.value);
+      if (!input.value.trim()) return close();
+      const typeLbl = ["district", "block", "village"];
+      list.innerHTML = items.length ? items.map((it, i) => `<li role="option" class="${i === cur ? "is-on" : ""}" data-i="${i}">
+          <span class="r-type t${it.t}">${esc(s(typeLbl[it.t]))}</span><span class="r-main"><b>${esc(it.label())}</b><small>${esc(it.sub())}</small></span></li>`).join("")
+        : `<li class="r-none">${esc(s("noResults"))}</li>`;
+      list.hidden = false; input.setAttribute("aria-expanded", "true");
+    };
+    const pick = (i) => { const it = items[i]; if (!it) return; close(); input.value = ""; input.blur(); location.hash = it.href; };
+    input.addEventListener("input", () => { cur = -1; draw(); });
+    input.addEventListener("focus", draw);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") { e.preventDefault(); cur = Math.min(items.length - 1, cur + 1); draw(); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); cur = Math.max(0, cur - 1); draw(); }
+      else if (e.key === "Enter") { e.preventDefault(); pick(cur < 0 ? 0 : cur); }
+      else if (e.key === "Escape") close();
+    });
+    list.addEventListener("mousedown", (e) => { const li = e.target.closest("[data-i]"); if (li) { e.preventDefault(); pick(+li.dataset.i); } });
+    input.addEventListener("blur", () => setTimeout(close, 120));
+  }
+
+  // ---------- chrome ----------
 
   function renderStatic() {
     document.documentElement.lang = Atlas.lang;
     document.querySelectorAll("[data-s]").forEach((el) => { el.textContent = s(el.dataset.s); });
     document.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === Atlas.lang)));
-    const synthetic = [...Atlas.data.sources.values()].some((x) => /synthetic/i.test((x.status || "") + x.name));
-    $("sim-note").hidden = !synthetic;
+    $("q-top").placeholder = s("searchPh");
+    $("q-hero").placeholder = s("searchHero");
+    document.querySelectorAll("[data-nav]").forEach((a) => a.classList.toggle("is-on", a.dataset.nav === (state.route === "home" ? "home" : state.route === "topic" ? "topic" : "")));
   }
-
   function renderFoot() {
     const srcs = [...Atlas.data.sources.values()];
-    $("foot").innerHTML = `
-      <p><b>${esc(s("footSources"))}:</b> ${srcs.map((x) => {
-        const href = D.sourceHref(x.url);
-        return href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(x.name)}</a>` : esc(x.name);
-      }).join(" · ")}</p>
-      <p>${esc(s("footPrivacy", { n: Atlas.config.minGroupSize }))}</p>
-      <p>${esc(s("footLicense"))}</p>`;
+    $("foot").innerHTML = `<p><b>${esc(s("footSources"))}:</b> ${srcs.map((x) => { const h = D.sourceHref(x.url); return h ? `<a href="${esc(h)}" target="_blank" rel="noopener">${esc(x.name)}</a>` : esc(x.name); }).join(" · ")}</p>
+      <p>${esc(s("footPrivacy", { n: Atlas.config.minGroupSize }))} ${esc(s("footLicense"))}</p>`;
   }
-
   function renderAbout() {
-    const t = Atlas.t;
-    const srcs = [...Atlas.data.sources.values()];
-    $("about-body").innerHTML = `
-      <p class="lead">${esc(t("aboutIntro"))}</p>
-      <h3>${esc(t("aboutSources"))}</h3>
-      <ul class="src-list">${srcs.map((x) => {
-        const href = D.sourceHref(x.url);
-        return `<li><strong>${esc(x.name)}</strong>${href ? ` <a href="${esc(href)}" target="_blank" rel="noopener">${esc(x.url)}</a>` : ""}</li>`;
-      }).join("")}</ul>
-      <h3>${esc(t("aboutPrivacy"))}</h3>
-      <p>${esc(t("aboutPrivacyBody", { n: Atlas.config.minGroupSize }))}</p>
-      <h3>${esc(t("aboutMatching"))}</h3>
-      <p>${esc(t("aboutMatchingBody"))}</p>
-      <div class="accuracy-slot"><span class="accuracy-num">—</span><span>${esc(t("accuracyPending"))}</span></div>`;
+    const t = Atlas.t, srcs = [...Atlas.data.sources.values()];
+    $("about-body").innerHTML = `<p class="lead">${esc(t("aboutIntro"))}</p><h3>${esc(t("aboutSources"))}</h3>
+      <ul class="src-list">${srcs.map((x) => { const h = D.sourceHref(x.url); return `<li><strong>${esc(x.name)}</strong>${h ? ` <a href="${esc(h)}" target="_blank" rel="noopener">${esc(x.url)}</a>` : ""}</li>`; }).join("")}</ul>
+      <h3>${esc(t("aboutPrivacy"))}</h3><p>${esc(t("aboutPrivacyBody", { n: Atlas.config.minGroupSize }))}</p>
+      <h3>${esc(s("needScore"))}</h3><p>${esc(Atlas.t("aboutMatchingBody"))}</p>
+      <p class="muted small">${esc(s("noteApprox"))}</p>`;
   }
-
-  // ---------- account (demo) ----------
-
   const A = () => Atlas.Account;
-  const viewTitle = () => label(state.ind) + " · " + (state.district ? placeName(geo(state.district)) : s("punjab"));
-  const initials = (n) => n.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
-
+  const viewTitle = () => state.route === "block" ? `${state.block} · ${placeName(geo(state.district))}` : state.route === "district" ? placeName(geo(state.district))
+    : state.route === "topic" ? label(state.ind) : s("navNeed");
   function renderAccount() {
-    const a = A().get();
-    const el = $("acct");
-    if (!a) { el.innerHTML = `<button type="button" class="btn btn-sm" data-signin>${esc(s("signIn"))}</button>`; return; }
+    const a = A().get(), el = $("acct");
+    if (!a) { el.innerHTML = `<a class="btn" href="signin.html">${esc(s("signIn"))}</a>`; return; }
     const item = (v) => `<li><a href="#${esc(v.hash)}">${esc(v.title)}</a></li>`;
-    el.innerHTML = `<button type="button" class="avatar" id="acct-btn" aria-haspopup="true" aria-expanded="false" title="${esc(a.name)}">${esc(initials(a.name))}</button>
-      <div class="acct-menu" id="acct-menu" hidden>
-        <p class="acct-name">${esc(a.name)}</p><p class="acct-role">${esc(a.role)} · ${esc(a.home || "")}</p>
-        <p class="acct-h">${esc(s("savedViews"))}</p>
-        ${a.saved.length ? `<ul>${a.saved.map(item).join("")}</ul>` : `<p class="acct-empty">${esc(s("noSaved"))}</p>`}
-        ${a.recent.length ? `<p class="acct-h">${esc(s("recent"))}</p><ul>${a.recent.slice(0, 3).map(item).join("")}</ul>` : ""}
-        <div class="acct-foot"><button type="button" class="link" data-signin>${esc(s("editProfile"))}</button>
-          <button type="button" class="link" data-signout>${esc(s("signOut"))}</button></div>
-      </div>`;
+    el.innerHTML = `<button type="button" class="avatar" id="acct-btn" title="${esc(a.name)}">${esc(a.name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase())}</button>
+      <div class="acct-menu" id="acct-menu" hidden><p class="acct-name">${esc(a.name)}</p><p class="acct-role">${esc(a.role)} · ${esc(a.home || "")}</p>
+        <p class="acct-h">${esc(s("savedViews"))}</p>${a.saved.length ? `<ul>${a.saved.map(item).join("")}</ul>` : `<p class="muted small">${esc(s("noSaved"))}</p>`}
+        ${a.recent.length ? `<p class="acct-h">${esc(s("recent"))}</p><ul>${a.recent.slice(0, 4).map(item).join("")}</ul>` : ""}
+        <div class="acct-foot"><a href="signin.html">${esc(s("editProfile"))}</a><button type="button" class="link" data-signout>${esc(s("signOut"))}</button></div></div>`;
   }
-
-  function greeting() {
-    const h = new Date().getHours();
-    return s(h < 12 ? "gMorning" : h < 17 ? "gAfternoon" : "gEvening");
-  }
-
-  // Signed-in home strip: your district's headline number for each section you follow.
-  function renderMine() {
-    const a = A().get(), el = $("mine");
-    const d = a && D.districts().find((x) => x.name === a.home);
-    if (!a || !d) { el.hidden = true; el.innerHTML = ""; return; }
-    el.hidden = false;
-    const themes = available().filter((t) => t.indicators.length && (a.follow || []).includes(t.id));
-    const cards = themes.map((t) => {
-      const ind = t.indicators[0], v = D.visible(ind, d.id), pv = D.visible(ind, stateId());
-      const dd = v !== null && pv !== null ? D.fmtDelta(v, pv, ind) : null;
-      const rk = D.rank(ind, d.id);
-      return `<button type="button" class="kpi${ind === state.ind ? " is-on" : ""}" data-kpi="${esc(ind)}">
-        <span class="kpi-t">${esc(Atlas.tr(t.label))}</span>
-        <span class="kpi-l">${esc(short(ind))}</span>
-        <span class="kpi-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>
-        <span class="kpi-d">${dd && dd.sign ? `<span class="chip is-${D.tone(dd.sign, ind)}">${dd.sign > 0 ? "▲" : "▼"} ${esc(dd.text.replace(/^[+−]/, ""))}</span>` : ""}
-          ${rk ? `<span class="kpi-r">${esc(s("rankOf", { r: ordinal(rk.r), n: rk.total }))}</span>` : ""}</span>
-      </button>`;
-    }).join("");
-    el.innerHTML = `<div class="mine-head"><div><p class="mine-hi">${esc(greeting())}, ${esc(a.name.split(" ")[0])}</p>
-        <p class="mine-sub">${esc(s("atGlance", { place: placeName(d) }))}</p></div>
-        <button type="button" class="link" data-signin>${esc(s("customize"))}</button></div>
-      <div class="kpis">${cards || `<p class="note">${esc(s("followSome"))}</p>`}</div>`;
-  }
-
   let toastTimer;
-  function toast(msg) {
-    const t = $("toast"); t.textContent = msg; t.hidden = false;
-    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2600);
+  function toast(msg) { const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2400); }
+
+  // ---------- routing ----------
+
+  function parse() {
+    const [r, a, b, c] = location.hash.replace(/^#\/?/, "").split("/").map((x) => decodeURIComponent(x || ""));
+    state.block = null; state.village = null;
+    if (r === "topic") { state.route = "topic"; state.ind = allIndicators().includes(a) ? a : themeById(a) || state.ind || defaultInd(); }
+    else if (r === "district" && bySlug(a)) { state.route = "district"; state.district = bySlug(a).id; }
+    else if (r === "block" && bySlug(a) && b) { state.route = "block"; state.district = bySlug(a).id; state.block = b; state.village = c || null; }
+    else state.route = "home";
   }
+  function themeById(id) { const th = available().find((t) => t.id === id); return th ? th.indicators[0] : null; }
 
-  // ---------- "Where help is needed" ----------
-
-  const areaLabel = (id) => Atlas.tr(Atlas.NEED_AREAS.find((a) => a.id === id).label);
-  function needPos(ind, geoId) {
-    const m = D.meta(ind), rk = D.rank(ind, geoId);
-    if (!rk) return "";
-    const low = m.direction === "higher_better", k = low ? rk.total - rk.r + 1 : rk.r;
-    return k === 1 ? s(low ? "lowestOf" : "highestOf", { n: rk.total }) : s(low ? "nthLowest" : "nthHighest", { r: ordinal(k), n: rk.total });
-  }
-  let needRows = [];
-  // Shade blocks relative to the other blocks in the same district, so differences show.
-  function blockBin(need, list) {
-    const vals = list.map((x) => x.need), lo = Math.min(...vals), hi = Math.max(...vals);
-    return hi > lo ? Math.round(((need - lo) / (hi - lo)) * 4) : 2;
-  }
-  function needScale() {
-    const b = D.breaks(needRows.map((r) => r.score));
-    return (v) => (v === null || v === undefined ? "var(--nodata)" : `var(--seq-bad-${D.binOf(v, b)})`);
-  }
-
-  function renderNeed() {
-    needRows = Atlas.Need.score(state.areas);
-    const byId = Object.fromEntries(needRows.map((r) => [r.geo.id, r]));
-    const color = needScale();
-    $("key").innerHTML = `<span class="key-t">${esc(s("needScoreLbl"))}</span><span class="key-end">${esc(s("lessNeed"))}</span>
-      <span class="key-grad" style="background:linear-gradient(90deg,${[0, 1, 2, 3, 4].map((i) => `var(--seq-bad-${i})`).join(",")})"></span>
-      <span class="key-end">${esc(s("moreNeed"))}</span>`;
-    // map
-    const fills = {};
-    for (const d of D.districts()) fills[d.name] = color(byId[d.id]?.score);
-    const sel = state.district && geo(state.district);
-    Atlas.Map.paint({ fills, selected: sel ? sel.name : null, calloutHtml: "",
-      label: (n) => { const d = byName(n), r = d && byId[d.id]; return `${mapName(n)}: ${r ? s("scoreOf", { v: r.score }) : s("noValue")}`; },
-      labelText: (n) => mapName(n) });
-    if (sel && Atlas.villages.length) {
-      const bnAll = Atlas.Need.blockNeeds(sel.name);
-      const byB = Object.fromEntries(bnAll.map((b) => [b.name, b]));
-      const blocks = {};
-      for (const v of Atlas.villages) {
-        if (v.district !== sel.name || blocks[v.block]) continue;
-        const b = byB[v.block], bin = b ? blockBin(b.need, bnAll) : null;
-        blocks[v.block] = { fill: b ? `var(--seq-bad-${bin})` : "var(--nodata)", label: v.block, value: "", selected: v.block === state.block,
-          tip: `<strong>${esc(v.block)}</strong>` + (b ? `<span class="tip-r">${esc(s("blockCoverage", { p: Math.round(b.coverage * 100) }))}</span>` : "") };
-      }
-      drawBlocks(sel, blocks);
-      Atlas.Map.setVillages(villageDots(sel, null), () => {});
-    } else clearBlocks();
-    mapChrome(sel, !sel ? s("needMapNote") : state.block ? s("dotsSvc", { place: state.block }) : s("needBlocksNote", { place: placeName(sel) }));
-
-    // panel
-    const r = sel && byId[sel.id];
-    if (sel && state.block && renderBlockPanel()) { /* block view */ }
-    else if (r) {
-      const items = needRows.map((x) => ({ id: x.geo.id, v: x.score }));
-      const reasons = r.drivers.slice(0, 3).map((dr) => {
-        const pv = D.visible(dr.ind, stateId());
-        const max = Math.max(...D.districtValues(dr.ind).map((x) => x.value), pv ?? 0) || 1;
-        return `<li class="reason"><p class="reason-h"><b>${esc(label(dr.ind))}</b><span class="reason-pos">${esc(needPos(dr.ind, sel.id))}</span></p>
-          ${pv !== null ? pair(placeName(sel), dr.v, pv, dr.ind, max) : ""}</li>`;
-      }).join("");
-      const vl = Atlas.Need.villagesLacking(sel.name);
-      const gaps = [["noHighSchool", "svcHS"], ["noHealth", "svcHC"], ["noRoad", "svcRD"]].sort((a, b) => vl[b[0]] - vl[a[0]]);
-      const bn = Atlas.Need.blockNeeds(sel.name);
-      $("focus").innerHTML = `${crumbs()}
-        <p class="eyebrow">${esc(s("needScoreLbl"))} <span class="tag is-calc">${esc(s("calcTag"))}</span></p>
-        <h2 class="ctx-name">${esc(placeName(sel))}</h2>
-        <p class="big">${r.score}<span class="big-of">/100</span></p>
-        <p class="delta is-bad">${esc(r.rank === 1 ? s("needTop", { n: needRows.length }) : s("needRank", { r: ordinal(r.rank), n: needRows.length }))}</p>
-        ${strip(items, sel.id, null, s("lessNeed"), s("moreNeed"))}
-        <p class="sub-h">${esc(s("reasonsH"))}</p>
-        <ol class="reasons">${reasons}</ol>
-        ${vl.withData ? `<p class="sub-h">${esc(s("keyGap"))}</p>
-          <p class="lede">${s("gapLine", { k: `<b>${vl[gaps[0][0]].toLocaleString()}</b>`, n: vl.withData.toLocaleString(), svc: esc(s(gaps[0][1]).toLowerCase()) })}
-          ${bn.length ? esc(s("blockNeedLine", { b: bn[0].name, p: Math.round(bn[0].shares.high_school * 100) })) : ""}</p>` : ""}
-        <p class="hint">${esc(s("chooseBlock"))}</p>
-        ${actions(true)}
-        <details class="more"><summary>${esc(s("moreDetail"))}</summary>
-          <p>${esc(s("howScoreBody"))}</p>
-          <p>${esc(s("areasUsed", { areas: state.areas.map(areaLabel).join(", ") }))}</p>
-          ${bn.length ? `<p class="sub-h">${esc(s("blocksHelp"))}</p><ul class="plain">${bn.slice(0, 3).map((b) => `<li><b>${esc(b.name)}</b>: ${esc(s("blockLine", { hs: Math.round(b.shares.high_school * 100), hc: Math.round(b.shares.health_centre * 100), rd: Math.round(b.shares.all_weather_road * 100), n: b.n }))}</li>`).join("")}</ul>` : ""}
-          <p class="caveat">${esc(s("needCaveat"))}</p>
-        </details>`;
-    } else {
-      const top = needRows.slice(0, 3).map((x) => placeName(x.geo));
-      $("focus").innerHTML = `
-        <p class="eyebrow">${esc(s("acrossPunjab"))} <span class="tag is-calc">${esc(s("calcTag"))}</span></p>
-        <h2 class="ctx-title">${esc(s("needTitle"))}</h2>
-        <p class="finding big-finding">${s("needFindingShort", { a: esc(top[0] || ""), b: esc(top[1] || ""), c: esc(top[2] || "") })}</p>
-        <p class="explain">${esc(s("needExplain", { areas: state.areas.map(areaLabel).join(", ").toLowerCase() }))}</p>
-        <details class="more"><summary>${esc(s("howScore"))}</summary><p>${esc(s("howScoreBody"))}</p><p class="caveat">${esc(s("needCaveat"))}</p></details>
-        <p class="hint">${esc(s("needHint"))}</p>`;
-    }
-    // priority list (or blocks, inside a district)
-    if (sel) {
-      const bn = Atlas.Need.blockNeeds(sel.name);
-      $("rank-title").innerHTML = esc(s("blocksByNeed", { place: placeName(sel) }));
-      $("rank-list").innerHTML = bn.map((b) => {
-        const bin = blockBin(b.need, bn);
-        return `<li><button type="button" class="rank-row${b.name === state.block ? " is-sel" : ""}" data-block="${esc(b.name)}">
-          <span class="rank-name">${esc(b.name)}<small>${esc(s("blockCoverage", { p: Math.round(b.coverage * 100) }))}</small></span>
-          <span class="rank-track"><i style="width:${Math.round(b.coverage * 100)}%;background:var(--seq-good-${4 - bin})"></i></span>
-          <span class="rank-v">${Math.round(b.coverage * 100)}%</span></button></li>`;
-      }).join("") + `<li class="rank-legend">${esc(s("blocksApprox"))}</li>`;
-      return;
-    }
-    $("rank-title").innerHTML = esc(s("priorityList"));
-    const LIMIT = 8;
-    $("rank-list").innerHTML = needRows.slice(0, state.rankAll ? needRows.length : LIMIT).map((row) => {
-      const why = row.drivers.slice(0, 2).map((dr) => short(dr.ind)).join(" · ");
-      return `<li><button type="button" class="rank-row${row.geo.id === state.district ? " is-sel" : ""}" data-id="${esc(row.geo.id)}" data-name="${esc(row.geo.name)}">
-        <span class="rank-name"><span class="rank-n">${row.rank}</span>${esc(placeName(row.geo))}<small>${esc(why)}</small></span>
-        <span class="rank-track"><i style="width:${Math.max(2, row.score)}%;background:${color(row.score)}"></i></span>
-        <span class="rank-v">${row.score}</span></button></li>`;
-    }).join("") + `<li class="rank-more-li"><button type="button" class="text-btn" id="rank-more">${esc(state.rankAll ? s("rankLess") : s("rankAll", { n: needRows.length }))}</button></li>`;
-  }
-
-  // ---------- research: sources and methodology ----------
-
-  function renderMethod() {
-    const srcs = [...Atlas.data.sources.values()];
-    $("method").innerHTML = `<h3 class="sec-h">${esc(s("methodTitle"))}</h3>
-      <div class="method-grid">
-        <div><p class="sub-h">${esc(s("mSources"))}</p><ul class="plain">${srcs.map((x) => {
-          const href = D.sourceHref(x.url);
-          return `<li>${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(x.name)}</a>` : esc(x.name)}${/synthetic/i.test(x.status || "") ? ` <span class="tag">${esc(s("simTag"))}</span>` : ""}</li>`;
-        }).join("")}</ul></div>
-        <div><p class="sub-h">${esc(s("mPrivacy"))}</p><p>${esc(s("footPrivacy", { n: Atlas.config.minGroupSize }))}</p>
-          <p class="sub-h">${esc(s("mNeed"))}</p><p>${esc(s("howScoreBody"))}</p></div>
-        <div><p class="sub-h">${esc(s("mGeo"))}</p><p>${esc(s("mGeoBody"))}</p>
-          <p class="sub-h">${esc(s("mLevels"))}</p><p>${esc(s("mLevelsBody"))}</p></div>
-      </div>`;
-  }
-
-  // ---------- render + navigation ----------
-
+  let lastKey = "";
   function render() {
-    document.body.dataset.mode = state.mode;
-    writeHash();
+    const view = state.route === "home" ? "home" : state.route === "topic" ? "topic" : "place";
+    ["home", "topic", "place"].forEach((v) => { $("view-" + v).hidden = v !== view; });
     renderStatic();
-    renderTopics();
-    if (state.mode === "need") renderNeed();
-    else { const sc = scaleFor(state.ind); renderKey(sc); renderMap(sc); renderPanel(); renderRank(sc); }
-    renderTable();
-    renderCompare();
-    renderVillages();
-    renderMethod();
-    renderFoot();
-    renderAbout();
-    renderAccount();
-    renderMine();
+    if (state.route === "home") renderHome();
+    else if (state.route === "topic") renderTopic();
+    else if (state.route === "district") renderDistrict();
+    else renderBlock();
+    renderFoot(); renderAccount();
+    const key = state.route + "|" + state.district + "|" + state.block + "|" + state.ind;
+    if (key !== lastKey) {
+      if (lastKey && !(state.route === "block" && lastKey.startsWith("block|" + state.district + "|" + state.block))) window.scrollTo({ top: 0 });
+      lastKey = key;
+      A().visit({ hash: location.hash.slice(1), title: viewTitle() });
+    }
     Atlas.Chat.refresh();
   }
 
-  function writeHash() {
-    if (state.mode === "need") {
-      const h0 = "#need/" + (state.district ? geo(state.district).id.split(":").pop() : "") + "/" + state.areas.join(",");
-      if (location.hash !== h0) history.replaceState(null, "", h0);
-      return;
-    }
-    const d = state.district ? geo(state.district).id.split(":").pop() : "";
-    const h = "#" + [state.ind, d, state.cmp || "", state.block ? encodeURIComponent(state.block) : ""].join("/").replace(/\/+$/, "");
-    if (location.hash !== h) history.replaceState(null, "", h);
-    A().visit({ hash: h.slice(1), title: viewTitle() });
-  }
-
-  function readHash() {
-    if (!location.hash || location.hash.startsWith("#need")) {
-      const [, d, areas] = location.hash.slice(1).split("/");
-      state.mode = "need";
-      const g = d && D.districts().find((x) => x.id.split(":").pop() === d);
-      state.district = g ? g.id : null;
-      const ok = (areas || "").split(",").filter((a) => Atlas.NEED_AREAS.some((x) => x.id === a));
-      if (ok.length) state.areas = ok;
-      const inds0 = allIndicators();
-      state.ind = state.ind || (inds0.includes(Atlas.config.defaultIndicator) ? Atlas.config.defaultIndicator : inds0[0]);
-      return;
-    }
-    state.mode = "explore";
-    const [ind, d, cmp, blk] = location.hash.slice(1).split("/").map((x) => decodeURIComponent(x || ""));
-    const inds = allIndicators();
-    state.ind = inds.includes(ind) ? ind : inds.includes(Atlas.config.defaultIndicator) ? Atlas.config.defaultIndicator : inds[0];
-    const g = d && D.districts().find((x) => x.id.split(":").pop() === d);
-    state.district = g ? g.id : null;
-    state.cmp = inds.includes(cmp) ? cmp : null;
-    state.block = state.district && blk ? blk : null;
-  }
-
-  function toggleBlock(k) { state.block = k === state.block ? null : k; render(); }
-
-  function selectDistrict(id, { scroll = false } = {}) {
-    state.district = id || null;
-    state.block = null;
-    render();
-    if (scroll && state.district && window.innerWidth < 900) $("focus").scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-  const toggleDistrict = (id, opts) => selectDistrict(id === state.district ? null : id, opts);
-
-  function setIndicator(ind) {
-    if (!ind) return;
-    if (state.mode !== "explore") { state.mode = "explore"; state.ind = ind; if (!D.meta(ind).village) state.block = null; return render(); }
-    if (ind === state.ind) return;
-    state.ind = ind;
-    if (!D.meta(ind).village) state.block = null;
-    render();
-  }
-
-  function highlight(name, on) {
-    document.querySelectorAll(".rank-row").forEach((r) => r.classList.toggle("is-hl", Boolean(on && r.dataset.name === name)));
-    document.querySelectorAll("path.district").forEach((p) => p.classList.toggle("is-hl", Boolean(on && p.dataset.name === name)));
-  }
-
-  function openAbout(open) {
-    $("about").hidden = !open;
-    if (open) $("about").querySelector(".icon-btn").focus();
-  }
-
   function bind() {
+    window.addEventListener("hashchange", () => { parse(); render(); });
     document.addEventListener("click", (e) => {
-      if (e.target.closest("[data-topic=need]")) { if (state.mode !== "need") { state.mode = "need"; render(); } return; }
-      const pill = e.target.closest(".ttab[data-ind], .opt[data-ind], .next [data-ind]");
-      if (pill) return setIndicator(pill.dataset.ind);
-      if (e.target.closest("#more-topics")) { state.moreTopics = !state.moreTopics; return renderTopics(); }
-      if (e.target.closest("[data-signin]")) { location.href = "signin.html"; return; }
-      if (e.target.closest("[data-signout]")) { A().signOut(); return render(); }
-      if (e.target.closest("#acct-btn")) { const m = $("acct-menu"); m.hidden = !m.hidden; return; }
-      if ($("acct-menu") && !e.target.closest(".acct")) $("acct-menu").hidden = true;
+      const ar = e.target.closest("[data-area]");
+      if (ar) { const id = ar.dataset.area, on = state.areas.includes(id); if (on && state.areas.length === 1) return;
+        state.areas = on ? state.areas.filter((x) => x !== id) : state.areas.concat(id); return render(); }
+      if (e.target.closest("#home-more")) { state.homeAll = !state.homeAll; return renderHome(); }
+      if (e.target.closest("#all-ind")) { state.allInd = !state.allInd; return renderDistrict(); }
+      if (e.target.closest("#v-all")) { state.vAll = true; return renderVillageRows(); }
+      const vr = e.target.closest("tr[data-village]");
+      if (vr) { state.village = vr.dataset.village === state.village ? null : vr.dataset.village; history.replaceState(null, "", blockUrl(geo(state.district), state.block, state.village));
+        renderVillageRows(); drawVillageDots(Atlas.villages.filter((v) => v.district === geo(state.district).name && v.block === state.block)); return; }
+      const tr = e.target.closest("tr[data-href]");
+      if (tr && !e.target.closest("a")) { location.hash = tr.dataset.href; return; }
       if (e.target.closest("[data-save]")) {
         if (!A().get()) { location.href = "signin.html"; return; }
         const on = A().toggleSave({ hash: location.hash.slice(1), title: viewTitle() }); toast(s(on ? "savedToast" : "removedToast")); return render();
       }
-      if (e.target.closest("[data-share]")) {
-        const url = location.href;
-        (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => toast(s("copied")), () => toast(url));
-        return;
-      }
-      const kpi = e.target.closest("[data-kpi]");
-      if (kpi) { const d = D.districts().find((x) => x.name === A().get().home); state.district = d ? d.id : null; state.block = null; state.mode = "explore"; state.ind = kpi.dataset.kpi; return render(); }
-      if (e.target.closest("[data-home]")) { const d = D.districts().find((x) => x.name === A().get().home); return selectDistrict(d ? d.id : null); }
-      const ab = e.target.closest("[data-area]");
-      if (ab) { const id = ab.dataset.area; const on = state.areas.includes(id);
-        if (on && state.areas.length === 1) return; state.areas = on ? state.areas.filter((x) => x !== id) : state.areas.concat(id); return render(); }
+      if (e.target.closest("[data-share]")) { (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(() => toast(s("copied")), () => toast(location.href)); return; }
       if (e.target.closest("[data-print]")) { window.print(); return; }
-      if (e.target.closest("#rank-more")) { state.rankAll = !state.rankAll; return render(); }
-      if (e.target.closest("#rows-toggle")) { state.allRows = !state.allRows; return renderTable(); }
-      const brow = e.target.closest(".rank-row[data-block]");
-      if (brow) return toggleBlock(brow.dataset.block);
-      if (e.target.closest("[data-unblock]")) { state.block = null; return render(); }
-      const row = e.target.closest(".rank-row");
-      if (row) return toggleDistrict(row.dataset.id, { scroll: true });
-      if (e.target.closest("[data-clear]")) return selectDistrict(null);
-      const tr = e.target.closest(".ptable tr[data-ind]");
-      if (tr) return setIndicator(tr.dataset.ind);
-      const dot = e.target.closest(".scatter .dot");
-      if (dot) return toggleDistrict(dot.dataset.id);
-      if (e.target.closest("#home")) { e.preventDefault(); state.district = null; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+      if (e.target.closest("#acct-btn")) { $("acct-menu").hidden = !$("acct-menu").hidden; return; }
+      if ($("acct-menu") && !e.target.closest(".acct")) $("acct-menu").hidden = true;
+      if (e.target.closest("[data-signout]")) { A().signOut(); return render(); }
     });
     document.addEventListener("keydown", (e) => {
-      const tr = e.target.closest && e.target.closest(".ptable tr[data-ind]");
-      if (tr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setIndicator(tr.dataset.ind); }
-      if (e.key === "Escape" && !$("about").hidden) openAbout(false);
+      const tr = e.target.closest && e.target.closest("tr[data-href]");
+      if (tr && e.key === "Enter") location.hash = tr.dataset.href;
+      if (e.key === "Escape" && !$("about").hidden) $("about").hidden = true;
+      if (e.key === "/" && document.activeElement.tagName !== "INPUT") { e.preventDefault(); $("q-top").focus(); }
     });
-    document.addEventListener("change", (e) => {
-      if (e.target.id === "cmp-select") { state.cmp = e.target.value; renderCompare(); writeHash(); }
+    document.addEventListener("input", (e) => { if (e.target.id === "v-filter") { state.vFilter = e.target.value; renderVillageRows(); } });
+    document.addEventListener("change", (e) => { if (e.target.id === "cmp-select") { state.cmp = e.target.value; renderCompare(); } });
+    // hover links between lists and map
+    document.addEventListener("mouseover", (e) => {
+      const row = e.target.closest("[data-name]"); if (!row || row.closest(".map-wrap")) return;
+      document.querySelectorAll("path.district").forEach((p) => p.classList.toggle("is-hl", p.dataset.name === row.dataset.name));
     });
-    $("rank-list").addEventListener("mouseover", (e) => { const r = e.target.closest(".rank-row"); if (r) highlight(r.dataset.name, true); });
-    $("rank-list").addEventListener("mouseleave", () => highlight(null, false));
-    $("map").addEventListener("mouseleave", () => highlight(null, false));
+    document.addEventListener("mouseout", (e) => { if (e.target.closest("[data-name]")) document.querySelectorAll("path.district.is-hl").forEach((p) => p.classList.remove("is-hl")); });
     document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => {
-      Atlas.lang = b.dataset.lang;
-      try { localStorage.setItem("atlas-lang", Atlas.lang); } catch (err) { /* private mode */ }
-      render();
+      Atlas.lang = b.dataset.lang; try { localStorage.setItem("atlas-lang", Atlas.lang); } catch (err) { /* ignore */ }
+      renderAbout(); render();
     }));
-    $("about-open").addEventListener("click", () => openAbout(true));
-    document.querySelectorAll("#about [data-close]").forEach((x) => x.addEventListener("click", () => openAbout(false)));
-    window.addEventListener("hashchange", () => { readHash(); render(); });
+    $("about-open").addEventListener("click", () => { $("about").hidden = false; });
+    document.querySelectorAll("#about [data-close]").forEach((x) => x.addEventListener("click", () => { $("about").hidden = true; }));
+    attachSearch($("q-top"), $("q-top-list"));
+    attachSearch($("q-hero"), $("q-hero-list"));
   }
 
   function chatContext() {
     const g = state.district && geo(state.district);
-    return { level: g ? "district" : "state", geography_id: g ? g.id : stateId(), district: g ? g.name : null, indicator: state.ind, compare: state.cmp, view: "single" };
+    return { level: state.route, geography_id: g ? g.id : stateId(), district: g ? g.name : null, block: state.block, indicator: state.ind, view: state.route };
   }
   function chatSuggestions() {
-    const g = state.district ? geo(state.district) : null;
-    const place = g ? g.name : "Punjab";
-    const placePa = g ? Atlas.DISTRICT_PA[g.name] || g.name : "ਪੰਜਾਬ";
-    return [
-      `Tell me about ${place}`,
-      "Which district had the worst flood damage?",
-      `${placePa} ਵਿੱਚ ਕਿੰਨੇ ਪਿੰਡਾਂ ਵਿੱਚ ਸਕੂਲ ਹੈ?`,
-      "I want to understand farm debt in Sangrur",
-    ];
+    const g = state.district ? geo(state.district) : null, place = g ? g.name : "Punjab", pa = g ? Atlas.DISTRICT_PA[g.name] || g.name : "ਪੰਜਾਬ";
+    return [`Why does ${place} need help?`, "Which district had the worst flood damage?", `${pa} ਵਿੱਚ ਕਿੰਨੇ ਪਿੰਡਾਂ ਵਿੱਚ ਸਕੂਲ ਹੈ?`];
   }
 
   async function start() {
@@ -1082,38 +735,22 @@
       await D.load();
       const me = A().get();
       if (me?.lang) Atlas.lang = me.lang;
-      const hadHash = location.hash.length > 1;
-      readHash();
-      if (!hadHash && me?.home) { const d = D.districts().find((x) => x.name === me.home); if (d) state.district = d.id; }
-      Atlas.Map.init($("map"), Atlas.boundaries, {
-        onSelect: (n) => { const d = byName(n); if (d) toggleDistrict(d.id, { scroll: true }); },
-        onHover: (n) => { highlight(n, true); return tipHtml(n); },
-        context: Atlas.context,
-      });
-      // No manual pan/zoom: clicking a district zooms to it; this button goes back out.
-      const back = document.createElement("button");
-      back.type = "button"; back.id = "map-back"; back.className = "map-back"; back.hidden = true;
-      back.addEventListener("click", () => { if (state.block) { state.block = null; render(); } else selectDistrict(null); });
-      $("map").appendChild(back);
-      $("map-expand").addEventListener("click", () => {
-        const on = !document.body.classList.contains("map-full");
-        document.body.classList.toggle("map-full", on);
-        $("map-expand").setAttribute("aria-pressed", String(on));
-        $("map-expand").textContent = s(on ? "closeMap" : "expandMap");
-      });
-      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && document.body.classList.contains("map-full")) $("map-expand").click(); });
+      state.ind = defaultInd();
+      buildIndex();
+      Atlas.Map.init($("map"), Atlas.boundaries, { onSelect: (n) => onMapSelect(n), onHover: (n) => onMapHover(n), context: Atlas.context });
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind();
+      parse();
+      renderAbout();
       render();
       document.body.classList.add("is-ready");
-      try { if (sessionStorage.getItem("pdh-welcome") && A().get()) { sessionStorage.removeItem("pdh-welcome"); toast(s("welcomeToast", { name: A().get().name.split(" ")[0] })); } } catch (err) { /* ignore */ }
+      try { if (sessionStorage.getItem("pdh-welcome") && me) { sessionStorage.removeItem("pdh-welcome"); toast(s("welcomeToast", { name: me.name.split(" ")[0] })); } } catch (err) { /* ignore */ }
     } catch (err) {
       console.error(err);
-      document.querySelector(".page").innerHTML = `<section class="load-error"><h2>The data didn't load</h2><p>${esc(err.message)}</p>
-        <p>Run a local server from the repo root (python3 -m http.server) and open /web/.</p></section>`;
+      document.body.insertAdjacentHTML("afterbegin", `<p style="padding:40px">The data didn't load: ${esc(err.message)}. Run a local server from the repo root and open /web/.</p>`);
     }
   }
 
-  Atlas.App = { state, render, setIndicator, selectDistrict };
+  Atlas.App = { state, render };
   start();
 })();
