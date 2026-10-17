@@ -71,6 +71,10 @@
       signIn: "Sign in", signOut: "Sign out", editProfile: "Edit profile", savedViews: "Saved views", recent: "Recently viewed",
       noSaved: "Nothing saved yet. Use ☆ Save on any view.", save: "Save", saved: "Saved",
       welcome: "Welcome back, {name}.", openHome: "Open {place} →",
+      gMorning: "Good morning", gAfternoon: "Good afternoon", gEvening: "Good evening",
+      atGlance: "{place} at a glance, compared with Punjab", customize: "Customize", followSome: "Follow a few topics to see them here.",
+      follow: "Topics you follow", share: "Share", copied: "Link copied. Anyone with it sees this exact view.",
+      savedToast: "Saved to your views", removedToast: "Removed from your views", welcomeToast: "You're in, {name}. Showing your district.",
       showAllRows: "Show all {n} topics", showFewerRows: "Show one per section",
       villagesTitle2: "Villages in {place}",
       vStats: "<b>{n}</b> villages matched to official village codes (LGD). <b>{d}</b> have a facility record from 2020; the rest have no record, which is not the same as \"no\".",
@@ -132,6 +136,10 @@
       signIn: "ਸਾਈਨ ਇਨ", signOut: "ਸਾਈਨ ਆਊਟ", editProfile: "ਪ੍ਰੋਫਾਈਲ ਬਦਲੋ", savedViews: "ਸੰਭਾਲੇ ਦ੍ਰਿਸ਼", recent: "ਹਾਲ ਹੀ ਵਿੱਚ ਦੇਖੇ",
       noSaved: "ਅਜੇ ਕੁਝ ਨਹੀਂ ਸੰਭਾਲਿਆ। ਕਿਸੇ ਵੀ ਦ੍ਰਿਸ਼ 'ਤੇ ☆ ਸੰਭਾਲੋ ਵਰਤੋ।", save: "ਸੰਭਾਲੋ", saved: "ਸੰਭਾਲਿਆ",
       welcome: "ਜੀ ਆਇਆਂ ਨੂੰ, {name}।", openHome: "{place} ਖੋਲ੍ਹੋ →",
+      gMorning: "ਸ਼ੁਭ ਸਵੇਰ", gAfternoon: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", gEvening: "ਸ਼ੁਭ ਸ਼ਾਮ",
+      atGlance: "{place} ਇੱਕ ਨਜ਼ਰ ਵਿੱਚ, ਪੰਜਾਬ ਦੇ ਮੁਕਾਬਲੇ", customize: "ਬਦਲੋ", followSome: "ਇੱਥੇ ਦੇਖਣ ਲਈ ਕੁਝ ਵਿਸ਼ੇ ਚੁਣੋ।",
+      follow: "ਤੁਹਾਡੇ ਵਿਸ਼ੇ", share: "ਸਾਂਝਾ ਕਰੋ", copied: "ਲਿੰਕ ਕਾਪੀ ਹੋ ਗਿਆ।",
+      savedToast: "ਸੰਭਾਲਿਆ ਗਿਆ", removedToast: "ਹਟਾਇਆ ਗਿਆ", welcomeToast: "ਜੀ ਆਇਆਂ ਨੂੰ, {name}।",
       showAllRows: "ਸਾਰੇ {n} ਵਿਸ਼ੇ ਦਿਖਾਓ", showFewerRows: "ਸਿਰਫ਼ ਮੁੱਖ ਵਿਸ਼ੇ",
       villagesTitle2: "{place} ਦੇ ਪਿੰਡ",
       vStats: "<b>{n}</b> ਪਿੰਡ ਸਰਕਾਰੀ ਪਿੰਡ ਕੋਡਾਂ (LGD) ਨਾਲ ਮਿਲੇ। <b>{d}</b> ਦਾ 2020 ਦਾ ਸਹੂਲਤ ਰਿਕਾਰਡ ਹੈ; ਬਾਕੀਆਂ ਦਾ ਰਿਕਾਰਡ ਨਹੀਂ, ਜਿਸਦਾ ਮਤਲਬ \"ਨਹੀਂ\" ਨਹੀਂ।",
@@ -330,6 +338,7 @@
         <p class="focus-place">${esc(isState ? s("punjabOverall") : placeName(g))}</p>
         <span class="focus-actions">
           <button type="button" class="save-btn${A().isSaved(location.hash.slice(1)) ? " is-on" : ""}" data-save>${A().isSaved(location.hash.slice(1)) ? "★ " + esc(s("saved")) : "☆ " + esc(s("save"))}</button>
+          <button type="button" class="save-btn" data-share>↗ ${esc(s("share"))}</button>
           ${isState ? "" : `<button type="button" class="link focus-clear" data-clear>× ${esc(s("clear"))}</button>`}
         </span>
       </div>
@@ -338,8 +347,7 @@
       ${chips}
       <p class="focus-say">${esc(sentence)}</p>
       ${citation(ind, g)}
-      ${isState ? (A().get()?.home ? `<p class="focus-hint">${esc(s("welcome", { name: A().get().name.split(" ")[0] }))} <button type="button" class="link" data-home>${esc(s("openHome", { place: A().get().home }))}</button></p>`
-        : `<p class="focus-hint">${esc(s("clickHint"))}</p>`) : ""}`;
+      ${isState && !A().get() ? `<p class="focus-hint">${esc(s("clickHint"))}</p>` : ""}`;
     $("focus").classList.toggle("is-place", !isState);
   }
 
@@ -531,7 +539,46 @@
     f.name.value = a.name || ""; f.email.value = a.email || "";
     if (a.role) f.role.value = a.role;
     f.lang.value = a.lang || Atlas.lang;
+    const fol = a.follow || ["wealth", "villages", "floods"];
+    $("signin-follow").innerHTML = `<legend>${esc(s("follow"))}</legend>` + available().filter((t) => t.indicators.length).map((t) =>
+      `<label class="chk"><input type="checkbox" name="follow" value="${esc(t.id)}"${fol.includes(t.id) ? " checked" : ""}> ${esc(Atlas.tr(t.label))}</label>`).join("");
     f.name.focus();
+  }
+
+  function greeting() {
+    const h = new Date().getHours();
+    return s(h < 12 ? "gMorning" : h < 17 ? "gAfternoon" : "gEvening");
+  }
+
+  // Signed-in home strip: your district's headline number for each section you follow.
+  function renderMine() {
+    const a = A().get(), el = $("mine");
+    const d = a && D.districts().find((x) => x.name === a.home);
+    if (!a || !d) { el.hidden = true; el.innerHTML = ""; return; }
+    el.hidden = false;
+    const themes = available().filter((t) => t.indicators.length && (a.follow || []).includes(t.id));
+    const cards = themes.map((t) => {
+      const ind = t.indicators[0], v = D.visible(ind, d.id), pv = D.visible(ind, stateId());
+      const dd = v !== null && pv !== null ? D.fmtDelta(v, pv, ind) : null;
+      const rk = D.rank(ind, d.id);
+      return `<button type="button" class="kpi" data-kpi="${esc(ind)}">
+        <span class="kpi-t">${esc(Atlas.tr(t.label))}</span>
+        <span class="kpi-l">${esc(short(ind))}</span>
+        <span class="kpi-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>
+        <span class="kpi-d">${dd && dd.sign ? `<span class="chip is-${D.tone(dd.sign, ind)}">${dd.sign > 0 ? "▲" : "▼"} ${esc(dd.text.replace(/^[+−]/, ""))}</span>` : ""}
+          ${rk ? `<span class="kpi-r">${esc(s("rankOf", { r: ordinal(rk.r), n: rk.total }))}</span>` : ""}</span>
+      </button>`;
+    }).join("");
+    el.innerHTML = `<div class="mine-head"><div><p class="mine-hi">${esc(greeting())}, ${esc(a.name.split(" ")[0])}</p>
+        <p class="mine-sub">${esc(s("atGlance", { place: placeName(d) }))}</p></div>
+        <button type="button" class="link" data-signin>${esc(s("customize"))}</button></div>
+      <div class="kpis">${cards || `<p class="note">${esc(s("followSome"))}</p>`}</div>`;
+  }
+
+  let toastTimer;
+  function toast(msg) {
+    const t = $("toast"); t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2600);
   }
 
   // ---------- render + navigation ----------
@@ -552,6 +599,7 @@
     renderFoot();
     renderAbout();
     renderAccount();
+    renderMine();
     writeHash();
     Atlas.Chat.refresh();
   }
@@ -607,8 +655,15 @@
       if ($("acct-menu") && !e.target.closest(".acct")) $("acct-menu").hidden = true;
       if (e.target.closest("[data-save]")) {
         if (!A().get()) return openSignin(true);
-        A().toggleSave({ hash: location.hash.slice(1), title: viewTitle() }); return render();
+        const on = A().toggleSave({ hash: location.hash.slice(1), title: viewTitle() }); toast(s(on ? "savedToast" : "removedToast")); return render();
       }
+      if (e.target.closest("[data-share]")) {
+        const url = location.href;
+        (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => toast(s("copied")), () => toast(url));
+        return;
+      }
+      const kpi = e.target.closest("[data-kpi]");
+      if (kpi) { const d = D.districts().find((x) => x.name === A().get().home); state.district = d ? d.id : null; state.ind = kpi.dataset.kpi; return render(); }
       if (e.target.closest("[data-home]")) { const d = D.districts().find((x) => x.name === A().get().home); return selectDistrict(d ? d.id : null); }
       if (e.target.closest("#rows-toggle")) { state.allRows = !state.allRows; return renderTable(); }
       const row = e.target.closest(".rank-row");
@@ -639,7 +694,9 @@
     $("signin-form").addEventListener("submit", (e) => {
       e.preventDefault();
       const f = e.target;
-      A().signIn({ name: f.name.value.trim(), email: f.email.value.trim(), role: f.role.value, home: f.home.value, lang: f.lang.value });
+      A().signIn({ name: f.name.value.trim(), email: f.email.value.trim(), role: f.role.value, home: f.home.value, lang: f.lang.value,
+        follow: [...f.querySelectorAll("[name=follow]:checked")].map((x) => x.value) });
+      toast(s("welcomeToast", { name: f.name.value.trim().split(" ")[0] }));
       Atlas.lang = f.lang.value;
       openSignin(false);
       const d = D.districts().find((x) => x.name === f.home.value);

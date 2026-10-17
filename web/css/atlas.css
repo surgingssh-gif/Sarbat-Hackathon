@@ -370,3 +370,32 @@ a { color: var(--accent); }
 .modal-card input, .modal-card select { border: 1px solid var(--line-2); border-radius: 6px; padding: 8px 10px; font-weight: 500; }
 .modal-actions { display: flex; justify-content: flex-end; align-items: center; gap: 16px; margin-top: 6px; }
 .modal-note { margin: 4px 0 0; font-size: 11.5px; color: var(--muted); }
+
+/* ---------- product polish ---------- */
+.tagline { display: none !important; }
+.logo { width: 26px; height: 26px; align-self: center; margin-right: 2px; }
+.brand { align-items: center; }
+.bar { border-bottom: 1px solid var(--line); box-shadow: 0 1px 0 rgba(0,0,0,.02); }
+.topics { border-bottom: 0; }
+.answer { border-top: 1px solid var(--line); }
+.focus { border-top-width: 2px; }
+
+.mine { margin: 14px 0 4px; padding: 14px 16px; border-radius: 12px; background: linear-gradient(135deg, #fbf7ee 0%, #f3f6f9 100%); border: 1px solid #ece6d8; }
+.mine-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.mine-hi { margin: 0; font: 700 20px/1.2 var(--serif); }
+.mine-sub { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin-top: 12px; }
+.kpi { text-align: left; border: 1px solid var(--line); background: var(--paper); border-radius: 10px; padding: 10px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 1px; transition: border-color .15s, transform .15s, box-shadow .15s; }
+.kpi:hover { border-color: var(--ink); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.06); }
+.kpi-t { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.kpi-l { font-size: 12.5px; color: var(--muted); }
+.kpi-v { font: 700 26px/1.15 var(--serif); }
+.kpi-d { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.kpi-r { font-size: 11.5px; color: var(--muted); }
+
+.follow { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.follow legend { font-size: 13px; font-weight: 600; margin-bottom: 4px; padding: 0; }
+.modal-card label.chk { flex-direction: row; align-items: center; gap: 6px; font-weight: 500; }
+
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 13.5px; font-weight: 600; z-index: 70; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.bar-right { margin-left: auto; }
