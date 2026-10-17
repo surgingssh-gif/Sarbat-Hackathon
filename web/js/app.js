@@ -19,7 +19,7 @@
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
       tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average",
-      cmpTitle: "Does it go together?", cmpCompare: "Compare", cmpWithWord: "with", cmpKeyTrend: "Trend and typical spread", cmpMore: "more", cmpLess: "less", cmpKeyRef: "Punjab average", cmpKeyDot: "One dot per district ({n})", cmpSub: "Compare this measure with another one across the 23 districts.", cmpWith: "Compare with",
+      cmpTitle: "Does it go together?", cmpCompare: "Compare", cmpWithWord: "with", cmpKeyTrend: "Trend", cmpMore: "more", cmpLess: "less", cmpKeyRef: "Punjab average", cmpKeyDot: "One dot per district ({n})", cmpSub: "Compare this measure with another one across the 23 districts.", cmpWith: "Compare with",
       cmpSame: "Districts that score higher on {x} tend to score higher on {y}.", cmpOpp: "Districts that score higher on {x} tend to score lower on {y}.",
       cmpNone: "There's little or no link between {x} and {y} across districts.",
       cmpStrong: "Strong link", cmpModerate: "Moderate link", cmpWeak: "Weak link", cmpNoLink: "No clear link",
@@ -89,7 +89,7 @@
       brand: "ਪਰਵਾਜ਼ ਡਾਟਾ ਹੱਬ", byTitle: "ਪਰਵਾਜ਼ ਵੱਲੋਂ ਬਣਾਇਆ", byText: "ਪਰਵਾਜ਼ ਇੱਕ ਗੈਰ-ਮੁਨਾਫ਼ਾ ਸੰਸਥਾ ਹੈ ਜਿਸਨੇ ਪੰਜਾਬ ਦੇ ਹਰ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਦੇ ਲਗਭਗ 3 ਲੱਖ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ। ਇਹ ਹੱਬ ਜ਼ਿਲ੍ਹਾ-ਵਾਰ ਨਤੀਜੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ। ਅਸਲ ਜਵਾਬ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ, ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਔਸਤ।", edition: "ਪੰਜਾਬ ਐਡੀਸ਼ਨ", volume: "ਅੰਕ 1 · ਪਰਵਾਜ਼ ਵੱਲੋਂ", simLine: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
       darkMode: "ਗੂੜ੍ਹਾ", lightMode: "ਹਲਕਾ", findPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ",
       tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ",
-      cmpTitle: "ਕੀ ਇਹ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?", cmpCompare: "ਤੁਲਨਾ ਕਰੋ", cmpWithWord: "ਨਾਲ", cmpKeyTrend: "ਰੁਝਾਨ ਅਤੇ ਆਮ ਫੈਲਾਅ", cmpMore: "ਵੱਧ", cmpLess: "ਘੱਟ", cmpKeyRef: "ਪੰਜਾਬ ਔਸਤ", cmpKeyDot: "ਹਰ ਜ਼ਿਲ੍ਹੇ ਲਈ ਇੱਕ ਬਿੰਦੂ ({n})", cmpSub: "ਇਸ ਮਾਪ ਦੀ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ ਕਿਸੇ ਹੋਰ ਮਾਪ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।", cmpWith: "ਇਸ ਨਾਲ ਤੁਲਨਾ",
+      cmpTitle: "ਕੀ ਇਹ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?", cmpCompare: "ਤੁਲਨਾ ਕਰੋ", cmpWithWord: "ਨਾਲ", cmpKeyTrend: "ਰੁਝਾਨ", cmpMore: "ਵੱਧ", cmpLess: "ਘੱਟ", cmpKeyRef: "ਪੰਜਾਬ ਔਸਤ", cmpKeyDot: "ਹਰ ਜ਼ਿਲ੍ਹੇ ਲਈ ਇੱਕ ਬਿੰਦੂ ({n})", cmpSub: "ਇਸ ਮਾਪ ਦੀ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ ਕਿਸੇ ਹੋਰ ਮਾਪ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।", cmpWith: "ਇਸ ਨਾਲ ਤੁਲਨਾ",
       cmpSame: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਵੀ ਵੱਧ ਹੈ।", cmpOpp: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਘੱਟ ਹੈ।",
       cmpNone: "ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਅਤੇ {y} ਦਾ ਕੋਈ ਖ਼ਾਸ ਸੰਬੰਧ ਨਹੀਂ।",
       cmpStrong: "ਮਜ਼ਬੂਤ ਸੰਬੰਧ", cmpModerate: "ਦਰਮਿਆਨਾ ਸੰਬੰਧ", cmpWeak: "ਕਮਜ਼ੋਰ ਸੰਬੰਧ", cmpNoLink: "ਕੋਈ ਸਪਸ਼ਟ ਸੰਬੰਧ ਨਹੀਂ",
@@ -399,64 +399,44 @@
     return (cmpAuto[ind] = best || allIndicators().find((i) => i !== ind));
   }
   function compareChart(ps, xInd, yInd, refX, refY) {
-    const W = 720, H = 330, pad = { l: 44, r: 18, t: 34, b: 40 };
-    const ext = (v) => { const lo = Math.min(...v), hi = Math.max(...v), sp = hi - lo || Math.abs(hi) || 1; return [lo - sp * 0.08, hi + sp * 0.12]; };
+    const W = 640, H = 400, pad = { l: 44, r: 16, t: 30, b: 44 };
+    const ext = (v) => { const lo = Math.min(...v), hi = Math.max(...v), sp = hi - lo || Math.abs(hi) || 1; return [lo - sp * 0.1, hi + sp * 0.1]; };
     const ticks = (lo, hi, k = 4) => { const st0 = (hi - lo) / k, mag = Math.pow(10, Math.floor(Math.log10(st0))), st = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((x) => x >= st0) || st0, out = [];
       for (let v = Math.ceil(lo / st) * st; v <= hi + 1e-9; v += st) out.push(+v.toFixed(10)); return out; };
     const tt = (v, ind) => { const m = D.meta(ind); return m.format === "percent" ? Math.round(v * 100) + "%" : m.format === "years" ? v.toFixed(v % 1 ? 1 : 0) : v.toFixed(2).replace(/0+$/, "").replace(/\.$/, ""); };
     const [x0, x1] = ext(ps.map((p) => p.x)), [y0, y1] = ext(ps.map((p) => p.y));
-    const L = pad.l, R = W - pad.r, T = pad.t, B = H - pad.b;
+    const L = pad.l, R = W - pad.r, T = pad.t, B = H - pad.b, f = (v) => v.toFixed(1);
     const sx = (v) => L + ((v - x0) / (x1 - x0)) * (R - L), sy = (v) => B - ((v - y0) / (y1 - y0)) * (B - T);
     const n = ps.length, mx = ps.reduce((a, p) => a + p.x, 0) / n, my = ps.reduce((a, p) => a + p.y, 0) / n;
     const sxx = ps.reduce((a, p) => a + (p.x - mx) ** 2, 0), slope = sxx ? ps.reduce((a, p) => a + (p.x - mx) * (p.y - my), 0) / sxx : 0, yAt = (x) => my + slope * (x - mx);
-    const se = Math.sqrt(ps.reduce((a, p) => a + (p.y - yAt(p.x)) ** 2, 0) / Math.max(1, n - 2));
     const clip = (y) => Math.max(y0, Math.min(y1, y));
-    const f = (v) => v.toFixed(1);
 
-    // quadrants around the Punjab averages
+    const grid = ticks(y0, y1).map((v) => `<line class="grid" x1="${L}" x2="${R}" y1="${f(sy(v))}" y2="${f(sy(v))}"/><text class="tick" x="${L - 10}" y="${f(sy(v) + 4)}" text-anchor="end">${tt(v, yInd)}</text>`).join("") +
+      ticks(x0, x1, 5).map((v) => `<text class="tick" x="${f(sx(v))}" y="${B + 20}" text-anchor="middle">${tt(v, xInd)}</text>`).join("");
     const qx = refX != null && refX > x0 && refX < x1 ? sx(refX) : null, qy = refY != null && refY > y0 && refY < y1 ? sy(refY) : null;
-    const xs = Atlas.tr(D.meta(xInd).short), ys = Atlas.tr(D.meta(yInd).short), q = (a, b) => `${xs} ${a} · ${ys} ${b}`;
-    let quads = "";
-    if (qx != null && qy != null) {
-      quads = `<rect class="quad q-hh" x="${f(qx)}" y="${T}" width="${f(R - qx)}" height="${f(qy - T)}"/><rect class="quad q-ll" x="${L}" y="${f(qy)}" width="${f(qx - L)}" height="${f(B - qy)}"/>
-        <text class="quad-t" x="${R - 6}" y="${T + 14}" text-anchor="end">${esc(q("↑", "↑"))}</text>
-        <text class="quad-t" x="${L + 6}" y="${T + 14}">${esc(q("↓", "↑"))}</text>
-        <text class="quad-t" x="${L + 6}" y="${B - 8}">${esc(q("↓", "↓"))}</text>
-        <text class="quad-t" x="${R - 6}" y="${B - 8}" text-anchor="end">${esc(q("↑", "↓"))}</text>`;
-    }
-    const grid = ticks(y0, y1).map((v) => `<line class="grid" x1="${L}" x2="${R}" y1="${f(sy(v))}" y2="${f(sy(v))}"/><text class="tick" x="${L - 8}" y="${f(sy(v) + 4)}" text-anchor="end">${tt(v, yInd)}</text>`).join("") +
-      ticks(x0, x1, 5).map((v) => `<line class="xtick" x1="${f(sx(v))}" x2="${f(sx(v))}" y1="${B}" y2="${B + 5}"/><text class="tick" x="${f(sx(v))}" y="${B + 18}" text-anchor="middle">${tt(v, xInd)}</text>`).join("");
-    const refs = (qx != null ? `<line class="ref" x1="${f(qx)}" x2="${f(qx)}" y1="${T}" y2="${B}"/>` : "") + (qy != null ? `<line class="ref" x1="${L}" x2="${R}" y1="${f(qy)}" y2="${f(qy)}"/>` : "");
-    const xa = x0, xb = x1;
-    const band = `<path class="band" d="M${f(sx(xa))},${f(sy(clip(yAt(xa) + se)))} L${f(sx(xb))},${f(sy(clip(yAt(xb) + se)))} L${f(sx(xb))},${f(sy(clip(yAt(xb) - se)))} L${f(sx(xa))},${f(sy(clip(yAt(xa) - se)))} Z"/>`;
-    const trend = `<line class="trend" x1="${f(sx(xa))}" y1="${f(sy(clip(yAt(xa))))}" x2="${f(sx(xb))}" y2="${f(sy(clip(yAt(xb))))}"/>`;
+    const refs = (qx != null ? `<line class="ref" x1="${f(qx)}" x2="${f(qx)}" y1="${T}" y2="${B}"/>` : "") + (qy != null ? `<line class="ref" x1="${L}" x2="${R}" y1="${f(qy)}" y2="${f(qy)}"/>` : "") +
+      (qx != null && qy != null ? `<text class="ref-t" x="${f(qx + 6)}" y="${f(T + 10)}">${esc(s("punjabAvg"))}</text>` : "");
+    const trend = `<line class="trend" x1="${f(sx(x0))}" y1="${f(sy(clip(yAt(x0))))}" x2="${f(sx(x1))}" y2="${f(sy(clip(yAt(x1))))}"/>`;
 
-    // which districts get a name: ends of each axis + the two furthest from the trend
-    const pick = [];
-    const add = (p) => p && !pick.includes(p) && pick.push(p);
-    const by = (fn) => ps.slice().sort((a, b) => fn(b) - fn(a));
-    add(by((p) => p.x)[0]); add(by((p) => -p.x)[0]); add(by((p) => p.y)[0]); add(by((p) => -p.y)[0]);
-    by((p) => Math.abs(p.y - yAt(p.x))).slice(0, 2).forEach(add);
-    // place each label where it doesn't hit another label or dot (right, left, above, below)
-    const boxes = ps.map((p) => ({ x: sx(p.x) - 6, y: sy(p.y) - 6, w: 12, h: 12 }));
-    if (qx != null && qy != null) { const cw = q("↑", "↑").length * 5.9 + 8;
-      boxes.push({ x: R - cw, y: T + 2, w: cw, h: 16 }, { x: L, y: T + 2, w: cw, h: 16 }, { x: L, y: B - 20, w: cw, h: 16 }, { x: R - cw, y: B - 20, w: cw, h: 16 }); }
-    const hit = (a) => a.x < L || a.x + a.w > R + 4 || a.y < T - 4 || a.y + a.h > B || boxes.some((b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
+    // name a few districts that stand out: ends of the x axis + the two furthest from the trend
+    const pick = [], add = (p) => p && !pick.includes(p) && pick.length < 4 && pick.push(p), by = (fn) => ps.slice().sort((a, b) => fn(b) - fn(a));
+    by((p) => Math.abs(p.y - yAt(p.x))).slice(0, 2).forEach(add); add(by((p) => p.x)[0]); add(by((p) => -p.x)[0]);
+    const boxes = ps.map((p) => ({ x: sx(p.x) - 7, y: sy(p.y) - 7, w: 14, h: 14 }));
+    const hit = (a) => a.x < L || a.x + a.w > R || a.y < T || a.y + a.h > B || boxes.some((b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
     const labels = {};
     for (const p of pick) {
-      const name = placeName(p.g), w = name.length * 6.6 + 4, cx = sx(p.x), cy = sy(p.y);
-      const opts = [{ x: cx + 9, y: cy - 7, a: "start" }, { x: cx - 9 - w, y: cy - 7, a: "end" }, { x: cx - w / 2, y: cy - 22, a: "middle" }, { x: cx - w / 2, y: cy + 8, a: "middle" }];
+      const name = placeName(p.g), w = name.length * 6.8 + 2, cx = sx(p.x), cy = sy(p.y);
+      const opts = [{ x: cx + 10, y: cy - 7, a: "start" }, { x: cx - 10 - w, y: cy - 7, a: "end" }, { x: cx - w / 2, y: cy - 24, a: "middle" }, { x: cx - w / 2, y: cy + 10, a: "middle" }];
       const o = opts.find((o) => !hit({ x: o.x, y: o.y, w, h: 14 })) || opts[0];
       boxes.push({ x: o.x, y: o.y, w, h: 14 });
       labels[p.g.id] = { x: o.a === "start" ? o.x : o.a === "end" ? o.x + w : o.x + w / 2, y: o.y + 11, a: o.a };
     }
     const dots = ps.map((p) => { const lb = labels[p.g.id];
       return `<g class="cdot${lb ? " is-lab" : ""}" data-id="${esc(p.g.id)}" data-tip="${esc(placeName(p.g))}|${esc(D.fmt(p.x, xInd))}|${esc(D.fmt(p.y, yInd))}" tabindex="0" role="button" aria-label="${esc(`${placeName(p.g)}: ${D.fmt(p.x, xInd)}, ${D.fmt(p.y, yInd)}`)}">
-        <circle class="halo" cx="${f(sx(p.x))}" cy="${f(sy(p.y))}" r="11"/><circle class="pt" cx="${f(sx(p.x))}" cy="${f(sy(p.y))}" r="${lb ? 5.5 : 4.5}"/>
-        ${lb ? `<text x="${f(lb.x)}" y="${f(lb.y)}" text-anchor="${lb.a}">${esc(placeName(p.g))}</text>` : ""}</g>`; }).join("");
+        <circle class="pt" cx="${f(sx(p.x))}" cy="${f(sy(p.y))}" r="6"/>${lb ? `<text x="${f(lb.x)}" y="${f(lb.y)}" text-anchor="${lb.a}">${esc(placeName(p.g))}</text>` : ""}</g>`; }).join("");
     return `<svg class="cmp-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label(xInd))} vs ${esc(label(yInd))}">
-      ${quads}${grid}<line class="axis" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>${refs}${band}${trend}${dots}
-      <text class="axis-title" x="${L - 8}" y="${T - 16}">${esc(label(yInd))} ↑</text>
+      ${grid}<line class="axis" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>${refs}${trend}${dots}
+      <text class="axis-title" x="${L - 10}" y="${T - 14}">${esc(label(yInd))}</text>
       <text class="axis-title" x="${R}" y="${H - 4}" text-anchor="end">${esc(label(xInd))} →</text>
     </svg><div class="cmp-tip" hidden></div>`;
   }
