@@ -26,6 +26,8 @@ Atlas.config = {
   // POST { question, lang, context: { level, geography_id, district, village, indicator, compare, view } }
   //   -> { answer, sources: [{ name, url }] }
   assistantUrl: "",
+  // Model used when a visitor connects their own Claude key in the chat (demo mode).
+  claudeModel: "claude-sonnet-5-5",
 
   defaultIndicator: "car_ownership_share",
   defaultCompare: "village_high_school_share",

@@ -75,6 +75,30 @@ window.Atlas = window.Atlas || {};
     add("user", `<span lang="${lang}">${esc(question)}</span>`);
 
     const url = Atlas.config.assistantUrl;
+    const key = getKey();
+    if (!url && key) {
+      const pending = add("bot is-pending", esc(Atlas.t("chatThinking")));
+      try {
+        const res = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+          body: JSON.stringify({ model: Atlas.config.claudeModel, max_tokens: 900, system: systemPrompt(lang),
+            messages: history.concat([{ role: "user", content: question }]) }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error?.message || res.status);
+        const text = (data.content || []).filter((c) => c.type === "text").map((c) => c.text).join("\n");
+        history.push({ role: "user", content: question }, { role: "assistant", content: text });
+        history = history.slice(-8);
+        pending.classList.remove("is-pending");
+        pending.innerHTML = `<div lang="${lang}">${md(text)}</div>`;
+      } catch (err) {
+        pending.classList.remove("is-pending"); pending.classList.add("is-note");
+        pending.textContent = "Claude couldn't answer: " + err.message;
+      }
+      els.log.scrollTop = els.log.scrollHeight;
+      return;
+    }
     if (!url) {
       // Built-in mode: answer from the atlas data, with sources.
       const pending = add("bot is-pending", esc(Atlas.t("chatThinking")));
@@ -91,7 +115,7 @@ window.Atlas = window.Atlas || {};
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question, lang, context: getContext() }),
+        body: JSON.stringify({ question, lang, context: getContext(), system: systemPrompt(lang), history }),
       });
       if (!res.ok) throw new Error(String(res.status));
       const data = await res.json();
@@ -113,6 +137,59 @@ window.Atlas = window.Atlas || {};
     }
     els.log.scrollTop = els.log.scrollHeight;
   }
+
+  // ---------- Claude (visitor's own key, demo mode) ----------
+  const KEY = "pdh-claude-key";
+  let history = [];
+  function getKey() { try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; } }
+  function setKey(k) { try { k ? localStorage.setItem(KEY, k) : localStorage.removeItem(KEY); } catch (e) { /* ignore */ } }
+  function md(t) {
+    return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/^[-•] (.*)$/gm, "• $1").replace(/\n/g, "<br>");
+  }
+  // Everything Claude needs: every district's number for every topic, with sources and limits.
+  function systemPrompt(lang) {
+    const D = Atlas.D, ctx = getContext();
+    const inds = Atlas.THEMES.flatMap((t) => t.indicators).filter((i) => Atlas.data.values[i]);
+    const geos = [Atlas.data.geos.get(Atlas.data.stateId), ...D.districts()];
+    const header = "place | " + inds.map((i) => D.meta(i).label.en).join(" | ");
+    const rows = geos.map((g) => g.name + " | " + inds.map((i) => { const v = D.visible(i, g.id); return v === null ? "hidden" : D.fmt(v, i); }).join(" | "));
+    const srcs = [...Atlas.data.sources.values()].map((x) => `- ${x.name}: ${D.sourceHref(x.url)}`).join("\n");
+    return `You are Ask Parvaaz, the research assistant inside the Punjab Data Hub, an open atlas by the nonprofit Parvaaz.
+Answer in ${lang === "pa" ? "Punjabi (Gurmukhi script)" : "English"}, matching the user's language. Be concise and plain-spoken.
+Use ONLY the data below. Quote exact numbers, compare with the Punjab average, and name the district rank when useful.
+Always end with "Sources:" listing the sources you used as markdown links.
+Be honest about limits: survey figures are SIMULATED for this demo; village facilities are real 2020 public data (Mission Antyodaya via SHRUG), measured as share of villages with a record.
+"hidden" means suppressed because fewer than ${Atlas.config.minGroupSize} students; never guess it.
+Data not available yet: drug use, household debt, illness at home (sensitive survey items released only at district level after Parvaaz approval), learning levels (ASER, being converted), groundwater. If asked, say so and offer the closest data.
+If the question is vague, ask one short follow-up question.
+The user is currently viewing: topic "${D.meta(ctx.indicator).label.en}"${ctx.district ? `, district ${ctx.district}` : ", all of Punjab"}.
+
+DATA (Punjab and its 23 districts):
+${header}
+${rows.join("\n")}
+
+SOURCES:
+${srcs}`;
+  }
+  function renderMode() {
+    const b = document.getElementById("chat-mode");
+    if (b) b.textContent = getKey() ? "● Claude" : "Connect Claude";
+    b && b.classList.toggle("is-on", Boolean(getKey()));
+  }
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("#chat-mode")) { const f = document.getElementById("chat-key"); f.hidden = !f.hidden; if (!f.hidden) document.getElementById("chat-key-input").focus(); }
+    if (e.target.closest("#chat-key-clear")) { setKey(""); history = []; document.getElementById("chat-key").hidden = true; renderMode(); }
+  });
+  document.addEventListener("submit", (e) => {
+    if (e.target.id !== "chat-key") return;
+    e.preventDefault();
+    const v = document.getElementById("chat-key-input").value.trim();
+    if (v) setKey(v);
+    document.getElementById("chat-key-input").value = "";
+    e.target.hidden = true; renderMode();
+  });
+  setTimeout(renderMode, 0);
 
   Atlas.Chat = { init, refresh, ask, setOpen };
 })();

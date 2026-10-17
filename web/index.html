@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Libre+Franklin:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="css/atlas.css?v=202610161836">
+  <link rel="stylesheet" href="css/atlas.css?v=202610161839">
 </head>
 <body>
   <header class="bar">
@@ -97,10 +97,17 @@
     <div class="chat-panel" id="chat-panel" hidden>
       <div class="chat-head">
         <strong data-s="chatTitle">Ask Parvaaz</strong>
+        <button type="button" class="chat-mode" id="chat-mode" title="Connect Claude"></button>
         <button type="button" class="icon-btn" id="chat-close" aria-label="Close">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
       </div>
+      <form class="chat-key" id="chat-key" hidden>
+        <p><b>Connect Claude</b> for full answers. Paste an Anthropic API key. It is stored only in this browser and sent only to Anthropic.</p>
+        <input id="chat-key-input" type="password" autocomplete="off" placeholder="sk-ant-..." aria-label="Anthropic API key">
+        <div class="chat-key-row"><button type="button" class="link" id="chat-key-clear">Disconnect</button><button type="submit" class="btn btn-sm">Save</button></div>
+        <p class="note">For a public launch, use the server in web/server/ so visitors never need a key.</p>
+      </form>
       <div class="chat-log" id="chat-log"><div class="msg bot" id="chat-intro"></div></div>
       <div class="chat-chips" id="chat-chips"></div>
       <form class="chat-form" id="chat-form">
@@ -127,14 +134,14 @@
     </div>
   </div>
 
-  <script src="js/config.js?v=202610161836"></script>
-  <script src="js/i18n.js?v=202610161836"></script>
-  <script src="js/data.js?v=202610161836"></script>
-  <script src="js/map.js?v=202610161836"></script>
-  <script src="js/charts.js?v=202610161836"></script>
-  <script src="js/answer.js?v=202610161836"></script>
-  <script src="js/chat.js?v=202610161836"></script>
-  <script src="js/account.js?v=202610161836"></script>
-  <script src="js/app.js?v=202610161836"></script>
+  <script src="js/config.js?v=202610161839"></script>
+  <script src="js/i18n.js?v=202610161839"></script>
+  <script src="js/data.js?v=202610161839"></script>
+  <script src="js/map.js?v=202610161839"></script>
+  <script src="js/charts.js?v=202610161839"></script>
+  <script src="js/answer.js?v=202610161839"></script>
+  <script src="js/chat.js?v=202610161839"></script>
+  <script src="js/account.js?v=202610161839"></script>
+  <script src="js/app.js?v=202610161839"></script>
 </body>
 </html>
