@@ -18,7 +18,7 @@
     en: {
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
-      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average", pickTopic: "Topic", exNavH: "Topics · Punjab average", highest: "Highest", lowest: "Lowest", pickMeasure: "Measures in this topic", measuresN: "{n} measures", tabVillages: "Villages", tabAbout: "How It Works",
+      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average", pickTopic: "Topic", pickMeasure: "Measures in this topic", measuresN: "{n} measures", tabVillages: "Villages", tabAbout: "How It Works",
       kickerLead: "Where help is needed", leadHead: "{a}, {b} and {c} need help most",
       leadDeck: "Ranking Punjab's 23 districts on {areas}, these three come out furthest behind. Below: the five districts to look at first, and why.",
       sixty: "In 60 seconds", sMost: "Most need", sGap: "Biggest gap", sGapV: "{k} of {d} villages with a 2020 record have no high school; {h} have no health centre.",
@@ -74,7 +74,7 @@
     pa: {
       brand: "ਪਰਵਾਜ਼ ਡਾਟਾ ਹੱਬ", byTitle: "ਪਰਵਾਜ਼ ਵੱਲੋਂ ਬਣਾਇਆ", byText: "ਪਰਵਾਜ਼ ਇੱਕ ਗੈਰ-ਮੁਨਾਫ਼ਾ ਸੰਸਥਾ ਹੈ ਜਿਸਨੇ ਪੰਜਾਬ ਦੇ ਹਰ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਦੇ ਲਗਭਗ 3 ਲੱਖ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ। ਇਹ ਹੱਬ ਜ਼ਿਲ੍ਹਾ-ਵਾਰ ਨਤੀਜੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ। ਅਸਲ ਜਵਾਬ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ, ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਔਸਤ।", edition: "ਪੰਜਾਬ ਐਡੀਸ਼ਨ", volume: "ਅੰਕ 1 · ਪਰਵਾਜ਼ ਵੱਲੋਂ", simLine: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
       darkMode: "ਗੂੜ੍ਹਾ", lightMode: "ਹਲਕਾ", findPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ",
-      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", pickTopic: "ਵਿਸ਼ਾ", exNavH: "ਵਿਸ਼ੇ · ਪੰਜਾਬ ਔਸਤ", highest: "ਸਭ ਤੋਂ ਵੱਧ", lowest: "ਸਭ ਤੋਂ ਘੱਟ", pickMeasure: "ਇਸ ਵਿਸ਼ੇ ਦੇ ਮਾਪ", measuresN: "{n} ਮਾਪ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
+      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", pickTopic: "ਵਿਸ਼ਾ", pickMeasure: "ਇਸ ਵਿਸ਼ੇ ਦੇ ਮਾਪ", measuresN: "{n} ਮਾਪ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
       kickerLead: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", leadHead: "{a}, {b} ਅਤੇ {c} ਨੂੰ ਸਭ ਤੋਂ ਵੱਧ ਮਦਦ ਦੀ ਲੋੜ",
       leadDeck: "{areas} ਵਿੱਚ ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰਨ 'ਤੇ ਇਹ ਤਿੰਨ ਸਭ ਤੋਂ ਪਿੱਛੇ ਹਨ। ਹੇਠਾਂ: ਪਹਿਲਾਂ ਦੇਖਣ ਵਾਲੇ ਪੰਜ ਜ਼ਿਲ੍ਹੇ।",
       sixty: "60 ਸਕਿੰਟਾਂ ਵਿੱਚ", sMost: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ", sGap: "ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਟ", sGapV: "ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਨਹੀਂ; {h} ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਨਹੀਂ।",
@@ -319,10 +319,12 @@
   function renderMapTab() {
     const ind = state.ind, m = D.meta(ind), th = themeOf(ind), sc = scaleFor(ind);
     const pval = (i) => { const v = D.visible(i, stateId()); return v === null ? "–" : D.fmt(v, i); };
-    $("ex-nav").innerHTML = available().map((t) => { const on = t.id === th.id, i0 = t.indicators[0];
-      return `<div class="ex-topic${on ? " is-on" : ""}"><a class="ex-t" href="#explore/${esc(on ? ind : i0)}"${on ? ' aria-current="true"' : ""}><span>${esc(Atlas.tr(t.label))}</span><b>${esc(on ? "" : pval(i0))}</b></a>
-        ${on ? `<div class="ex-measures">${t.indicators.map((i) => `<a class="ex-m${i === ind ? " is-on" : ""}" href="#explore/${esc(i)}"><span>${esc(label(i))}</span><b>${esc(pval(i))}</b></a>`).join("")}</div>` : ""}</div>`; }).join("");
-    $("ex-kicker").textContent = Atlas.tr(th.label);
+    $("topic-pills").innerHTML = available().map((t) => { const on = t.id === th.id, i0 = on ? ind : t.indicators[0];
+      return `<a class="topic-card" href="#explore/${esc(i0)}"${on ? ' aria-current="true"' : ""}>
+        <span class="tc-name">${esc(Atlas.tr(t.label))}</span><span class="tc-val">${esc(pval(i0))}</span><span class="tc-sub">${esc(label(i0))}</span>
+        <span class="tc-n">${esc(s("measuresN", { n: t.indicators.length }))}</span></a>`; }).join("");
+    $("measure-pills").innerHTML = th.indicators.map((i) => `<a class="measure" href="#explore/${esc(i)}"${i === ind ? ' aria-current="true"' : ""}><span class="m-name">${esc(label(i))}</span><span class="m-val">${esc(pval(i))}</span></a>`).join("");
+    $("measure-row").hidden = th.indicators.length < 2;
     $("map-title").textContent = label(ind);
     $("map-desc").textContent = Atlas.tr(m.desc || "");
     const dir = m.direction === "higher_better" ? s("higherBetter") : m.direction === "higher_worse" ? s("higherWorse") : "";
@@ -330,11 +332,11 @@
     const pv = D.visible(ind, stateId()), list = D.districtValues(ind).sort((a, b) => b.value - a.value), hi = list[0], lo = list[list.length - 1];
     const lo0 = m.format === "score" && m.scale ? m.scale[0] : 0, hi0 = (Math.max(sc.max, pv ?? 0) * 1.05) || 1;
     const pos = (x) => Math.max(0, Math.min(100, ((x - lo0) / (hi0 - lo0)) * 100));
-    $("ex-stats").innerHTML = `<div class="ex-stat main"><span class="lbl">${esc(s("punjabAvgOf"))}</span><span class="big">${esc(pv === null ? "–" : D.fmt(pv, ind))}</span><span class="note">${esc(pv === null ? "" : D.say(ind, pv).replace(/^\w/, (c) => c.toUpperCase()))}</span></div>
-      ${hi ? `<a class="ex-stat" href="${sheetUrl(hi.geo)}"><span class="lbl">${esc(s("highest"))}</span><span class="mid">${esc(D.fmt(hi.value, ind))}</span><span class="note">${esc(placeName(hi.geo))}</span></a>
-      <a class="ex-stat" href="${sheetUrl(lo.geo)}"><span class="lbl">${esc(s("lowest"))}</span><span class="mid">${esc(D.fmt(lo.value, ind))}</span><span class="note">${esc(placeName(lo.geo))}</span></a>` : ""}
-      <div class="ex-src">${source(ind, geo(stateId()))}</div>`;
-    $("map-side").innerHTML = `<div class="ranking"><h3>${esc(s("rankTitle"))}</h3>${list.map((d, i) => `<a class="meter-row" href="${sheetUrl(d.geo)}" data-name="${esc(d.geo.name)}">
+    $("map-side").innerHTML = `<p class="hero-label">${esc(s("punjabAvgOf"))}</p><p class="hero-figure">${esc(pv === null ? "–" : D.fmt(pv, ind))}</p>
+      <p class="hero-note">${esc(pv === null ? "" : D.say(ind, pv).replace(/^\w/, (c) => c.toUpperCase()))}</p>
+      ${hi ? `<p class="find-note">${s("findingTopic", { hi: esc(placeName(hi.geo)), hiV: esc(D.fmt(hi.value, ind)), lo: esc(placeName(lo.geo)), loV: esc(D.fmt(lo.value, ind)) })}</p>` : ""}
+      ${source(ind, geo(stateId()))}
+      <div class="ranking"><h3>${esc(s("rankTitle"))}</h3>${list.map((d, i) => `<a class="meter-row" href="${sheetUrl(d.geo)}" data-name="${esc(d.geo.name)}">
         <span class="name">${i + 1}. ${esc(placeName(d.geo))}</span><span class="meter"><span style="width:${pos(d.value).toFixed(1)}%;background:${sc.color(d.value)}"></span>${pv !== null ? `<b style="left:${pos(pv).toFixed(1)}%"></b>` : ""}</span>
         <span class="val">${esc(D.fmt(d.value, ind))}</span></a>`).join("")}
       ${pv !== null ? `<p class="legend-note"><i class="tick"></i>${esc(s("punjabAvg"))} ${esc(D.fmt(pv, ind))}</p>` : ""}</div>`;
