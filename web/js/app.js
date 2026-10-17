@@ -18,10 +18,10 @@
     en: {
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
-      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average", tabAtlas: "Big Map", atlasHead: "Every district and village in Punjab", atlasDeck: "23 districts, 161 blocks, 12,158 villages. Click a district to fly in and see its villages; darker dots are missing more basic services.",
-      atlasColour: "Shade districts by", atlasShowV: "Show villages when zoomed in", atlasHint: "Click a district (or search a village) to see its blocks and villages.", atlasFind: "Find a village", atlasDotsH: "Villages: missing basic services", atlasMissMany: "All 4 missing", atlasMissNone: "None missing", atlasClickD: "Click to zoom in",
+      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average", tabAtlas: "Big Map", atlasHead: "Every district and village in Punjab", atlasDeck: "23 districts, 161 blocks, 12,158 villages. Pick a measure, then click a district to fly in and see its villages.",
+      atlasColour: "Shade districts by", atlasShowV: "Show villages when zoomed in", atlasHint: "Click any district to fly in", atlasFind: "Find a village", atlasDotsH: "Villages: missing basic services", atlasMissMany: "All 4 missing", atlasMissNone: "None missing", atlasClickD: "Click to zoom in",
       atlasBasic: "basic services (school, health centre, road, water)", atlasNoRec: "This village has no 2020 facility record.", atlasDistLine: "{m} in {place}: {v} (district-wide survey figure).",
-      atlasOpenBlock: "Open {b} block →", overview: "Overview", topicDeck: "{place}: {say}. That ranks {pos} (Punjab: {pv}).", topicHidden: "{place}: too few students in this group to show safely (fewer than {n}).",
+      atlasOpenBlock: "Open {b} block →", atlasAll: "All districts", atlasBlocks: "Its blocks: villages with a high school", atlasBlocksNote: "Weakest first. Click a block for its full page, or a dot on the map for a village.", overview: "Overview", topicDeck: "{place}: {say}. That ranks {pos} (Punjab: {pv}).", topicHidden: "{place}: too few students in this group to show safely (fewer than {n}).",
       topicMeasures: "{t}, measure by measure", inVillages: "In its villages", inVillagesSub: "Basic services in the {n} of {all} villages with a 2020 record.",
       vHasLacks: "{has} have it, {lack} don't (of {n}).", vNoHS: "Villages without a high school", studentsIn: "Students in this survey",
       topicBlocksSub: "Share of villages with each service, sorted by {svc}. Click a block.", topicMapBlocks: "Blocks shaded by the share of villages without {svc} (darker = more without). Block areas are approximate.",
@@ -99,7 +99,7 @@
       tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", tabAtlas: "ਵੱਡਾ ਨਕਸ਼ਾ", atlasHead: "ਪੰਜਾਬ ਦਾ ਹਰ ਜ਼ਿਲ੍ਹਾ ਅਤੇ ਪਿੰਡ", atlasDeck: "ਜ਼ਿਲ੍ਹੇ ਚੁਣੇ ਮਾਪ ਮੁਤਾਬਕ ਰੰਗੇ ਹਨ; ਹਰ ਬਿੰਦੂ 12,158 ਪਿੰਡਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ। ਪਿੰਡ ਲੱਭੋ ਜਾਂ ਕਲਿੱਕ ਕਰੋ।",
       atlasColour: "ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਰੰਗ", atlasShowV: "ਜ਼ੂਮ ਕਰਨ 'ਤੇ ਪਿੰਡ ਦਿਖਾਓ", atlasHint: "ਬਲਾਕ ਅਤੇ ਪਿੰਡ ਦੇਖਣ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ (ਜਾਂ ਪਿੰਡ ਲੱਭੋ)।", atlasFind: "ਪਿੰਡ ਲੱਭੋ", atlasDotsH: "ਪਿੰਡ: ਘੱਟ ਸਹੂਲਤਾਂ", atlasMissMany: "ਚਾਰੇ ਨਹੀਂ", atlasMissNone: "ਸਭ ਹਨ", atlasClickD: "ਜ਼ੂਮ ਲਈ ਕਲਿੱਕ ਕਰੋ",
       atlasBasic: "ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ", atlasNoRec: "ਇਸ ਪਿੰਡ ਦਾ 2020 ਰਿਕਾਰਡ ਨਹੀਂ।", atlasDistLine: "{place} ਵਿੱਚ {m}: {v} (ਜ਼ਿਲ੍ਹਾ ਪੱਧਰ)।",
-      atlasOpenBlock: "{b} ਬਲਾਕ ਖੋਲ੍ਹੋ →", overview: "ਸਾਰ", topicDeck: "{place}: {say}। ਇਹ {pos} ਹੈ (ਪੰਜਾਬ: {pv})।", topicHidden: "{place}: ਇਸ ਸਮੂਹ ਵਿੱਚ ਬਹੁਤ ਘੱਟ ਵਿਦਿਆਰਥੀ ({n} ਤੋਂ ਘੱਟ)।",
+      atlasOpenBlock: "{b} ਬਲਾਕ ਖੋਲ੍ਹੋ →", atlasAll: "ਸਾਰੇ ਜ਼ਿਲ੍ਹੇ", atlasBlocks: "ਇਸਦੇ ਬਲਾਕ: ਹਾਈ ਸਕੂਲ ਵਾਲੇ ਪਿੰਡ", atlasBlocksNote: "ਸਭ ਤੋਂ ਕਮਜ਼ੋਰ ਪਹਿਲਾਂ। ਬਲਾਕ ਜਾਂ ਪਿੰਡ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", overview: "ਸਾਰ", topicDeck: "{place}: {say}। ਇਹ {pos} ਹੈ (ਪੰਜਾਬ: {pv})।", topicHidden: "{place}: ਇਸ ਸਮੂਹ ਵਿੱਚ ਬਹੁਤ ਘੱਟ ਵਿਦਿਆਰਥੀ ({n} ਤੋਂ ਘੱਟ)।",
       topicMeasures: "{t}, ਹਰ ਮਾਪ", inVillages: "ਇਸਦੇ ਪਿੰਡਾਂ ਵਿੱਚ", inVillagesSub: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {all} ਵਿੱਚੋਂ {n} ਪਿੰਡਾਂ ਵਿੱਚ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ।",
       vHasLacks: "{n} ਵਿੱਚੋਂ {has} ਕੋਲ ਹੈ, {lack} ਕੋਲ ਨਹੀਂ।", vNoHS: "ਹਾਈ ਸਕੂਲ ਤੋਂ ਬਿਨਾਂ ਪਿੰਡ", studentsIn: "ਸਰਵੇਖਣ ਦੇ ਵਿਦਿਆਰਥੀ",
       topicBlocksSub: "ਹਰ ਸਹੂਲਤ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ। ਬਲਾਕ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", topicMapBlocks: "ਬਲਾਕ {svc} ਤੋਂ ਬਿਨਾਂ ਪਿੰਡਾਂ ਮੁਤਾਬਕ ਰੰਗੇ (ਗੂੜ੍ਹਾ = ਵੱਧ ਬਿਨਾਂ)।",
@@ -502,9 +502,7 @@
     $("atlas-q").placeholder = s("atlasFind");
     $("atlas-dots").checked = atlas.dots;
     const ind = atlas.ind, sc = scaleFor(ind);
-    $("atlas-legend").innerHTML = `<p class="al-h">${esc(label(ind))}</p><div class="legend"><span>${esc(D.fmtShort(sc.min, ind))}</span><i class="grad" style="background:${grad(ramp(ind))}"></i><span>${esc(D.fmtShort(sc.max, ind))}</span></div>` +
-      (atlas.dots && atlas.district ? `<p class="al-h">${esc(s("atlasDotsH"))}</p><div class="legend"><span>${esc(s("atlasMissMany"))}</span>${[1, .8, .5, .22].map((o) => `<i class="al-dot" style="opacity:${o}"></i>`).join("")}<i class="al-dot" style="background:var(--paper);border:1px solid var(--hair)"></i><span>${esc(s("atlasMissNone"))}</span></div>
-        <div class="legend"><i class="al-dot" style="background:none;border:1px solid var(--muted)"></i><span>${esc(s("noRecord"))}</span></div>` : "");
+    renderAtlasDetail();
     if (state.sheet) return;
     mapTo(".slot-big");
     const m = $("map"), dg = atlas.district && byName(atlas.district), showV = atlas.dots && !!dg;
@@ -520,47 +518,70 @@
       atlas.drawnFor = key;
       Atlas.Map.setVillages([], () => {});
       if (dg) {
-        // blocks of the chosen district: outlines over the district's colour, tooltip = village services
         const vs = Atlas.villages.filter((v) => v.district === dg.name && v.lat && v.lon), bn = Atlas.Need.blockNeeds(dg.name), byB = Object.fromEntries(bn.map((b) => [b.name, b])), blocks = {}, dc = fills[dg.name];
         for (const v of vs) { if (blocks[v.block]) continue; const b = byB[v.block];
           blocks[v.block] = { fill: dc, label: v.block, value: "", selected: false,
             tip: `<strong>${esc(v.block)}</strong>` + (b ? SVC.map(([c, , l]) => `<span class="tip-r">${esc(s(l))}: ${pct(b.shares[c])}</span>`).join("") : "") }; }
-        Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); }, { boxy: true });
+        Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); });
         Atlas.Map.setDense(showV ? vs.map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr", tip: villageTip(v) })) : null, atlas.sel, selectVillage);
       } else { Atlas.Map.setBlocks(null, [], {}, () => {}); Atlas.Map.setDense(null); }
     }
-    onMapSelect = (n) => { const d = byName(n); if (!d) return; atlas.district = n; atlas.sel = null; atlas.drawnFor = ""; showDistrictCard(d); Atlas.Map.zoomTo(n, 1.25); state.zoomed = n; renderAtlas(); };
+    onMapSelect = (n) => selectDistrict(n);
     onMapHover = (n) => { const d = byName(n), v = d ? D.visible(ind, d.id) : null;
-      return `<strong>${esc(d ? placeName(d) : n)}</strong><span class="tip-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span><span class="tip-r">${esc(s("atlasClickD"))}</span>`; };
+      return `<strong>${esc(d ? placeName(d) : n)}</strong><span class="tip-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>`; };
     if (!atlas.district && !atlas.sel) zoom(null);
   }
-  function showDistrictCard(d) {
-    const ind = atlas.ind, v = D.visible(ind, d.id), vs = Atlas.villages.filter((x) => x.district === d.name), rec = vs.filter((x) => x.hasData), r = needOf(d);
-    const noHS = rec.filter((x) => x.raw.high_school === "0").length, noHC = rec.filter((x) => x.raw.health_centre === "0").length;
-    $("atlas-card").innerHTML = `<button type="button" class="ac-close" data-aclose aria-label="Close">✕</button><p class="kicker">${esc(s("district"))}</p><h3 class="ac-title">${esc(placeName(d))}</h3>
-      <dl class="ac-facts"><div><dt>${esc(short(ind))}</dt><dd>${esc(v === null ? s("hidden") : D.fmt(v, ind))}<small>${esc(posPhrase(ind, d.id))}</small></dd></div>
-        <div><dt>${esc(s("needScore"))}</dt><dd>${r ? r.score + "/100" : "–"}<small>${r ? esc(s("nthMost", { r: ordinal(r.rank) })) : ""}</small></dd></div>
-        <div><dt>${esc(s("villages"))}</dt><dd>${vs.length.toLocaleString()}</dd></div>
-        <div><dt>${esc(s("vNoHS"))}</dt><dd>${noHS.toLocaleString()}<small>${esc(s("tNoHC"))}: ${noHC.toLocaleString()}</small></dd></div></dl>
-      <a class="ac-link" href="${sheetUrl(d)}">${esc(s("openSheet"))}</a>`;
-    $("atlas-card").hidden = false;
+  function selectDistrict(n) {
+    if (!byName(n)) return;
+    atlas.district = n; atlas.sel = null; atlas.drawnFor = "";
+    renderAtlas(); enter($("atlas-detail"));
+    Atlas.Map.zoomTo(n, 1.25); state.zoomed = n;
+  }
+  function atlasOverview() {
+    atlas.district = null; atlas.sel = null; atlas.drawnFor = ""; state.zoomed = undefined;
+    renderAtlas(); enter($("atlas-detail")); Atlas.Map.reset();
+  }
+  function renderAtlasDetail() {
+    const ind = atlas.ind, sc = scaleFor(ind), el = $("atlas-detail");
+    const legend = `<div class="as-legend"><span>${esc(D.fmtShort(sc.min, ind))}</span><i class="grad atlas-grad" style="background:${grad(ramp(ind))}"></i><span>${esc(D.fmtShort(sc.max, ind))}</span></div>`;
+    if (atlas.sel) {
+      const v = Atlas.villages.find((x) => x.code === atlas.sel), d = byName(v.district), dv = d ? D.visible(ind, d.id) : null, conf = parseFloat(v.raw.match_confidence);
+      const svc = [["high_school", "svcHSl"], ["health_centre", "svcHCl"], ["all_weather_road", "svcRDl"], ["piped_water", "svcPWl"], ["public_transport", "svcPTl"], ["broadband", "svcBBl"]];
+      el.innerHTML = `<button type="button" class="as-back" data-aback="district">← ${esc(d ? placeName(d) : v.district)}</button>
+        <p class="kicker">${esc(s("village"))}</p><h3 class="as-name">${esc(v.name.replace(/\s*\(\d+\)$/, ""))}</h3>
+        <p class="as-sub">${esc(v.block)} · ${esc(d ? placeName(d) : v.district)}${v.population ? ` · ${esc(s("colPop"))} ${v.population.toLocaleString()}` : ""}</p>
+        ${v.hasData ? `<div class="as-big"><b>${svcCount(v)}</b><span>/4</span></div><p class="as-note">${esc(s("atlasBasic"))}</p>
+          <ul class="ac-svc">${svc.map(([c, l]) => `<li class="${v.raw[c] === "1" ? "yes" : "no"}"><span>${v.raw[c] === "1" ? "✓" : "✗"}</span>${esc(s(l))}</li>`).join("")}</ul>` : `<p class="as-note">${esc(s("atlasNoRec"))}</p>`}
+        ${d ? `<p class="as-note">${esc(s("atlasDistLine", { m: label(ind), place: placeName(d), v: dv === null ? s("hidden") : D.fmt(dv, ind) }))}</p>` : ""}
+        ${conf >= 0 ? `<p class="as-note">${esc(s("colMatch"))}: LGD ${esc(v.code)} · ${esc(s("matchCode"))} ${conf.toFixed(2)}</p>` : ""}
+        ${d ? `<a class="btn as-btn" href="${sheetUrl(d, v.block)}">${esc(s("atlasOpenBlock", { b: v.block }))}</a>` : ""}`;
+      return;
+    }
+    if (atlas.district) {
+      const d = byName(atlas.district), v = D.visible(ind, d.id), r = needOf(d), vs = Atlas.villages.filter((x) => x.district === d.name), rec = vs.filter((x) => x.hasData);
+      const noHS = rec.filter((x) => x.raw.high_school === "0").length, noHC = rec.filter((x) => x.raw.health_centre === "0").length;
+      const bn = Atlas.Need.blockNeeds(d.name).slice().sort((a, b) => a.shares.high_school - b.shares.high_school);
+      el.innerHTML = `<button type="button" class="as-back" data-aback="overview">← ${esc(s("atlasAll"))}</button>
+        <p class="kicker">${esc(s("district"))}</p><h3 class="as-name">${esc(placeName(d))}</h3>
+        <p class="as-label">${esc(label(ind))}</p><div class="as-big"><b>${esc(v === null ? s("hidden") : D.fmt(v, ind))}</b></div><p class="as-note">${esc(posPhrase(ind, d.id))} · ${esc(s("punjab"))} ${esc(D.fmt(D.visible(ind, stateId()), ind))}</p>
+        <dl class="ac-facts"><div><dt>${esc(s("needScore"))}</dt><dd>${r ? r.score + "/100" : "–"}<small>${r ? esc(s("nthMost", { r: ordinal(r.rank) })) : ""}</small></dd></div>
+          <div><dt>${esc(s("villages"))}</dt><dd>${vs.length.toLocaleString()}</dd></div>
+          <div><dt>${esc(s("vNoHS"))}</dt><dd>${noHS.toLocaleString()}</dd></div><div><dt>${esc(s("tNoHC"))}</dt><dd>${noHC.toLocaleString()}</dd></div></dl>
+        <a class="btn as-btn" href="${sheetUrl(d)}">${esc(s("openSheet"))}</a>
+        <p class="as-h">${esc(s("atlasBlocks"))}</p>
+        <div class="as-list">${bn.map((b) => `<a class="as-row" href="${sheetUrl(d, b.name)}"><span class="n">${esc(b.name)}</span><span class="bar"><i style="width:${(b.shares.high_school * 100).toFixed(0)}%"></i></span><span class="v">${pct(b.shares.high_school)}</span></a>`).join("")}</div>
+        <p class="as-note">${esc(s("atlasBlocksNote"))}</p>`;
+      return;
+    }
+    const list = D.districtValues(ind).sort((a, b) => b.value - a.value), pv = D.visible(ind, stateId()), hi = (list[0] || {}).value || 1;
+    el.innerHTML = `<p class="as-label">${esc(s("punjabAvg"))} · ${esc(label(ind))}</p><div class="as-big"><b>${esc(pv === null ? "–" : D.fmt(pv, ind))}</b></div>${legend}
+      <p class="as-h">${esc(s("rankTitle"))}</p>
+      <div class="as-list">${list.map((d, i) => `<button type="button" class="as-row" data-adist="${esc(d.geo.name)}" data-name="${esc(d.geo.name)}"><span class="n">${i + 1}. ${esc(placeName(d.geo))}</span><span class="bar"><i style="width:${Math.max(3, (d.value / hi) * 100).toFixed(0)}%;background:${sc.color(d.value)}"></i></span><span class="v">${esc(D.fmt(d.value, ind))}</span></button>`).join("")}</div>`;
   }
   function selectVillage(code) {
     const v = Atlas.villages.find((x) => x.code === code); if (!v) return;
-    const d = byName(v.district), ind = atlas.ind, dv = d ? D.visible(ind, d.id) : null;
-    atlas.sel = code; atlas.district = v.district;
-    const svc = [["high_school", "svcHSl"], ["health_centre", "svcHCl"], ["all_weather_road", "svcRDl"], ["piped_water", "svcPWl"], ["public_transport", "svcPTl"], ["broadband", "svcBBl"]];
-    const conf = parseFloat(v.raw.match_confidence);
-    $("atlas-card").innerHTML = `<button type="button" class="ac-close" data-aclose aria-label="Close">✕</button><p class="kicker">${esc(s("village"))}</p>
-      <h3 class="ac-title">${esc(v.name.replace(/\s*\(\d+\)$/, ""))}</h3><p class="ac-sub">${esc(v.block)} · ${esc(d ? placeName(d) : v.district)}${v.population ? ` · ${esc(s("colPop"))} ${v.population.toLocaleString()}` : ""}</p>
-      ${v.hasData ? `<p class="ac-score"><b>${svcCount(v)}/4</b> ${esc(s("atlasBasic"))}</p><ul class="ac-svc">${svc.map(([c, l]) => `<li class="${v.raw[c] === "1" ? "yes" : "no"}"><span>${v.raw[c] === "1" ? "✓" : "✗"}</span>${esc(s(l))}</li>`).join("")}</ul>`
-        : `<p class="ac-sub">${esc(s("atlasNoRec"))}</p>`}
-      ${d ? `<p class="ac-dist">${esc(s("atlasDistLine", { m: label(ind), place: placeName(d), v: dv === null ? s("hidden") : D.fmt(dv, ind) }))}</p>` : ""}
-      ${conf >= 0 ? `<p class="ac-match">${esc(s("colMatch"))}: LGD ${esc(v.code)} · ${esc(s("matchCode"))} ${conf.toFixed(2)}</p>` : ""}
-      ${d ? `<a class="ac-link" href="${sheetUrl(d, v.block)}">${esc(s("atlasOpenBlock", { b: v.block }))}</a>` : ""}`;
-    $("atlas-card").hidden = false;
-    atlas.drawnFor = "";
-    renderAtlas();
+    atlas.sel = code; atlas.district = v.district; atlas.drawnFor = "";
+    renderAtlas(); enter($("atlas-detail"));
     Atlas.Map.zoomTo(v.district, 1.25); state.zoomed = v.district;
   }
   function attachVillageSearch() {
@@ -938,7 +959,7 @@
   // Elements animate only while their container has .is-entering (set when you arrive somewhere new),
   // so small updates like opening a "Why" panel don't replay the whole page.
   const reduceMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const STAGGER = ".topic-card, .measure, .stock-card, .tb-row, .heat-tile, .ranking .meter-row, .tile, .xw-tile, .cal-item, .sixty-row, .fact, .facts > div, .reason, .btable tbody tr, #vtable tbody tr, .about > div, .cdot";
+  const STAGGER = ".as-row, .topic-card, .measure, .stock-card, .tb-row, .heat-tile, .ranking .meter-row, .tile, .xw-tile, .cal-item, .sixty-row, .fact, .facts > div, .reason, .btable tbody tr, #vtable tbody tr, .about > div, .cdot";
   function countUp(el) {
     const node = [...el.childNodes].find((n) => n.nodeType === 3 && /\d/.test(n.textContent));
     if (!node) return;
@@ -991,8 +1012,9 @@
       const ar = e.target.closest("[data-area]");
       if (ar) { const id = ar.dataset.area, on = state.areas.includes(id); if (on && state.areas.length === 1) return; state.areas = on ? state.areas.filter((x) => x !== id) : state.areas.concat(id); return render(); }
       const az = e.target.closest("[data-azoom]");
-      if (az) { const k = az.dataset.azoom; if (k === "reset") { atlas.district = null; atlas.sel = null; atlas.drawnFor = ""; $("atlas-card").hidden = true; state.zoomed = undefined; renderAtlas(); Atlas.Map.reset(); } else Atlas.Map.zoomBy(k === "in" ? 1.6 : 1 / 1.6); return; }
-      if (e.target.closest("[data-aclose]")) { $("atlas-card").hidden = true; atlas.sel = null; atlas.drawnFor = ""; renderAtlas(); return; }
+      if (az) { const k = az.dataset.azoom; if (k === "reset") atlasOverview(); else Atlas.Map.zoomBy(k === "in" ? 1.6 : 1 / 1.6); return; }
+      const ad = e.target.closest("[data-adist]"); if (ad) { selectDistrict(ad.dataset.adist); return; }
+      const ab = e.target.closest("[data-aback]"); if (ab) { if (ab.dataset.aback === "district" && atlas.district) selectDistrict(atlas.district); else atlasOverview(); return; }
       const st = e.target.closest("[data-stopic]");
       if (st) { state.stopic = st.dataset.stopic; openSheet(); enter(document.querySelector(".modal-inner")); return; }
       const tc = e.target.closest(".topic-card");
@@ -1023,7 +1045,7 @@
     document.addEventListener("change", (e) => {
       if (e.target.id === "vf-district") { state.vd = e.target.value; state.vb = ""; state.vhl = null; state.vlimit = 60; renderVillageFilters(); renderVillages(); }
       if (e.target.id === "vf-block") { state.vb = e.target.value; state.vhl = null; state.vlimit = 60; renderVillages(); }
-      if (e.target.id === "atlas-ind") { atlas.ind = e.target.value; renderAtlas(); if (atlas.sel) selectVillage(atlas.sel); else if (atlas.district) showDistrictCard(byName(atlas.district)); return; }
+      if (e.target.id === "atlas-ind") { atlas.ind = e.target.value; renderAtlas(); enter($("atlas-detail")); return; }
       if (e.target.id === "atlas-dots") { atlas.dots = e.target.checked; atlas.drawnFor = ""; renderAtlas(); return; }
       if (e.target.id === "cmp-sel") { state.cmp = e.target.value; renderCompare(state.ind); enter($("compare")); return; }
       if (e.target.id === "vf-missing") { state.vm = e.target.value; state.vlimit = 60; renderVillages(); }

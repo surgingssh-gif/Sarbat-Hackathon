@@ -433,6 +433,75 @@ body.on-atlas footer { margin-top: 0; }
 .al-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--ink); }
 .dense-sel { fill: none; stroke: var(--ink); stroke-width: 3; vector-effect: non-scaling-stroke; }
 
+
+/* ---------- BIG MAP v3: sidebar + dark map ---------- */
+.atlas-stage { display: grid; grid-template-columns: 380px 1fr; margin: 0 calc(50% - 50vw); height: calc(100vh - 92px); min-height: 600px; background: none; overflow: hidden;
+  /* one colour scale for the map and the sidebar: dark = low, bright = high */
+  --seq-good-0: #0f2c4a; --seq-good-1: #1c4f86; --seq-good-2: #2c7fc6; --seq-good-3: #57aeea; --seq-good-4: #a8dcff;
+  --seq-bad-0: #3b1513; --seq-bad-1: #6f201a; --seq-bad-2: #aa3324; --seq-bad-3: #e2593a; --seq-bad-4: #ffa47c;
+  --seq-neutral-0: #262a33; --seq-neutral-1: #3e4553; --seq-neutral-2: #5e6779; --seq-neutral-3: #8c96a9; --seq-neutral-4: #c4cbd9; }
+.atlas-side { position: relative; z-index: 2; overflow-y: auto; padding: 24px 22px 40px; border-right: 1px solid var(--hair); background: var(--paper); display: flex; flex-direction: column; gap: 12px; font: 13px/1.45 var(--sans); }
+.atlas-side .kicker { margin: 0; }
+.atlas-title { margin: -6px 0 0; font: 700 26px/1.15 var(--serif); }
+.atlas-deck { margin: 0; color: var(--ink-2); font: 13.5px/1.5 var(--sans); }
+.atlas-ctl { display: grid; gap: 4px; color: var(--muted); }
+.atlas-ctl .cmp-select, .atlas-ctl select { width: 100%; }
+.atlas-find input { width: 100%; }
+.atlas-find .results { left: 0; right: auto; width: 100%; }
+.atlas-check { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: var(--ink-2); }
+.atlas-detail { display: flex; flex-direction: column; gap: 8px; border-top: 2px solid var(--rule); padding-top: 14px; margin-top: 4px; }
+.as-label { margin: 0; font: 600 12.5px/1.3 var(--sans); color: var(--muted); }
+.as-big { display: flex; align-items: baseline; gap: 2px; }
+.as-big b { font: 700 40px/1.05 var(--serif); font-variant-numeric: tabular-nums; }
+.as-big span { font: 600 16px var(--sans); color: var(--muted); }
+.as-legend { display: flex; align-items: center; gap: 8px; font: 12px/1 var(--sans); color: var(--muted); }
+.as-legend .grad { flex: 1; height: 8px; border-radius: 4px; }
+.as-h { margin: 10px 0 0; font: 800 11.5px/1.3 var(--sans); text-transform: uppercase; letter-spacing: .1em; color: var(--ink); }
+.as-list { display: grid; }
+.as-row { display: grid; grid-template-columns: 1fr 84px 56px; align-items: center; gap: 10px; padding: 6px 8px; margin: 0 -8px; border: 0; border-radius: 6px; background: none; text-align: left; text-decoration: none; color: var(--ink); font: 13px/1.3 var(--sans); cursor: pointer; transition: background .15s; }
+.as-row:hover { background: var(--paper-2); }
+.as-row .n { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.as-row .bar { height: 6px; border-radius: 3px; background: var(--paper-2); overflow: hidden; }
+.as-row .bar i { display: block; height: 100%; border-radius: 3px; background: var(--seq-good-3); }
+.as-row .v { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.as-back { align-self: flex-start; border: 0; background: none; padding: 0; font: 600 13px var(--sans); color: var(--ink-2); cursor: pointer; }
+.as-back:hover { color: var(--ink); text-decoration: underline; }
+.as-name { margin: -4px 0 0; font: 700 28px/1.15 var(--serif); }
+.as-sub, .as-note { margin: 0; font: 12.5px/1.45 var(--sans); color: var(--muted); }
+.as-btn { justify-content: center; margin-top: 4px; }
+.atlas-side .ac-facts { margin: 4px 0; }
+
+.atlas-map { position: relative; min-width: 0; overflow: hidden;
+  --paper: #0d1117; --paper-2: #151a22; --card: #161b22; --land: #151a21; --ink: #eef1f5; --ink-2: #c4cbd4; --muted: #8b949e;
+  --hair: #2b313a; --rule: #eef1f5; --nodata: #2b313a; --halo: rgba(13,17,23,.85); background: radial-gradient(circle at 55% 45%, #131a24, #0a0d12 75%); }
+.slot-big, .slot-big .map-wrap { height: 100%; }
+.atlas-map .map-wrap { background: transparent; }
+.atlas-map .ctx-land { fill: #141a22; stroke: #0d1117; }
+.atlas-map .ctx-label { fill: #5b6573; }
+.atlas-map .outline path { stroke: rgba(150,200,255,.65); stroke-width: 1.4; filter: drop-shadow(0 0 6px rgba(87,174,234,.55)); }
+.atlas-map .district { stroke: #0d1117; stroke-width: 1.2; }
+.atlas-map .district:hover, .atlas-map .district.is-hl { stroke: #ffffff; stroke-width: 2; }
+.atlas-map .district.is-selected { stroke: #ffffff; stroke-width: 2.4; }
+.atlas-map .block-lines .blk-line { stroke: #0d1117; stroke-opacity: .55; }
+.atlas-map .district-label { fill: #f5f7fa; }
+.atlas-map .map-tip { background: #ffffff; color: #111; }
+.atlas-map .atlas-zoom { position: absolute; right: 18px; top: 18px; bottom: auto; display: grid; gap: 4px; z-index: 4; }
+.atlas-map .atlas-zoom button { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); color: #fff; backdrop-filter: blur(6px); }
+.atlas-map .atlas-zoom button:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.4); }
+.atlas-map .atlas-hint { position: absolute; left: 50%; bottom: 24px; top: auto; transform: translateX(-50%); background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(8px); box-shadow: none; }
+body.on-atlas footer { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .is-entering .atlas-side > * { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+  .is-entering .atlas-detail .as-row { animation: fadeUp .45s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(120ms + var(--i, 0) * 22ms); }
+  .is-entering .as-row .bar i { transform-origin: left; animation: growX .8s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(250ms + var(--i, 0) * 22ms); }
+}
+@media (max-width: 760px) {
+  .atlas-stage { grid-template-columns: 1fr; grid-template-rows: 62vh auto; height: auto; }
+  .atlas-map { order: -1; }
+  .atlas-side { border-right: 0; overflow: visible; }
+  .atlas-map .atlas-hint { display: none; }
+}
+
 /* ---------- toast ---------- */
 .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 90; background: var(--ink); color: var(--paper); padding: 9px 16px; border-radius: 999px; font: 600 13px var(--sans); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
 
