@@ -234,12 +234,17 @@ window.Atlas = window.Atlas || {};
       const o = document.createElementNS(NS, "path");
       o.setAttribute("d", s.d);
       gOutline.appendChild(o);
-      p.addEventListener("pointerenter", () => {
-        if (drag && drag.moved) return;
-        gShapes.appendChild(p);
-        const sel = selectedName && shapes.get(selectedName);
-        if (sel && sel.el !== p) gShapes.appendChild(sel.el);
+      p.addEventListener("pointerenter", (e) => {
         shapes.get(name)?.label.classList.add("is-hover");
+        // Raise the hovered shape so its outline isn't hidden, but only when needed and
+        // never mid-press: moving a node re-fires pointerenter and swallows the click.
+        if ((drag && drag.moved) || e.buttons) return;
+        const sel = selectedName && shapes.get(selectedName);
+        const top = sel && sel.el !== p ? sel.el : p;
+        const inOrder = top === p ? gShapes.lastElementChild === p : (gShapes.lastElementChild === top && top.previousElementSibling === p);
+        if (inOrder) return;
+        gShapes.appendChild(p);
+        if (top !== p) gShapes.appendChild(top);
       });
       p.addEventListener("pointerleave", () => shapes.get(name)?.label.classList.remove("is-hover"));
       p.addEventListener("click", () => { if (!suppressClick) opts.onSelect(name); });

@@ -784,7 +784,7 @@ body { background: var(--paper); font-size: 15px; }
 
 /* real base map underneath: districts become slightly see-through so roads and rivers show */
 .has-tiles .ctx-land, .has-tiles .ctx-capital { display: none; }
-.has-tiles .ctx-label { fill: #6b7680; }
+.has-tiles .ctx-label { display: none; }
 .has-tiles .outline path { fill: none; stroke: rgba(20, 20, 20, 0.75); stroke-width: 2.2; }
 .has-tiles .outline { filter: none; }
 .has-tiles .district { fill-opacity: 0.78; stroke: rgba(255, 255, 255, 0.95); stroke-width: 1.2; }
