@@ -113,7 +113,7 @@
     let dists = findDistricts(q);
     let topics = findTopics(q);
     const low = q.toLowerCase();
-    const wantRank = /\b(which|where|highest|lowest|most|least|worst|best|top|rank)\b/.test(low) || /ਕਿਹੜ|ਕਿੱਥੇ|ਸਭ ਤੋਂ/.test(q);
+    const wantRank = /\b(which|where|highest|lowest|most|least|worst|best|top|rank|\w+est)\b/.test(low) || /ਕਿਹੜ|ਕਿੱਥੇ|ਸਭ ਤੋਂ/.test(q);
     let wantLow = /\b(lowest|least|fewest|poorest)\b/.test(low) || /ਸਭ ਤੋਂ ਘੱਟ/.test(q);
     // "worst"/"best" depend on whether higher is good or bad for the topic.
     const dir = topics.length ? D.meta(topics[0]).direction : "higher_better";
@@ -121,6 +121,23 @@
     if (/\bbest\b|ਸਭ ਤੋਂ ਵਧੀਆ/.test(low + q)) wantLow = dir === "higher_worse";
     const gaps = GAPS.filter((g) => g.words.some((w) => low.includes(w)));
     const parts = [];
+
+    // "Wealthiest / richest / poorest district": combine the household-asset topics.
+    if (/wealth|rich|poor|affluent|prosper|ਅਮੀਰ|ਗਰੀਬ|ਖੁਸ਼ਹਾਲ/.test(low + q) && !dists.length) {
+      const assets = ["car_ownership_share", "air_conditioner_ownership_share", "two_wheeler_ownership_share"].filter((i) => Atlas.data.values[i]);
+      const score = D.districts().map((d) => {
+        const zs = assets.map((i) => D.zscore(i, D.visible(i, d.id))).filter((z) => z !== null);
+        return { d, z: zs.length ? zs.reduce((a, b) => a + b, 0) / zs.length : null };
+      }).filter((x) => x.z !== null).sort((a, b) => b.z - a.z);
+      const poor = /poor|ਗਰੀਬ|least|lowest/.test(low + q);
+      const top = (poor ? score.slice().reverse() : score).slice(0, 3);
+      assets.forEach((i) => cite(i, Atlas.data.stateId, sources));
+      const lines = top.map((x, k) => `${k + 1}. <b>${esc(name(x.d, lang))}</b> — ` + assets.map((i) => `${esc(D.meta(i).short[lang] || D.meta(i).short.en)} ${esc(D.fmt(D.visible(i, x.d.id), i))}`).join(", ")).join("<br>");
+      parts.push(T(`ਘਰੇਲੂ ਚੀਜ਼ਾਂ (ਕਾਰ, ਏਸੀ, ਦੋਪਹੀਆ) ਦੇ ਹਿਸਾਬ ਨਾਲ ${poor ? "ਸਭ ਤੋਂ ਘੱਟ ਖੁਸ਼ਹਾਲ" : "ਸਭ ਤੋਂ ਖੁਸ਼ਹਾਲ"} ਜ਼ਿਲ੍ਹੇ:<br>${lines}`,
+        `Going by household assets (car, AC, two-wheeler combined), the ${poor ? "least well-off" : "wealthiest"} districts are:<br>${lines}<br>This is a proxy for wealth, not income.`, lang));
+      parts.push(`<span class="msg-limit">${T("ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਵਿੱਚ ਨਕਲੀ ਹਨ।", "Survey figures are simulated in this demo.", lang)}</span>`);
+      return { html: parts.join("<br><br>"), sources: [...sources].map(([n, url]) => ({ name: n, url })) };
+    }
 
     // Fall back to what's on screen.
     if (!dists.length && ctx && ctx.district && !wantRank) { const d = D.districts().find((x) => x.name === ctx.district); if (d) dists = [d]; }
