@@ -154,6 +154,8 @@ a { color: var(--accent); }
 .map-tip .tip-v { display: block; font: 700 22px/1.15 var(--serif); }
 .map-tip .tip-r { display: block; color: #c9c9c9; font-size: 12px; }
 .map-callout { display: none; }
+.map-reset { display: none; position: absolute; left: 10px; top: 10px; z-index: 3; border: 1.5px solid var(--ink); background: var(--paper); border-radius: 4px; padding: 5px 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
+.is-zoomed .map-reset { display: block; }
 .map-attrib { position: absolute; right: 6px; bottom: 4px; margin: 0; font-size: 10px; color: #777; background: rgba(255,255,255,.8); padding: 1px 5px; border-radius: 3px; z-index: 2; }
 .map-attrib a { color: inherit; }
 .no-tiles .map-attrib { display: none; }

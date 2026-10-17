@@ -553,6 +553,10 @@
         onHover: (n) => { highlight(n, true); return tipHtml(n); },
         context: Atlas.context,
       });
+      const resetBtn = document.createElement("button");
+      resetBtn.type = "button"; resetBtn.className = "map-reset"; resetBtn.textContent = "↺ Punjab";
+      resetBtn.addEventListener("click", () => Atlas.Map.reset());
+      $("map").appendChild(resetBtn);
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind();
       render();

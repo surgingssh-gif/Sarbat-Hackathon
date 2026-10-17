@@ -430,6 +430,7 @@ window.Atlas = window.Atlas || {};
   function bindGestures() {
     svg.addEventListener("pointerdown", (e) => {
       if (e.button !== 0 || e.pointerType === "touch") return; // touch keeps normal page scroll
+      if (!wrap.classList.contains("is-zoomed")) return; // nothing to pan at full view
       drag = { x: e.clientX, y: e.clientY, box: box.slice(), moved: false, id: e.pointerId };
     });
     window.addEventListener("pointermove", (e) => {
@@ -450,6 +451,8 @@ window.Atlas = window.Atlas || {};
       setTimeout(() => { suppressClick = false; }, 0);
     });
     svg.addEventListener("wheel", (e) => {
+      // Plain scrolling scrolls the page; pinch (ctrlKey) or ctrl/cmd + scroll zooms the map.
+      if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
       const [x, y] = toSvgPoint(e.clientX, e.clientY);
       const factor = Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0022));
