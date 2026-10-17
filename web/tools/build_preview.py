@@ -29,6 +29,7 @@ def main():
     inline = {
         "csv": Path(args.data).read_text(),
         "boundaries": json.loads((WEB / "geo" / "punjab_districts.geojson").read_text()),
+        "context": json.loads((WEB / "geo" / "context.geojson").read_text()),
     }
     data_js = "window.ATLAS_INLINE = " + json.dumps(inline, separators=(",", ":")).replace("</", "<\\/") + ";"
     code = "\n".join((WEB / "js" / s).read_text() for s in SCRIPTS)

@@ -527,6 +527,7 @@ window.Atlas = window.Atlas || {};
       selected: dist ? dist.name : null,
       dimOthers: g.level === "village",
       label: (n) => `${mapLabel(n)}: ${stripTags(tooltip(n))}`,
+      calloutHtml: dist ? calloutFor(dist) : "",
       labelText: (n) => {
         if (state.labels === "off") return "";
         if (state.labels === "names") return mapLabel(n);
@@ -540,6 +541,26 @@ window.Atlas = window.Atlas || {};
 
     const missing = D.districts().filter((d) => !Atlas.Map.drawn().has(d.name)).map(name);
     $("map-hint").textContent = [t("mapHint"), missing.length ? t("notOnMapShort", { list: missing.join(", ") }) : ""].filter(Boolean).join(" ");
+  }
+
+  // The small card pinned to the selected district on the map.
+  function calloutFor(d) {
+    if (state.mode === "signs") {
+      const n = signCounts()[d.id].length;
+      return `<strong>${esc(name(d))}</strong><span class="co-val">${n}</span><span class="co-sub">${esc(t(n === 1 ? "signsCountOne" : "signsCount", { n }))}</span>`;
+    }
+    if (state.mode === "overlap") {
+      const row = (ind, cls) => {
+        const v = D.visible(ind, d.id);
+        return `<span class="co-row"><b class="ab ${cls}">${cls === "ab-a" ? "A" : "B"}</b>${esc(v === null ? "—" : D.fmt(v, ind))}</span>`;
+      };
+      return `<strong>${esc(name(d))}</strong>${row(state.indicator, "ab-a")}${row(state.compare, "ab-b")}`;
+    }
+    const ind = state.indicator;
+    const r = D.rec(ind, d.id);
+    const v = D.isSuppressed(r) ? t("hiddenShort") : D.isHidden(r) ? "—" : D.fmt(r.value, ind);
+    const rk = D.rank(ind, d.id);
+    return `<strong>${esc(name(d))}</strong><span class="co-val">${esc(v)}</span>${rk ? `<span class="co-sub">${esc(cap(rankPhrase(rk)))}</span>` : ""}`;
   }
 
   // Value shown under a district's name on the map.
@@ -1191,6 +1212,7 @@ window.Atlas = window.Atlas || {};
       Atlas.Map.init($("map"), Atlas.boundaries, {
         onSelect: (n) => { const d = districtByName(n); if (d) go(d.id, { scroll: true }); },
         onHover: tooltip,
+        context: Atlas.context,
       });
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind();

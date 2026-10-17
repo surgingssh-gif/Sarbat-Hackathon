@@ -14,7 +14,8 @@ window.Atlas = window.Atlas || {};
 
   const NS = "http://www.w3.org/2000/svg";
   const W = 1000;
-  let svg, gShapes, gLabels, gVillages, tip, wrap;
+  let svg, gTop, gContext, gOutline, gShapes, gLabels, gVillages, tip, wrap, callout;
+  let selectedName = null, calloutHtml = "";
   let shapes = new Map(), project, fullBox, box, anim, handlers;
   let drag = null, suppressClick = false;
 
@@ -64,6 +65,50 @@ window.Atlas = window.Atlas || {};
 
   // ---------- setup ----------
 
+  // Neighbouring states (fill only) and a few place labels, for orientation.
+  const CONTEXT_LABELS = [
+    { text: "Haryana", lon: 76.35, lat: 29.72 },
+    { text: "Himachal Pradesh", lon: 76.75, lat: 32.25 },
+    { text: "Rajasthan", lon: 74.15, lat: 29.35 },
+    { text: "Jammu and Kashmir", lon: 75.05, lat: 32.78 },
+    { text: "Pakistan", lon: 73.95, lat: 31.25, rotate: -72 },
+  ];
+
+  function drawContext(ctx) {
+    if (!ctx || !ctx.features) return;
+    for (const f of ctx.features) {
+      const isCapital = f.properties.name === "Chandigarh";
+      let d = "";
+      for (const poly of polysOf(f.geometry)) {
+        for (const ring of poly) {
+          ring.forEach((pt, i) => { const [x, y] = project(pt); d += (i ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1); });
+          d += "Z";
+        }
+      }
+      const p = document.createElementNS(NS, "path");
+      p.setAttribute("d", d);
+      p.setAttribute("class", isCapital ? "ctx-capital" : "ctx-land");
+      gContext.appendChild(p);
+    }
+    for (const l of CONTEXT_LABELS) {
+      const [x, y] = project([l.lon, l.lat]);
+      const tx = document.createElementNS(NS, "text");
+      tx.setAttribute("x", x.toFixed(1));
+      tx.setAttribute("y", y.toFixed(1));
+      tx.setAttribute("class", "ctx-label");
+      tx.setAttribute("text-anchor", "middle");
+      if (l.rotate) tx.setAttribute("transform", `rotate(${l.rotate} ${x.toFixed(1)} ${y.toFixed(1)})`);
+      tx.textContent = l.text;
+      gContext.appendChild(tx);
+    }
+    // Chandigarh: capital marker
+    const [cx, cy] = project([76.7794, 30.7333]);
+    const g = document.createElementNS(NS, "g");
+    g.setAttribute("class", "ctx-city");
+    g.innerHTML = `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5"/><text x="${(cx + 10).toFixed(1)}" y="${(cy + 4).toFixed(1)}">Chandigarh</text>`;
+    gTop.appendChild(g);
+  }
+
   function init(el, geojson, opts) {
     wrap = el;
     handlers = opts;
@@ -77,13 +122,24 @@ window.Atlas = window.Atlas || {};
     svg.setAttribute("class", "map-svg");
     svg.setAttribute("role", "group");
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    gContext = document.createElementNS(NS, "g");
+    gContext.setAttribute("class", "context");
+    gContext.setAttribute("aria-hidden", "true");
+    gOutline = document.createElementNS(NS, "g");
+    gOutline.setAttribute("class", "outline");
+    gOutline.setAttribute("aria-hidden", "true");
     gShapes = document.createElementNS(NS, "g");
+    gShapes.setAttribute("class", "districts");
     gLabels = document.createElementNS(NS, "g");
     gLabels.setAttribute("class", "labels");
     gLabels.setAttribute("aria-hidden", "true");
     gVillages = document.createElementNS(NS, "g");
     gVillages.setAttribute("class", "villages");
-    svg.append(gShapes, gLabels, gVillages);
+    gTop = document.createElementNS(NS, "g");
+    gTop.setAttribute("class", "map-top");
+    gTop.setAttribute("aria-hidden", "true");
+    svg.append(gContext, gOutline, gShapes, gLabels, gTop, gVillages);
+    drawContext(opts.context);
 
     for (const f of features) {
       const name = f.properties.name || f.properties.district;
@@ -94,6 +150,18 @@ window.Atlas = window.Atlas || {};
       p.setAttribute("tabindex", "0");
       p.setAttribute("role", "button");
       p.dataset.name = name;
+      p.style.setProperty("--i", String(gShapes.childElementCount));
+      const o = document.createElementNS(NS, "path");
+      o.setAttribute("d", s.d);
+      gOutline.appendChild(o);
+      p.addEventListener("pointerenter", () => {
+        if (drag && drag.moved) return;
+        gShapes.appendChild(p);
+        const sel = selectedName && shapes.get(selectedName);
+        if (sel && sel.el !== p) gShapes.appendChild(sel.el);
+        shapes.get(name)?.label.classList.add("is-hover");
+      });
+      p.addEventListener("pointerleave", () => shapes.get(name)?.label.classList.remove("is-hover"));
       p.addEventListener("click", () => { if (!suppressClick) opts.onSelect(name); });
       p.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); opts.onSelect(name); }
@@ -121,7 +189,15 @@ window.Atlas = window.Atlas || {};
     tip = document.createElement("div");
     tip.className = "map-tip";
     tip.hidden = true;
-    el.append(svg, tip);
+    callout = document.createElement("div");
+    callout.className = "map-callout";
+    callout.hidden = true;
+    el.append(svg, callout, tip);
+    // One entrance moment: districts settle in, then the class is removed.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      svg.classList.add("is-entering");
+      setTimeout(() => svg.classList.remove("is-entering"), 1400);
+    }
     bindGestures();
     applyBox();
   }
@@ -147,9 +223,70 @@ window.Atlas = window.Atlas || {};
     svg.style.setProperty("--label-size", (11.5 * unit).toFixed(3) + "px");
     svg.style.setProperty("--label-halo", (3.2 * unit).toFixed(3) + "px");
     gVillages.querySelectorAll("circle").forEach((c) => c.setAttribute("r", (c.dataset.sel ? 8 : 6) * unit));
+    gTop.querySelectorAll(".ctx-city circle").forEach((c) => c.setAttribute("r", 4.5 * unit));
+    gTop.querySelectorAll(".ctx-city text").forEach((tx) => {
+      const c = tx.previousElementSibling;
+      tx.setAttribute("x", (parseFloat(c.getAttribute("cx")) + 9 * unit).toFixed(1));
+      tx.setAttribute("y", (parseFloat(c.getAttribute("cy")) + 4 * unit).toFixed(1));
+    });
+    svg.style.setProperty("--ctx-size", (13 * unit).toFixed(3) + "px");
+    svg.style.setProperty("--unit", unit.toFixed(4));
+    declutter();
+    placeCallout();
     const zoomed = box[2] < fullBox[2] * 0.9;
     wrap.classList.toggle("is-zoomed", zoomed);
     handlers.onView?.({ zoomed });
+  }
+
+  // Hide labels that would overlap a bigger district's label (selected always wins).
+  let declutterQueued = false;
+  function declutter() {
+    if (declutterQueued) return;
+    declutterQueued = true;
+    requestAnimationFrame(() => {
+      declutterQueued = false;
+      const items = [...shapes.entries()]
+        .filter(([, s]) => s.label.textContent)
+        .map(([name, s]) => ({ name, s, sel: name === selectedName }))
+        .sort((a, b) => (b.sel - a.sel) || (b.s.area - a.s.area));
+      const kept = [];
+      for (const it of items) {
+        it.s.label.classList.remove("is-crowded");
+        let bb;
+        try { bb = it.s.label.getBBox(); } catch (e) { continue; }
+        const pad = parseFloat(svg.style.getPropertyValue("--label-halo")) || 2;
+        const r = { x0: bb.x - pad, y0: bb.y - pad, x1: bb.x + bb.width + pad, y1: bb.y + bb.height + pad };
+        const hit = kept.some((k) => r.x0 < k.x1 && r.x1 > k.x0 && r.y0 < k.y1 && r.y1 > k.y0);
+        if (hit && !it.sel) it.s.label.classList.add("is-crowded");
+        else kept.push(r);
+      }
+    });
+  }
+
+  // The value card pinned to the selected district's label point.
+  function placeCallout() {
+    if (!callout) return;
+    const s = selectedName && shapes.get(selectedName);
+    if (!s || !calloutHtml) { callout.hidden = true; return; }
+    const ctm = svg.getScreenCTM();
+    if (!ctm) return;
+    const pt = svg.createSVGPoint();
+    pt.x = s.cx; pt.y = s.cy;
+    const sp = pt.matrixTransform(ctm);
+    const r = wrap.getBoundingClientRect();
+    const x = sp.x - r.left, y = sp.y - r.top;
+    const inside = x > 0 && x < r.width && y > 0 && y < r.height;
+    callout.hidden = !inside;
+    if (!inside) return;
+    callout.innerHTML = calloutHtml;
+    const w = callout.offsetWidth, h = callout.offsetHeight;
+    let left = x - w / 2, top = y - h - 18;
+    let below = false;
+    if (top < 8) { top = y + 18; below = true; }
+    left = Math.max(8, Math.min(r.width - w - 8, left));
+    callout.classList.toggle("is-below", below);
+    callout.style.setProperty("--arrow-x", `${Math.max(14, Math.min(w - 14, x - left))}px`);
+    callout.style.transform = `translate(${left.toFixed(0)}px, ${top.toFixed(0)}px)`;
   }
 
   function animateTo(target) {
@@ -260,7 +397,9 @@ window.Atlas = window.Atlas || {};
    * dimOthers: fade everything but the selection
    * label(name): accessible label   labelText(name): text drawn on the map ("" hides it)
    */
-  function paint({ fills, selected, dimOthers, label, labelText }) {
+  function paint({ fills, selected, dimOthers, label, labelText, calloutHtml: co }) {
+    selectedName = selected || null;
+    calloutHtml = co || "";
     for (const [name, s] of shapes) {
       s.el.style.fill = fills[name] || "var(--nodata)";
       s.el.classList.toggle("is-selected", name === selected);
@@ -279,6 +418,9 @@ window.Atlas = window.Atlas || {};
     }
     const sel = selected && shapes.get(selected);
     if (sel) gShapes.appendChild(sel.el); // outline on top
+    wrap.classList.toggle("has-selection", Boolean(sel));
+    declutter();
+    placeCallout();
   }
 
   /* Village dots, only for villages with coordinates.

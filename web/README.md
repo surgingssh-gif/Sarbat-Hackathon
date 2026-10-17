@@ -80,13 +80,14 @@ web/
   js/chat.js          Ask Parvaaz panel
   js/app.js           ties it together: place + indicator + view -> rail, map, inspector
   geo/punjab_districts.geojson   district shapes
+  geo/context.geojson            neighbouring states, drawn faintly for orientation (optional)
   tools/build_preview.py         one-file preview builder
 ```
 
 ## Known gaps
 
 - **Malerkotla has no shape on the map.** The boundary file is 2011-era (22 districts), so Malerkotla sits inside Sangrur. Its numbers are in every list and chart. Replace `geo/punjab_districts.geojson` with a current 23-district file whose `name` property matches the data's district names.
-- **Boundary file license is unconfirmed** (from `udit-001/india-maps-data`, no license stated). Swap in a clearly licensed file before public release.
+- **Boundary and context files' license is unconfirmed** (from `udit-001/india-maps-data`, no license stated). Swap in a clearly licensed file before public release.
 - **Villages have no map positions yet.** The sample has no coordinates, so villages show as tiles under the map. Add `lat`/`lon` columns and dots appear automatically.
 - **The Punjabi text needs a native speaker's review.**
 - Learning levels (ASER) and village facilities (Mission Antyodaya) are shown as "Coming".

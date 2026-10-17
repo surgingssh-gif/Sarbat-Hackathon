@@ -12,6 +12,7 @@ window.Atlas = window.Atlas || {};
 Atlas.config = {
   dataUrl: "../data/punjab_geographic_indicators.csv",
   boundariesUrl: "geo/punjab_districts.geojson",
+  contextUrl: "geo/context.geojson", // neighbouring states, for orientation only
 
   // Source paths like "parvaazdata/vi_survey.csv" link to this repo.
   repoUrl: "https://github.com/surgingssh-gif/Sarbat-Hackathon/blob/main/",

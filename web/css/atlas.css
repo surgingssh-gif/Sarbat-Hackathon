@@ -28,7 +28,10 @@
   --bad: #b53466;
   --bad-soft: #fbe5ed;
   --nodata: #d6d9d4;
-  --map-sea: #e7eae5;
+  --map-sea: #eef1ed;
+  --ctx-land: #e2e6e0;
+  --ctx-ink: #9aa5a0;
+  --outline: #33404a;
   --map-stroke: #ffffff;
 
   --seq-good-0: #e2f0ec; --seq-good-1: #b0d6cc; --seq-good-2: #71b2a5; --seq-good-3: #2f8678; --seq-good-4: #0d5850;
@@ -56,7 +59,7 @@
   :root:not([data-theme="light"]) {
     --paper: #0f1517; --surface: #172024; --sunk: #1d272b; --ink: #e5ebe9; --muted: #9ba9ad; --faint: #6f7d82;
     --line: #2a363a; --accent: #9aa6f2; --accent-ink: #10162e; --accent-soft: #232b52; --gold: #f2b53b; --gold-soft: #3b2f12;
-    --good: #6fd0bd; --good-soft: #163a35; --bad: #f08cb1; --bad-soft: #3d1a29; --nodata: #2e383b; --map-sea: #131b1e; --map-stroke: #0f1517;
+    --good: #6fd0bd; --good-soft: #163a35; --bad: #f08cb1; --bad-soft: #3d1a29; --nodata: #2e383b; --map-sea: #0d1315; --ctx-land: #1a2326; --ctx-ink: #5f6e72; --outline: #c9d3d0; --map-stroke: #0f1517;
     --seq-good-0: #173431; --seq-good-1: #1d5249; --seq-good-2: #2a7b6d; --seq-good-3: #48a895; --seq-good-4: #93d8c8;
     --seq-bad-0: #3a1826; --seq-bad-1: #5d213a; --seq-bad-2: #8e345a; --seq-bad-3: #c75987; --seq-bad-4: #f3a1c0;
     --seq-neutral-0: #1d2243; --seq-neutral-1: #2c3572; --seq-neutral-2: #4652a3; --seq-neutral-3: #707dd0; --seq-neutral-4: #b2bbf0;
@@ -78,7 +81,7 @@
   --dot: rgba(229, 235, 233, 0.06);
   --paper: #0f1517; --surface: #172024; --sunk: #1d272b; --ink: #e5ebe9; --muted: #9ba9ad; --faint: #6f7d82;
   --line: #2a363a; --accent: #9aa6f2; --accent-ink: #10162e; --accent-soft: #232b52; --gold: #f2b53b; --gold-soft: #3b2f12;
-  --good: #6fd0bd; --good-soft: #163a35; --bad: #f08cb1; --bad-soft: #3d1a29; --nodata: #2e383b; --map-sea: #131b1e; --map-stroke: #0f1517;
+  --good: #6fd0bd; --good-soft: #163a35; --bad: #f08cb1; --bad-soft: #3d1a29; --nodata: #2e383b; --map-sea: #0d1315; --ctx-land: #1a2326; --ctx-ink: #5f6e72; --outline: #c9d3d0; --map-stroke: #0f1517;
   --seq-good-0: #173431; --seq-good-1: #1d5249; --seq-good-2: #2a7b6d; --seq-good-3: #48a895; --seq-good-4: #93d8c8;
   --seq-bad-0: #3a1826; --seq-bad-1: #5d213a; --seq-bad-2: #8e345a; --seq-bad-3: #c75987; --seq-bad-4: #f3a1c0;
   --seq-neutral-0: #1d2243; --seq-neutral-1: #2c3572; --seq-neutral-2: #4652a3; --seq-neutral-3: #707dd0; --seq-neutral-4: #b2bbf0;
@@ -668,3 +671,65 @@ svg { flex: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- map, cartographic pass ---------- */
+
+/* neighbouring states for orientation */
+.ctx-land { fill: var(--ctx-land); stroke: var(--ctx-land); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ctx-capital { fill: color-mix(in srgb, var(--ctx-land) 60%, var(--faint)); }
+.ctx-label {
+  font: italic 500 var(--ctx-size, 13px)/1 var(--font-display); fill: var(--ctx-ink); letter-spacing: 0.06em; pointer-events: none;
+}
+.ctx-city { pointer-events: none; }
+.ctx-city circle { fill: var(--ink); stroke: var(--surface); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.ctx-city text {
+  font: italic 600 var(--label-size, 11px)/1 var(--font-display); fill: var(--ink);
+  paint-order: stroke; stroke: color-mix(in srgb, var(--surface) 85%, transparent); stroke-width: var(--label-halo, 3px); stroke-linejoin: round;
+}
+
+/* Punjab: a crisp outer border and a soft shadow lifting it off the page */
+.outline path { fill: var(--surface); stroke: var(--outline); stroke-width: 3.2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.outline { filter: drop-shadow(0 10px 18px rgba(16, 24, 32, 0.16)) drop-shadow(0 2px 3px rgba(16, 24, 32, 0.08)); }
+
+.district {
+  stroke: var(--map-stroke); stroke-width: 1.1; stroke-linejoin: round;
+  transform-box: fill-box; transform-origin: center;
+  transition: fill 0.45s ease, opacity 0.3s ease, transform 0.18s ease, filter 0.18s ease;
+}
+.district:hover { stroke: var(--ink); stroke-width: 1.8; transform: translateY(-1.5%) scale(1.015); filter: drop-shadow(0 6px 10px rgba(16, 24, 32, 0.22)); }
+.district.is-selected { stroke: var(--ink); stroke-width: 3; filter: drop-shadow(0 6px 12px rgba(16, 24, 32, 0.25)); }
+.has-selection .district:not(.is-selected):not(:hover) { opacity: 0.88; }
+.district.is-dim { opacity: 0.35; }
+.is-dragging .district:hover { transform: none; filter: none; }
+
+/* labels: crowded ones hide until you hover their district */
+.district-label { transition: opacity 0.15s; }
+.district-label.is-crowded { opacity: 0; }
+.district-label.is-crowded.is-hover, .district-label.is-hover { opacity: 1; }
+
+/* entrance: districts settle in once */
+.is-entering .district { animation: district-in 0.6s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i, 0) * 28ms); }
+.is-entering .outline { animation: fade-in 0.6s ease both; }
+.is-entering .labels { animation: fade-in 0.5s ease 0.7s both; }
+@keyframes district-in { from { opacity: 0; transform: translateY(3%) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* value card pinned to the selected district */
+.map-callout {
+  position: absolute; left: 0; top: 0; z-index: 4; pointer-events: none;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+  padding: 9px 13px 10px; border-radius: 14px; background: var(--ink); color: var(--paper);
+  box-shadow: var(--shadow-pop); min-width: 120px; max-width: 220px;
+  transition: transform 0.25s cubic-bezier(.2,.7,.2,1);
+}
+.map-callout::after {
+  content: ""; position: absolute; left: var(--arrow-x, 50%); bottom: -6px; width: 12px; height: 12px;
+  background: var(--ink); transform: translateX(-50%) rotate(45deg); border-radius: 2px;
+}
+.map-callout.is-below::after { bottom: auto; top: -6px; }
+.map-callout strong { font-size: 12.5px; font-weight: 600; opacity: 0.8; }
+.map-callout .co-val { font-family: var(--font-display); font-size: 24px; font-weight: 650; line-height: 1.15; letter-spacing: -0.02em; }
+.map-callout .co-sub { font-size: 11.5px; opacity: 0.75; }
+.map-callout .co-row { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; margin-top: 3px; }
+.map-callout .ab { width: 18px; height: 18px; font-size: 10px; }
+.map-tip { z-index: 6; }

@@ -347,7 +347,10 @@ window.Atlas = window.Atlas || {};
     if (inline) {
       csv = inline.csv;
       geo = inline.boundaries;
+      Atlas.context = inline.context || null;
     } else {
+      // Neighbouring states are optional decoration; the atlas works without them.
+      Atlas.context = await fetch(Atlas.config.contextUrl).then((r) => (r.ok ? r.json() : null)).catch(() => null);
       const [a, b] = await Promise.all([fetch(Atlas.config.dataUrl), fetch(Atlas.config.boundariesUrl)]);
       if (!a.ok) throw new Error(`${Atlas.config.dataUrl} (${a.status})`);
       if (!b.ok) throw new Error(`${Atlas.config.boundariesUrl} (${b.status})`);
