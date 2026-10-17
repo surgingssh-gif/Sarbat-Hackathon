@@ -36,20 +36,46 @@ SURVEY_URLS = {
 
 # indicator id -> (test on a village row, column in the villages file)
 FACILITIES = {
-    "village_high_school_share": (lambda v: yes(v, "has_high_school") or yes(v, "has_senior_secondary_school"), "high_school"),
-    "village_health_centre_share": (lambda v: yes(v, "has_health_subcentre") or yes(v, "has_primary_health_centre") or yes(v, "has_community_health_centre"), "health_centre"),
-    "village_all_weather_road_share": (lambda v: yes(v, "has_all_weather_road"), "all_weather_road"),
-    "village_public_transport_share": (lambda v: yes(v, "has_public_transport"), "public_transport"),
-    "village_broadband_share": (lambda v: yes(v, "has_broadband"), "broadband"),
-    "village_piped_water_share": (lambda v: yes(v, "has_piped_water_in_every_habitation"), "piped_water"),
+    "village_high_school_share": (lambda v: any_flag(v, "has_high_school", "has_senior_secondary_school"), "high_school"),
+    "village_health_centre_share": (lambda v: any_flag(v, "has_health_subcentre", "has_primary_health_centre", "has_community_health_centre"), "health_centre"),
+    "village_all_weather_road_share": (lambda v: any_flag(v, "has_all_weather_road"), "all_weather_road"),
+    "village_public_transport_share": (lambda v: any_flag(v, "has_public_transport"), "public_transport"),
+    "village_broadband_share": (lambda v: any_flag(v, "has_broadband"), "broadband"),
+    "village_piped_water_share": (lambda v: any_flag(v, "has_piped_water_in_every_habitation"), "piped_water"),
 }
 
 COLUMNS = ["geography_level", "geography_id", "state", "district", "village", "indicator", "value", "unit", "year",
            "source_name", "source_url", "n_students", "n_villages", "is_suppressed", "data_status", "geography_status"]
 
 
-def yes(v, col):
-    return v.get(col, "").strip().upper() == "TRUE"
+TRUE_VALUES = {"TRUE", "T", "YES", "Y", "1", "1.0"}
+FALSE_VALUES = {"FALSE", "F", "NO", "N", "0", "0.0"}
+
+
+def flag(v, col):
+    """Parse a Sheet/CSV boolean without silently turning unknowns into false."""
+    raw = str(v.get(col, "") or "").strip().upper()
+    if not raw:
+        return None
+    if raw in TRUE_VALUES:
+        return True
+    if raw in FALSE_VALUES:
+        return False
+    raise ValueError(f"Unexpected boolean value {v.get(col)!r} in {col}")
+
+
+def any_flag(v, *cols):
+    """OR nullable boolean fields, preserving unknown when no field is true."""
+    values = [flag(v, col) for col in cols]
+    if any(value is True for value in values):
+        return True
+    if all(value is False for value in values):
+        return False
+    return None
+
+
+def csv_flag(value):
+    return "" if value is None else "1" if value else "0"
 
 
 def num(s):
@@ -126,7 +152,7 @@ def main(path):
     # Village facilities, summarised per district and for Punjab.
     by_d = defaultdict(list)
     for v in villages:
-        if v["facility_data_status"] == "observed":
+        if v["facility_data_status"].strip().lower() == "observed":
             by_d[v["district_name"]].append(v)
     groups = dict(by_d)
     groups[None] = [v for vs in by_d.values() for v in vs]
@@ -134,7 +160,10 @@ def main(path):
         level = "state" if d is None else "district"
         n = len(vs)
         for ind, (test, _) in FACILITIES.items():
-            add(level, d or "", ind, sum(1 for v in vs if test(v)) / n if n else None, "proportion", "2020",
+            values = [test(v) for v in vs]
+            if any(value is None for value in values):
+                raise ValueError(f"Observed villages contain null {ind} values in {d or 'Punjab'}")
+            add(level, d or "", ind, sum(values) / n if n else None, "proportion", "2020",
                 FACILITY_SOURCE, FACILITY_URL, n_villages=n, status="computed")
         # Households without a toilet: household-weighted across villages.
         hh = [(num(v["antyodaya_households"]) or 0, num(v["households_without_sanitary_latrine_share"])) for v in vs]
@@ -174,11 +203,14 @@ def main(path):
         w = csv.writer(f)
         w.writerow(vcols)
         for v in villages:
-            obs = v["facility_data_status"] == "observed"
+            obs = v["facility_data_status"].strip().lower() == "observed"
             pop = num(v["antyodaya_population"])
+            flags = [test(v) for test, _ in FACILITIES.values()]
+            if obs and any(value is None for value in flags):
+                raise ValueError(f"Observed village {v['lgd_village_code']} has a null service flag")
             w.writerow([v["lgd_village_code"], v["village_name"], v["district_name"], v["subdistrict_name"], v["development_block_name"],
                         v["latitude"], v["longitude"], int(pop) if pop else "", 1 if obs else 0] +
-                       [("1" if test(v) else "0") if obs else "" for test, _ in FACILITIES.values()] +
+                       [csv_flag(value) if obs else "" for value in flags] +
                        [v.get("crosswalk_match_method", ""), confidence(v.get("crosswalk_match_confidence", ""))])
 
     print(f"Wrote {OUT_ATLAS} ({len(rows)} rows) and {OUT_VILLAGES} ({len(villages)} villages)")
