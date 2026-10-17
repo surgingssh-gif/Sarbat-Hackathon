@@ -34,13 +34,15 @@
   --serif: var(--display);
 
   --gutter: clamp(16px, 3vw, 40px);
-  --maxw: 1320px;
+  --maxw: 1560px;
   --ease: cubic-bezier(.2, .7, .2, 1);
 }
 
 /* 2 ---------- base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+/* Everything at ~85% so a laptop screen shows the whole story at once. */
+html { zoom: .85; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 400 15px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
 html[lang="pa"] body, [lang="pa"] { font-family: var(--gurmukhi); }
 html[lang="pa"] .intro-title, html[lang="pa"] .ctx-title, html[lang="pa"] .ctx-name, html[lang="pa"] .research-title, html[lang="pa"] .sec-h { font-family: var(--gurmukhi); font-weight: 700; letter-spacing: 0; }
@@ -133,7 +135,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* 5 ---------- explore: map 60 / panel 40 ---------- */
 .explore { display: grid; grid-template-columns: minmax(0, 3fr) minmax(320px, 2fr); gap: 0 56px; align-items: start; }
 .mapfig { margin: 0; position: sticky; top: 140px; }
-.map-wrap { position: relative; height: min(580px, calc(100vh - 250px)); min-height: 400px; }
+.map-wrap { position: relative; height: min(640px, calc(117vh - 300px)); min-height: 400px; }
 /* soft edges: the map reads as an illustration, not a cropped box */
 .map-svg { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 4%, #000 96%, transparent 100%);
   -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 4%, #000 96%, transparent 100%); mask-composite: intersect; }
