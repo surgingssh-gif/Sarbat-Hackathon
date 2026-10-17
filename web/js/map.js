@@ -43,8 +43,9 @@ window.Atlas = window.Atlas || {};
 
   // ---------- basemap tiles (real roads, rivers, towns) ----------
 
-  const TILE_BASE = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}@2x.png";
-  const TILE_LABELS = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}@2x.png";
+  // Esri "Light Gray Canvas": free, no API key, quiet grey that keeps the data in front.
+  const TILE_BASE = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
+  const TILE_LABELS = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}";
   let gTiles, gTileLabels, tileState = "unknown", tilesQueued = false;
   const tileCache = new Map();
 
@@ -273,7 +274,7 @@ window.Atlas = window.Atlas || {};
     callout.hidden = true;
     const attr = document.createElement("p");
     attr.className = "map-attrib";
-    attr.innerHTML = 'Base map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, © <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>';
+    attr.innerHTML = 'Base map: Esri, HERE, Garmin, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
     el.append(svg, callout, tip, attr);
     // One entrance moment: districts settle in, then the class is removed.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
