@@ -143,6 +143,24 @@ def main(path):
         add(level, d or "", "household_no_latrine_share", sum(h * s for h, s in hh) / tot if tot else None, "proportion", "2020",
             FACILITY_SOURCE, FACILITY_URL, n_villages=len(hh), status="computed")
 
+    # Schools and students per district, counted from the (synthetic) secondary-school survey file.
+    school_file = ROOT / "parvaazdata" / "sec_school_survey.csv"
+    if school_file.exists():
+        fix = {"Firozpur": "Ferozepur", "Roop Nagar": "Rupnagar", "Shaheed Bhagat Singh Nagar": "Shahid Bhagat Singh Nagar",
+               "Shri Fatehgarh Sahib": "Fatehgarh Sahib", "Tarn Tarn": "Tarn Taran"}
+        schools, students = defaultdict(set), defaultdict(int)
+        with school_file.open(encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                d = fix.get(r["district"], r["district"])
+                schools[d].add(r["udise_code"]); students[d] += 1
+        src, url = "Parvaaz secondary-school survey", SURVEY_URLS["Parvaaz secondary-school survey"]
+        year = next((r["year"] for r in district_rows if r["source_name"] == src), "")
+        for d in sorted(schools):
+            add("district", d, "schools_surveyed", len(schools[d]), "count", year, src, url, n_students=students[d])
+            add("district", d, "students_surveyed", students[d], "count", year, src, url, n_students=students[d])
+        add("state", "", "schools_surveyed", sum(len(v) for v in schools.values()), "count", year, src, url, n_students=sum(students.values()), status="computed")
+        add("state", "", "students_surveyed", sum(students.values()), "count", year, src, url, n_students=sum(students.values()), status="computed")
+
     OUT_ATLAS.parent.mkdir(parents=True, exist_ok=True)
     with OUT_ATLAS.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=COLUMNS)

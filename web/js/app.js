@@ -18,7 +18,12 @@
     en: {
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
-      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average",
+      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average", overview: "Overview", topicDeck: "{place}: {say}. That ranks {pos} (Punjab: {pv}).", topicHidden: "{place}: too few students in this group to show safely (fewer than {n}).",
+      topicMeasures: "{t}, measure by measure", inVillages: "In its villages", inVillagesSub: "Basic services in the {n} of {all} villages with a 2020 record.",
+      vHasLacks: "{has} have it, {lack} don't (of {n}).", vNoHS: "Villages without a high school", studentsIn: "Students in this survey",
+      topicBlocksSub: "Share of villages with each service, sorted by {svc}. Click a block.", topicMapBlocks: "Blocks shaded by the share of villages without {svc} (darker = more without). Block areas are approximate.",
+      topicMapDistricts: "{m} across Punjab's districts. {place} is outlined.", fewerWithout: "Fewer without", moreWithout: "More without",
+      svcBB: "Internet", svcBBl: "Broadband", svcPT: "Bus", svcPTl: "Public transport",
       cmpTitle: "Does it go together?", cmpCompare: "Compare", cmpWithWord: "with", cmpKeyTrend: "Trend", cmpMore: "more", cmpLess: "less", cmpKeyRef: "Punjab average", cmpKeyDot: "One dot per district ({n})", cmpSub: "Compare this measure with another one across the 23 districts.", cmpWith: "Compare with",
       cmpSame: "Districts that score higher on {x} tend to score higher on {y}.", cmpOpp: "Districts that score higher on {x} tend to score lower on {y}.",
       cmpNone: "There's little or no link between {x} and {y} across districts.",
@@ -88,7 +93,12 @@
     pa: {
       brand: "ਪਰਵਾਜ਼ ਡਾਟਾ ਹੱਬ", byTitle: "ਪਰਵਾਜ਼ ਵੱਲੋਂ ਬਣਾਇਆ", byText: "ਪਰਵਾਜ਼ ਇੱਕ ਗੈਰ-ਮੁਨਾਫ਼ਾ ਸੰਸਥਾ ਹੈ ਜਿਸਨੇ ਪੰਜਾਬ ਦੇ ਹਰ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਦੇ ਲਗਭਗ 3 ਲੱਖ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ। ਇਹ ਹੱਬ ਜ਼ਿਲ੍ਹਾ-ਵਾਰ ਨਤੀਜੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ। ਅਸਲ ਜਵਾਬ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ, ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਔਸਤ।", edition: "ਪੰਜਾਬ ਐਡੀਸ਼ਨ", volume: "ਅੰਕ 1 · ਪਰਵਾਜ਼ ਵੱਲੋਂ", simLine: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
       darkMode: "ਗੂੜ੍ਹਾ", lightMode: "ਹਲਕਾ", findPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ",
-      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ",
+      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", overview: "ਸਾਰ", topicDeck: "{place}: {say}। ਇਹ {pos} ਹੈ (ਪੰਜਾਬ: {pv})।", topicHidden: "{place}: ਇਸ ਸਮੂਹ ਵਿੱਚ ਬਹੁਤ ਘੱਟ ਵਿਦਿਆਰਥੀ ({n} ਤੋਂ ਘੱਟ)।",
+      topicMeasures: "{t}, ਹਰ ਮਾਪ", inVillages: "ਇਸਦੇ ਪਿੰਡਾਂ ਵਿੱਚ", inVillagesSub: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {all} ਵਿੱਚੋਂ {n} ਪਿੰਡਾਂ ਵਿੱਚ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ।",
+      vHasLacks: "{n} ਵਿੱਚੋਂ {has} ਕੋਲ ਹੈ, {lack} ਕੋਲ ਨਹੀਂ।", vNoHS: "ਹਾਈ ਸਕੂਲ ਤੋਂ ਬਿਨਾਂ ਪਿੰਡ", studentsIn: "ਸਰਵੇਖਣ ਦੇ ਵਿਦਿਆਰਥੀ",
+      topicBlocksSub: "ਹਰ ਸਹੂਲਤ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ। ਬਲਾਕ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", topicMapBlocks: "ਬਲਾਕ {svc} ਤੋਂ ਬਿਨਾਂ ਪਿੰਡਾਂ ਮੁਤਾਬਕ ਰੰਗੇ (ਗੂੜ੍ਹਾ = ਵੱਧ ਬਿਨਾਂ)।",
+      topicMapDistricts: "ਪੰਜਾਬ ਦੇ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {m}। {place} ਉਭਾਰਿਆ।", fewerWithout: "ਘੱਟ ਬਿਨਾਂ", moreWithout: "ਵੱਧ ਬਿਨਾਂ",
+      svcBB: "ਇੰਟਰਨੈੱਟ", svcBBl: "ਬ੍ਰਾਡਬੈਂਡ", svcPT: "ਬੱਸ", svcPTl: "ਜਨਤਕ ਆਵਾਜਾਈ",
       cmpTitle: "ਕੀ ਇਹ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?", cmpCompare: "ਤੁਲਨਾ ਕਰੋ", cmpWithWord: "ਨਾਲ", cmpKeyTrend: "ਰੁਝਾਨ", cmpMore: "ਵੱਧ", cmpLess: "ਘੱਟ", cmpKeyRef: "ਪੰਜਾਬ ਔਸਤ", cmpKeyDot: "ਹਰ ਜ਼ਿਲ੍ਹੇ ਲਈ ਇੱਕ ਬਿੰਦੂ ({n})", cmpSub: "ਇਸ ਮਾਪ ਦੀ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ ਕਿਸੇ ਹੋਰ ਮਾਪ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।", cmpWith: "ਇਸ ਨਾਲ ਤੁਲਨਾ",
       cmpSame: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਵੀ ਵੱਧ ਹੈ।", cmpOpp: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਘੱਟ ਹੈ।",
       cmpNone: "ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਅਤੇ {y} ਦਾ ਕੋਈ ਖ਼ਾਸ ਸੰਬੰਧ ਨਹੀਂ।",
@@ -208,11 +218,13 @@
   function needColor() { const b = D.breaks(need().map((r) => r.score)); return (v) => (v == null ? "var(--nodata)" : `var(--seq-bad-${D.binOf(v, b)})`); }
   const areaLabel = (id) => Atlas.tr(Atlas.NEED_AREAS.find((a) => a.id === id).label);
   function posPhrase(ind, geoId) {
-    const m = D.meta(ind), rk = D.rank(ind, geoId);
+    const rk = D.rank(ind, geoId);
     if (!rk) return "";
-    const low = m.direction === "higher_better", k = low ? rk.total - rk.r + 1 : rk.r;
-    return k === 1 ? s(low ? "lowestOf" : "highestOf", { n: rk.total }) : s(low ? "nthLowest" : "nthHighest", { r: ordinal(k), n: rk.total });
+    const hi = rk.r, lo = rk.total - rk.r + 1;   // r = 1 is the highest value
+    if (hi <= lo) return hi === 1 ? s("highestOf", { n: rk.total }) : s("nthHighest", { r: ordinal(hi), n: rk.total });
+    return lo === 1 ? s("lowestOf", { n: rk.total }) : s("nthLowest", { r: ordinal(lo), n: rk.total });
   }
+
   function blockBin(v, list) { const vals = list.map((x) => x.need), lo = Math.min(...vals), hi = Math.max(...vals); return hi > lo ? Math.round(((v - lo) / (hi - lo)) * 4) : 2; }
   function deltaText(v, pv, ind) {
     if (v === null || pv === null || pv === undefined) return { t: "", c: "" };
@@ -524,6 +536,8 @@
     if (!dlg.open) { try { dlg.showModal(); } catch (e) { dlg.setAttribute("open", ""); } document.body.classList.add("modal-open"); }
     const bn = Atlas.Need.blockNeeds(g.name);
     if (state.block) { renderBlockSheet(g, bn); return; }
+    if (state.sheetFor !== state.sheet) { state.sheetFor = state.sheet; state.stopic = state.tab === "map" && state.ind ? themeOf(state.ind).id : "overview"; }
+    if (state.stopic !== "overview" && available().some((th) => th.id === state.stopic)) { renderTopicSheet(g); return; }
     const r = needOf(g), rows = need();
     const vs = Atlas.villages.filter((v) => v.district === g.name), nb = new Set(vs.map((v) => v.block)).size;
     const facts = [[s("needScore"), `${r.score}/100`], [s("rankLbl"), s("rankOf", { r: ordinal(r.rank), n: rows.length })], [s("villages"), vs.length.toLocaleString()], [s("blocks"), String(nb)]]
@@ -535,7 +549,7 @@
         <div class="meter-row ref"><span class="name">${esc(s("punjab"))}</span><span class="meter"><span style="width:${w(pv)}%;background:var(--ink-2)"></span></span><span class="val">${esc(D.fmt(pv, dr.ind))}</span></div>
         ${source(dr.ind, g)}</div>`;
     }).join("");
-    $("modal-body").innerHTML = `${sheetTop()}<h2 class="m-title">${esc(placeName(g))}</h2><p class="deck">${esc(districtDeck(r))}</p>
+    $("modal-body").innerHTML = `${sheetTop()}<h2 class="m-title">${esc(placeName(g))}</h2>${sheetTabs()}<p class="deck">${esc(districtDeck(r))}</p>
       <dl class="facts">${facts.map(([k, v, d]) => `<div><dt>${esc(k)}</dt><dd>${esc(String(v))}${d && d.t ? `<small class="${d.c}">${esc(d.t)}</small>` : ""}</dd></div>`).join("")}</dl>
       <div class="m-section"><h3 class="m-h">${esc(s("whyH"))}</h3>${reasons}</div>`;
     const heat = (p) => `<td class="r heatc h${Math.min(4, Math.floor(p * 5))}">${pct(p)}</td>`;
@@ -545,6 +559,98 @@
     $("modal-note").textContent = s("modalMap");
     $("modal-key").innerHTML = `<span>${esc(s("lessNeed"))}</span><i class="grad" style="background:${grad("bad")}"></i><span>${esc(s("moreNeed"))}</span>`;
     drawSheetMap(g, bn, null);
+    Atlas.Map.setVillages([], () => {}); $("map").classList.remove("has-dots");
+  }
+
+  // ---------- fact sheet: one topic in depth ----------
+  const VCOL = { high_school: ["svcHS", "svcHSl"], health_centre: ["svcHC", "svcHCl"], all_weather_road: ["svcRD", "svcRDl"], piped_water: ["svcPW", "svcPWl"],
+    broadband: ["svcBB", "svcBBl"], public_transport: ["svcPT", "svcPTl"] };
+  function sheetTabs() {
+    const tabs = [["overview", s("overview")]].concat(available().map((th) => [th.id, Atlas.tr(th.label)]));
+    return `<nav class="sheet-tabs" aria-label="${esc(s("factSheet"))}">${tabs.map(([id, l]) => `<button type="button" data-stopic="${id}"${state.stopic === id ? ' aria-current="true"' : ""}>${esc(l)}</button>`).join("")}</nav>`;
+  }
+  function topicCols(th) {
+    const cols = th.indicators.map((i) => D.meta(i).village).filter(Boolean);
+    if (th.id === "education" && !cols.includes("high_school")) cols.unshift("high_school");
+    return cols;
+  }
+  function blockShares(g, cols) {
+    const by = {};
+    for (const v of Atlas.villages) {
+      if (v.district !== g.name) continue;
+      const b = by[v.block] || (by[v.block] = { name: v.block, n: 0, rec: 0, has: {} });
+      b.n++; if (!v.hasData) continue; b.rec++;
+      for (const c of cols) if (v.raw[c] === "1") b.has[c] = (b.has[c] || 0) + 1;
+    }
+    return Object.values(by).map((b) => ({ ...b, share: Object.fromEntries(cols.map((c) => [c, b.rec ? (b.has[c] || 0) / b.rec : null])) }));
+  }
+  function measureBlock(i, g) {
+    const v = D.visible(i, g.id), pv = D.visible(i, stateId()), vals = D.districtValues(i).map((d) => d.value);
+    const m = D.meta(i), lo = m.format === "score" && m.scale ? m.scale[0] : 0, hi = Math.max(...vals, pv ?? 0) * 1.05 || 1, w = (x) => (x == null ? 0 : Math.max(1, Math.min(100, ((x - lo) / (hi - lo)) * 100))).toFixed(1);
+    const d = deltaText(v, pv, i);
+    return `<div class="reason"><div class="reason-h"><b>${esc(label(i))}</b><span class="muted">${esc(posPhrase(i, g.id))}</span></div>
+      <div class="meter-row"><span class="name">${esc(placeName(g))}</span><span class="meter"><span style="width:${w(v)}%;background:var(--good)"></span>${pv != null ? `<b style="left:${w(pv)}%"></b>` : ""}</span><span class="val">${esc(v == null ? s("hidden") : D.fmt(v, i))}</span></div>
+      <p class="reason-note">${esc(s("punjab"))} ${esc(D.fmt(pv, i))}${d.t ? ` · <span class="${d.c}">${esc(d.t)}</span>` : ""}</p>${source(i, g)}</div>`;
+  }
+  function renderTopicSheet(g) {
+    const th = available().find((x) => x.id === state.stopic), inds = th.indicators;
+    const lead = state.tab === "map" && inds.includes(state.ind) ? state.ind : inds[0];
+    const v = D.visible(lead, g.id), pv = D.visible(lead, stateId());
+    const deck = v == null ? s("topicHidden", { place: placeName(g), n: Atlas.config.minGroupSize })
+      : s("topicDeck", { place: placeName(g), say: D.say(lead, v), pos: posPhrase(lead, g.id), pv: D.fmt(pv, lead) });
+    const cols = topicCols(th), all = Atlas.villages.filter((x) => x.district === g.name), rec = all.filter((x) => x.hasData);
+    // key numbers: every measure in the topic + counts that matter for it
+    const facts = inds.map((i) => { const x = D.visible(i, g.id); return [short(i), x == null ? s("hidden") : D.fmt(x, i), deltaText(x, D.visible(i, stateId()), i)]; });
+    if (th.id === "education") {
+      ["schools_surveyed", "students_surveyed"].forEach((i) => { const x = D.visible(i, g.id); if (x != null) facts.unshift([label(i), D.fmt(x, i)]); });
+      const hs = rec.filter((x) => x.raw.high_school === "1").length;
+      facts.push([s("vNoHS"), `${(rec.length - hs).toLocaleString()} / ${rec.length.toLocaleString()}`]);
+    } else if (cols.length) {
+      facts.unshift([s("villages"), all.length.toLocaleString()], [s("tRecord"), rec.length.toLocaleString()]);
+    } else {
+      const r0 = D.rec(lead, g.id); if (r0 && r0.n) facts.unshift([s("studentsIn"), r0.n.toLocaleString()]);
+    }
+    const villageHtml = cols.length ? `<div class="m-section"><h3 class="m-h">${esc(s("inVillages"))}</h3><p class="chart-sub">${esc(s("inVillagesSub", { n: rec.length.toLocaleString(), all: all.length.toLocaleString() }))}</p>
+      ${cols.map((c) => { const has = rec.filter((x) => x.raw[c] === "1").length, sh = rec.length ? has / rec.length : 0;
+        return `<div class="meter-row"><span class="name">${esc(s(VCOL[c][1]))}</span><span class="meter"><span style="width:${(sh * 100).toFixed(1)}%;background:var(--good)"></span></span><span class="val">${pct(sh)}</span></div>
+          <p class="reason-note">${esc(s("vHasLacks", { has: has.toLocaleString(), lack: (rec.length - has).toLocaleString(), n: rec.length.toLocaleString() }))}</p>`; }).join("")}</div>` : "";
+    $("modal-body").innerHTML = `${sheetTop()}<h2 class="m-title">${esc(placeName(g))}</h2>${sheetTabs()}
+      <p class="kicker topic-kicker">${esc(Atlas.tr(th.label))}</p><p class="deck">${esc(deck)}</p>
+      <dl class="facts">${facts.map(([k, val, d]) => `<div><dt>${esc(k)}</dt><dd>${esc(String(val))}${d && d.t ? `<small class="${d.c}">${esc(d.t)}</small>` : ""}</dd></div>`).join("")}</dl>
+      <div class="m-section"><h3 class="m-h">${esc(s("topicMeasures", { t: Atlas.tr(th.label) }))}</h3>${inds.map((i) => measureBlock(i, g)).join("")}</div>${villageHtml}`;
+    // blocks table + map for topics with village data
+    if (cols.length) {
+      const bs = blockShares(g, cols).filter((b) => b.rec >= 3), key = D.meta(lead).village || cols[0];
+      const heat = (p) => p == null ? `<td class="r">–</td>` : `<td class="r heatc h${Math.min(4, Math.floor(p * 5))}">${pct(p)}</td>`;
+      $("modal-more").innerHTML = bs.length ? `<div class="m-section"><h3 class="m-h">${esc(s("blocksH"))}</h3><p class="chart-sub">${esc(s("topicBlocksSub", { svc: s(VCOL[key][1]).toLowerCase() }))}</p>
+        <div class="table-wrap"><table class="btable"><thead><tr><th>${esc(s("colBlock"))}</th><th class="r">${esc(s("villages"))}</th>${cols.map((c) => `<th class="r">${esc(s(VCOL[c][0]))}</th>`).join("")}</tr></thead>
+        <tbody>${bs.sort((a, b) => a.share[key] - b.share[key]).map((b) => `<tr class="click" data-href="${sheetUrl(g, b.name)}"><td><a class="t-link" href="${sheetUrl(g, b.name)}">${esc(b.name)}</a></td><td class="r tab">${b.rec}</td>${cols.map((c) => heat(b.share[c])).join("")}</tr>`).join("")}</tbody></table></div></div>` : "";
+      mapTo(".slot-modal");
+      const { fills } = paintNeedMap();
+      Atlas.Map.paint({ fills, selected: g.name, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
+      const lacks = bs.map((b) => 1 - b.share[key]), lo = Math.min(...lacks), hi = Math.max(...lacks), byB = Object.fromEntries(bs.map((b) => [b.name, b])), blocks = {};
+      for (const x of all) { if (blocks[x.block]) continue; const b = byB[x.block];
+        blocks[x.block] = { fill: b ? `var(--seq-bad-${hi > lo ? Math.round(((1 - b.share[key] - lo) / (hi - lo)) * 4) : 2})` : "var(--nodata)", label: x.block, value: "", selected: false,
+          tip: `<strong>${esc(x.block)}</strong>` + (b ? cols.map((c) => `<span class="tip-r">${esc(s(VCOL[c][1]))}: ${pct(b.share[c])}</span>`).join("") : "") }; }
+      Atlas.Map.setBlocks(g.name, all.map((x) => ({ lon: x.lon, lat: x.lat, key: x.block })), blocks, (k) => { location.hash = sheetUrl(g, k); });
+      onMapSelect = (n) => { const d = byName(n); if (d && d.id !== g.id) location.hash = sheetUrl(d); };
+      onMapHover = (n) => { const d = byName(n); return `<strong>${esc(d ? placeName(d) : n)}</strong>`; };
+      state.zoomed = undefined; zoom(g.name);
+      $("modal-note").textContent = s("topicMapBlocks", { svc: s(VCOL[key][1]).toLowerCase() });
+      $("modal-key").innerHTML = `<span>${esc(s("fewerWithout"))}</span><i class="grad" style="background:${grad("bad")}"></i><span>${esc(s("moreWithout"))}</span>`;
+    } else {
+      $("modal-more").innerHTML = "";
+      mapTo(".slot-modal");
+      const sc = scaleFor(lead), fills = {};
+      for (const d of D.districts()) fills[d.name] = sc.color(D.visible(lead, d.id));
+      Atlas.Map.setBlocks(null, [], {}, () => {});
+      Atlas.Map.paint({ fills, selected: g.name, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
+      onMapSelect = (n) => { const d = byName(n); if (d && d.id !== g.id) location.hash = sheetUrl(d); };
+      onMapHover = (n) => { const d = byName(n), x = d ? D.visible(lead, d.id) : null; return `<strong>${esc(d ? placeName(d) : n)}</strong><span class="tip-v">${esc(x == null ? s("hidden") : D.fmt(x, lead))}</span>`; };
+      state.zoomed = undefined; zoom(null);
+      $("modal-note").textContent = s("topicMapDistricts", { m: label(lead), place: placeName(g) });
+      $("modal-key").innerHTML = `<span>${esc(D.fmtShort(sc.min, lead))}</span><i class="grad" style="background:${grad(ramp(lead))}"></i><span>${esc(D.fmtShort(sc.max, lead))}</span>`;
+    }
     Atlas.Map.setVillages([], () => {}); $("map").classList.remove("has-dots");
   }
 
@@ -773,6 +879,8 @@
     document.addEventListener("click", (e) => {
       const ar = e.target.closest("[data-area]");
       if (ar) { const id = ar.dataset.area, on = state.areas.includes(id); if (on && state.areas.length === 1) return; state.areas = on ? state.areas.filter((x) => x !== id) : state.areas.concat(id); return render(); }
+      const st = e.target.closest("[data-stopic]");
+      if (st) { state.stopic = st.dataset.stopic; openSheet(); enter(document.querySelector(".modal-inner")); return; }
       const tc = e.target.closest(".topic-card");
       if (tc) {
         if (tc.getAttribute("aria-current")) { e.preventDefault(); state.mOpen = !state.mOpen; tc.setAttribute("aria-expanded", state.mOpen);

@@ -250,6 +250,7 @@ window.Atlas = window.Atlas || {};
     if (value === null || value === undefined || Number.isNaN(value)) return Atlas.t("noData");
     const m = meta(ind);
     if (m.format === "percent") return (value * 100).toFixed(1) + "%";
+    if (m.format === "count") return Math.round(value).toLocaleString("en-US");
     if (m.format === "years") {
       const n = value.toFixed(1);
       return bare ? n : `${n} ${Atlas.lang === "pa" ? "ਸਾਲ" : "yrs"}`;

@@ -503,3 +503,51 @@ district,district:tarn-taran,Punjab,Tarn Taran,,village_public_transport_share,0
 district,district:tarn-taran,Punjab,Tarn Taran,,village_broadband_share,0.163934,proportion,2020,Mission Antyodaya Village Facilities 2020 via SHRUG v2.2,https://docs.devdatalab.org/SHRUG-Metadata/Mission%20Antyodaya%20Village%20Facilities%20%282020%29/antyodaya-metadata/,,305,FALSE,public,computed
 district,district:tarn-taran,Punjab,Tarn Taran,,village_piped_water_share,0.386885,proportion,2020,Mission Antyodaya Village Facilities 2020 via SHRUG v2.2,https://docs.devdatalab.org/SHRUG-Metadata/Mission%20Antyodaya%20Village%20Facilities%20%282020%29/antyodaya-metadata/,,305,FALSE,public,computed
 district,district:tarn-taran,Punjab,Tarn Taran,,household_no_latrine_share,0.052970,proportion,2020,Mission Antyodaya Village Facilities 2020 via SHRUG v2.2,https://docs.devdatalab.org/SHRUG-Metadata/Mission%20Antyodaya%20Village%20Facilities%20%282020%29/antyodaya-metadata/,,305,FALSE,public,computed
+district,district:amritsar,Punjab,Amritsar,,schools_surveyed,226.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,50037,,FALSE,synthetic,supplied
+district,district:amritsar,Punjab,Amritsar,,students_surveyed,50037.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,50037,,FALSE,synthetic,supplied
+district,district:barnala,Punjab,Barnala,,schools_surveyed,90.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,15767,,FALSE,synthetic,supplied
+district,district:barnala,Punjab,Barnala,,students_surveyed,15767.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,15767,,FALSE,synthetic,supplied
+district,district:bathinda,Punjab,Bathinda,,schools_surveyed,204.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,38106,,FALSE,synthetic,supplied
+district,district:bathinda,Punjab,Bathinda,,students_surveyed,38106.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,38106,,FALSE,synthetic,supplied
+district,district:faridkot,Punjab,Faridkot,,schools_surveyed,85.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,15683,,FALSE,synthetic,supplied
+district,district:faridkot,Punjab,Faridkot,,students_surveyed,15683.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,15683,,FALSE,synthetic,supplied
+district,district:fatehgarh-sahib,Punjab,Fatehgarh Sahib,,schools_surveyed,81.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,14612,,FALSE,synthetic,supplied
+district,district:fatehgarh-sahib,Punjab,Fatehgarh Sahib,,students_surveyed,14612.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,14612,,FALSE,synthetic,supplied
+district,district:fazilka,Punjab,Fazilka,,schools_surveyed,151.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,34060,,FALSE,synthetic,supplied
+district,district:fazilka,Punjab,Fazilka,,students_surveyed,34060.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,34060,,FALSE,synthetic,supplied
+district,district:ferozepur,Punjab,Ferozepur,,schools_surveyed,126.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,24114,,FALSE,synthetic,supplied
+district,district:ferozepur,Punjab,Ferozepur,,students_surveyed,24114.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,24114,,FALSE,synthetic,supplied
+district,district:gurdaspur,Punjab,Gurdaspur,,schools_surveyed,207.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,41240,,FALSE,synthetic,supplied
+district,district:gurdaspur,Punjab,Gurdaspur,,students_surveyed,41240.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,41240,,FALSE,synthetic,supplied
+district,district:hoshiarpur,Punjab,Hoshiarpur,,schools_surveyed,270.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,41360,,FALSE,synthetic,supplied
+district,district:hoshiarpur,Punjab,Hoshiarpur,,students_surveyed,41360.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,41360,,FALSE,synthetic,supplied
+district,district:jalandhar,Punjab,Jalandhar,,schools_surveyed,275.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,47586,,FALSE,synthetic,supplied
+district,district:jalandhar,Punjab,Jalandhar,,students_surveyed,47586.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,47586,,FALSE,synthetic,supplied
+district,district:kapurthala,Punjab,Kapurthala,,schools_surveyed,132.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,18697,,FALSE,synthetic,supplied
+district,district:kapurthala,Punjab,Kapurthala,,students_surveyed,18697.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,18697,,FALSE,synthetic,supplied
+district,district:ludhiana,Punjab,Ludhiana,,schools_surveyed,346.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,64932,,FALSE,synthetic,supplied
+district,district:ludhiana,Punjab,Ludhiana,,students_surveyed,64932.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,64932,,FALSE,synthetic,supplied
+district,district:malerkotla,Punjab,Malerkotla,,schools_surveyed,55.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,9927,,FALSE,synthetic,supplied
+district,district:malerkotla,Punjab,Malerkotla,,students_surveyed,9927.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,9927,,FALSE,synthetic,supplied
+district,district:mansa,Punjab,Mansa,,schools_surveyed,131.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,24438,,FALSE,synthetic,supplied
+district,district:mansa,Punjab,Mansa,,students_surveyed,24438.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,24438,,FALSE,synthetic,supplied
+district,district:moga,Punjab,Moga,,schools_surveyed,168.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,25877,,FALSE,synthetic,supplied
+district,district:moga,Punjab,Moga,,students_surveyed,25877.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,25877,,FALSE,synthetic,supplied
+district,district:pathankot,Punjab,Pathankot,,schools_surveyed,81.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,16713,,FALSE,synthetic,supplied
+district,district:pathankot,Punjab,Pathankot,,students_surveyed,16713.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,16713,,FALSE,synthetic,supplied
+district,district:patiala,Punjab,Patiala,,schools_surveyed,205.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,44667,,FALSE,synthetic,supplied
+district,district:patiala,Punjab,Patiala,,students_surveyed,44667.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,44667,,FALSE,synthetic,supplied
+district,district:rupnagar,Punjab,Rupnagar,,schools_surveyed,114.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,19089,,FALSE,synthetic,supplied
+district,district:rupnagar,Punjab,Rupnagar,,students_surveyed,19089.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,19089,,FALSE,synthetic,supplied
+district,district:s-a-s-nagar,Punjab,S.A.S Nagar,,schools_surveyed,110.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,22281,,FALSE,synthetic,supplied
+district,district:s-a-s-nagar,Punjab,S.A.S Nagar,,students_surveyed,22281.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,22281,,FALSE,synthetic,supplied
+district,district:sangrur,Punjab,Sangrur,,schools_surveyed,170.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,32692,,FALSE,synthetic,supplied
+district,district:sangrur,Punjab,Sangrur,,students_surveyed,32692.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,32692,,FALSE,synthetic,supplied
+district,district:shahid-bhagat-singh-nagar,Punjab,Shahid Bhagat Singh Nagar,,schools_surveyed,104.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,15718,,FALSE,synthetic,supplied
+district,district:shahid-bhagat-singh-nagar,Punjab,Shahid Bhagat Singh Nagar,,students_surveyed,15718.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,15718,,FALSE,synthetic,supplied
+district,district:sri-muktsar-sahib,Punjab,Sri Muktsar Sahib,,schools_surveyed,153.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,26900,,FALSE,synthetic,supplied
+district,district:sri-muktsar-sahib,Punjab,Sri Muktsar Sahib,,students_surveyed,26900.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,26900,,FALSE,synthetic,supplied
+district,district:tarn-taran,Punjab,Tarn Taran,,schools_surveyed,173.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,27426,,FALSE,synthetic,supplied
+district,district:tarn-taran,Punjab,Tarn Taran,,students_surveyed,27426.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,27426,,FALSE,synthetic,supplied
+state,state:punjab,Punjab,,,schools_surveyed,3657.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,671922,,FALSE,synthetic,computed
+state,state:punjab,Punjab,,,students_surveyed,671922.000000,count,,Parvaaz secondary-school survey,parvaazdata/sec_school_survey.csv,671922,,FALSE,synthetic,computed

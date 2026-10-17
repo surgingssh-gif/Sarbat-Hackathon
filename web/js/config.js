@@ -220,6 +220,22 @@ Atlas.INDICATORS = {
     say: { en: "students surveyed are girls", pa: "ਸਰਵੇਖਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਕੁੜੀਆਂ ਹਨ" },
   },
 
+  // ----- counts from the secondary-school survey (shown on fact sheets, not mapped) -----
+  schools_surveyed: {
+    label: { en: "Government secondary schools", pa: "ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ" },
+    short: { en: "Schools surveyed", pa: "ਸਰਵੇਖਣ ਵਾਲੇ ਸਕੂਲ" },
+    desc: { en: "Government secondary schools in Parvaaz's survey.", pa: "ਪਰਵਾਜ਼ ਦੇ ਸਰਵੇਖਣ ਵਾਲੇ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ।" },
+    format: "count", direction: "neutral", tier: "detail",
+    say: { en: "government secondary schools surveyed", pa: "ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲਾਂ ਦਾ ਸਰਵੇਖਣ" },
+  },
+  students_surveyed: {
+    label: { en: "Students surveyed", pa: "ਸਰਵੇਖਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ" },
+    short: { en: "Students surveyed", pa: "ਵਿਦਿਆਰਥੀ" },
+    desc: { en: "Students in Parvaaz's secondary-school survey.", pa: "ਪਰਵਾਜ਼ ਦੇ ਸਰਵੇਖਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ।" },
+    format: "count", direction: "neutral", tier: "detail",
+    say: { en: "students surveyed", pa: "ਵਿਦਿਆਰਥੀ" },
+  },
+
   // ----- village facilities (Mission Antyodaya 2020 via SHRUG), summarised per district -----
   village_high_school_share: {
     label: { en: "Villages with a high school", pa: "ਹਾਈ ਸਕੂਲ ਵਾਲੇ ਪਿੰਡ" },
