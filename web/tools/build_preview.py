@@ -14,7 +14,7 @@ from pathlib import Path
 
 WEB = Path(__file__).resolve().parents[1]
 ROOT = WEB.parent
-SCRIPTS = ["config.js", "i18n.js", "data.js", "map.js", "charts.js", "chat.js", "app.js"]
+SCRIPTS = ["config.js", "i18n.js", "data.js", "map.js", "charts.js", "chat.js", "account.js", "app.js"]
 
 
 def main():
