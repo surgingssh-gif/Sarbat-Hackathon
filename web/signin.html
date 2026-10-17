@@ -4,21 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sign in · Punjab Data Hub</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600;6..72,700&family=Libre+Franklin:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;600&display=swap">
   <style>
     :root { --ink:#121212; --muted:#666; --line:#e2e2e2; --accent:#326891; --gold:#f2b134; }
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 16px;
-      background: radial-gradient(1200px 600px at 50% -10%, #e9eefc 0%, #f5f6f8 60%); color: var(--ink); font: 15px/1.5 "Plus Jakarta Sans", "Noto Sans Gurmukhi", system-ui, sans-serif; }
+      background: #fbfaf7; color: var(--ink); font: 15px/1.5 "Libre Franklin", "Noto Sans Gurmukhi", Arial, sans-serif; }
     .wrap { width: min(420px, 100%); }
     .brand { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 28px; text-decoration: none; color: var(--ink); }
-    .brand svg { width: 34px; height: 34px; }
-    .brand b { font: 700 22px/1 "Plus Jakarta Sans", system-ui, sans-serif; }
-    .card { background: #fff; border: 1px solid #eaecf0; border-radius: 20px; padding: 32px; box-shadow: 0 12px 40px rgba(16,24,40,.08); }
-    h1 { margin: 0; letter-spacing: -.02em; font: 700 26px/1.2 "Plus Jakarta Sans", system-ui, sans-serif; }
+    .brand svg { display: none; }
+    .brand b { font: 700 30px/1 "Newsreader", Georgia, serif; }
+    .card { background: #fff; border: 1px solid #eaecf0; border-radius: 4px; padding: 32px; box-shadow: none; border-top: 3px solid #121212; }
+    h1 { margin: 0; letter-spacing: -.02em; font: 700 26px/1.2 "Newsreader", Georgia, serif; }
     .sub { margin: 6px 0 22px; color: var(--muted); }
     label { display: flex; flex-direction: column; gap: 5px; font-size: 13px; font-weight: 600; margin-bottom: 14px; }
-    input, select { font: inherit; border: 1px solid #d0d5dd; border-radius: 10px; padding: 10px 12px; background: #fff; }
+    input, select { font: inherit; border: 1px solid #d0d5dd; border-radius: 3px; padding: 10px 12px; background: #fff; }
     input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .row label { min-width: 0; } select { width: 100%; min-width: 0; }
@@ -27,10 +27,10 @@
     .chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .chips label { margin: 0; flex-direction: row; }
     .chips input { position: absolute; opacity: 0; pointer-events: none; }
-    .chips span { border: 1px solid #cfcfcf; border-radius: 999px; padding: 6px 12px; font-weight: 600; cursor: pointer; font-size: 13px; }
+    .chips span { border: 1px solid #cfcfcf; border-radius: 3px; padding: 6px 12px; font-weight: 600; cursor: pointer; font-size: 13px; }
     .chips input:checked + span { background: var(--ink); color: #fff; border-color: var(--ink); }
     .chips input:focus-visible + span { outline: 2px solid var(--accent); }
-    button { width: 100%; border: 0; border-radius: 10px; padding: 12px; background: var(--ink); color: #fff; font: 700 15px/1 inherit; font-family: inherit; cursor: pointer; }
+    button { width: 100%; border: 0; border-radius: 3px; padding: 12px; background: var(--ink); color: #fff; font: 700 15px/1 inherit; font-family: inherit; cursor: pointer; }
     button:hover { background: #333; }
     .guest { text-decoration: none; display: block; text-align: center; margin-top: 16px; color: var(--accent); font-weight: 600; font-size: 14px; }
     .note { margin: 18px 0 0; font-size: 12px; color: var(--muted); text-align: center; }

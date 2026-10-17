@@ -848,20 +848,18 @@
       resetBtn.type = "button"; resetBtn.className = "map-reset"; resetBtn.textContent = "↺ Punjab";
       resetBtn.addEventListener("click", () => Atlas.Map.reset());
       $("map").appendChild(resetBtn);
-      document.querySelector(".lower").prepend($("table"));
-      // Topic picker lives in the side panel, right above the number it controls.
-      document.querySelector(".answer-body .mid").prepend($("topics"));
       // Map controls.
       const ctl = document.createElement("div"); ctl.className = "map-ctl";
-      ctl.innerHTML = `<button type="button" data-zoom="in" aria-label="Zoom in">+</button><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="reset" aria-label="Show all of Punjab">⤢</button>`;
+      ctl.innerHTML = `<button type="button" data-zoom="in" aria-label="Zoom in">+</button><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="reset" aria-label="Show all of Punjab">⟲</button>`;
       $("map").appendChild(ctl);
       ctl.addEventListener("click", (e) => { const z = e.target.dataset.zoom; if (z === "in") Atlas.Map.zoomBy(1.5); if (z === "out") Atlas.Map.zoomBy(1 / 1.5); if (z === "reset") Atlas.Map.reset(); });
-      // One surface: title + finding sit at the top of the map card, beside the key.
-      const head = document.querySelector(".answer-head"), mapbox = document.querySelector(".mapbox");
-      const top = document.createElement("div"); top.className = "mapbox-top";
-      top.append(head); mapbox.prepend(top);
-      // Title and key float over the map on glass panels.
-      $("map").append(top, $("key"));
+      $("map-expand").addEventListener("click", () => {
+        const on = !document.body.classList.contains("map-full");
+        document.body.classList.toggle("map-full", on);
+        $("map-expand").setAttribute("aria-pressed", String(on));
+        $("map-expand").textContent = on ? "Close full map" : "Expand map";
+      });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && document.body.classList.contains("map-full")) $("map-expand").click(); });
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind();
       render();

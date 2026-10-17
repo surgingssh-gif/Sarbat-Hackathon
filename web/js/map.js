@@ -189,7 +189,7 @@ window.Atlas = window.Atlas || {};
     const features = geojson.features || [];
     project = makeProjection(features);
     const H = Math.ceil(project.height);
-    fullBox = [-16, -16 - H * 0.2, W + 32, H * 1.2 + 32]; // room at the top for the floating title panel
+    fullBox = [-16, -16, W + 32, H + 32];
     box = fullBox.slice();
 
     svg = document.createElementNS(NS, "svg");
@@ -225,6 +225,16 @@ window.Atlas = window.Atlas || {};
     gBlockLabels.setAttribute("aria-hidden", "true");
     svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gBlocks, gLabels, gBlockLabels, gTop, gVillages);
     drawContext(opts.context);
+    // Re-fit whenever the map's box changes size (layout changes, full-screen toggle).
+    if (window.ResizeObserver) {
+      let last = "";
+      new ResizeObserver(() => {
+        const k = el.clientWidth + "x" + el.clientHeight;
+        if (k === last) return; last = k;
+        if (!wrap.classList.contains("is-zoomed")) { box = fullBox.slice(); }
+        applyBox();
+      }).observe(el);
+    }
 
     for (const f of features) {
       const name = f.properties.name || f.properties.district;
