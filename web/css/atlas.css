@@ -233,7 +233,19 @@ a.meter-row:hover .name { text-decoration: underline; }
 /* ---------- EXPLORE (home) ---------- */
 .explore-intro { margin-bottom: 14px; }
 .explore-intro .deck { margin-bottom: 12px; }
-.measure-pills { margin-bottom: 18px; }
+.picker { margin: 0 0 22px; border-top: 2px solid var(--rule); }
+.pick-row { display: grid; grid-template-columns: 82px 1fr; gap: 14px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--hair); }
+.pick-lbl { font: 800 10.5px/1.2 var(--sans); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+.topic-tabs { display: flex; flex-wrap: wrap; gap: 4px 26px; }
+.topic-tab { position: relative; padding: 4px 0; text-decoration: none; font: 600 18px/1.3 var(--serif); color: var(--muted); }
+.topic-tab:hover { color: var(--ink); }
+.topic-tab[aria-current] { color: var(--ink); font-weight: 700; }
+.topic-tab[aria-current]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -11px; height: 3px; background: var(--ink); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--ink); border-radius: 4px; overflow: hidden; justify-self: start; }
+.seg-btn { padding: 6px 14px; text-decoration: none; font: 600 13px/1.3 var(--sans); color: var(--ink-2); border-left: 1px solid var(--ink); }
+.seg-btn:first-child { border-left: 0; }
+.seg-btn:hover { background: var(--paper-2); color: var(--ink); }
+.seg-btn[aria-current] { background: var(--ink); color: var(--paper); }
 .chart-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; }
 .map-fig { margin: 0; min-width: 0; }
 .fig-title { margin: 0; font: 700 24px/1.2 var(--serif); }
@@ -402,6 +414,10 @@ footer { margin-top: 44px; border-top: 4px double var(--rule); padding-top: 12px
   .meter-row { grid-template-columns: 100px 1fr 56px; }
   .filters .count { margin-left: 0; }
   .chat { right: 12px; bottom: 12px; }
+  .pick-row { grid-template-columns: 1fr; gap: 6px; }
+  .topic-tabs { gap: 2px 18px; }
+  .topic-tab { font-size: 16px; }
+  .topic-tab[aria-current]::after { bottom: -2px; }
 }
 @media print {
   .topbar, .sections, .markets, .chat, footer, .modal-close, .modal-actions, .toast { display: none !important; }
