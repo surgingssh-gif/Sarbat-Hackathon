@@ -22,7 +22,7 @@
       topicMeasures: "{t}, measure by measure", inVillages: "In its villages", inVillagesSub: "Basic services in the {n} of {all} villages with a 2020 record.",
       vHasLacks: "{has} have it, {lack} don't (of {n}).", vNoHS: "Villages without a high school", studentsIn: "Students in this survey",
       topicBlocksSub: "Share of villages with each service, sorted by {svc}. Click a block.", topicMapBlocks: "Blocks shaded by the share of villages without {svc} (darker = more without). Block areas are approximate.",
-      topicMapDistricts: "{m} across Punjab's districts. {place} is outlined.", fewerWithout: "Fewer without", moreWithout: "More without",
+      topicMapDistricts: "{m}: survey figures exist for the whole district, so {place}'s blocks share one colour; neighbouring districts show their own. Hover a block for its village services.", fewerWithout: "Fewer without", moreWithout: "More without",
       svcBB: "Internet", svcBBl: "Broadband", svcPT: "Bus", svcPTl: "Public transport",
       cmpTitle: "Does it go together?", cmpCompare: "Compare", cmpWithWord: "with", cmpKeyTrend: "Trend", cmpMore: "more", cmpLess: "less", cmpKeyRef: "Punjab average", cmpKeyDot: "One dot per district ({n})", cmpSub: "Compare this measure with another one across the 23 districts.", cmpWith: "Compare with",
       cmpSame: "Districts that score higher on {x} tend to score higher on {y}.", cmpOpp: "Districts that score higher on {x} tend to score lower on {y}.",
@@ -97,7 +97,7 @@
       topicMeasures: "{t}, ਹਰ ਮਾਪ", inVillages: "ਇਸਦੇ ਪਿੰਡਾਂ ਵਿੱਚ", inVillagesSub: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {all} ਵਿੱਚੋਂ {n} ਪਿੰਡਾਂ ਵਿੱਚ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ।",
       vHasLacks: "{n} ਵਿੱਚੋਂ {has} ਕੋਲ ਹੈ, {lack} ਕੋਲ ਨਹੀਂ।", vNoHS: "ਹਾਈ ਸਕੂਲ ਤੋਂ ਬਿਨਾਂ ਪਿੰਡ", studentsIn: "ਸਰਵੇਖਣ ਦੇ ਵਿਦਿਆਰਥੀ",
       topicBlocksSub: "ਹਰ ਸਹੂਲਤ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ। ਬਲਾਕ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", topicMapBlocks: "ਬਲਾਕ {svc} ਤੋਂ ਬਿਨਾਂ ਪਿੰਡਾਂ ਮੁਤਾਬਕ ਰੰਗੇ (ਗੂੜ੍ਹਾ = ਵੱਧ ਬਿਨਾਂ)।",
-      topicMapDistricts: "ਪੰਜਾਬ ਦੇ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {m}। {place} ਉਭਾਰਿਆ।", fewerWithout: "ਘੱਟ ਬਿਨਾਂ", moreWithout: "ਵੱਧ ਬਿਨਾਂ",
+      topicMapDistricts: "{m}: ਸਰਵੇਖਣ ਅੰਕੜੇ ਪੂਰੇ ਜ਼ਿਲ੍ਹੇ ਦੇ ਹਨ, ਇਸ ਲਈ {place} ਦੇ ਬਲਾਕ ਇੱਕ ਰੰਗ ਵਿੱਚ ਹਨ। ਪਿੰਡ ਸਹੂਲਤਾਂ ਲਈ ਬਲਾਕ 'ਤੇ ਹੋਵਰ ਕਰੋ।", fewerWithout: "ਘੱਟ ਬਿਨਾਂ", moreWithout: "ਵੱਧ ਬਿਨਾਂ",
       svcBB: "ਇੰਟਰਨੈੱਟ", svcBBl: "ਬ੍ਰਾਡਬੈਂਡ", svcPT: "ਬੱਸ", svcPTl: "ਜਨਤਕ ਆਵਾਜਾਈ",
       cmpTitle: "ਕੀ ਇਹ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?", cmpCompare: "ਤੁਲਨਾ ਕਰੋ", cmpWithWord: "ਨਾਲ", cmpKeyTrend: "ਰੁਝਾਨ", cmpMore: "ਵੱਧ", cmpLess: "ਘੱਟ", cmpKeyRef: "ਪੰਜਾਬ ਔਸਤ", cmpKeyDot: "ਹਰ ਜ਼ਿਲ੍ਹੇ ਲਈ ਇੱਕ ਬਿੰਦੂ ({n})", cmpSub: "ਇਸ ਮਾਪ ਦੀ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ ਕਿਸੇ ਹੋਰ ਮਾਪ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।", cmpWith: "ਇਸ ਨਾਲ ਤੁਲਨਾ",
       cmpSame: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਵੀ ਵੱਧ ਹੈ।", cmpOpp: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਘੱਟ ਹੈ।",
@@ -643,11 +643,16 @@
       mapTo(".slot-modal");
       const sc = scaleFor(lead), fills = {};
       for (const d of D.districts()) fills[d.name] = sc.color(D.visible(lead, d.id));
-      Atlas.Map.setBlocks(null, [], {}, () => {});
       Atlas.Map.paint({ fills, selected: g.name, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
+      // survey figures are district-wide: every block takes the district's colour; tooltips still show village services
+      const bn = Atlas.Need.blockNeeds(g.name), byB = Object.fromEntries(bn.map((b) => [b.name, b])), blocks = {}, dc = sc.color(v);
+      for (const x of all) { if (blocks[x.block]) continue; const b = byB[x.block];
+        blocks[x.block] = { fill: dc, label: x.block, value: "", selected: false,
+          tip: `<strong>${esc(x.block)}</strong><span class="tip-r">${esc(placeName(g))}: ${esc(v == null ? s("hidden") : D.fmt(v, lead))}</span>` + (b ? SVC.map(([c, , l]) => `<span class="tip-r">${esc(s(l))}: ${pct(b.shares[c])}</span>`).join("") : "") }; }
+      Atlas.Map.setBlocks(g.name, all.map((x) => ({ lon: x.lon, lat: x.lat, key: x.block })), blocks, (k) => { location.hash = sheetUrl(g, k); });
       onMapSelect = (n) => { const d = byName(n); if (d && d.id !== g.id) location.hash = sheetUrl(d); };
       onMapHover = (n) => { const d = byName(n), x = d ? D.visible(lead, d.id) : null; return `<strong>${esc(d ? placeName(d) : n)}</strong><span class="tip-v">${esc(x == null ? s("hidden") : D.fmt(x, lead))}</span>`; };
-      state.zoomed = undefined; zoom(null);
+      state.zoomed = undefined; zoom(g.name);
       $("modal-note").textContent = s("topicMapDistricts", { m: label(lead), place: placeName(g) });
       $("modal-key").innerHTML = `<span>${esc(D.fmtShort(sc.min, lead))}</span><i class="grad" style="background:${grad(ramp(lead))}"></i><span>${esc(D.fmtShort(sc.max, lead))}</span>`;
     }
