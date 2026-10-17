@@ -19,7 +19,7 @@
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
       tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average",
-      cmpTitle: "Does it go together?", cmpSub: "Compare this measure with another one across the 23 districts.", cmpWith: "Compare with",
+      cmpTitle: "Does it go together?", cmpCompare: "Compare", cmpWithWord: "with", cmpKeyTrend: "Trend line", cmpKeyRef: "Punjab average", cmpKeyDot: "One dot per district ({n})", cmpSub: "Compare this measure with another one across the 23 districts.", cmpWith: "Compare with",
       cmpSame: "Districts that score higher on {x} tend to score higher on {y}.", cmpOpp: "Districts that score higher on {x} tend to score lower on {y}.",
       cmpNone: "There's little or no link between {x} and {y} across districts.",
       cmpStrong: "Strong link", cmpModerate: "Moderate link", cmpWeak: "Weak link", cmpNoLink: "No clear link",
@@ -89,7 +89,7 @@
       brand: "ਪਰਵਾਜ਼ ਡਾਟਾ ਹੱਬ", byTitle: "ਪਰਵਾਜ਼ ਵੱਲੋਂ ਬਣਾਇਆ", byText: "ਪਰਵਾਜ਼ ਇੱਕ ਗੈਰ-ਮੁਨਾਫ਼ਾ ਸੰਸਥਾ ਹੈ ਜਿਸਨੇ ਪੰਜਾਬ ਦੇ ਹਰ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਦੇ ਲਗਭਗ 3 ਲੱਖ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ। ਇਹ ਹੱਬ ਜ਼ਿਲ੍ਹਾ-ਵਾਰ ਨਤੀਜੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ। ਅਸਲ ਜਵਾਬ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ, ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਔਸਤ।", edition: "ਪੰਜਾਬ ਐਡੀਸ਼ਨ", volume: "ਅੰਕ 1 · ਪਰਵਾਜ਼ ਵੱਲੋਂ", simLine: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
       darkMode: "ਗੂੜ੍ਹਾ", lightMode: "ਹਲਕਾ", findPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ",
       tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ",
-      cmpTitle: "ਕੀ ਇਹ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?", cmpSub: "ਇਸ ਮਾਪ ਦੀ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ ਕਿਸੇ ਹੋਰ ਮਾਪ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।", cmpWith: "ਇਸ ਨਾਲ ਤੁਲਨਾ",
+      cmpTitle: "ਕੀ ਇਹ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?", cmpCompare: "ਤੁਲਨਾ ਕਰੋ", cmpWithWord: "ਨਾਲ", cmpKeyTrend: "ਰੁਝਾਨ ਰੇਖਾ", cmpKeyRef: "ਪੰਜਾਬ ਔਸਤ", cmpKeyDot: "ਹਰ ਜ਼ਿਲ੍ਹੇ ਲਈ ਇੱਕ ਬਿੰਦੂ ({n})", cmpSub: "ਇਸ ਮਾਪ ਦੀ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ ਕਿਸੇ ਹੋਰ ਮਾਪ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।", cmpWith: "ਇਸ ਨਾਲ ਤੁਲਨਾ",
       cmpSame: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਵੀ ਵੱਧ ਹੈ।", cmpOpp: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਘੱਟ ਹੈ।",
       cmpNone: "ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਅਤੇ {y} ਦਾ ਕੋਈ ਖ਼ਾਸ ਸੰਬੰਧ ਨਹੀਂ।",
       cmpStrong: "ਮਜ਼ਬੂਤ ਸੰਬੰਧ", cmpModerate: "ਦਰਮਿਆਨਾ ਸੰਬੰਧ", cmpWeak: "ਕਮਜ਼ੋਰ ਸੰਬੰਧ", cmpNoLink: "ਕੋਈ ਸਪਸ਼ਟ ਸੰਬੰਧ ਨਹੀਂ",
@@ -398,22 +398,57 @@
     for (const i of allIndicators()) { if (i === ind || themeOf(i).id === th.id) continue; const r = rOf(ind, i); if (r !== null && Math.abs(r) > bestR) { bestR = Math.abs(r); best = i; } }
     return (cmpAuto[ind] = best || allIndicators().find((i) => i !== ind));
   }
+  function compareChart(ps, xInd, yInd, refX, refY) {
+    const W = 640, H = 340, pad = { l: 54, r: 24, t: 18, b: 50 };
+    const ext = (v) => { const lo = Math.min(...v), hi = Math.max(...v), sp = hi - lo || Math.abs(hi) || 1; return [lo - sp * 0.1, hi + sp * 0.1]; };
+    const ticks = (lo, hi) => { const st0 = (hi - lo) / 4, mag = Math.pow(10, Math.floor(Math.log10(st0))), st = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((x) => x >= st0) || st0, out = [];
+      for (let v = Math.ceil(lo / st) * st; v <= hi + 1e-9; v += st) out.push(+v.toFixed(10)); return out; };
+    const tt = (v, ind) => { const m = D.meta(ind); return m.format === "percent" ? Math.round(v * 100) + "%" : m.format === "years" ? v.toFixed(v % 1 ? 1 : 0) : v.toFixed(2).replace(/0+$/, "").replace(/\.$/, ""); };
+    const [x0, x1] = ext(ps.map((p) => p.x)), [y0, y1] = ext(ps.map((p) => p.y));
+    const sx = (v) => pad.l + ((v - x0) / (x1 - x0)) * (W - pad.l - pad.r), sy = (v) => H - pad.b - ((v - y0) / (y1 - y0)) * (H - pad.t - pad.b);
+    const n = ps.length, mx = ps.reduce((a, p) => a + p.x, 0) / n, my = ps.reduce((a, p) => a + p.y, 0) / n;
+    const sxx = ps.reduce((a, p) => a + (p.x - mx) ** 2, 0), slope = sxx ? ps.reduce((a, p) => a + (p.x - mx) * (p.y - my), 0) / sxx : 0, yAt = (x) => my + slope * (x - mx);
+    // name the districts that stand out: ends of each axis + the furthest from the trend
+    const pick = new Set();
+    const by = (f) => ps.slice().sort((a, b) => f(b) - f(a))[0];
+    [by((p) => p.x), by((p) => -p.x), by((p) => p.y), by((p) => -p.y), by((p) => Math.abs(p.y - yAt(p.x)))].forEach((p) => p && pick.add(p.g.id));
+    const grid = ticks(x0, x1).map((v) => `<line class="grid" x1="${sx(v)}" x2="${sx(v)}" y1="${pad.t}" y2="${H - pad.b}"/><text class="tick" x="${sx(v)}" y="${H - pad.b + 18}" text-anchor="middle">${tt(v, xInd)}</text>`).join("") +
+      ticks(y0, y1).map((v) => `<line class="grid" x1="${pad.l}" x2="${W - pad.r}" y1="${sy(v)}" y2="${sy(v)}"/><text class="tick" x="${pad.l - 10}" y="${sy(v) + 4}" text-anchor="end">${tt(v, yInd)}</text>`).join("");
+    const refs = (refX != null && refX > x0 && refX < x1 ? `<line class="ref" x1="${sx(refX)}" x2="${sx(refX)}" y1="${pad.t}" y2="${H - pad.b}"/><text class="ref-t" x="${sx(refX) + 5}" y="${pad.t + 10}">${esc(s("punjab"))}</text>` : "") +
+      (refY != null && refY > y0 && refY < y1 ? `<line class="ref" x1="${pad.l}" x2="${W - pad.r}" y1="${sy(refY)}" y2="${sy(refY)}"/><text class="ref-t" x="${W - pad.r}" y="${sy(refY) - 5}" text-anchor="end">${esc(s("punjab"))}</text>` : "");
+    const clampY = (y) => Math.max(y0, Math.min(y1, y));
+    const trend = `<line class="trend" x1="${sx(x0)}" y1="${sy(clampY(yAt(x0)))}" x2="${sx(x1)}" y2="${sy(clampY(yAt(x1)))}"/>`;
+    // keep district names from sitting on top of each other
+    const ly = {};
+    ps.filter((p) => pick.has(p.g.id)).map((p) => ({ id: p.g.id, x: sx(p.x), y: sy(p.y) + 4 })).sort((a, b) => a.y - b.y)
+      .forEach((l, i, arr) => { for (let j = 0; j < i; j++) { const o = arr[j]; if (Math.abs(o.x - l.x) < 110 && l.y - o.y < 14) l.y = o.y + 14; } ly[l.id] = l.y; });
+    const dots = ps.map((p) => { const lab = pick.has(p.g.id), cx = sx(p.x), cy = sy(p.y), right = cx < W - 120;
+      const tip = `${placeName(p.g)}: ${D.fmt(p.x, xInd)}, ${D.fmt(p.y, yInd)}`;
+      return `<g class="cdot${lab ? " is-lab" : ""}" data-id="${esc(p.g.id)}" tabindex="0" role="button" aria-label="${esc(tip)}"><title>${esc(tip)}</title><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${lab ? 6 : 5}"/>` +
+        (lab ? `<text x="${(cx + (right ? 10 : -10)).toFixed(1)}" y="${ly[p.g.id].toFixed(1)}" text-anchor="${right ? "start" : "end"}">${esc(placeName(p.g))}</text>` : "") + `</g>`; }).join("");
+    return `<svg class="cmp-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label(xInd))} vs ${esc(label(yInd))}">${grid}${refs}${trend}${dots}
+      <text class="axis-title" x="${(pad.l + W - pad.r) / 2}" y="${H - 8}" text-anchor="middle">${esc(label(xInd))} →</text>
+      <text class="axis-title" transform="translate(14 ${(pad.t + H - pad.b) / 2}) rotate(-90)" text-anchor="middle">${esc(label(yInd))} →</text></svg>`;
+  }
   function renderCompare(ind) {
     if (!state.cmp || state.cmp === ind || !allIndicators().includes(state.cmp)) state.cmp = bestCompare(ind);
     const other = state.cmp, ps = districtPairs(ind, other), r = rOf(ind, other);
-    const a = Math.abs(r ?? 0), strength = a >= 0.7 ? "cmpStrong" : a >= 0.4 ? "cmpModerate" : a >= 0.2 ? "cmpWeak" : "cmpNoLink";
+    const a = Math.abs(r ?? 0), level = a >= 0.7 ? 4 : a >= 0.4 ? 3 : a >= 0.2 ? 2 : 1, strength = ["", "cmpNoLink", "cmpWeak", "cmpModerate", "cmpStrong"][level];
     const low = (x) => (/^[A-Z][a-z]/.test(x) ? x[0].toLowerCase() + x.slice(1) : x), lx = low(label(ind)), ly = low(label(other));
     const sentence = a < 0.2 ? s("cmpNone", { x: lx, y: ly }) : s(r > 0 ? "cmpSame" : "cmpOpp", { x: lx, y: ly });
     const opts = available().map((t) => `<optgroup label="${esc(Atlas.tr(t.label))}">${t.indicators.filter((i) => i !== ind).map((i) => `<option value="${esc(i)}"${i === other ? " selected" : ""}>${esc(label(i))}</option>`).join("")}</optgroup>`).join("");
-    const svg = Atlas.Charts.scatter({ points: ps.map((p) => ({ id: p.g.id, name: placeName(p.g), x: p.x, y: p.y })), xInd: ind, yInd: other, refX: D.visible(ind, stateId()), refY: D.visible(other, stateId()) });
     $("compare").innerHTML = `<div class="section-head"><h2>${esc(s("cmpTitle"))}</h2><p>${esc(s("cmpSub"))}</p></div>
-      <div class="cmp-grid"><div class="cmp-text">
-        <label class="cmp-pick"><span>${esc(s("cmpWith"))}</span><select id="cmp-sel">${opts}</select></label>
-        <p class="cmp-strength s-${strength}">${esc(s(strength))}</p>
-        <p class="cmp-sentence">${esc(sentence)}</p>
-        <p class="cmp-r">${esc(s("cmpR", { r: r === null ? "–" : r.toFixed(2), n: ps.length }))}</p>
-        <p class="cmp-caution">${esc(s("cmpCaution"))}</p>
-      </div><div class="cmp-chart">${svg}</div></div>`;
+      <p class="cmp-q">${esc(s("cmpCompare"))} <b>${esc(label(ind))}</b> ${esc(s("cmpWithWord"))} <span class="cmp-select"><select id="cmp-sel" aria-label="${esc(s("cmpWith"))}">${opts}</select></span></p>
+      <div class="cmp-grid">
+        <div class="cmp-chart">${compareChart(ps, ind, other, D.visible(ind, stateId()), D.visible(other, stateId()))}</div>
+        <div class="cmp-text">
+          <div class="cmp-meter lv${level}" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <p class="cmp-strength">${esc(s(strength))} <span>· r = ${r === null ? "–" : r.toFixed(2)}</span></p>
+          <p class="cmp-sentence">${esc(sentence)}</p>
+          <ul class="cmp-key"><li><i class="k-trend"></i>${esc(s("cmpKeyTrend"))}</li><li><i class="k-ref"></i>${esc(s("cmpKeyRef"))}</li><li><i class="k-dot"></i>${esc(s("cmpKeyDot", { n: ps.length }))}</li></ul>
+          <p class="cmp-caution">${esc(s("cmpCaution"))}</p>
+        </div>
+      </div>`;
   }
 
   // ---------- embed ----------
@@ -705,7 +740,7 @@
       if (th) { const k = th.dataset.sort; state.vdir = state.vsort === k ? -state.vdir : (k === "pop" ? -1 : 1); state.vsort = k; return renderVillages(); }
       if (e.target.closest("#vmore")) { state.vlimit += 100; return renderVillages(); }
       if (e.target.closest("#modal-close")) return closeSheet();
-      const dot = e.target.closest(".scatter .dot");
+      const dot = e.target.closest(".scatter .dot, .cmp-svg .cdot");
       if (dot) { const g = geo(dot.dataset.id); if (g) location.hash = sheetUrl(g); return; }
       if (e.target.closest("[data-copy-embed]")) { const ta = $("embed-code"); ta.select(); (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject()).then(() => toast(s("copiedCode")), () => document.execCommand && document.execCommand("copy")); return; }
       if (e.target.closest("[data-share]")) { (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(() => toast(s("copied")), () => toast(location.href)); return; }
