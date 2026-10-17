@@ -958,3 +958,10 @@ body.map-full .mapfig .map-wrap { outline-offset: 6px; margin: 14px 8px 8px; }
   font: 600 12.5px/1 var(--sans); padding: 7px 11px; cursor: pointer; }
 .map-back:hover { background: var(--ink); color: #fff; }
 .mapfig .map-note { min-height: 2.6em; }
+
+/* smooth block regions */
+.blk { stroke: #fff; stroke-width: 1.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; shape-rendering: geometricPrecision; }
+.blk:hover { filter: brightness(.94); }
+.blk.is-sel { stroke: var(--ink); stroke-width: 2.2; }
+.has-blocks .district.is-selected { fill-opacity: 1 !important; stroke: var(--ink); stroke-width: 1.6; }
+.blk-border { display: none; }

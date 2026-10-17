@@ -591,34 +591,74 @@ window.Atlas = window.Atlas || {};
     gBlocks.appendChild(defs);
     const g = document.createElementNS(NS, "g");
     g.setAttribute("clip-path", `url(#${clipId})`);
-    let html = "";
+    // 1) Assign every grid cell to the block of its nearest village.
     const grid = [];
     for (let r = 0; r < rows; r++) {
-      const rowKeys = []; grid.push(rowKeys);
-      const cy = by + (r + 0.5) * cell;
-      let runKey = null, runStart = 0;
-      const flush = (end) => {
-        if (runKey === null) return;
-        const b = blocks[runKey] || {};
-        html += `<rect x="${(bx + runStart * cell).toFixed(2)}" y="${(by + r * cell).toFixed(2)}" width="${((end - runStart) * cell + cell * 0.6).toFixed(2)}" height="${(cell * 1.6).toFixed(2)}" fill="${b.fill || "var(--nodata)"}" data-key="${String(runKey).replace(/"/g, "&quot;")}" class="blk${b.selected ? " is-sel" : ""}"/>`;
-      };
+      const cy = by + (r + 0.5) * cell, rowKeys = new Array(cols);
       for (let c = 0; c < cols; c++) {
         const cx = bx + (c + 0.5) * cell;
         let best = null, bd = Infinity;
         for (const p of pts) { const d = (p.x - cx) ** 2 + (p.y - cy) ** 2; if (d < bd) { bd = d; best = p.key; } }
-        rowKeys.push(best);
-        if (best !== runKey) { flush(c); runKey = best; runStart = c; }
+        rowKeys[c] = best;
       }
-      flush(cols);
+      grid.push(rowKeys);
     }
-    // Borders wherever neighbouring cells belong to different blocks.
-    let d = "";
-    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-      const k = grid[r][c], x = bx + c * cell, y = by + r * cell;
-      if (c + 1 < cols && grid[r][c + 1] !== k) d += `M${(x + cell).toFixed(2)} ${y.toFixed(2)}v${cell.toFixed(2)}`;
-      if (r + 1 < rows && grid[r + 1][c] !== k) d += `M${x.toFixed(2)} ${(y + cell).toFixed(2)}h${cell.toFixed(2)}`;
+    // 2) Trace each block's outline along cell edges, then smooth the staircase into curves.
+    const at = (r, c) => (r < 0 || c < 0 || r >= rows || c >= cols ? null : grid[r][c]);
+    const X = (c) => bx + c * cell, Y = (r) => by + r * cell;
+    function loopsFor(key) {
+      const next = new Map(); // "c,r" -> [c2, r2] (clockwise edges)
+      const add = (c1, r1, c2, r2) => { const k = c1 + "," + r1; (next.get(k) || next.set(k, []).get(k)).push([c2, r2]); };
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+        if (grid[r][c] !== key) continue;
+        if (at(r - 1, c) !== key) add(c, r, c + 1, r);
+        if (at(r, c + 1) !== key) add(c + 1, r, c + 1, r + 1);
+        if (at(r + 1, c) !== key) add(c + 1, r + 1, c, r + 1);
+        if (at(r, c - 1) !== key) add(c, r + 1, c, r);
+      }
+      const loops = [];
+      for (const [start, outs] of next) {
+        while (outs.length) {
+          const loop = [start.split(",").map(Number)];
+          let cur = outs.pop();
+          let guard = 0;
+          while (guard++ < 100000) {
+            const k = cur[0] + "," + cur[1];
+            if (k === start) break;
+            loop.push(cur);
+            const o = next.get(k);
+            if (!o || !o.length) break;
+            cur = o.pop();
+          }
+          if (loop.length > 3) loops.push(loop);
+        }
+      }
+      return loops;
     }
-    html += `<path class="blk-border" d="${d}"/>`;
+    function smooth(loop) {
+      // drop collinear points, then two passes of Chaikin corner cutting
+      let p = loop.filter((q, i) => {
+        const a = loop[(i - 1 + loop.length) % loop.length], b = loop[(i + 1) % loop.length];
+        return !((a[0] === q[0] && q[0] === b[0]) || (a[1] === q[1] && q[1] === b[1]));
+      }).map(([c, r]) => [X(c), Y(r)]);
+      for (let it = 0; it < 3 && p.length > 2; it++) {
+        const o = [];
+        for (let i = 0; i < p.length; i++) {
+          const a = p[i], b = p[(i + 1) % p.length];
+          o.push([a[0] * 0.75 + b[0] * 0.25, a[1] * 0.75 + b[1] * 0.25], [a[0] * 0.25 + b[0] * 0.75, a[1] * 0.25 + b[1] * 0.75]);
+        }
+        p = o;
+      }
+      return "M" + p.map((q) => q[0].toFixed(1) + " " + q[1].toFixed(1)).join("L") + "Z";
+    }
+    let html = "";
+    const keys = [...new Set(pts.map((p) => p.key))];
+    for (const k of keys) {
+      const b = blocks[k] || {};
+      const d = loopsFor(k).map(smooth).join("");
+      if (!d) continue;
+      html += `<path d="${d}" fill="${b.fill || "var(--nodata)"}" fill-rule="evenodd" data-key="${String(k).replace(/"/g, "&quot;")}" class="blk${b.selected ? " is-sel" : ""}"/>`;
+    }
     g.innerHTML = html;
     gBlocks.appendChild(g);
     g.addEventListener("click", (e) => { const k = e.target.dataset && e.target.dataset.key; if (k && !suppressClick) onSelect(k); });
