@@ -18,7 +18,21 @@
     en: {
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
-      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average", pickTopic: "Topic", pickMeasure: "Measures in this topic", measuresN: "{n} measures", tabVillages: "Villages", tabAbout: "How It Works",
+      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average",
+      cmpTitle: "Does it go together?", cmpSub: "Compare this measure with another one across the 23 districts.", cmpWith: "Compare with",
+      cmpSame: "Districts that score higher on {x} tend to score higher on {y}.", cmpOpp: "Districts that score higher on {x} tend to score lower on {y}.",
+      cmpNone: "There's little or no link between {x} and {y} across districts.",
+      cmpStrong: "Strong link", cmpModerate: "Moderate link", cmpWeak: "Weak link", cmpNoLink: "No clear link",
+      cmpR: "correlation r = {r}, {n} districts", cmpCaution: "A link between districts doesn't show that one causes the other. Click a dot for that district's fact sheet.",
+      embed: "Embed this map", embedHelp: "Paste this into any web page (for example Parvaaz's website). It shows this topic's map and numbers, without the rest of the site.", copy: "Copy code", copiedCode: "Code copied",
+      xwTitle: "How we matched the villages", xwSub: "Every village in the government's list, linked to the census and to public village records.",
+      xwList: "Villages in the official list", xwListSub: "Local Government Directory (LGD)", xwMatched: "Matched to census + SHRUG", xwMatchedSub: "{p} of all villages",
+      xwExact: "Matched by official code", xwExactSub: "confidence 1.00, no guessing", xwReview: "Sent to a person to check", xwReviewSub: "confidence between {lo} and {hi}",
+      xwRecord: "With a 2020 facility record", xwRecordSub: "the rest show as \u201cno record\u201d, never as \u201cno\u201d",
+      xwAcc: "Accuracy on hand-matched villages", xwAccPending: "Waiting for the hand-matched set", xwAccSub: "{c} of {n} hand-checked villages matched correctly", xwAccPendingSub: "add the results in js/config.js (crosswalk)",
+      xwHow: "How matching works", xwHow1: "Compare places only within the same district (and block) first.", xwHow2: "Use the official census code when it exists: an exact match scores 1.00.",
+      xwHow3: "Otherwise compare names after evening out spelling (aa/a, ee/i, w/v, double letters). \u201cKalan\u201d and \u201cKhurd\u201d are never removed: they are different villages.",
+      xwHow4: "Above {hi} is accepted, {lo}\u2013{hi} goes to a person, below {lo} stays unmatched.", colMatch: "Match", matchCode: "Code", pickTopic: "Topic", pickMeasure: "Measures in this topic", measuresN: "{n} measures", tabVillages: "Villages", tabAbout: "How It Works",
       kickerLead: "Where help is needed", leadHead: "{a}, {b} and {c} need help most",
       leadDeck: "Ranking Punjab's 23 districts on {areas}, these three come out furthest behind. Below: the five districts to look at first, and why.",
       sixty: "In 60 seconds", sMost: "Most need", sGap: "Biggest gap", sGapV: "{k} of {d} villages with a 2020 record have no high school; {h} have no health centre.",
@@ -74,7 +88,21 @@
     pa: {
       brand: "ਪਰਵਾਜ਼ ਡਾਟਾ ਹੱਬ", byTitle: "ਪਰਵਾਜ਼ ਵੱਲੋਂ ਬਣਾਇਆ", byText: "ਪਰਵਾਜ਼ ਇੱਕ ਗੈਰ-ਮੁਨਾਫ਼ਾ ਸੰਸਥਾ ਹੈ ਜਿਸਨੇ ਪੰਜਾਬ ਦੇ ਹਰ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਦੇ ਲਗਭਗ 3 ਲੱਖ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ। ਇਹ ਹੱਬ ਜ਼ਿਲ੍ਹਾ-ਵਾਰ ਨਤੀਜੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ। ਅਸਲ ਜਵਾਬ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ, ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਔਸਤ।", edition: "ਪੰਜਾਬ ਐਡੀਸ਼ਨ", volume: "ਅੰਕ 1 · ਪਰਵਾਜ਼ ਵੱਲੋਂ", simLine: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
       darkMode: "ਗੂੜ੍ਹਾ", lightMode: "ਹਲਕਾ", findPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ",
-      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", pickTopic: "ਵਿਸ਼ਾ", pickMeasure: "ਇਸ ਵਿਸ਼ੇ ਦੇ ਮਾਪ", measuresN: "{n} ਮਾਪ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
+      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ",
+      cmpTitle: "ਕੀ ਇਹ ਨਾਲ-ਨਾਲ ਚੱਲਦੇ ਹਨ?", cmpSub: "ਇਸ ਮਾਪ ਦੀ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ ਕਿਸੇ ਹੋਰ ਮਾਪ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।", cmpWith: "ਇਸ ਨਾਲ ਤੁਲਨਾ",
+      cmpSame: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਵੀ ਵੱਧ ਹੈ।", cmpOpp: "ਜਿਨ੍ਹਾਂ ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਵੱਧ ਹੈ, ਉੱਥੇ ਆਮ ਤੌਰ 'ਤੇ {y} ਘੱਟ ਹੈ।",
+      cmpNone: "ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚ {x} ਅਤੇ {y} ਦਾ ਕੋਈ ਖ਼ਾਸ ਸੰਬੰਧ ਨਹੀਂ।",
+      cmpStrong: "ਮਜ਼ਬੂਤ ਸੰਬੰਧ", cmpModerate: "ਦਰਮਿਆਨਾ ਸੰਬੰਧ", cmpWeak: "ਕਮਜ਼ੋਰ ਸੰਬੰਧ", cmpNoLink: "ਕੋਈ ਸਪਸ਼ਟ ਸੰਬੰਧ ਨਹੀਂ",
+      cmpR: "ਸਹਿ-ਸੰਬੰਧ r = {r}, {n} ਜ਼ਿਲ੍ਹੇ", cmpCaution: "ਸੰਬੰਧ ਦਾ ਮਤਲਬ ਇਹ ਨਹੀਂ ਕਿ ਇੱਕ ਦੂਜੇ ਦਾ ਕਾਰਨ ਹੈ। ਵੇਰਵੇ ਲਈ ਬਿੰਦੂ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
+      embed: "ਇਹ ਨਕਸ਼ਾ ਜੋੜੋ", embedHelp: "ਇਹ ਕੋਡ ਕਿਸੇ ਵੀ ਵੈੱਬਸਾਈਟ ਵਿੱਚ ਲਗਾਓ। ਇਹ ਸਿਰਫ਼ ਇਸ ਵਿਸ਼ੇ ਦਾ ਨਕਸ਼ਾ ਅਤੇ ਅੰਕੜੇ ਦਿਖਾਉਂਦਾ ਹੈ।", copy: "ਕੋਡ ਕਾਪੀ ਕਰੋ", copiedCode: "ਕੋਡ ਕਾਪੀ ਹੋਇਆ",
+      xwTitle: "ਅਸੀਂ ਪਿੰਡ ਕਿਵੇਂ ਮਿਲਾਏ", xwSub: "ਸਰਕਾਰੀ ਸੂਚੀ ਦਾ ਹਰ ਪਿੰਡ, ਜਨਗਣਨਾ ਅਤੇ ਜਨਤਕ ਰਿਕਾਰਡਾਂ ਨਾਲ ਜੁੜਿਆ।",
+      xwList: "ਸਰਕਾਰੀ ਸੂਚੀ ਦੇ ਪਿੰਡ", xwListSub: "ਲੋਕਲ ਗਵਰਨਮੈਂਟ ਡਾਇਰੈਕਟਰੀ (LGD)", xwMatched: "ਜਨਗਣਨਾ + SHRUG ਨਾਲ ਮਿਲੇ", xwMatchedSub: "ਸਾਰੇ ਪਿੰਡਾਂ ਦਾ {p}",
+      xwExact: "ਸਰਕਾਰੀ ਕੋਡ ਨਾਲ ਮਿਲੇ", xwExactSub: "ਭਰੋਸਾ 1.00, ਕੋਈ ਅੰਦਾਜ਼ਾ ਨਹੀਂ", xwReview: "ਜਾਂਚ ਲਈ ਵਿਅਕਤੀ ਕੋਲ ਭੇਜੇ", xwReviewSub: "ਭਰੋਸਾ {lo} ਤੋਂ {hi} ਵਿਚਕਾਰ",
+      xwRecord: "2020 ਸਹੂਲਤ ਰਿਕਾਰਡ ਵਾਲੇ", xwRecordSub: "ਬਾਕੀ \u201cਰਿਕਾਰਡ ਨਹੀਂ\u201d ਦਿਖਾਉਂਦੇ ਹਨ",
+      xwAcc: "ਹੱਥੀਂ ਜਾਂਚੇ ਪਿੰਡਾਂ 'ਤੇ ਸ਼ੁੱਧਤਾ", xwAccPending: "ਹੱਥੀਂ ਜਾਂਚਿਆ ਸੈੱਟ ਉਡੀਕ ਵਿੱਚ", xwAccSub: "{n} ਵਿੱਚੋਂ {c} ਸਹੀ ਮਿਲੇ", xwAccPendingSub: "ਨਤੀਜੇ js/config.js ਵਿੱਚ ਜੋੜੋ",
+      xwHow: "ਮਿਲਾਉਣ ਦਾ ਤਰੀਕਾ", xwHow1: "ਪਹਿਲਾਂ ਸਿਰਫ਼ ਇੱਕੋ ਜ਼ਿਲ੍ਹੇ (ਅਤੇ ਬਲਾਕ) ਵਿੱਚ ਤੁਲਨਾ।", xwHow2: "ਸਰਕਾਰੀ ਜਨਗਣਨਾ ਕੋਡ ਹੋਵੇ ਤਾਂ ਉਹ ਵਰਤੋ: ਸਹੀ ਮਿਲਾਨ = 1.00।",
+      xwHow3: "ਨਹੀਂ ਤਾਂ ਸ਼ਬਦ-ਜੋੜ ਬਰਾਬਰ ਕਰਕੇ ਨਾਵਾਂ ਦੀ ਤੁਲਨਾ। \u201cਕਲਾਂ\u201d ਅਤੇ \u201cਖ਼ੁਰਦ\u201d ਕਦੇ ਨਹੀਂ ਹਟਾਏ ਜਾਂਦੇ।",
+      xwHow4: "{hi} ਤੋਂ ਉੱਪਰ ਮਨਜ਼ੂਰ, {lo}\u2013{hi} ਵਿਅਕਤੀ ਕੋਲ, {lo} ਤੋਂ ਹੇਠਾਂ ਬਿਨਾਂ ਮਿਲਾਨ।", colMatch: "ਮਿਲਾਨ", matchCode: "ਕੋਡ", pickTopic: "ਵਿਸ਼ਾ", pickMeasure: "ਇਸ ਵਿਸ਼ੇ ਦੇ ਮਾਪ", measuresN: "{n} ਮਾਪ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
       kickerLead: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", leadHead: "{a}, {b} ਅਤੇ {c} ਨੂੰ ਸਭ ਤੋਂ ਵੱਧ ਮਦਦ ਦੀ ਲੋੜ",
       leadDeck: "{areas} ਵਿੱਚ ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰਨ 'ਤੇ ਇਹ ਤਿੰਨ ਸਭ ਤੋਂ ਪਿੱਛੇ ਹਨ। ਹੇਠਾਂ: ਪਹਿਲਾਂ ਦੇਖਣ ਵਾਲੇ ਪੰਜ ਜ਼ਿਲ੍ਹੇ।",
       sixty: "60 ਸਕਿੰਟਾਂ ਵਿੱਚ", sMost: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ", sGap: "ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਟ", sGapV: "ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਨਹੀਂ; {h} ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਨਹੀਂ।",
@@ -336,10 +364,14 @@
       <p class="hero-note">${esc(pv === null ? "" : D.say(ind, pv).replace(/^\w/, (c) => c.toUpperCase()))}</p>
       ${hi ? `<p class="find-note">${s("findingTopic", { hi: esc(placeName(hi.geo)), hiV: esc(D.fmt(hi.value, ind)), lo: esc(placeName(lo.geo)), loV: esc(D.fmt(lo.value, ind)) })}</p>` : ""}
       ${source(ind, geo(stateId()))}
+      <details class="embed-box"><summary>${esc(s("embed"))}</summary><p>${esc(s("embedHelp"))}</p>
+        <textarea readonly rows="3" id="embed-code">${esc(embedCode(ind))}</textarea><button type="button" class="btn btn-sm" data-copy-embed>${esc(s("copy"))}</button></details>
       <div class="ranking"><h3>${esc(s("rankTitle"))}</h3>${list.map((d, i) => `<a class="meter-row" href="${sheetUrl(d.geo)}" data-name="${esc(d.geo.name)}">
         <span class="name">${i + 1}. ${esc(placeName(d.geo))}</span><span class="meter"><span style="width:${pos(d.value).toFixed(1)}%;background:${sc.color(d.value)}"></span>${pv !== null ? `<b style="left:${pos(pv).toFixed(1)}%"></b>` : ""}</span>
         <span class="val">${esc(D.fmt(d.value, ind))}</span></a>`).join("")}
       ${pv !== null ? `<p class="legend-note"><i class="tick"></i>${esc(s("punjabAvg"))} ${esc(D.fmt(pv, ind))}</p>` : ""}</div>`;
+    renderCompare(ind);
+    if (document.body.classList.contains("embed")) $("embed-credit").href = embedBase() + "#explore/" + ind;
     if (!state.sheet) {
       mapTo(".slot-map");
       const fills = {};
@@ -350,6 +382,45 @@
       onMapHover = (n) => { const d = byName(n), v = d ? D.visible(ind, d.id) : null, rk = d && D.rank(ind, d.id);
         return `<strong>${esc(d ? placeName(d) : n)}</strong><span class="tip-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>${rk ? `<span class="tip-r">${esc(s("rankOf", { r: ordinal(rk.r), n: rk.total }))}</span>` : ""}`; };
     }
+  }
+
+  // ---------- compare two measures ----------
+
+  const cmpAuto = {};
+  function districtPairs(a, b) {
+    return D.districts().map((g) => ({ g, x: D.visible(a, g.id), y: D.visible(b, g.id) })).filter((p) => p.x !== null && p.y !== null);
+  }
+  function rOf(a, b) { const ps = districtPairs(a, b); return ps.length >= 5 ? D.pearson(ps.map((p) => p.x), ps.map((p) => p.y)) : null; }
+  function bestCompare(ind) {
+    if (cmpAuto[ind]) return cmpAuto[ind];
+    const th = themeOf(ind);
+    let best = null, bestR = -1;
+    for (const i of allIndicators()) { if (i === ind || themeOf(i).id === th.id) continue; const r = rOf(ind, i); if (r !== null && Math.abs(r) > bestR) { bestR = Math.abs(r); best = i; } }
+    return (cmpAuto[ind] = best || allIndicators().find((i) => i !== ind));
+  }
+  function renderCompare(ind) {
+    if (!state.cmp || state.cmp === ind || !allIndicators().includes(state.cmp)) state.cmp = bestCompare(ind);
+    const other = state.cmp, ps = districtPairs(ind, other), r = rOf(ind, other);
+    const a = Math.abs(r ?? 0), strength = a >= 0.7 ? "cmpStrong" : a >= 0.4 ? "cmpModerate" : a >= 0.2 ? "cmpWeak" : "cmpNoLink";
+    const low = (x) => (/^[A-Z][a-z]/.test(x) ? x[0].toLowerCase() + x.slice(1) : x), lx = low(label(ind)), ly = low(label(other));
+    const sentence = a < 0.2 ? s("cmpNone", { x: lx, y: ly }) : s(r > 0 ? "cmpSame" : "cmpOpp", { x: lx, y: ly });
+    const opts = available().map((t) => `<optgroup label="${esc(Atlas.tr(t.label))}">${t.indicators.filter((i) => i !== ind).map((i) => `<option value="${esc(i)}"${i === other ? " selected" : ""}>${esc(label(i))}</option>`).join("")}</optgroup>`).join("");
+    const svg = Atlas.Charts.scatter({ points: ps.map((p) => ({ id: p.g.id, name: placeName(p.g), x: p.x, y: p.y })), xInd: ind, yInd: other, refX: D.visible(ind, stateId()), refY: D.visible(other, stateId()) });
+    $("compare").innerHTML = `<div class="section-head"><h2>${esc(s("cmpTitle"))}</h2><p>${esc(s("cmpSub"))}</p></div>
+      <div class="cmp-grid"><div class="cmp-text">
+        <label class="cmp-pick"><span>${esc(s("cmpWith"))}</span><select id="cmp-sel">${opts}</select></label>
+        <p class="cmp-strength s-${strength}">${esc(s(strength))}</p>
+        <p class="cmp-sentence">${esc(sentence)}</p>
+        <p class="cmp-r">${esc(s("cmpR", { r: r === null ? "–" : r.toFixed(2), n: ps.length }))}</p>
+        <p class="cmp-caution">${esc(s("cmpCaution"))}</p>
+      </div><div class="cmp-chart">${svg}</div></div>`;
+  }
+
+  // ---------- embed ----------
+
+  function embedBase() { return location.href.split("#")[0].split("?")[0]; }
+  function embedCode(ind) {
+    return `<iframe src="${embedBase()}?embed=1#explore/${ind}" title="Parvaaz Data Hub: ${label(ind)}" width="100%" height="820" style="border:0" loading="lazy"></iframe>`;
   }
 
   // ---------- VILLAGES (the record) ----------
@@ -366,6 +437,13 @@
     if ($("vq").value !== state.vq) $("vq").value = state.vq;
   }
   const VCOLS = [["name", "colVillage"], ["block", "colBlock"], ["district", "colDistrict"], ["pop", "colPop", "r"], ["svc", "colSvc", "r"]];
+  function matchCell(v) {
+    const c = parseFloat(v.raw.match_confidence), x = Atlas.config.crosswalk || {};
+    if (!(c >= 0)) return `<td class="c na">–</td>`;
+    const band = c > (x.autoAccept ?? 0.9) ? "ok" : c >= (x.reviewFloor ?? 0.6) ? "rev" : "no";
+    const how = /census|code/.test(v.raw.match_method || "") ? s("matchCode") : v.raw.match_method;
+    return `<td class="c"><span class="conf conf-${band}" title="${esc(v.raw.match_method || "")}">${esc(how)} ${c.toFixed(2)}</span></td>`;
+  }
   function renderVillages() {
     const q = state.vq.trim().toLowerCase();
     let vs = Atlas.villages.filter((v) => (!state.vd || v.district === state.vd) && (!state.vb || v.block === state.vb) && (!q || v.name.toLowerCase().includes(q)) &&
@@ -374,13 +452,13 @@
     vs.sort((a, b) => { const x = key(a), y = key(b); return (x < y ? -1 : x > y ? 1 : 0) * state.vdir || (b.population || 0) - (a.population || 0); });
     if (state.vhl) vs = vs.filter((v) => v.code === state.vhl).concat(vs.filter((v) => v.code !== state.vhl));
     const arrow = (k) => (state.vsort === k ? (state.vdir > 0 ? "↑" : "↓") : "↕");
-    $("vtable").querySelector("thead").innerHTML = `<tr>${VCOLS.map(([k, l, r]) => `<th class="${r || ""}" aria-sort="${state.vsort === k ? (state.vdir > 0 ? "ascending" : "descending") : "none"}"><button type="button" data-sort="${k}">${esc(s(l))} <span class="arr">${arrow(k)}</span></button></th>`).join("")}${SVC.map(([, k]) => `<th class="c">${esc(s(k))}</th>`).join("")}</tr>`;
+    $("vtable").querySelector("thead").innerHTML = `<tr>${VCOLS.map(([k, l, r]) => `<th class="${r || ""}" aria-sort="${state.vsort === k ? (state.vdir > 0 ? "ascending" : "descending") : "none"}"><button type="button" data-sort="${k}">${esc(s(l))} <span class="arr">${arrow(k)}</span></button></th>`).join("")}${SVC.map(([, k]) => `<th class="c">${esc(s(k))}</th>`).join("")}<th class="c">${esc(s("colMatch"))}</th></tr>`;
     const cell = (v, c) => (!v.hasData ? `<td class="c na">–</td>` : v.raw[c] === "1" ? `<td class="c yes">✓</td>` : `<td class="c no">✗</td>`);
     $("vtable").querySelector("tbody").innerHTML = vs.slice(0, state.vlimit).map((v) => { const d = byName(v.district);
       return `<tr class="${v.code === state.vhl ? "is-hl" : ""}"><td><span class="t">${esc(v.name.replace(/\s*\(\d+\)$/, ""))}</span>${v.hasData ? "" : ` <span class="co">${esc(s("noRecord"))}</span>`}</td>
         <td>${d ? `<a class="t-link" href="${sheetUrl(d, v.block)}">${esc(v.block)}</a>` : esc(v.block)}</td><td>${d ? `<a class="t-link" href="${sheetUrl(d)}">${esc(placeName(d))}</a>` : esc(v.district)}</td>
-        <td class="r tab">${v.population ? v.population.toLocaleString() : ""}</td><td class="r tab">${v.hasData ? svcCount(v) + "/4" : "–"}</td>${SVC.map(([c]) => cell(v, c)).join("")}</tr>`; }).join("") ||
-      `<tr><td colspan="9" class="muted">${esc(s("noResults"))}</td></tr>`;
+        <td class="r tab">${v.population ? v.population.toLocaleString() : ""}</td><td class="r tab">${v.hasData ? svcCount(v) + "/4" : "–"}</td>${SVC.map(([c]) => cell(v, c)).join("")}${matchCell(v)}</tr>`; }).join("") ||
+      `<tr><td colspan="10" class="muted">${esc(s("noResults"))}</td></tr>`;
     $("vcount").textContent = s("vcount", { n: vs.length.toLocaleString() });
     $("vmore").hidden = vs.length <= state.vlimit;
     $("vmore").textContent = s("vmore");
@@ -551,7 +629,28 @@
     const t = document.documentElement.dataset.theme;
     return t ? t === "dark" : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
+  function renderCrosswalk() {
+    const vs = Atlas.villages, n = vs.length, x = Atlas.config.crosswalk || {};
+    const hi = x.autoAccept ?? 0.9, lo = x.reviewFloor ?? 0.6;
+    const conf = (v) => parseFloat(v.raw.match_confidence);
+    const matched = vs.filter((v) => conf(v) >= 0).length, exact = vs.filter((v) => conf(v) >= 0.999).length;
+    const review = vs.filter((v) => conf(v) >= lo && conf(v) <= hi).length, rec = vs.filter((v) => v.hasData).length;
+    const pct = (k) => (n ? ((k / n) * 100).toFixed(1) + "%" : "–");
+    const accReady = x.handMatchedTotal > 0 && x.handMatchedCorrect != null;
+    const tile = (lbl, val, sub, cls = "") => `<div class="xw-tile ${cls}"><div class="label">${esc(lbl)}</div><div class="value">${esc(val)}</div><div class="sub">${esc(sub)}</div></div>`;
+    $("xw").innerHTML = `<div class="xw-tiles">
+        ${tile(s("xwAcc"), accReady ? ((x.handMatchedCorrect / x.handMatchedTotal) * 100).toFixed(1) + "%" : "—", accReady ? s("xwAccSub", { c: x.handMatchedCorrect, n: x.handMatchedTotal }) : s("xwAccPendingSub"), "xw-acc" + (accReady ? "" : " is-pending"))}
+        ${tile(s("xwList"), n.toLocaleString(), s("xwListSub"))}
+        ${tile(s("xwMatched"), matched.toLocaleString(), s("xwMatchedSub", { p: pct(matched) }))}
+        ${tile(s("xwExact"), exact.toLocaleString(), s("xwExactSub"))}
+        ${tile(s("xwReview"), review.toLocaleString(), s("xwReviewSub", { lo: lo.toFixed(1), hi: hi.toFixed(1) }))}
+        ${tile(s("xwRecord"), rec.toLocaleString(), s("xwRecordSub"))}
+      </div>
+      ${accReady ? "" : `<p class="xw-pending">${esc(s("xwAccPending"))}.</p>`}
+      <div class="xw-how"><h3>${esc(s("xwHow"))}</h3><ol>${["xwHow1", "xwHow2", "xwHow3", "xwHow4"].map((k) => `<li>${esc(s(k, { hi: hi.toFixed(1), lo: lo.toFixed(1) }))}</li>`).join("")}</ol></div>`;
+  }
   function renderAbout() {
+    renderCrosswalk();
     $("about-cols").innerHTML = [["a1h", "a1"], ["a2h", "a2"], ["a3h", "a3"]].map(([h, b]) => `<div><h3>${esc(s(h))}</h3><p>${esc(s(b))}</p></div>`).join("");
     const srcs = Atlas.data.sources ? [...Atlas.data.sources.values()] : [];
     $("about-src").innerHTML = srcs.map((x) => { const h = D.sourceHref(x.url);
@@ -606,6 +705,9 @@
       if (th) { const k = th.dataset.sort; state.vdir = state.vsort === k ? -state.vdir : (k === "pop" ? -1 : 1); state.vsort = k; return renderVillages(); }
       if (e.target.closest("#vmore")) { state.vlimit += 100; return renderVillages(); }
       if (e.target.closest("#modal-close")) return closeSheet();
+      const dot = e.target.closest(".scatter .dot");
+      if (dot) { const g = geo(dot.dataset.id); if (g) location.hash = sheetUrl(g); return; }
+      if (e.target.closest("[data-copy-embed]")) { const ta = $("embed-code"); ta.select(); (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject()).then(() => toast(s("copiedCode")), () => document.execCommand && document.execCommand("copy")); return; }
       if (e.target.closest("[data-share]")) { (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(() => toast(s("copied")), () => toast(location.href)); return; }
       if (e.target.closest("[data-print]")) { window.print(); return; }
     });
@@ -615,6 +717,7 @@
     document.addEventListener("change", (e) => {
       if (e.target.id === "vf-district") { state.vd = e.target.value; state.vb = ""; state.vhl = null; state.vlimit = 60; renderVillageFilters(); renderVillages(); }
       if (e.target.id === "vf-block") { state.vb = e.target.value; state.vhl = null; state.vlimit = 60; renderVillages(); }
+      if (e.target.id === "cmp-sel") { state.cmp = e.target.value; renderCompare(state.ind); return; }
       if (e.target.id === "vf-missing") { state.vm = e.target.value; state.vlimit = 60; renderVillages(); }
     });
     document.addEventListener("mouseover", (e) => { if (e.buttons) return; const row = e.target.closest("[data-name]"); if (!row || row.closest(".map-wrap")) return;
@@ -633,6 +736,11 @@
   async function start() {
     try { const l = localStorage.getItem("atlas-lang"); if (l === "pa" || l === "en") Atlas.lang = l; const t = localStorage.getItem("atlas-theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch (err) { /* ignore */ }
     try {
+      if (new URLSearchParams(location.search).get("embed")) {
+        document.body.classList.add("embed");
+        $("embed-credit").href = embedBase() + location.hash;
+        if (!location.hash) history.replaceState(null, "", "#explore");
+      }
       await D.load();
       state.ind = defaultInd();
       buildIndex();

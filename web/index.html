@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="css/atlas.css?v=202610170154">
+  <link rel="stylesheet" href="css/atlas.css?v=202610170203">
 </head>
 <body>
 <div class="page">
@@ -56,6 +56,7 @@
         </figure>
         <div class="map-side" id="map-side"></div>
       </div>
+      <section class="compare" id="compare"></section>
     </section>
 
     <section class="tab-panel" id="tab-today" hidden>
@@ -105,6 +106,8 @@
     <section class="tab-panel" id="tab-about" hidden>
       <div class="section-head"><h2 data-s="aboutTitle">How It Works</h2></div>
       <div class="about" id="about-cols"></div>
+      <div class="section-head"><h2 data-s="xwTitle">How we matched the villages</h2><p data-s="xwSub">Every village in the government's list, linked to the census and to public village records.</p></div>
+      <div class="xw" id="xw"></div>
       <div class="built-by"><img src="img/parvaaz-logo.png" alt="Parvaaz ਪਰਵਾਜ਼"><div><h3 data-s="byTitle">Built with Parvaaz</h3><p data-s="byText"></p></div></div>
       <div class="section-head"><h2 data-s="sourcesTitle">Sources</h2></div>
       <div class="about" id="about-src"></div>
@@ -130,6 +133,7 @@
 </dialog>
 
 <div class="toast" id="toast" role="status" hidden></div>
+<a class="embed-credit" id="embed-credit" target="_blank" rel="noopener"><img src="img/parvaaz-wing.png" alt=""><span data-s="brand">Parvaaz Data Hub</span> ↗</a>
   <section class="chat" id="chat" aria-label="Ask Parvaaz">
     <div class="chat-panel" id="chat-panel" hidden>
       <div class="chat-head">
@@ -158,14 +162,14 @@
     </button>
   </section>
 
-  <script src="js/config.js?v=202610170154"></script>
-  <script src="js/i18n.js?v=202610170154"></script>
-  <script src="js/data.js?v=202610170154"></script>
-  <script src="js/map.js?v=202610170154"></script>
-  <script src="js/charts.js?v=202610170154"></script>
-  <script src="js/need.js?v=202610170154"></script>
-  <script src="js/answer.js?v=202610170154"></script>
-  <script src="js/chat.js?v=202610170154"></script>
-  <script src="js/app.js?v=202610170154"></script>
+  <script src="js/config.js?v=202610170203"></script>
+  <script src="js/i18n.js?v=202610170203"></script>
+  <script src="js/data.js?v=202610170203"></script>
+  <script src="js/map.js?v=202610170203"></script>
+  <script src="js/charts.js?v=202610170203"></script>
+  <script src="js/need.js?v=202610170203"></script>
+  <script src="js/answer.js?v=202610170203"></script>
+  <script src="js/chat.js?v=202610170203"></script>
+  <script src="js/app.js?v=202610170203"></script>
 </body>
 </html>

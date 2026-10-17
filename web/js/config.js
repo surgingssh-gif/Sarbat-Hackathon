@@ -29,6 +29,17 @@ Atlas.config = {
   // Model used when a visitor connects their own Claude key in the chat (demo mode).
   claudeModel: "claude-sonnet-5-5",
 
+  // Village matching (crosswalk) results shown on How It Works.
+  // Fill these in from the team's check against the hand-matched villages:
+  //   handMatchedTotal = villages in the hand-matched set, handMatchedCorrect = how many the crosswalk got right.
+  // Leave as null to show "waiting for the hand-matched set" (never a made-up number).
+  crosswalk: {
+    handMatchedTotal: null,
+    handMatchedCorrect: null,
+    autoAccept: 0.9,   // confidence above this is accepted automatically
+    reviewFloor: 0.6,  // between reviewFloor and autoAccept goes to a person; below is left unmatched
+  },
+
   defaultIndicator: "car_ownership_share",
   defaultCompare: "village_high_school_share",
 };

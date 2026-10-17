@@ -36,6 +36,10 @@ The atlas is laid out like a newspaper front page: a nameplate, a strip of Punja
 
 Clicking any district opens its **fact sheet** (`#district/<slug>`) as a popup: need score, why it ranks here (district vs Punjab, with sources), key numbers, a block table and a map of its blocks. Clicking a block (`#district/<slug>/<block>`) shows its basic services against the district average, its villages as dots, and a link to those villages in the table.
 
+**Explore** also has "Does it go together?": pick a second measure and see the 23 districts as a scatter chart, the correlation, and a plain-language sentence (it opens on the strongest link from another topic). **Embed this map** gives an `<iframe>` code; `index.html?embed=1#explore/<indicator>` shows just the explorer, without the masthead, footer or chat, for Parvaaz's own website.
+
+**How It Works** shows how the villages were matched: villages in the official list, how many matched to the census and SHRUG, how many by exact code, how many went to a person to check, and accuracy on the hand-matched villages. The Villages table has a **Match** column with each village's method and confidence. To show the accuracy figure, set `crosswalk.handMatchedTotal` and `crosswalk.handMatchedCorrect` in `js/config.js`; until then the page says it is waiting for the hand-matched set rather than showing a made-up number. Match method and confidence come from the `crosswalk_match_method` / `crosswalk_match_confidence` columns of the marts workbook (`build_from_marts.py`).
+
 The header search (press `/`) jumps to any district, block or village. Dark mode and Punjabi are toggles in the top bar. Share and Print sit on every fact sheet. There is no sign-up or log-in: anyone can use everything. Ask Parvaaz is in the corner.
 
 Styles are one file, `css/atlas.css`, in numbered sections; colours and fonts are tokens at the top. The page logic is `js/app.js` (routing, pages, search).

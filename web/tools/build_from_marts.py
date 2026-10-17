@@ -64,6 +64,12 @@ def num(s):
     return x / 100 if pct else x
 
 
+def confidence(s):
+    """'100.0%' or '1.0' -> '1.00'; blank stays blank."""
+    x = num(s)
+    return "" if x is None else f"{x:.2f}"
+
+
 def slug(s):
     out = "".join(c.lower() if c.isalnum() else "-" for c in s)
     while "--" in out:
@@ -144,7 +150,8 @@ def main(path):
         w.writerows(rows)
 
     # Villages: just what the map needs.
-    vcols = ["lgd_village_code", "village_name", "district", "subdistrict", "block", "latitude", "longitude", "population", "has_data"] + [c for _, c in FACILITIES.values()]
+    vcols = (["lgd_village_code", "village_name", "district", "subdistrict", "block", "latitude", "longitude", "population", "has_data"]
+             + [c for _, c in FACILITIES.values()] + ["match_method", "match_confidence"])
     with OUT_VILLAGES.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(vcols)
@@ -153,7 +160,8 @@ def main(path):
             pop = num(v["antyodaya_population"])
             w.writerow([v["lgd_village_code"], v["village_name"], v["district_name"], v["subdistrict_name"], v["development_block_name"],
                         v["latitude"], v["longitude"], int(pop) if pop else "", 1 if obs else 0] +
-                       [("1" if test(v) else "0") if obs else "" for test, _ in FACILITIES.values()])
+                       [("1" if test(v) else "0") if obs else "" for test, _ in FACILITIES.values()] +
+                       [v.get("crosswalk_match_method", ""), confidence(v.get("crosswalk_match_confidence", ""))])
 
     print(f"Wrote {OUT_ATLAS} ({len(rows)} rows) and {OUT_VILLAGES} ({len(villages)} villages)")
 
