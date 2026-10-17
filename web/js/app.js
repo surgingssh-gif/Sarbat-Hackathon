@@ -712,8 +712,6 @@
     renderStatic();
     TABS.forEach((t) => { $("tab-" + t).hidden = t !== state.tab; });
     if (state.tab !== lastTab) { lastTab = state.tab; if (!state.sheet) window.scrollTo({ top: 0 }); state.zoomed = undefined; }
-    $("markets").hidden = state.tab === "map";
-    renderMarkets();
     if (state.tab === "today") renderToday();
     else if (state.tab === "districts") renderDistricts();
     else if (state.tab === "map") renderMapTab();
