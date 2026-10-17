@@ -68,7 +68,7 @@
       tipRank: "{r} of {n}",
       noValue: "No data",
       villagesN: "{n} villages",
-      showAllRows: "Show all {n} topics", showFewerRows: "Show key topics only",
+      showAllRows: "Show all {n} topics", showFewerRows: "Show one per section",
       villagesTitle2: "Villages in {place}",
       vStats: "<b>{n}</b> villages matched to official village codes (LGD). <b>{d}</b> have a facility record from 2020; the rest have no record, which is not the same as \"no\".",
       vHave: "Of the {d} villages with a record, <b>{k} ({p})</b> have this: <b>{topic}</b>.",
@@ -187,21 +187,16 @@
 
   // ---------- topics ----------
 
+  // One button per section; the active section shows its few sub-topics underneath.
+  const themeOf = (ind) => available().find((th) => th.indicators.includes(ind));
   function renderTopics() {
-    const isCore = (i) => (D.meta(i).tier || "core") === "core";
-    const html = available().map((th) => {
-      const inds = th.indicators.filter((i) => state.moreTopics || isCore(i) || i === state.ind);
-      const planned = (th.planned || []).filter(() => state.moreTopics || th.id === "education").map((p) =>
-        `<span class="pill is-planned" aria-disabled="true">${esc(Atlas.tr(p))} <em>${esc(s("comingSoon"))}</em></span>`).join("");
-      if (!inds.length && !planned) return "";
-      return `<div class="topic-group">
-        <span class="topic-group-h">${esc(Atlas.tr(th.label))}</span>
-        <div class="topic-pills">${inds.map((i) =>
-          `<button type="button" class="pill${i === state.ind ? " is-on" : ""}" data-ind="${esc(i)}" aria-pressed="${i === state.ind}">${esc(label(i))}</button>`).join("")}${planned}</div>
-      </div>`;
-    }).join("");
-    $("topics").innerHTML = `<h2 class="topics-h">${esc(s("pickTopic"))}</h2><div class="topic-groups">${html}
-      <button type="button" class="link more-topics" id="more-topics">${esc(s(state.moreTopics ? "fewerTopics" : "moreTopics"))}</button></div>`;
+    const cur = themeOf(state.ind);
+    const main = available().filter((th) => th.indicators.length).map((th) =>
+      `<button type="button" class="pill pill-theme${cur && th.id === cur.id ? " is-on" : ""}" data-ind="${esc(cur && th.id === cur.id ? state.ind : th.indicators[0])}">${esc(Atlas.tr(th.label))}</button>`).join("");
+    const subs = cur ? cur.indicators.map((i) =>
+      `<button type="button" class="sub${i === state.ind ? " is-on" : ""}" data-ind="${esc(i)}">${esc(label(i))}</button>`).join("") +
+      (cur.planned || []).map((p) => `<span class="sub is-planned">${esc(Atlas.tr(p))} · ${esc(s("comingSoon"))}</span>`).join("") : "";
+    $("topics").innerHTML = `<div class="topic-main">${main}</div><div class="topic-subs">${subs}</div>`;
   }
 
   // ---------- the answer ----------
@@ -373,7 +368,7 @@
     const isCore = (i) => (D.meta(i).tier || "core") === "core";
     const total = allIndicators().length;
     const rows = available().map((th) => {
-      const list = th.indicators.filter((i) => state.allRows || isCore(i) || i === state.ind);
+      const list = th.indicators.filter((i, k) => state.allRows || k === 0 || i === state.ind);
       if (!list.length) return "";
       return `<tr class="grp"><th colspan="${cols}">${esc(Atlas.tr(th.label))}</th></tr>` + list.map((ind) => {
         const v = D.visible(ind, g.id), pv = D.visible(ind, stateId());
@@ -555,7 +550,7 @@
 
   function bind() {
     document.addEventListener("click", (e) => {
-      const pill = e.target.closest(".pill[data-ind]");
+      const pill = e.target.closest(".pill[data-ind], .sub[data-ind]");
       if (pill) return setIndicator(pill.dataset.ind);
       if (e.target.closest("#more-topics")) { state.moreTopics = !state.moreTopics; return renderTopics(); }
       if (e.target.closest("#rows-toggle")) { state.allRows = !state.allRows; return renderTable(); }

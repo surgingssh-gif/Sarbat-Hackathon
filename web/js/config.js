@@ -288,7 +288,7 @@ Atlas.THEMES = [
   },
   {
     id: "people",
-    label: { en: "Families & students", pa: "ਪਰਿਵਾਰ ਅਤੇ ਵਿਦਿਆਰਥੀ" },
+    label: { en: "Livelihoods", pa: "ਰੋਜ਼ੀ-ਰੋਟੀ" },
     indicators: ["agricultural_land_ownership_share", "business_ownership_share", "female_share"],
   },
 ];
