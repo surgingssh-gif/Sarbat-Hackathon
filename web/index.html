@@ -4,140 +4,129 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Punjab Data Hub</title>
-  <meta name="description" content="Where Punjab needs help: district, block and village profiles from Parvaaz's student survey and public village records.">
+  <meta name="description" content="Where Punjab needs help, district by district: Parvaaz's student survey and public records on every village.">
+  <meta name="theme-color" content="#fbfaf7">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23121212'/%3E%3Ctext x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23fbfaf7' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="css/atlas.css?v=202610162205">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=UnifrakturMaguntia&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/atlas.css?v=202610170041">
 </head>
 <body>
-  <header class="top">
-    <div class="top-in">
-      <a class="brand" href="#/">
-        <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18 L9 8 L13 14 L16 10 L20 18 Z"/></svg></span>
-        <span class="brand-text"><b data-s="brand">Punjab Data Hub</b><small data-s="by">by Parvaaz</small></span>
-      </a>
-      <div class="search search-top">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-        <input type="search" id="q-top" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="q-top-list">
-        <ul class="results" id="q-top-list" role="listbox" hidden></ul>
+<div class="page">
+  <header>
+    <div class="topbar">
+      <span class="topbar-left" data-s="edition">Punjab edition</span>
+      <div class="topbar-right">
+        <div class="finder">
+          <input id="find" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="find-list">
+          <ul class="results" id="find-list" role="listbox" hidden></ul>
+        </div>
+        <button type="button" class="toggle-btn" id="lang-toggle" lang="pa">ਪੰਜਾਬੀ</button>
+        <button type="button" class="toggle-btn" id="theme-toggle" data-s="darkMode">Dark mode</button>
+        <span class="acct" id="acct"></span>
       </div>
-      <nav class="nav">
-        <a href="#/" data-nav="home" data-s="navNeed">Where help is needed</a>
-        <a href="#/topic" data-nav="topic" data-s="navTopics">Topics</a>
-        <button type="button" id="about-open" data-s="about">About the data</button>
-      </nav>
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="pa" aria-pressed="false" lang="pa">ਪੰਜਾਬੀ</button>
-      </div>
-      <div class="acct" id="acct"></div>
     </div>
+    <h1 class="nameplate"><a href="#today" data-s="brand">Punjab Data Hub</a></h1>
+    <div class="dateline">
+      <span data-s="volume">Vol. I · by Parvaaz</span>
+      <span id="today-date"></span>
+      <span data-s="simLine">Survey figures are simulated for this demo.</span>
+    </div>
+    <nav class="sections" aria-label="Sections">
+      <a href="#today" data-tab="today" data-s="tabToday">Today</a>
+      <a href="#districts" data-tab="districts" data-s="tabDistricts">Districts</a>
+      <a href="#map" data-tab="map" data-s="tabMap">The Map</a>
+      <a href="#villages" data-tab="villages" data-s="tabVillages">Villages</a>
+      <a href="#about" data-tab="about" data-s="tabAbout">How It Works</a>
+    </nav>
+    <div class="markets" id="markets" role="region" aria-label="Punjab at a glance"></div>
   </header>
 
-  <!-- HOME -->
-  <main class="view" id="view-home" hidden>
-    <section class="hero">
-      <div class="wrap">
-        <p class="hero-kicker" data-s="heroKicker">Punjab, district by district</p>
-        <h1 class="hero-title" data-s="heroTitle">Where does Punjab need help?</h1>
-        <p class="hero-sub" data-s="heroSub">Search any district, block or village, or start from the map. Every number shows its source.</p>
-        <div class="search search-hero">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-          <input type="search" id="q-hero" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="q-hero-list">
-          <ul class="results" id="q-hero-list" role="listbox" hidden></ul>
+  <main>
+    <section class="tab-panel" id="tab-today">
+      <div class="front">
+        <article class="lead" id="lead"></article>
+        <aside class="rail" id="rail">
+          <p class="kicker" data-s="needMap">Where need is highest</p>
+          <div class="pills" id="areas"></div>
+          <div class="map-slot slot-rail"></div>
+          <div class="legend" id="rail-key"></div>
+          <p class="legend-note" data-s="railHint">Darker = more need. Click a district for its fact sheet.</p>
+          <div class="tiles" id="rail-tiles"></div>
+        </aside>
+      </div>
+      <div class="band">
+        <div class="band-main">
+          <div class="band-head"><h3 data-s="heatTitle">Every district, by need</h3></div>
+          <div class="heat" id="heat"></div>
         </div>
-        <p class="hero-quick" id="hero-quick"></p>
-        <p class="hero-me" id="hero-me" hidden></p>
+        <div class="band-side">
+          <div class="band-head"><h3 data-s="notesTitle">About these numbers</h3></div>
+          <ul class="cal" id="notes"></ul>
+        </div>
       </div>
     </section>
 
-    <div class="wrap lift">
-      <div class="grid-home">
-        <section class="card">
-          <header class="card-head">
-            <div><h2 class="card-title" data-s="needMapTitle">Need across Punjab</h2>
-              <p class="card-sub" id="need-sub"></p></div>
-            <span class="badge" data-s="calcTag">Calculated score</span>
-          </header>
-          <div class="areas" id="home-areas"></div>
-          <div class="map-slot slot-home"></div>
-          <footer class="card-foot"><div class="legend" id="home-key"></div><span class="foot-hint" data-s="mapHintHome">Click a district to open its profile</span></footer>
-        </section>
+    <section class="tab-panel" id="tab-districts" hidden>
+      <div class="section-head"><h2 data-s="districtsTitle">The Districts</h2><p data-s="districtsSub">All 23 districts, most in need first. Click one for its fact sheet.</p></div>
+      <div class="cards" id="cards"></div>
+    </section>
 
-        <section class="card">
-          <header class="card-head"><div><h2 class="card-title" data-s="mostNeedTitle">Districts most in need</h2>
-            <p class="card-sub" data-s="mostNeedSub">Ranked 1–23 on the areas you chose</p></div></header>
-          <ol class="need-list" id="home-list"></ol>
-        </section>
+    <section class="tab-panel" id="tab-map" hidden>
+      <div class="section-head"><h2 data-s="mapTitle">The Map</h2><p data-s="mapSub">Pick any measure to map it across Punjab's districts.</p></div>
+      <div class="pills topic-pills" id="topic-pills"></div>
+      <div class="pills measure-pills" id="measure-pills"></div>
+      <div class="chart-grid">
+        <figure class="map-fig">
+          <h3 class="fig-title" id="map-title"></h3>
+          <p class="chart-sub" id="map-desc"></p>
+          <div class="map-slot slot-map"></div>
+          <div class="legend" id="map-key"></div>
+        </figure>
+        <div class="map-side" id="map-side"></div>
       </div>
+    </section>
 
-      <section class="section">
-        <div class="section-head"><h2 class="section-title" data-s="topicsTitle">Explore by topic</h2>
-          <p class="section-sub" data-s="topicsSub">Measured indicators, mapped for all 23 districts</p></div>
-        <div class="topic-cards" id="home-topics"></div>
-      </section>
+    <section class="tab-panel" id="tab-villages" hidden>
+      <div class="section-head"><h2 data-s="villagesTitle">The Villages</h2><p data-s="villagesSub">Every village matched to an official code, with the basic services its 2020 record shows. Click a column to sort.</p></div>
+      <div class="filters">
+        <input id="vq" type="search">
+        <select id="vf-district"></select>
+        <select id="vf-block"></select>
+        <select id="vf-missing"></select>
+        <span class="count" id="vcount" aria-live="polite"></span>
+      </div>
+      <div class="table-wrap"><table id="vtable"><thead></thead><tbody></tbody></table></div>
+      <button class="more" id="vmore" type="button" hidden></button>
+    </section>
 
-      <section class="section trust" id="home-trust"></section>
-    </div>
+    <section class="tab-panel" id="tab-about" hidden>
+      <div class="section-head"><h2 data-s="aboutTitle">How It Works</h2></div>
+      <div class="about" id="about-cols"></div>
+      <div class="section-head"><h2 data-s="sourcesTitle">Sources</h2></div>
+      <div class="about" id="about-src"></div>
+    </section>
   </main>
 
-  <!-- TOPIC -->
-  <main class="view" id="view-topic" hidden>
-    <div class="wrap">
-      <div class="page-head">
-        <nav class="crumbs" id="topic-crumbs"></nav>
-        <div class="topic-tabs" id="topic-tabs"></div>
-      </div>
-      <div class="grid-topic">
-        <section class="card">
-          <header class="card-head"><div><h1 class="card-title lg" id="topic-title"></h1><p class="card-sub" id="topic-desc"></p></div>
-            <span class="badge is-measured" data-s="measuredTag">Measured</span></header>
-          <div class="measures" id="topic-measures"></div>
-          <div class="map-slot slot-topic"></div>
-          <footer class="card-foot"><div class="legend" id="topic-key"></div><span class="foot-hint" data-s="mapHintTopic">Click a district to open its profile</span></footer>
-        </section>
-        <aside class="stack">
-          <section class="card pad" id="topic-stat"></section>
-          <section class="card">
-            <header class="card-head"><h2 class="card-title sm" data-s="rankTitle">All districts</h2></header>
-            <ol class="rank" id="topic-rank"></ol>
-          </section>
-        </aside>
-      </div>
-      <section class="card pad section" id="topic-compare"></section>
-    </div>
-  </main>
+  <footer>
+    <div class="disclaimer" data-s="simLine">Survey figures are simulated for this demo.</div>
+    <div id="foot"></div>
+  </footer>
+</div>
 
-  <!-- DISTRICT / BLOCK PROFILE -->
-  <main class="view" id="view-place" hidden>
-    <div class="wrap">
-      <div class="page-head">
-        <nav class="crumbs" id="place-crumbs"></nav>
-        <div class="place-title-row">
-          <div><h1 class="place-title" id="place-title"></h1><p class="place-sub" id="place-sub"></p></div>
-          <div class="place-side" id="place-score"></div>
-        </div>
-        <div class="place-actions" id="place-actions"></div>
-      </div>
-      <div class="grid-place">
-        <div class="place-main" id="place-main"></div>
-        <aside class="place-map">
-          <section class="card sticky">
-            <header class="card-head"><div><h2 class="card-title sm" id="pmap-title"></h2><p class="card-sub" id="pmap-sub"></p></div></header>
-            <div class="map-slot slot-place"></div>
-            <footer class="card-foot col"><div class="legend" id="place-key"></div><p class="foot-note" id="place-note"></p></footer>
-          </section>
-        </aside>
-      </div>
-    </div>
-  </main>
+<div class="map-park" hidden><div class="map-wrap" id="map"></div></div>
 
-  <div class="map-park" hidden><div class="map-wrap" id="map"></div></div>
+<dialog class="modal" id="modal" aria-label="District fact sheet">
+  <div class="modal-inner">
+    <button class="modal-close" type="button" id="modal-close" aria-label="Close">✕</button>
+    <div id="modal-body"></div>
+    <div class="modal-map"><div class="map-slot slot-modal"></div><div class="legend" id="modal-key"></div><p class="legend-note" id="modal-note"></p></div>
+    <div id="modal-more"></div>
+  </div>
+</dialog>
 
-  <footer class="site-foot"><div class="wrap" id="foot"></div></footer>
-
-  <div class="toast" id="toast" role="status" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
   <section class="chat" id="chat" aria-label="Ask Parvaaz">
     <div class="chat-panel" id="chat-panel" hidden>
       <div class="chat-head">
@@ -166,28 +155,15 @@
     </button>
   </section>
 
-  <div class="drawer" id="about" hidden>
-    <div class="drawer-scrim" data-close></div>
-    <div class="drawer-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
-      <div class="drawer-head">
-        <h2 id="about-title" data-s="about">About the data</h2>
-        <button type="button" class="icon-btn" data-close aria-label="Close">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
-      </div>
-      <div class="drawer-body" id="about-body"></div>
-    </div>
-  </div>
-
-  <script src="js/config.js?v=202610162205"></script>
-  <script src="js/i18n.js?v=202610162205"></script>
-  <script src="js/data.js?v=202610162205"></script>
-  <script src="js/map.js?v=202610162205"></script>
-  <script src="js/charts.js?v=202610162205"></script>
-  <script src="js/need.js?v=202610162205"></script>
-  <script src="js/answer.js?v=202610162205"></script>
-  <script src="js/chat.js?v=202610162205"></script>
-  <script src="js/account.js?v=202610162205"></script>
-  <script src="js/app.js?v=202610162205"></script>
+  <script src="js/config.js?v=202610170041"></script>
+  <script src="js/i18n.js?v=202610170041"></script>
+  <script src="js/data.js?v=202610170041"></script>
+  <script src="js/map.js?v=202610170041"></script>
+  <script src="js/charts.js?v=202610170041"></script>
+  <script src="js/need.js?v=202610170041"></script>
+  <script src="js/answer.js?v=202610170041"></script>
+  <script src="js/chat.js?v=202610170041"></script>
+  <script src="js/account.js?v=202610170041"></script>
+  <script src="js/app.js?v=202610170041"></script>
 </body>
 </html>

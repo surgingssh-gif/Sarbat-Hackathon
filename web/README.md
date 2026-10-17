@@ -24,16 +24,19 @@ Opening `index.html` by double-clicking won't work, because browsers block the d
 
 ## What's on the page
 
-The atlas works like a profile site: **search for any place, and every place has its own page.**
+The atlas is laid out like a newspaper front page: a nameplate, a strip of Punjab-wide figures (one per topic), and five sections.
 
-| Page | Address | What it shows |
+| Section | Address | What it shows |
 |---|---|---|
-| **Home** | `#/` | "Where does Punjab need help?", a big search box (any district, block or village), the need map with focus-area toggles, the ranked list of districts most in need, topic cards, and the data caveats. |
-| **Topic** | `#/topic/<indicator>` | One measure mapped and ranked for all 23 districts, the Punjab figure with its source, and "Do two topics go together?". |
-| **District profile** | `#/district/<slug>` | Need score and rank, a plain-language summary, why it ranks here (district vs Punjab bars), key numbers per topic, a block table (share of villages with school, health centre, road, water), every indicator, sources. Map of its blocks on the right. |
-| **Block profile** | `#/block/<slug>/<block>[/<village code>]` | Basic services vs the district average, and a filterable table of every village with ✓/✗ per service. Village dots on the map; click a dot or row to highlight it. |
+| **Today** | `#today` | The story: "which districts need help most", an "In 60 seconds" box, the five districts to look at first (each with a "Why" panel), the need map with focus-area toggles, village totals, and every district as a heat tile. |
+| **Districts** | `#districts` | One card per district, most in need first. |
+| **The Map** | `#map/<indicator>` | Any measure mapped and ranked for all 23 districts, with the Punjab figure and its source. |
+| **Villages** | `#villages` | All 12,158 villages in a sortable table with ✓/✗ for school, health centre, road and water; filter by district, block or missing service. |
+| **How It Works** | `#about` | The survey, the village matching, the need score, sources and privacy. |
 
-The header search (press `/`) jumps to any district, block or village. Save, Share and Print sit on every profile. Ask Parvaaz is in the corner.
+Clicking any district opens its **fact sheet** (`#district/<slug>`) as a popup: need score, why it ranks here (district vs Punjab, with sources), key numbers, a block table and a map of its blocks. Clicking a block (`#district/<slug>/<block>`) shows its basic services against the district average, its villages as dots, and a link to those villages in the table.
+
+The header search (press `/`) jumps to any district, block or village. Dark mode and Punjabi are toggles in the top bar. Save, Share and Print sit on every fact sheet. Ask Parvaaz is in the corner.
 
 Styles are one file, `css/atlas.css`, in numbered sections; colours and fonts are tokens at the top. The page logic is `js/app.js` (routing, pages, search).
 
