@@ -375,6 +375,7 @@ footer { margin-top: 44px; border-top: 4px double var(--rule); padding-top: 12px
 .atlas-legend { position: absolute; left: 12px; bottom: 12px; z-index: 4; background: color-mix(in srgb, var(--paper) 92%, transparent); border: 1px solid var(--hair); border-radius: 6px; padding: 8px 12px 10px; max-width: 320px; }
 .atlas-legend .al-h { margin: 4px 0 0; font: 600 12px/1.3 var(--sans); color: var(--ink-2); }
 .atlas-legend .legend { margin-top: 4px; }
+.atlas-hint { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); z-index: 4; margin: 0; padding: 6px 14px; border-radius: 999px; background: var(--ink); color: var(--paper); font: 600 12.5px/1.3 var(--sans); box-shadow: 0 6px 18px rgba(0,0,0,.15); pointer-events: none; white-space: nowrap; }
 .atlas-card { position: absolute; right: 12px; top: 12px; z-index: 5; width: 300px; max-height: calc(100% - 24px); overflow-y: auto; background: var(--paper); border: 1px solid var(--hair); border-top: 3px solid var(--ink); border-radius: 6px; padding: 14px 16px 16px; box-shadow: 0 16px 40px rgba(0,0,0,.14); font-family: var(--sans); }
 .ac-close { position: absolute; right: 8px; top: 8px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--hair); background: var(--card); cursor: pointer; font-size: 11px; color: var(--ink); }
 .atlas-card .kicker { margin: 0 0 2px; }
@@ -403,6 +404,8 @@ footer { margin-top: 44px; border-top: 4px double var(--rule); padding-top: 12px
 .d-nr { fill: none; stroke: var(--ink); stroke-opacity: .3; stroke-width: .8; vector-effect: non-scaling-stroke; }
 .map-wrap.is-dense .district-label { stroke-width: calc(var(--label-halo, 3px) * 1.4); font-weight: 700; }
 .map-wrap.is-dense .district { fill-opacity: .85; }
+.map-wrap.is-dense .blk { stroke: var(--ink); stroke-opacity: .35; stroke-width: 1; }
+.ac-facts dt::first-letter { text-transform: uppercase; }
 .al-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--ink); }
 .dense-sel { fill: none; stroke: var(--ink); stroke-width: 3; vector-effect: non-scaling-stroke; }
 
@@ -658,6 +661,7 @@ body.embed .embed-credit img { height: 14px; }
   .slot-big .map-wrap { height: 70vh; }
   .atlas-card { left: 8px; right: 8px; top: auto; bottom: 8px; width: auto; max-height: 55%; }
   .atlas-legend { display: none; }
+  .atlas-hint { white-space: normal; width: max-content; max-width: 80%; text-align: center; top: 52px; }
   .cmp-svg .cdot text, .cmp-svg .tick, .cmp-svg .axis-title { font-size: 16px; }
   .topic-cards { grid-template-columns: 1fr 1fr; }
   .topic-card { border-bottom: 1px solid var(--hair); }
