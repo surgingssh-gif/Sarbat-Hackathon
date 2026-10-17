@@ -507,9 +507,15 @@ body.on-atlas footer { display: none; }
 .map-wrap.is-blockview .district-label { opacity: .55; }
 .map-wrap.is-blockview .blk { stroke: var(--hair); stroke-width: 1.2; }
 .map-wrap.is-blockview .blk.is-sel { stroke: var(--ink); stroke-width: 2.2; filter: drop-shadow(0 6px 14px rgba(0,0,0,.14)); }
-.map-wrap.is-blockview .block-label { opacity: .7; }
 .map-wrap.is-blockview .block-label.is-sel { opacity: 1; font-weight: 700; }
 .slot-modal .map-wrap { border-radius: 8px; overflow: hidden; background: var(--paper-2); }
+.map-wrap.is-blockview .d-0 { fill: #ffffff; fill-opacity: 1; stroke: #9aa3ad; stroke-width: .7; vector-effect: non-scaling-stroke; }
+.map-wrap.is-blockview .d-1 { fill: var(--seq-good-1); fill-opacity: 1; } .map-wrap.is-blockview .d-2 { fill: var(--seq-good-2); fill-opacity: 1; }
+.map-wrap.is-blockview .d-3 { fill: var(--seq-good-3); fill-opacity: 1; } .map-wrap.is-blockview .d-4 { fill: var(--seq-good-4); fill-opacity: 1; }
+.map-wrap.is-blockview .d-nr { fill: #b9b6ae; stroke: none; }
+.map-wrap.is-blockview .block-label { opacity: .85; font-weight: 600; }
+.map-wrap.is-blockview .block-label.is-sel { opacity: 1; font-weight: 800; }
+#modal-key .as-dots { gap: 5px; }
 /* big map motion */
 @keyframes fillIn { from { fill: var(--paper); } }
 @keyframes liftIn { from { filter: drop-shadow(0 0 0 rgba(0,0,0,0)); } to { filter: drop-shadow(0 10px 18px rgba(0,0,0,.22)); } }
