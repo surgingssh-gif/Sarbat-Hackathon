@@ -19,7 +19,7 @@
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
       tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average", tabAtlas: "Big Map", atlasHead: "Every district and village in Punjab", atlasDeck: "23 districts, 161 blocks, 12,158 villages. Pick a measure, then click a district to fly in and see its villages.",
-      atlasColour: "Shade districts by", atlasShowV: "Show villages when zoomed in", atlasHint: "Click any district to fly in", atlasFind: "Find a village", atlasDotsH: "Villages: missing basic services", atlasMissMany: "All 4 missing", atlasMissNone: "None missing", atlasClickD: "Click to zoom in",
+      atlasColour: "Shade districts by", atlasShowV: "Show villages", atlasHint: "Hover a dot for a village · click a district to zoom in", atlasFind: "Find a village", atlasDotsH: "Villages: missing basic services", atlasDotsKey: "Each dot is a village: basic services it has", atlasDots04: "0 → 4", atlasMissMany: "All 4 missing", atlasMissNone: "None missing", atlasClickD: "Click to zoom in",
       atlasBasic: "basic services (school, health centre, road, water)", atlasNoRec: "This village has no 2020 facility record.", atlasDistLine: "{m} in {place}: {v} (district-wide survey figure).",
       atlasOpenBlock: "Open {b} block →", atlasAll: "All districts", atlasBlocks: "Its blocks: villages with a high school", atlasBlocksNote: "Weakest first. Click a block for its full page, or a dot on the map for a village.", overview: "Overview", topicDeck: "{place}: {say}. That ranks {pos} (Punjab: {pv}).", topicHidden: "{place}: too few students in this group to show safely (fewer than {n}).",
       topicMeasures: "{t}, measure by measure", inVillages: "In its villages", inVillagesSub: "Basic services in the {n} of {all} villages with a 2020 record.",
@@ -97,7 +97,7 @@
       brand: "ਪਰਵਾਜ਼ ਡਾਟਾ ਹੱਬ", byTitle: "ਪਰਵਾਜ਼ ਵੱਲੋਂ ਬਣਾਇਆ", byText: "ਪਰਵਾਜ਼ ਇੱਕ ਗੈਰ-ਮੁਨਾਫ਼ਾ ਸੰਸਥਾ ਹੈ ਜਿਸਨੇ ਪੰਜਾਬ ਦੇ ਹਰ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਦੇ ਲਗਭਗ 3 ਲੱਖ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ। ਇਹ ਹੱਬ ਜ਼ਿਲ੍ਹਾ-ਵਾਰ ਨਤੀਜੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ। ਅਸਲ ਜਵਾਬ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ, ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਔਸਤ।", edition: "ਪੰਜਾਬ ਐਡੀਸ਼ਨ", volume: "ਅੰਕ 1 · ਪਰਵਾਜ਼ ਵੱਲੋਂ", simLine: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
       darkMode: "ਗੂੜ੍ਹਾ", lightMode: "ਹਲਕਾ", findPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ",
       tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", tabAtlas: "ਵੱਡਾ ਨਕਸ਼ਾ", atlasHead: "ਪੰਜਾਬ ਦਾ ਹਰ ਜ਼ਿਲ੍ਹਾ ਅਤੇ ਪਿੰਡ", atlasDeck: "ਜ਼ਿਲ੍ਹੇ ਚੁਣੇ ਮਾਪ ਮੁਤਾਬਕ ਰੰਗੇ ਹਨ; ਹਰ ਬਿੰਦੂ 12,158 ਪਿੰਡਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ। ਪਿੰਡ ਲੱਭੋ ਜਾਂ ਕਲਿੱਕ ਕਰੋ।",
-      atlasColour: "ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਰੰਗ", atlasShowV: "ਜ਼ੂਮ ਕਰਨ 'ਤੇ ਪਿੰਡ ਦਿਖਾਓ", atlasHint: "ਬਲਾਕ ਅਤੇ ਪਿੰਡ ਦੇਖਣ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ (ਜਾਂ ਪਿੰਡ ਲੱਭੋ)।", atlasFind: "ਪਿੰਡ ਲੱਭੋ", atlasDotsH: "ਪਿੰਡ: ਘੱਟ ਸਹੂਲਤਾਂ", atlasMissMany: "ਚਾਰੇ ਨਹੀਂ", atlasMissNone: "ਸਭ ਹਨ", atlasClickD: "ਜ਼ੂਮ ਲਈ ਕਲਿੱਕ ਕਰੋ",
+      atlasColour: "ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਰੰਗ", atlasShowV: "ਜ਼ੂਮ ਕਰਨ 'ਤੇ ਪਿੰਡ ਦਿਖਾਓ", atlasHint: "ਬਲਾਕ ਅਤੇ ਪਿੰਡ ਦੇਖਣ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ (ਜਾਂ ਪਿੰਡ ਲੱਭੋ)।", atlasFind: "ਪਿੰਡ ਲੱਭੋ", atlasDotsH: "ਪਿੰਡ: ਘੱਟ ਸਹੂਲਤਾਂ", atlasDotsKey: "ਹਰ ਬਿੰਦੂ ਇੱਕ ਪਿੰਡ: ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ", atlasDots04: "0 → 4", atlasShowV: "ਪਿੰਡ ਦਿਖਾਓ", atlasMissMany: "ਚਾਰੇ ਨਹੀਂ", atlasMissNone: "ਸਭ ਹਨ", atlasClickD: "ਜ਼ੂਮ ਲਈ ਕਲਿੱਕ ਕਰੋ",
       atlasBasic: "ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ", atlasNoRec: "ਇਸ ਪਿੰਡ ਦਾ 2020 ਰਿਕਾਰਡ ਨਹੀਂ।", atlasDistLine: "{place} ਵਿੱਚ {m}: {v} (ਜ਼ਿਲ੍ਹਾ ਪੱਧਰ)।",
       atlasOpenBlock: "{b} ਬਲਾਕ ਖੋਲ੍ਹੋ →", atlasAll: "ਸਾਰੇ ਜ਼ਿਲ੍ਹੇ", atlasBlocks: "ਇਸਦੇ ਬਲਾਕ: ਹਾਈ ਸਕੂਲ ਵਾਲੇ ਪਿੰਡ", atlasBlocksNote: "ਸਭ ਤੋਂ ਕਮਜ਼ੋਰ ਪਹਿਲਾਂ। ਬਲਾਕ ਜਾਂ ਪਿੰਡ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", overview: "ਸਾਰ", topicDeck: "{place}: {say}। ਇਹ {pos} ਹੈ (ਪੰਜਾਬ: {pv})।", topicHidden: "{place}: ਇਸ ਸਮੂਹ ਵਿੱਚ ਬਹੁਤ ਘੱਟ ਵਿਦਿਆਰਥੀ ({n} ਤੋਂ ਘੱਟ)।",
       topicMeasures: "{t}, ਹਰ ਮਾਪ", inVillages: "ਇਸਦੇ ਪਿੰਡਾਂ ਵਿੱਚ", inVillagesSub: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {all} ਵਿੱਚੋਂ {n} ਪਿੰਡਾਂ ਵਿੱਚ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ।",
@@ -505,7 +505,7 @@
     renderAtlasDetail();
     if (state.sheet) return;
     mapTo(".slot-big");
-    const m = $("map"), dg = atlas.district && byName(atlas.district), showV = atlas.dots && !!dg;
+    const m = $("map"), dg = atlas.district && byName(atlas.district), showV = atlas.dots;
     m.classList.toggle("is-dense", showV);
     const fills = {};
     for (const d of D.districts()) fills[d.name] = sc.color(D.visible(ind, d.id));
@@ -527,7 +527,8 @@
             tip: `<strong>${esc(v.block)}</strong>` + (b ? SVC.map(([c, , l]) => `<span class="tip-r">${esc(s(l))}: ${pct(b.shares[c])}</span>`).join("") : "") }; }
         Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); }, { boxy: false });
         Atlas.Map.setDense(showV ? vs.map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr", tip: villageTip(v) })) : null, atlas.sel, selectVillage);
-      } else { Atlas.Map.setBlocks(null, [], {}, () => {}); Atlas.Map.setDense(null); }
+      } else { Atlas.Map.setBlocks(null, [], {}, () => {});
+        Atlas.Map.setDense(showV ? Atlas.villages.filter((v) => v.lat && v.lon).map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr", tip: villageTip(v) })) : null, atlas.sel, selectVillage); }
     }
     onMapSelect = (n) => selectDistrict(n);
     onMapHover = (n) => { const d = byName(n), v = d ? D.visible(ind, d.id) : null;
@@ -546,6 +547,7 @@
   }
   function renderAtlasDetail() {
     const ind = atlas.ind, sc = scaleFor(ind), el = $("atlas-detail");
+    const dotKey = atlas.dots ? `<p class="as-label as-dk">${esc(s("atlasDotsKey"))}</p><div class="as-dots">${["d-0", "d-1", "d-2", "d-3", "d-4"].map((k) => `<i class="${k}"></i>`).join("")}<span>${esc(s("atlasDots04"))}</span><i class="d-nr"></i><span>${esc(s("noRecord"))}</span></div>` : "";
     const legend = `<div class="as-legend"><span>${esc(D.fmtShort(sc.min, ind))}</span><i class="grad atlas-grad" style="background:${grad(ramp(ind))}"></i><span>${esc(D.fmtShort(sc.max, ind))}</span></div>`;
     if (atlas.sel) {
       const v = Atlas.villages.find((x) => x.code === atlas.sel), d = byName(v.district), dv = d ? D.visible(ind, d.id) : null, conf = parseFloat(v.raw.match_confidence);
@@ -570,14 +572,14 @@
         <dl class="ac-facts"><div><dt>${esc(s("needScore"))}</dt><dd>${r ? r.score + "/100" : "–"}<small>${r ? esc(s("nthMost", { r: ordinal(r.rank) })) : ""}</small></dd></div>
           <div><dt>${esc(s("villages"))}</dt><dd>${vs.length.toLocaleString()}</dd></div>
           <div><dt>${esc(s("vNoHS"))}</dt><dd>${noHS.toLocaleString()}</dd></div><div><dt>${esc(s("tNoHC"))}</dt><dd>${noHC.toLocaleString()}</dd></div></dl>
-        <a class="btn as-btn" href="${sheetUrl(d)}">${esc(s("openSheet"))}</a>
+        ${dotKey}<a class="btn as-btn" href="${sheetUrl(d)}">${esc(s("openSheet"))}</a>
         <p class="as-h">${esc(s("atlasBlocks"))}</p>
         <div class="as-list">${bn.map((b) => `<a class="as-row" href="${sheetUrl(d, b.name)}"><span class="n">${esc(b.name)}</span><span class="bar"><i style="width:${(b.shares.high_school * 100).toFixed(0)}%"></i></span><span class="v">${pct(b.shares.high_school)}</span></a>`).join("")}</div>
         <p class="as-note">${esc(s("atlasBlocksNote"))}</p>`;
       return;
     }
     const list = D.districtValues(ind).sort((a, b) => b.value - a.value), pv = D.visible(ind, stateId()), hi = (list[0] || {}).value || 1;
-    el.innerHTML = `<p class="as-label">${esc(s("punjabAvg"))} · ${esc(label(ind))}</p><div class="as-big"><b>${esc(pv === null ? "–" : D.fmt(pv, ind))}</b></div>${legend}
+    el.innerHTML = `<p class="as-label">${esc(s("punjabAvg"))} · ${esc(label(ind))}</p><div class="as-big"><b>${esc(pv === null ? "–" : D.fmt(pv, ind))}</b></div>${legend}${dotKey}
       <p class="as-h">${esc(s("rankTitle"))}</p>
       <div class="as-list">${list.map((d, i) => `<button type="button" class="as-row" data-adist="${esc(d.geo.name)}" data-name="${esc(d.geo.name)}"><span class="n">${i + 1}. ${esc(placeName(d.geo))}</span><span class="bar"><i style="width:${Math.max(3, (d.value / hi) * 100).toFixed(0)}%;background:${sc.color(d.value)}"></i></span><span class="v">${esc(D.fmt(d.value, ind))}</span></button>`).join("")}</div>`;
   }

@@ -520,6 +520,21 @@ body.on-atlas footer { display: none; }
   .atlas-map .blk, .atlas-map .block-label { animation: fadeIn .6s ease both; animation-delay: .35s; }
 }
 .atlas-map .district:hover { filter: brightness(1.04) drop-shadow(0 4px 10px rgba(0,0,0,.15)); }
+/* big map: every village as a dot, coloured by basic services (clean version) */
+.atlas-map .map-wrap.is-dense .district { fill-opacity: .55; stroke: var(--paper); stroke-width: 1.6; }
+.atlas-map .map-wrap.is-dense.has-blocks .district { fill-opacity: .35; }
+.atlas-map .map-wrap.is-dense .district-label { font-weight: 700; stroke-width: calc(var(--label-halo, 3px) * 1.6); }
+.atlas-map .dense-dots { stroke: none; }
+.atlas-map .d-0 { fill: #ffffff; fill-opacity: 1; stroke: #9aa3ad; stroke-width: .6; vector-effect: non-scaling-stroke; }
+.atlas-map .d-1 { fill: var(--seq-good-1); fill-opacity: 1; } .atlas-map .d-2 { fill: var(--seq-good-2); fill-opacity: 1; }
+.atlas-map .d-3 { fill: var(--seq-good-3); fill-opacity: 1; } .atlas-map .d-4 { fill: var(--seq-good-4); fill-opacity: 1; }
+.atlas-map .d-nr { fill: #b9b6ae; fill-opacity: .9; stroke: none; }
+.as-dk { margin-top: 6px; }
+.as-dots { display: flex; align-items: center; gap: 5px; font: 12px/1 var(--sans); color: var(--muted); }
+.as-dots i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.as-dots .d-0 { background: #fff; border: 1px solid #9aa3ad; } .as-dots .d-1 { background: var(--seq-good-1); } .as-dots .d-2 { background: var(--seq-good-2); }
+.as-dots .d-3 { background: var(--seq-good-3); } .as-dots .d-4 { background: var(--seq-good-4); } .as-dots .d-nr { background: #b9b6ae; margin-left: 8px; }
+.atlas-map .map-wrap.has-blocks .blk { fill: var(--card); fill-opacity: .7; }
 /* ---------- toast ---------- */
 .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 90; background: var(--ink); color: var(--paper); padding: 9px 16px; border-radius: 999px; font: 600 13px var(--sans); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
 
