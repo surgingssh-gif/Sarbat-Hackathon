@@ -430,6 +430,7 @@
       ${citation(ind, g)}
       ${isState && !A().get() ? `<p class="focus-hint">${esc(s("clickHint"))}</p>` : ""}`;
     $("focus").classList.toggle("is-place", !isState);
+    const fv = $("focus").querySelector(".focus-value"); if (fv) { fv.classList.remove("pop"); void fv.offsetWidth; fv.classList.add("pop"); }
   }
 
   function renderRank(sc) {
@@ -849,6 +850,10 @@
       resetBtn.addEventListener("click", () => Atlas.Map.reset());
       $("map").appendChild(resetBtn);
       document.querySelector(".lower").prepend($("table"));
+      // One surface: title + finding sit at the top of the map card, beside the key.
+      const head = document.querySelector(".answer-head"), mapbox = document.querySelector(".mapbox");
+      const top = document.createElement("div"); top.className = "mapbox-top";
+      top.append(head, $("key")); mapbox.prepend(top);
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind();
       render();

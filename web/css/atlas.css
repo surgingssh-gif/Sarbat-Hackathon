@@ -610,3 +610,41 @@ a:hover, .link:hover, .crumb:hover { text-decoration: underline !important; }
   .ttab em { display: none; }
   .tpanel { border-radius: 0 0 16px 16px; }
 }
+
+/* ---------- seamless: one map surface + one side panel ---------- */
+.answer { padding-top: 14px; }
+.answer-body { column-gap: 16px; row-gap: 0; }
+.mapbox { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.mapbox-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 24px; flex-wrap: wrap; padding: 18px 20px 14px; border-bottom: 1px solid var(--line); }
+.mapbox-top .answer-head { margin: 0; min-width: 0; flex: 1 1 520px; }
+.mapbox-top .answer-titles { gap: 2px 12px; }
+.mapbox-top .answer-title { font-size: 24px; }
+.mapbox-top .answer-finding { font-size: 14px; margin-top: 4px; }
+.mapbox-top .key { margin: 0; flex: none; }
+.mapbox .map-wrap { border-radius: 0; height: calc(100vh - 300px); }
+.mapbox .map-note { padding: 8px 20px 12px; margin: 0; }
+
+/* side panel: focus + ranking read as one card, and stay in view */
+.answer-body .mid, .answer-body .col.rank { position: sticky; }
+.answer-body .mid { top: 72px; z-index: 2; gap: 0; }
+.answer-body .mid .focus { border-radius: 16px 16px 0 0; border-bottom: 0; box-shadow: none; }
+.answer-body .mid .focus.is-place { box-shadow: inset 0 3px 0 var(--gold); }
+.answer-body .col.rank { border-radius: 0 0 16px 16px; box-shadow: var(--shadow); border-top: 1px dashed var(--line); padding-top: 14px; }
+.answer-body .mid { filter: drop-shadow(0 1px 2px rgba(16,24,40,.04)); }
+@supports (position: sticky) { .answer-body .col.rank { position: static; } }
+
+/* motion */
+.focus-value.pop { animation: pop .35s cubic-bezier(.2,.8,.2,1); }
+@keyframes pop { from { opacity: .3; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.rank-bar { transition: width .4s cubic-bezier(.2,.8,.2,1), background .3s; }
+.seg, .ttab, .rank-row, .kpi, .pill { transition: background .15s, color .15s, box-shadow .15s, border-color .15s; }
+@media (prefers-reduced-motion: reduce) { .focus-value.pop { animation: none; } .rank-bar { transition: none; } }
+
+@media (max-width: 1000px) {
+  .answer-body .mid { position: static; }
+  .mapbox .map-wrap { height: 440px; }
+  .answer-body .mid .focus { border-radius: 16px 16px 0 0; }
+}
+.key-dir { white-space: nowrap; }
+.key-simple { flex-wrap: nowrap; }
+@media (max-width: 600px) { #about-open { display: none; } .key-grad { flex-basis: 120px; } }
