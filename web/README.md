@@ -24,19 +24,19 @@ Opening `index.html` by double-clicking won't work, because browsers block the d
 
 ## What's on the page
 
-One page, read top to bottom. It answers one question at a time: **"how does each district compare on this topic?"**
+Read top to bottom, the page follows one story: **understand Punjab → find where help is needed → open a place → see why → check the evidence.**
 
 | Part | What it does |
 |---|---|
-| **Pick a topic** | Topic buttons grouped by theme (household wealth, education, 2025 floods, livelihoods). "Show more topics" reveals the rest. Planned data (e.g. ASER learning levels) shows as a dashed "coming soon" button. |
-| **The answer** | The topic name, what it measures, and one sentence with the finding: highest district, lowest district, Punjab overall. |
-| **Map** | Each district is coloured *and* has its number printed on it. The key above says how to read it (darker = higher, and whether higher is good or bad). Grey = no data or hidden for privacy. Real grey street map underneath. |
-| **Right column** | A card with the number for Punjab, or for the district you clicked: value, gap to the Punjab average, rank, a plain sentence, and the **source** with a link. Below it, every district ranked as a bar, with a dashed Punjab-average line. Hovering the map highlights the bar and the other way round. |
-| **Everything about a district** | Appears after you click a district: every topic for that district next to Punjab, higher/lower, and rank. Click a row to map that topic. Then its villages. |
-| **Do two topics go together?** | A dot per district, a second topic to pick, and one sentence saying how strongly they move together. |
-| **Ask Parvaaz** | Chat button in the corner; sends the question plus the current topic and district. |
+| **Header** | Name, Research (jumps to the evidence), About the data, EN/ਪੰਜਾਬੀ, sign in. |
+| **Intro** | One headline and one sentence, plus the "survey figures are simulated" label. |
+| **Topic bar** (sticky) | One row: **Where help is needed** (the calculated need score) and the five data topics. The line under it is the secondary choice: which areas to combine (need) or which measure to map (topics). |
+| **Map (≈60%)** | Click a district to zoom in and see its blocks; click a block to see its villages as dots. "← All of Punjab" steps back; "Expand map" goes full screen. No dragging or manual zoom. Block areas are approximate (nearest village) and labelled as such. |
+| **Panel (≈40%)** | Changes with the level. *Punjab:* the statewide finding and a ranking. *District:* name, the number (or need score), where it sits among 23 districts, three reasons (need) or the comparison with Punjab, and the way down to blocks. *Block:* the share of its villages with a high school, health centre, all-weather road and piped water, against the district average. Methods sit behind "Method and more numbers". |
+| **The evidence** | Every-topic table for the place, "Do two topics go together?", village summary, and sources and methodology. |
+| **Ask Parvaaz** | Chat in the corner; built-in answers from the data, or Claude if a key is connected. |
 
-Links remember the view: `web/#car_ownership_share/sangrur/severe_or_total_house_damage_share` (topic / district / comparison topic).
+Styles live in one file, `css/atlas.css`, organised in numbered sections (tokens, base, header, topics, explore, map drawing, panel, research, overlays, responsive). Colours and fonts are tokens at the top.
 
 ## The data files
 

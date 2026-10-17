@@ -266,8 +266,8 @@ Atlas.INDICATORS = {
 Atlas.THEMES = [
   {
     id: "wealth",
-    short: { en: "Wealth", pa: "ਹਾਲਤ" },
-    label: { en: "Household wealth", pa: "ਘਰੇਲੂ ਹਾਲਤ" },
+    short: { en: "Household conditions", pa: "ਘਰੇਲੂ ਹਾਲਤ" },
+    label: { en: "Household conditions", pa: "ਘਰੇਲੂ ਹਾਲਤ" },
     indicators: ["car_ownership_share", "air_conditioner_ownership_share", "two_wheeler_ownership_share"],
   },
   {
@@ -279,8 +279,8 @@ Atlas.THEMES = [
   },
   {
     id: "villages",
-    short: { en: "Villages", pa: "ਪਿੰਡ" },
-    label: { en: "Village facilities", pa: "ਪਿੰਡ ਦੀਆਂ ਸਹੂਲਤਾਂ" },
+    short: { en: "Village infrastructure", pa: "ਪਿੰਡਾਂ ਦਾ ਢਾਂਚਾ" },
+    label: { en: "Village infrastructure", pa: "ਪਿੰਡਾਂ ਦਾ ਢਾਂਚਾ" },
     indicators: [
       "village_high_school_share", "village_health_centre_share", "village_all_weather_road_share",
       "village_broadband_share", "village_public_transport_share", "village_piped_water_share", "household_no_latrine_share",
@@ -288,13 +288,13 @@ Atlas.THEMES = [
   },
   {
     id: "floods",
-    short: { en: "Floods", pa: "ਹੜ੍ਹ" },
-    label: { en: "2025 floods", pa: "2025 ਦੇ ਹੜ੍ਹ" },
+    short: { en: "Flood recovery", pa: "ਹੜ੍ਹ ਰਾਹਤ" },
+    label: { en: "Flood recovery", pa: "ਹੜ੍ਹ ਰਾਹਤ" },
     indicators: ["severe_or_total_house_damage_share", "avg_agricultural_land_damage_among_owners", "avg_house_damage", "avg_business_damage_among_owners"],
   },
   {
     id: "people",
-    short: { en: "Livelihoods", pa: "ਰੋਜ਼ੀ" },
+    short: { en: "Livelihoods", pa: "ਰੋਜ਼ੀ-ਰੋਟੀ" },
     label: { en: "Livelihoods", pa: "ਰੋਜ਼ੀ-ਰੋਟੀ" },
     indicators: ["agricultural_land_ownership_share", "business_ownership_share", "female_share"],
   },
