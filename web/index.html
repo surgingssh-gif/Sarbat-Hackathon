@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Libre+Franklin:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="css/atlas.css?v=202610161821">
+  <link rel="stylesheet" href="css/atlas.css?v=202610161828">
 </head>
 <body>
   <header class="bar">
@@ -25,6 +25,7 @@
           <button type="button" data-lang="pa" aria-pressed="false" lang="pa">ਪੰਜਾਬੀ</button>
         </div>
         <button type="button" class="link" id="about-open" data-s="about">About the data</button>
+        <div class="acct" id="acct"></div>
       </div>
     </div>
   </header>
@@ -68,6 +69,26 @@
     <footer class="foot" id="foot"></footer>
   </main>
 
+  <div class="modal" id="signin" hidden>
+    <div class="drawer-scrim" data-close-signin></div>
+    <form class="modal-card" id="signin-form" autocomplete="on">
+      <h2 class="modal-h">Sign in to Punjab Data Hub</h2>
+      <p class="modal-sub">Save views, pick your home district and language, and come back to where you left off.</p>
+      <label>Your name<input name="name" required maxlength="60" autocomplete="name"></label>
+      <label>Email<input name="email" type="email" required maxlength="120" autocomplete="email"></label>
+      <label>I am a…<select name="role">
+        <option>Researcher</option><option>Teacher or school leader</option><option>Government official</option>
+        <option>Journalist</option><option>Parvaaz team</option><option>Student</option><option>Other</option></select></label>
+      <label>Home district<select name="home" id="signin-home"></select></label>
+      <label>Language<select name="lang"><option value="en">English</option><option value="pa">ਪੰਜਾਬੀ</option></select></label>
+      <div class="modal-actions">
+        <button type="button" class="link" data-close-signin>Not now</button>
+        <button type="submit" class="btn">Continue</button>
+      </div>
+      <p class="modal-note">Demo sign-in: your profile is saved in this browser only. No password is collected. A real login (e.g. Google or email link) plugs in here before launch.</p>
+    </form>
+  </div>
+
   <section class="chat" id="chat" aria-label="Ask Parvaaz">
     <div class="chat-panel" id="chat-panel" hidden>
       <div class="chat-head">
@@ -102,12 +123,13 @@
     </div>
   </div>
 
-  <script src="js/config.js?v=202610161821"></script>
-  <script src="js/i18n.js?v=202610161821"></script>
-  <script src="js/data.js?v=202610161821"></script>
-  <script src="js/map.js?v=202610161821"></script>
-  <script src="js/charts.js?v=202610161821"></script>
-  <script src="js/chat.js?v=202610161821"></script>
-  <script src="js/app.js?v=202610161821"></script>
+  <script src="js/config.js?v=202610161828"></script>
+  <script src="js/i18n.js?v=202610161828"></script>
+  <script src="js/data.js?v=202610161828"></script>
+  <script src="js/map.js?v=202610161828"></script>
+  <script src="js/charts.js?v=202610161828"></script>
+  <script src="js/chat.js?v=202610161828"></script>
+  <script src="js/account.js?v=202610161828"></script>
+  <script src="js/app.js?v=202610161828"></script>
 </body>
 </html>

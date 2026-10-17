@@ -68,6 +68,9 @@
       tipRank: "{r} of {n}",
       noValue: "No data",
       villagesN: "{n} villages",
+      signIn: "Sign in", signOut: "Sign out", editProfile: "Edit profile", savedViews: "Saved views", recent: "Recently viewed",
+      noSaved: "Nothing saved yet. Use ☆ Save on any view.", save: "Save", saved: "Saved",
+      welcome: "Welcome back, {name}.", openHome: "Open {place} →",
       showAllRows: "Show all {n} topics", showFewerRows: "Show one per section",
       villagesTitle2: "Villages in {place}",
       vStats: "<b>{n}</b> villages matched to official village codes (LGD). <b>{d}</b> have a facility record from 2020; the rest have no record, which is not the same as \"no\".",
@@ -126,6 +129,9 @@
       tipRank: "{n} ਵਿੱਚੋਂ {r}",
       noValue: "ਡਾਟਾ ਨਹੀਂ",
       villagesN: "{n} ਪਿੰਡ",
+      signIn: "ਸਾਈਨ ਇਨ", signOut: "ਸਾਈਨ ਆਊਟ", editProfile: "ਪ੍ਰੋਫਾਈਲ ਬਦਲੋ", savedViews: "ਸੰਭਾਲੇ ਦ੍ਰਿਸ਼", recent: "ਹਾਲ ਹੀ ਵਿੱਚ ਦੇਖੇ",
+      noSaved: "ਅਜੇ ਕੁਝ ਨਹੀਂ ਸੰਭਾਲਿਆ। ਕਿਸੇ ਵੀ ਦ੍ਰਿਸ਼ 'ਤੇ ☆ ਸੰਭਾਲੋ ਵਰਤੋ।", save: "ਸੰਭਾਲੋ", saved: "ਸੰਭਾਲਿਆ",
+      welcome: "ਜੀ ਆਇਆਂ ਨੂੰ, {name}।", openHome: "{place} ਖੋਲ੍ਹੋ →",
       showAllRows: "ਸਾਰੇ {n} ਵਿਸ਼ੇ ਦਿਖਾਓ", showFewerRows: "ਸਿਰਫ਼ ਮੁੱਖ ਵਿਸ਼ੇ",
       villagesTitle2: "{place} ਦੇ ਪਿੰਡ",
       vStats: "<b>{n}</b> ਪਿੰਡ ਸਰਕਾਰੀ ਪਿੰਡ ਕੋਡਾਂ (LGD) ਨਾਲ ਮਿਲੇ। <b>{d}</b> ਦਾ 2020 ਦਾ ਸਹੂਲਤ ਰਿਕਾਰਡ ਹੈ; ਬਾਕੀਆਂ ਦਾ ਰਿਕਾਰਡ ਨਹੀਂ, ਜਿਸਦਾ ਮਤਲਬ \"ਨਹੀਂ\" ਨਹੀਂ।",
@@ -322,14 +328,18 @@
     $("focus").innerHTML = `
       <div class="focus-top">
         <p class="focus-place">${esc(isState ? s("punjabOverall") : placeName(g))}</p>
-        ${isState ? "" : `<button type="button" class="link focus-clear" data-clear>× ${esc(s("clear"))}</button>`}
+        <span class="focus-actions">
+          <button type="button" class="save-btn${A().isSaved(location.hash.slice(1)) ? " is-on" : ""}" data-save>${A().isSaved(location.hash.slice(1)) ? "★ " + esc(s("saved")) : "☆ " + esc(s("save"))}</button>
+          ${isState ? "" : `<button type="button" class="link focus-clear" data-clear>× ${esc(s("clear"))}</button>`}
+        </span>
       </div>
       <p class="focus-label">${esc(label(ind))}</p>
       <p class="focus-value">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</p>
       ${chips}
       <p class="focus-say">${esc(sentence)}</p>
       ${citation(ind, g)}
-      ${isState ? `<p class="focus-hint">${esc(s("clickHint"))}</p>` : ""}`;
+      ${isState ? (A().get()?.home ? `<p class="focus-hint">${esc(s("welcome", { name: A().get().name.split(" ")[0] }))} <button type="button" class="link" data-home>${esc(s("openHome", { place: A().get().home }))}</button></p>`
+        : `<p class="focus-hint">${esc(s("clickHint"))}</p>`) : ""}`;
     $("focus").classList.toggle("is-place", !isState);
   }
 
@@ -490,9 +500,44 @@
       <div class="accuracy-slot"><span class="accuracy-num">—</span><span>${esc(t("accuracyPending"))}</span></div>`;
   }
 
+  // ---------- account (demo) ----------
+
+  const A = () => Atlas.Account;
+  const viewTitle = () => label(state.ind) + " · " + (state.district ? placeName(geo(state.district)) : s("punjab"));
+  const initials = (n) => n.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+
+  function renderAccount() {
+    const a = A().get();
+    const el = $("acct");
+    if (!a) { el.innerHTML = `<button type="button" class="btn btn-sm" data-signin>${esc(s("signIn"))}</button>`; return; }
+    const item = (v) => `<li><a href="#${esc(v.hash)}">${esc(v.title)}</a></li>`;
+    el.innerHTML = `<button type="button" class="avatar" id="acct-btn" aria-haspopup="true" aria-expanded="false" title="${esc(a.name)}">${esc(initials(a.name))}</button>
+      <div class="acct-menu" id="acct-menu" hidden>
+        <p class="acct-name">${esc(a.name)}</p><p class="acct-role">${esc(a.role)} · ${esc(a.home || "")}</p>
+        <p class="acct-h">${esc(s("savedViews"))}</p>
+        ${a.saved.length ? `<ul>${a.saved.map(item).join("")}</ul>` : `<p class="acct-empty">${esc(s("noSaved"))}</p>`}
+        ${a.recent.length ? `<p class="acct-h">${esc(s("recent"))}</p><ul>${a.recent.slice(0, 3).map(item).join("")}</ul>` : ""}
+        <div class="acct-foot"><button type="button" class="link" data-signin>${esc(s("editProfile"))}</button>
+          <button type="button" class="link" data-signout>${esc(s("signOut"))}</button></div>
+      </div>`;
+  }
+
+  function openSignin(open) {
+    $("signin").hidden = !open;
+    if (!open) return;
+    const a = A().get() || {};
+    const f = $("signin-form");
+    $("signin-home").innerHTML = D.districts().map((d) => `<option${d.name === a.home ? " selected" : ""}>${esc(d.name)}</option>`).join("");
+    f.name.value = a.name || ""; f.email.value = a.email || "";
+    if (a.role) f.role.value = a.role;
+    f.lang.value = a.lang || Atlas.lang;
+    f.name.focus();
+  }
+
   // ---------- render + navigation ----------
 
   function render() {
+    writeHash();
     renderStatic();
     renderTopics();
     renderAnswer();
@@ -506,6 +551,7 @@
     renderCompare();
     renderFoot();
     renderAbout();
+    renderAccount();
     writeHash();
     Atlas.Chat.refresh();
   }
@@ -514,6 +560,7 @@
     const d = state.district ? geo(state.district).id.split(":").pop() : "";
     const h = "#" + [state.ind, d, state.cmp || ""].join("/").replace(/\/+$/, "");
     if (location.hash !== h) history.replaceState(null, "", h);
+    A().visit({ hash: h.slice(1), title: viewTitle() });
   }
 
   function readHash() {
@@ -553,6 +600,16 @@
       const pill = e.target.closest(".pill[data-ind], .sub[data-ind]");
       if (pill) return setIndicator(pill.dataset.ind);
       if (e.target.closest("#more-topics")) { state.moreTopics = !state.moreTopics; return renderTopics(); }
+      if (e.target.closest("[data-signin]")) { $("acct-menu") && ($("acct-menu").hidden = true); return openSignin(true); }
+      if (e.target.closest("[data-close-signin]")) return openSignin(false);
+      if (e.target.closest("[data-signout]")) { A().signOut(); return render(); }
+      if (e.target.closest("#acct-btn")) { const m = $("acct-menu"); m.hidden = !m.hidden; return; }
+      if ($("acct-menu") && !e.target.closest(".acct")) $("acct-menu").hidden = true;
+      if (e.target.closest("[data-save]")) {
+        if (!A().get()) return openSignin(true);
+        A().toggleSave({ hash: location.hash.slice(1), title: viewTitle() }); return render();
+      }
+      if (e.target.closest("[data-home]")) { const d = D.districts().find((x) => x.name === A().get().home); return selectDistrict(d ? d.id : null); }
       if (e.target.closest("#rows-toggle")) { state.allRows = !state.allRows; return renderTable(); }
       const row = e.target.closest(".rank-row");
       if (row) return toggleDistrict(row.dataset.id, { scroll: true });
@@ -579,6 +636,15 @@
       try { localStorage.setItem("atlas-lang", Atlas.lang); } catch (err) { /* private mode */ }
       render();
     }));
+    $("signin-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const f = e.target;
+      A().signIn({ name: f.name.value.trim(), email: f.email.value.trim(), role: f.role.value, home: f.home.value, lang: f.lang.value });
+      Atlas.lang = f.lang.value;
+      openSignin(false);
+      const d = D.districts().find((x) => x.name === f.home.value);
+      selectDistrict(d ? d.id : null);
+    });
     $("about-open").addEventListener("click", () => openAbout(true));
     document.querySelectorAll("#about [data-close]").forEach((x) => x.addEventListener("click", () => openAbout(false)));
     window.addEventListener("hashchange", () => { readHash(); render(); });
@@ -602,7 +668,11 @@
     try { const l = localStorage.getItem("atlas-lang"); if (l === "pa" || l === "en") Atlas.lang = l; } catch (err) { /* ignore */ }
     try {
       await D.load();
+      const me = A().get();
+      if (me?.lang) Atlas.lang = me.lang;
+      const hadHash = location.hash.length > 1;
       readHash();
+      if (!hadHash && me?.home) { const d = D.districts().find((x) => x.name === me.home); if (d) state.district = d.id; }
       Atlas.Map.init($("map"), Atlas.boundaries, {
         onSelect: (n) => { const d = byName(n); if (d) toggleDistrict(d.id, { scroll: true }); },
         onHover: (n) => { highlight(n, true); return tipHtml(n); },
