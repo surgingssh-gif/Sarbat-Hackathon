@@ -266,17 +266,20 @@ Atlas.INDICATORS = {
 Atlas.THEMES = [
   {
     id: "wealth",
+    short: { en: "Wealth", pa: "ਹਾਲਤ" },
     label: { en: "Household wealth", pa: "ਘਰੇਲੂ ਹਾਲਤ" },
     indicators: ["car_ownership_share", "air_conditioner_ownership_share", "two_wheeler_ownership_share"],
   },
   {
     id: "education",
+    short: { en: "Education", pa: "ਸਿੱਖਿਆ" },
     label: { en: "Education", pa: "ਸਿੱਖਿਆ" },
     indicators: ["college_or_higher_aspiration_share", "avg_mother_education_years", "avg_father_education_years", "avg_education_aspiration"],
     planned: [{ en: "Learning levels (ASER)", pa: "ਸਿੱਖਣ ਦਾ ਪੱਧਰ (ASER)" }],
   },
   {
     id: "villages",
+    short: { en: "Villages", pa: "ਪਿੰਡ" },
     label: { en: "Village facilities", pa: "ਪਿੰਡ ਦੀਆਂ ਸਹੂਲਤਾਂ" },
     indicators: [
       "village_high_school_share", "village_health_centre_share", "village_all_weather_road_share",
@@ -285,11 +288,13 @@ Atlas.THEMES = [
   },
   {
     id: "floods",
+    short: { en: "Floods", pa: "ਹੜ੍ਹ" },
     label: { en: "2025 floods", pa: "2025 ਦੇ ਹੜ੍ਹ" },
     indicators: ["severe_or_total_house_damage_share", "avg_agricultural_land_damage_among_owners", "avg_house_damage", "avg_business_damage_among_owners"],
   },
   {
     id: "people",
+    short: { en: "Livelihoods", pa: "ਰੋਜ਼ੀ" },
     label: { en: "Livelihoods", pa: "ਰੋਜ਼ੀ-ਰੋਟੀ" },
     indicators: ["agricultural_land_ownership_share", "business_ownership_share", "female_share"],
   },

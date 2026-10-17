@@ -245,8 +245,7 @@
     const tabs = available().filter((th) => th.indicators.length).map((th) => {
       const on = cur && th.id === cur.id;
       return `<button type="button" role="tab" aria-selected="${on}" class="ttab${on ? " is-on" : ""}" data-ind="${esc(on ? state.ind : th.indicators[0])}">
-        <svg viewBox="0 0 24 24" aria-hidden="true">${THEME_ICONS[th.id] || ""}</svg><span>${esc(Atlas.tr(th.label))}</span>
-        <em>${th.indicators.length}</em></button>`;
+        <svg viewBox="0 0 24 24" aria-hidden="true">${THEME_ICONS[th.id] || ""}</svg><span>${esc(Atlas.tr(th.short || th.label))}</span></button>`;
     }).join("");
     const opts = cur ? cur.indicators.map((i) =>
       `<button type="button" class="seg${i === state.ind ? " is-on" : ""}" data-ind="${esc(i)}" aria-pressed="${i === state.ind}">${esc(label(i))}</button>`).join("") +
@@ -660,7 +659,7 @@
       const ind = t.indicators[0], v = D.visible(ind, d.id), pv = D.visible(ind, stateId());
       const dd = v !== null && pv !== null ? D.fmtDelta(v, pv, ind) : null;
       const rk = D.rank(ind, d.id);
-      return `<button type="button" class="kpi" data-kpi="${esc(ind)}">
+      return `<button type="button" class="kpi${ind === state.ind ? " is-on" : ""}" data-kpi="${esc(ind)}">
         <span class="kpi-t">${esc(Atlas.tr(t.label))}</span>
         <span class="kpi-l">${esc(short(ind))}</span>
         <span class="kpi-v">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</span>
@@ -850,6 +849,13 @@
       resetBtn.addEventListener("click", () => Atlas.Map.reset());
       $("map").appendChild(resetBtn);
       document.querySelector(".lower").prepend($("table"));
+      // Topic picker lives in the side panel, right above the number it controls.
+      document.querySelector(".answer-body .mid").prepend($("topics"));
+      // Map controls.
+      const ctl = document.createElement("div"); ctl.className = "map-ctl";
+      ctl.innerHTML = `<button type="button" data-zoom="in" aria-label="Zoom in">+</button><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="reset" aria-label="Show all of Punjab">⤢</button>`;
+      $("map").appendChild(ctl);
+      ctl.addEventListener("click", (e) => { const z = e.target.dataset.zoom; if (z === "in") Atlas.Map.zoomBy(1.5); if (z === "out") Atlas.Map.zoomBy(1 / 1.5); if (z === "reset") Atlas.Map.reset(); });
       // One surface: title + finding sit at the top of the map card, beside the key.
       const head = document.querySelector(".answer-head"), mapbox = document.querySelector(".mapbox");
       const top = document.createElement("div"); top.className = "mapbox-top";
