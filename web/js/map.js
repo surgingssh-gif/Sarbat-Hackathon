@@ -301,7 +301,7 @@ window.Atlas = window.Atlas || {};
       svg.classList.add("is-entering");
       setTimeout(() => svg.classList.remove("is-entering"), 1400);
     }
-    bindGestures();
+    // bindGestures(); // manual drag/zoom off: the atlas zooms itself when a district is clicked
     applyBox();
   }
 

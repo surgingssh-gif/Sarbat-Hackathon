@@ -68,7 +68,10 @@
       tipRank: "{r} of {n}",
       noValue: "No data",
       villagesN: "{n} villages",
-      measure: "Measure", punjab: "Punjab", rankAll: "Show all {n}", rankLess: "Show top 8", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
+      measure: "Measure", allPunjab: "All of Punjab",
+      noBlockData: "Block numbers exist for Village facilities topics.",
+      blocksOutline: "Lines show the development blocks of {place}. Pick a Villages topic to see a number for each block.",
+      clickToZoom: "Click a district to zoom in and see its blocks.", punjab: "Punjab", rankAll: "Show all {n}", rankLess: "Show top 8", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
       blocksApprox: "Block areas on the map are approximate: each spot is shaded by its nearest village's block.",
       blocksNote: "Shaded areas are development blocks in {place}. Click one to see its villages.",
       aboveD: "{d} above {place}", belowD: "{d} below {place}", rankOfBlocks: "{r} of {n} blocks",
@@ -138,7 +141,10 @@
       tipRank: "{n} ਵਿੱਚੋਂ {r}",
       noValue: "ਡਾਟਾ ਨਹੀਂ",
       villagesN: "{n} ਪਿੰਡ",
-      measure: "ਮਾਪ", punjab: "ਪੰਜਾਬ", rankAll: "ਸਾਰੇ {n} ਦਿਖਾਓ", rankLess: "ਸਿਰਫ਼ ਸਿਖਰਲੇ 8", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
+      measure: "ਮਾਪ", allPunjab: "ਪੂਰਾ ਪੰਜਾਬ",
+      noBlockData: "ਬਲਾਕ ਅੰਕੜੇ ਪਿੰਡ ਸਹੂਲਤਾਂ ਵਾਲੇ ਵਿਸ਼ਿਆਂ ਲਈ ਹਨ।",
+      blocksOutline: "ਲਕੀਰਾਂ {place} ਦੇ ਬਲਾਕ ਦਿਖਾਉਂਦੀਆਂ ਹਨ। ਹਰ ਬਲਾਕ ਦਾ ਅੰਕੜਾ ਦੇਖਣ ਲਈ ਪਿੰਡ ਵਾਲਾ ਵਿਸ਼ਾ ਚੁਣੋ।",
+      clickToZoom: "ਜ਼ੂਮ ਕਰਨ ਅਤੇ ਬਲਾਕ ਦੇਖਣ ਲਈ ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjab: "ਪੰਜਾਬ", rankAll: "ਸਾਰੇ {n} ਦਿਖਾਓ", rankLess: "ਸਿਰਫ਼ ਸਿਖਰਲੇ 8", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
       blocksApprox: "ਨਕਸ਼ੇ 'ਤੇ ਬਲਾਕ ਅੰਦਾਜ਼ਨ ਹਨ: ਹਰ ਥਾਂ ਨੇੜਲੇ ਪਿੰਡ ਦੇ ਬਲਾਕ ਨਾਲ ਰੰਗੀ ਹੈ।",
       blocksNote: "ਰੰਗੇ ਖੇਤਰ {place} ਦੇ ਬਲਾਕ ਹਨ। ਪਿੰਡ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ।",
       aboveD: "{place} ਤੋਂ {d} ਵੱਧ", belowD: "{place} ਤੋਂ {d} ਘੱਟ", rankOfBlocks: "{n} ਬਲਾਕਾਂ ਵਿੱਚੋਂ {r}",
@@ -338,13 +344,26 @@
       }) : [];
       Atlas.Map.setVillages(pts, () => {});
       if (state.zoomed !== sel.name) { Atlas.Map.zoomTo(sel.name, 1.12); state.zoomed = sel.name; }
+    } else if (sel && Atlas.villages.length) {
+      // Survey topics have no block numbers: show block outlines and names in the district's colour.
+      const inDist = Atlas.villages.filter((v) => v.district === sel.name);
+      const fill = fills[sel.name];
+      const blocks = {};
+      for (const v of inDist) blocks[v.block] ||= { fill, label: v.block, value: "", selected: false,
+        tip: `<strong>${esc(v.block)} ${esc(s("blockWord"))}</strong><span class="tip-r">${esc(s("noBlockData"))}</span>` };
+      Atlas.Map.setBlocks(sel.name, inDist.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, () => {});
+      Atlas.Map.setVillages([], () => {});
+      if (state.zoomed !== sel.name) { Atlas.Map.zoomTo(sel.name, 1.12); state.zoomed = sel.name; }
     } else {
       Atlas.Map.setBlocks(null, [], {}, () => {});
       Atlas.Map.setVillages([], () => {});
       if (state.zoomed) { Atlas.Map.reset(); state.zoomed = null; }
     }
+    $("map-back").hidden = !sel;
+    $("map-back").textContent = state.block ? "← " + placeName(sel) : "← " + s("allPunjab");
     $("map").classList.toggle("has-dots", Boolean(showDots && state.block));
-    $("map-note").textContent = showDots ? s(state.block ? "dotsNote" : "blocksNote", { place: state.block || placeName(sel) }) : s("mapNote");
+    $("map-note").textContent = showDots ? s(state.block ? "dotsNote" : "blocksNote", { place: state.block || placeName(sel) })
+      : sel ? s("blocksOutline", { place: placeName(sel) }) : s("clickToZoom");
   }
 
   function citation(ind, g) {
@@ -848,11 +867,11 @@
       resetBtn.type = "button"; resetBtn.className = "map-reset"; resetBtn.textContent = "↺ Punjab";
       resetBtn.addEventListener("click", () => Atlas.Map.reset());
       $("map").appendChild(resetBtn);
-      // Map controls.
-      const ctl = document.createElement("div"); ctl.className = "map-ctl";
-      ctl.innerHTML = `<button type="button" data-zoom="in" aria-label="Zoom in">+</button><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="reset" aria-label="Show all of Punjab">⟲</button>`;
-      $("map").appendChild(ctl);
-      ctl.addEventListener("click", (e) => { const z = e.target.dataset.zoom; if (z === "in") Atlas.Map.zoomBy(1.5); if (z === "out") Atlas.Map.zoomBy(1 / 1.5); if (z === "reset") Atlas.Map.reset(); });
+      // No manual pan/zoom: clicking a district zooms to it; this button goes back out.
+      const back = document.createElement("button");
+      back.type = "button"; back.id = "map-back"; back.className = "map-back"; back.hidden = true;
+      back.addEventListener("click", () => { if (state.block) { state.block = null; render(); } else selectDistrict(null); });
+      $("map").appendChild(back);
       $("map-expand").addEventListener("click", () => {
         const on = !document.body.classList.contains("map-full");
         document.body.classList.toggle("map-full", on);

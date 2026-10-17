@@ -949,3 +949,12 @@ body.map-full .chat { z-index: 50; }
 .mapfig { padding: 0 8px 8px; }
 .mapfig .map-note { padding-top: 16px; }
 body.map-full .mapfig .map-wrap { outline-offset: 6px; margin: 14px 8px 8px; }
+
+/* click-to-zoom map */
+.map-ctl { display: none !important; }
+.map-svg, .is-zoomed .map-svg { cursor: default; }
+.district { cursor: pointer; }
+.map-back { position: absolute; left: 10px; top: 10px; z-index: 4; border: 1px solid var(--ink); background: #fff; border-radius: 3px;
+  font: 600 12.5px/1 var(--sans); padding: 7px 11px; cursor: pointer; }
+.map-back:hover { background: var(--ink); color: #fff; }
+.mapfig .map-note { min-height: 2.6em; }
