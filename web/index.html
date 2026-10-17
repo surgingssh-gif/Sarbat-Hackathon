@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="css/atlas.css?v=202610170203">
+  <link rel="stylesheet" href="css/atlas.css?v=202610170211">
 </head>
 <body>
 <div class="page">
@@ -44,7 +44,7 @@
 
   <main>
     <section class="tab-panel" id="tab-map" hidden>
-      <div class="explore-intro"><h2 class="headline" data-s="exploreHead">Pick a topic to see how Punjab is doing</h2><p class="deck" data-s="exploreDeck">Every topic shows the Punjab average and a map of all 23 districts. No sign-up needed.</p></div>
+      <div class="explore-intro page-intro"><p class="kicker" data-s="exploreKicker">Explore Punjab</p><h2 class="headline" data-s="exploreHead">Pick a topic to see how Punjab is doing</h2><p class="deck" data-s="exploreDeck">Every topic shows the Punjab average and a map of all 23 districts. No sign-up needed.</p></div>
       <nav class="topic-cards" id="topic-pills" aria-label="Topics"></nav>
       <div class="measures" id="measure-row"><span class="measures-lbl" data-s="pickMeasure">Measure</span><div class="measure-list" id="measure-pills" role="group"></div></div>
       <div class="chart-grid">
@@ -84,14 +84,14 @@
     </section>
 
     <section class="tab-panel" id="tab-districts" hidden>
-      <div class="section-head"><h2 data-s="districtsTitle">The Districts</h2><p data-s="districtsSub">All 23 districts, most in need first. Click one for its fact sheet.</p></div>
+      <div class="page-intro"><p class="kicker" data-s="tabDistricts"></p><h2 class="headline" data-s="districtsHead"></h2><p class="deck" data-s="districtsSub"></p></div>
       <div class="cards" id="cards"></div>
     </section>
 
 
 
     <section class="tab-panel" id="tab-villages" hidden>
-      <div class="section-head"><h2 data-s="villagesTitle">The Villages</h2><p data-s="villagesSub">Every village matched to an official code, with the basic services its 2020 record shows. Click a column to sort.</p></div>
+      <div class="page-intro"><p class="kicker" data-s="tabVillages"></p><h2 class="headline" data-s="villagesHead"></h2><p class="deck" data-s="villagesSub"></p></div>
       <div class="filters">
         <input id="vq" type="search">
         <select id="vf-district"></select>
@@ -104,7 +104,7 @@
     </section>
 
     <section class="tab-panel" id="tab-about" hidden>
-      <div class="section-head"><h2 data-s="aboutTitle">How It Works</h2></div>
+      <div class="page-intro"><p class="kicker" data-s="tabAbout"></p><h2 class="headline" data-s="aboutHead"></h2><p class="deck" data-s="aboutDeck"></p></div>
       <div class="about" id="about-cols"></div>
       <div class="section-head"><h2 data-s="xwTitle">How we matched the villages</h2><p data-s="xwSub">Every village in the government's list, linked to the census and to public village records.</p></div>
       <div class="xw" id="xw"></div>
@@ -162,14 +162,14 @@
     </button>
   </section>
 
-  <script src="js/config.js?v=202610170203"></script>
-  <script src="js/i18n.js?v=202610170203"></script>
-  <script src="js/data.js?v=202610170203"></script>
-  <script src="js/map.js?v=202610170203"></script>
-  <script src="js/charts.js?v=202610170203"></script>
-  <script src="js/need.js?v=202610170203"></script>
-  <script src="js/answer.js?v=202610170203"></script>
-  <script src="js/chat.js?v=202610170203"></script>
-  <script src="js/app.js?v=202610170203"></script>
+  <script src="js/config.js?v=202610170211"></script>
+  <script src="js/i18n.js?v=202610170211"></script>
+  <script src="js/data.js?v=202610170211"></script>
+  <script src="js/map.js?v=202610170211"></script>
+  <script src="js/charts.js?v=202610170211"></script>
+  <script src="js/need.js?v=202610170211"></script>
+  <script src="js/answer.js?v=202610170211"></script>
+  <script src="js/chat.js?v=202610170211"></script>
+  <script src="js/app.js?v=202610170211"></script>
 </body>
 </html>

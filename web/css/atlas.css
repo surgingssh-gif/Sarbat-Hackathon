@@ -445,6 +445,56 @@ body.embed .embed-credit img { height: 14px; }
 .conf-rev { background: color-mix(in srgb, #d98a00 18%, transparent); color: #a86a00; }
 .conf-no { background: color-mix(in srgb, var(--bad) 14%, transparent); color: var(--bad); }
 
+
+/* ===================================================================
+   Type system (one place, applied to every page)
+   - Kicker: red, uppercase. Only at the top of a page or popup.
+   - Section head: black, uppercase, over a 2px rule.
+   - Label: grey, normal case, 12.5px sans. Every small label above a value.
+   - Numbers: 40 (one per view), 26 (tiles), 20 (in lists and cards).
+   - Prose: serif. Notes and UI: 13px sans.
+   =================================================================== */
+.page-intro { margin: 2px 0 20px; }
+.page-intro .kicker { margin-bottom: 4px; }
+.headline, .explore-intro .headline { font: 700 clamp(26px, 2.8vw, 32px)/1.15 var(--serif); letter-spacing: -.01em; margin: 0 0 6px; }
+.deck, .explore-intro .deck { font: 17px/1.5 var(--serif); color: var(--ink-2); margin: 0 0 14px; max-width: 72ch; }
+.page-intro .deck { margin-bottom: 0; }
+.explore-intro { margin-bottom: 14px; }
+
+.section-head h2, .tb-head h3, .band-head h3, .ranking h3, .m-h, .sixty-label {
+  font: 800 12px/1.3 var(--sans); text-transform: uppercase; letter-spacing: .1em; color: var(--ink); }
+.section-head p, .tb-head span { font: 13px/1.4 var(--sans); color: var(--muted); }
+.ranking { border-top: 2px solid var(--rule); padding-top: 8px; }
+
+.mk-name, .sixty-row dt, .tile .label, .card-name, .facts dt, .hero-label, .xw-tile .label, .measures-lbl, .pills-lbl, .tb-conf, .tc-name, .r-type {
+  font: 600 12.5px/1.35 var(--sans); text-transform: none; letter-spacing: 0; color: var(--muted); }
+.tc-name { color: var(--ink); }
+.topic-card[aria-current] .tc-name { color: var(--paper); }
+.tags { font: 13px/1.4 var(--sans); text-transform: none; letter-spacing: 0; color: var(--muted); }
+.tb-point h5, .cal-date { font: 600 13px/1.35 var(--sans); text-transform: none; letter-spacing: 0; color: var(--ink); }
+.tb-toggle { font: 600 13px/1.3 var(--sans); text-transform: none; letter-spacing: 0; }
+
+.hero-figure, .tb-rank { font: 700 40px/1 var(--serif); }
+.tile .value, .xw-tile .value { font: 700 26px/1.15 var(--serif); }
+.tb-price .now, .card-price, .heat-val, .facts dd, .mk-price, .card-ticker, .tb-top h4 { font-family: var(--serif); font-weight: 700; }
+.tb-price .now, .card-price, .facts dd { font-size: 20px; line-height: 1.2; }
+.heat-val { font-size: 20px; }
+.card-ticker, .tb-top h4 { font-size: 20px; line-height: 1.2; }
+.mk-price { font-size: 17px; }
+
+.cal-what, .card-foot, .chart-sub, .legend-note, .m-source, .hero-note, .find-note, .explore-desc { font: 13px/1.45 var(--sans); }
+.cal-what, .hero-note, .find-note { color: var(--ink-2); }
+.card-note { font: 13px/1.45 var(--sans); }
+.tb-pitch, .tb-point p, .sixty-row dd { font-family: var(--serif); font-size: 15.5px; line-height: 1.5; }
+
+/* one selected look: filled ink */
+.measure[aria-current] { background: var(--ink); border-color: var(--ink); box-shadow: none; }
+.measure[aria-current] .m-name, .measure[aria-current] .m-val { color: var(--paper); }
+.stock-card { border-radius: 4px; }
+.facts dt::first-letter, .tb-conf::first-letter, .card-name::first-letter, .tile .label::first-letter { text-transform: uppercase; }
+.sixty { background: transparent; border-top: 2px solid var(--rule); padding: 10px 0 4px; }
+.sixty-row { border-top-color: var(--hair); }
+
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
   .cmp-grid { grid-template-columns: 1fr; gap: 18px; }
