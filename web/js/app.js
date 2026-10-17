@@ -399,7 +399,7 @@
     return (cmpAuto[ind] = best || allIndicators().find((i) => i !== ind));
   }
   function compareChart(ps, xInd, yInd, refX, refY) {
-    const W = 640, H = 340, pad = { l: 54, r: 24, t: 18, b: 50 };
+    const W = 680, H = 270, pad = { l: 46, r: 20, t: 14, b: 42 };
     const ext = (v) => { const lo = Math.min(...v), hi = Math.max(...v), sp = hi - lo || Math.abs(hi) || 1; return [lo - sp * 0.1, hi + sp * 0.1]; };
     const ticks = (lo, hi) => { const st0 = (hi - lo) / 4, mag = Math.pow(10, Math.floor(Math.log10(st0))), st = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((x) => x >= st0) || st0, out = [];
       for (let v = Math.ceil(lo / st) * st; v <= hi + 1e-9; v += st) out.push(+v.toFixed(10)); return out; };
@@ -424,11 +424,11 @@
       .forEach((l, i, arr) => { for (let j = 0; j < i; j++) { const o = arr[j]; if (Math.abs(o.x - l.x) < 110 && l.y - o.y < 14) l.y = o.y + 14; } ly[l.id] = l.y; });
     const dots = ps.map((p) => { const lab = pick.has(p.g.id), cx = sx(p.x), cy = sy(p.y), right = cx < W - 120;
       const tip = `${placeName(p.g)}: ${D.fmt(p.x, xInd)}, ${D.fmt(p.y, yInd)}`;
-      return `<g class="cdot${lab ? " is-lab" : ""}" data-id="${esc(p.g.id)}" tabindex="0" role="button" aria-label="${esc(tip)}"><title>${esc(tip)}</title><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${lab ? 6 : 5}"/>` +
+      return `<g class="cdot${lab ? " is-lab" : ""}" data-id="${esc(p.g.id)}" tabindex="0" role="button" aria-label="${esc(tip)}"><title>${esc(tip)}</title><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${lab ? 5 : 4.2}"/>` +
         (lab ? `<text x="${(cx + (right ? 10 : -10)).toFixed(1)}" y="${ly[p.g.id].toFixed(1)}" text-anchor="${right ? "start" : "end"}">${esc(placeName(p.g))}</text>` : "") + `</g>`; }).join("");
     return `<svg class="cmp-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label(xInd))} vs ${esc(label(yInd))}">${grid}${refs}${trend}${dots}
-      <text class="axis-title" x="${(pad.l + W - pad.r) / 2}" y="${H - 8}" text-anchor="middle">${esc(label(xInd))} →</text>
-      <text class="axis-title" transform="translate(14 ${(pad.t + H - pad.b) / 2}) rotate(-90)" text-anchor="middle">${esc(label(yInd))} →</text></svg>`;
+      <text class="axis-title" x="${(pad.l + W - pad.r) / 2}" y="${H - 6}" text-anchor="middle">${esc(label(xInd))} →</text>
+      <text class="axis-title" transform="translate(11 ${(pad.t + H - pad.b) / 2}) rotate(-90)" text-anchor="middle">${esc(label(yInd))} →</text></svg>`;
   }
   function renderCompare(ind) {
     if (!state.cmp || state.cmp === ind || !allIndicators().includes(state.cmp)) state.cmp = bestCompare(ind);
