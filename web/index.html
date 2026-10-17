@@ -17,6 +17,8 @@
         <span class="brand-name" data-s="brand">Punjab Data Hub</span>
         <span class="brand-by" data-s="by">by Parvaaz</span>
       </a>
+      <p class="tagline"><span data-s="introTitle">What 300,000 government-school students told us, district by district</span>
+        <span class="sim" id="sim-note" hidden data-s="simNote">Simulated data</span></p>
       <div class="bar-right">
         <div class="lang" role="group" aria-label="Language">
           <button type="button" data-lang="en" aria-pressed="true">English</button>
@@ -28,47 +30,40 @@
   </header>
 
   <main class="page">
-    <!-- 1. What this is -->
-    <section class="intro">
-      <p class="kicker" data-s="kicker">Punjab, district by district</p>
-      <h1 class="intro-title" data-s="introTitle">What 300,000 government-school students told us about their lives</h1>
-      <p class="intro-sub"><span data-s="introSub">Pick a topic. The map and the list show how each of Punjab's 23 districts compares.</span>
-        <span class="sim" id="sim-note" hidden data-s="simNote">Demo uses simulated survey data.</span></p>
-    </section>
-
-    <!-- 2. Pick a topic -->
     <nav class="topics" id="topics" aria-label="Topics"></nav>
 
-    <!-- 3. The answer -->
     <section class="answer" aria-live="polite">
       <header class="answer-head">
-        <h2 class="answer-title" id="answer-title"></h2>
-        <p class="answer-desc" id="answer-desc"></p>
+        <div class="answer-titles">
+          <h1 class="answer-title" id="answer-title"></h1>
+          <p class="answer-desc" id="answer-desc"></p>
+        </div>
         <p class="answer-finding" id="answer-finding"></p>
       </header>
 
       <div class="answer-body">
-        <figure class="mapbox">
+        <figure class="col mapbox">
           <div class="key" id="key"></div>
           <div class="map-wrap" id="map"></div>
           <figcaption class="map-note" id="map-note"></figcaption>
         </figure>
 
-        <div class="side">
+        <div class="col mid">
           <div class="focus" id="focus"></div>
-          <div class="rank">
-            <h3 class="side-h" id="rank-title"></h3>
-            <ol class="rank-list" id="rank-list"></ol>
-          </div>
+          <div class="table-wrap" id="table"></div>
+        </div>
+
+        <div class="col rank">
+          <h2 class="col-h" id="rank-title"></h2>
+          <ol class="rank-list" id="rank-list"></ol>
         </div>
       </div>
     </section>
 
-    <!-- 4. One district, every topic -->
-    <section class="profile" id="profile" hidden></section>
-
-    <!-- 5. Do two topics line up? -->
-    <section class="compare" id="compare"></section>
+    <section class="lower">
+      <div class="compare" id="compare"></div>
+      <div class="villages" id="villages" hidden></div>
+    </section>
 
     <footer class="foot" id="foot"></footer>
   </main>

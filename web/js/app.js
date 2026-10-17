@@ -23,33 +23,34 @@
     en: {
       brand: "Punjab Data Hub", by: "by Parvaaz", about: "About the data",
       kicker: "Punjab, district by district",
-      introTitle: "What 300,000 government-school students told us about their lives",
+      introTitle: "What 300,000 government-school students told us, district by district",
       introSub: "Pick a topic. The map and the list show how each of Punjab's 23 districts compares.",
-      simNote: "This demo uses simulated survey data.",
+      simNote: "Simulated data",
       pickTopic: "Pick a topic",
       moreTopics: "Show more topics", fewerTopics: "Show fewer topics",
       comingSoon: "coming soon",
       finding: "Highest in <b>{hi}</b> ({hiV}). Lowest in <b>{lo}</b> ({loV}). Across Punjab: <b>{pV}</b>, {say}.",
-      howToRead: "How to read the map",
+      howToRead: "Map key",
       darker: "Darker = higher",
       betterUp: "here, higher is better", worseUp: "here, higher is worse",
       greyKey: "Grey = no data, or hidden to protect privacy",
-      mapNote: "Each district shows its number. Click one to see more. Malerkotla (a district since 2021) is not drawn on the map yet.",
-      rankTitle: "All districts, highest first",
+      mapNote: "Click a district to see its numbers. Malerkotla (district since 2021) isn't drawn yet.",
+      rankTitle: "All 23 districts",
       avgLine: "Punjab average",
       hidden: "Hidden",
       punjabOverall: "Punjab overall",
-      clickHint: "Click any district on the map or in the list to see its number here.",
+      clickHint: "Click a district on the map or list to see its numbers.",
       inPlace: "In {place}, {say}.",
-      above: "{d} above the Punjab average", below: "{d} below the Punjab average", same: "Same as the Punjab average",
+      above: "{d} above Punjab", below: "{d} below Punjab", same: "Same as Punjab",
       rankOf: "{r} of {n} districts",
       ordN: "{n}th",
       source: "Source", openSource: "See the source",
       students: "{n} students", fewer: "based on fewer than {n} students, so it is hidden",
-      seeAll: "Everything about {place}", clear: "Back to all of Punjab",
+      seeAll: "Everything about {place}", clear: "All Punjab",
       profileTitle: "Everything we know about {place}",
       profileSub: "Every topic for {place}, next to the Punjab average. Click a topic to map it.",
-      colTopic: "Topic", colPunjab: "Punjab", colDiff: "Compared with Punjab", colRank: "Rank",
+      colTopic: "Topic", colPunjab: "Punjab", colDiff: "vs Punjab", colRank: "Rank", colRange: "District range",
+      tableTitle: "Every topic: {place}", tableTitleState: "Every topic: Punjab",
       higher: "higher", lower: "lower",
       villagesTitle: "Villages in {place}: {topic}",
       villagesNote: "Sample villages for testing. Real villages arrive once the village matching (crosswalk) is finished.",
@@ -70,9 +71,9 @@
     pa: {
       brand: "ਪੰਜਾਬ ਡਾਟਾ ਹੱਬ", by: "ਪਰਵਾਜ਼ ਵੱਲੋਂ", about: "ਡਾਟਾ ਬਾਰੇ",
       kicker: "ਪੰਜਾਬ, ਜ਼ਿਲ੍ਹਾ ਦਰ ਜ਼ਿਲ੍ਹਾ",
-      introTitle: "3 ਲੱਖ ਸਰਕਾਰੀ ਸਕੂਲ ਵਿਦਿਆਰਥੀਆਂ ਨੇ ਆਪਣੀ ਜ਼ਿੰਦਗੀ ਬਾਰੇ ਕੀ ਦੱਸਿਆ",
+      introTitle: "3 ਲੱਖ ਸਰਕਾਰੀ ਸਕੂਲ ਵਿਦਿਆਰਥੀਆਂ ਨੇ ਕੀ ਦੱਸਿਆ, ਜ਼ਿਲ੍ਹਾ ਦਰ ਜ਼ਿਲ੍ਹਾ",
       introSub: "ਇੱਕ ਵਿਸ਼ਾ ਚੁਣੋ। ਨਕਸ਼ਾ ਅਤੇ ਸੂਚੀ ਦਿਖਾਉਂਦੇ ਹਨ ਕਿ ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹੇ ਕਿਵੇਂ ਹਨ।",
-      simNote: "ਇਹ ਡੈਮੋ ਨਕਲੀ (ਸਿਮੂਲੇਟਡ) ਸਰਵੇਖਣ ਡਾਟਾ ਵਰਤਦਾ ਹੈ।",
+      simNote: "ਨਕਲੀ ਡਾਟਾ",
       pickTopic: "ਵਿਸ਼ਾ ਚੁਣੋ",
       moreTopics: "ਹੋਰ ਵਿਸ਼ੇ ਦਿਖਾਓ", fewerTopics: "ਘੱਟ ਵਿਸ਼ੇ ਦਿਖਾਓ",
       comingSoon: "ਜਲਦੀ ਆ ਰਿਹਾ",
@@ -82,7 +83,7 @@
       betterUp: "ਇੱਥੇ ਵੱਧ ਚੰਗਾ ਹੈ", worseUp: "ਇੱਥੇ ਵੱਧ ਮਾੜਾ ਹੈ",
       greyKey: "ਸਲੇਟੀ = ਡਾਟਾ ਨਹੀਂ, ਜਾਂ ਨਿੱਜਤਾ ਲਈ ਲੁਕਾਇਆ",
       mapNote: "ਹਰ ਜ਼ਿਲ੍ਹੇ ਉੱਤੇ ਉਸਦਾ ਅੰਕੜਾ ਲਿਖਿਆ ਹੈ। ਹੋਰ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ। ਮਲੇਰਕੋਟਲਾ (2021 ਤੋਂ ਜ਼ਿਲ੍ਹਾ) ਅਜੇ ਨਕਸ਼ੇ 'ਤੇ ਨਹੀਂ।",
-      rankTitle: "ਸਾਰੇ ਜ਼ਿਲ੍ਹੇ, ਸਭ ਤੋਂ ਵੱਧ ਪਹਿਲਾਂ",
+      rankTitle: "ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹੇ",
       avgLine: "ਪੰਜਾਬ ਔਸਤ",
       hidden: "ਲੁਕਿਆ",
       punjabOverall: "ਪੂਰਾ ਪੰਜਾਬ",
@@ -93,10 +94,11 @@
       ordN: "{n}ਵਾਂ",
       source: "ਸਰੋਤ", openSource: "ਸਰੋਤ ਦੇਖੋ",
       students: "{n} ਵਿਦਿਆਰਥੀ", fewer: "{n} ਤੋਂ ਘੱਟ ਵਿਦਿਆਰਥੀ, ਇਸ ਲਈ ਲੁਕਾਇਆ",
-      seeAll: "{place} ਬਾਰੇ ਸਭ ਕੁਝ", clear: "ਪੂਰੇ ਪੰਜਾਬ 'ਤੇ ਵਾਪਸ",
+      seeAll: "{place} ਬਾਰੇ ਸਭ ਕੁਝ", clear: "ਪੂਰਾ ਪੰਜਾਬ",
       profileTitle: "{place} ਬਾਰੇ ਸਭ ਕੁਝ",
       profileSub: "{place} ਦਾ ਹਰ ਵਿਸ਼ਾ, ਪੰਜਾਬ ਔਸਤ ਦੇ ਨਾਲ। ਨਕਸ਼ੇ 'ਤੇ ਦੇਖਣ ਲਈ ਵਿਸ਼ੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
-      colTopic: "ਵਿਸ਼ਾ", colPunjab: "ਪੰਜਾਬ", colDiff: "ਪੰਜਾਬ ਦੇ ਮੁਕਾਬਲੇ", colRank: "ਦਰਜਾ",
+      colTopic: "ਵਿਸ਼ਾ", colPunjab: "ਪੰਜਾਬ", colDiff: "ਪੰਜਾਬ ਨਾਲ", colRank: "ਦਰਜਾ", colRange: "ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਰੇਂਜ",
+      tableTitle: "ਹਰ ਵਿਸ਼ਾ: {place}", tableTitleState: "ਹਰ ਵਿਸ਼ਾ: ਪੰਜਾਬ",
       higher: "ਵੱਧ", lower: "ਘੱਟ",
       villagesTitle: "{place} ਦੇ ਪਿੰਡ: {topic}",
       villagesNote: "ਜਾਂਚ ਲਈ ਨਮੂਨਾ ਪਿੰਡ। ਅਸਲ ਪਿੰਡ ਪਿੰਡ-ਮਿਲਾਨ (ਕ੍ਰਾਸਵਾਕ) ਪੂਰਾ ਹੋਣ 'ਤੇ ਆਉਣਗੇ।",
@@ -178,8 +180,8 @@
           `<button type="button" class="pill${i === state.ind ? " is-on" : ""}" data-ind="${esc(i)}" aria-pressed="${i === state.ind}">${esc(label(i))}</button>`).join("")}${planned}</div>
       </div>`;
     }).join("");
-    $("topics").innerHTML = `<h2 class="topics-h">${esc(s("pickTopic"))}</h2><div class="topic-groups">${html}</div>
-      <button type="button" class="link more-topics" id="more-topics">${esc(s(state.moreTopics ? "fewerTopics" : "moreTopics"))}</button>`;
+    $("topics").innerHTML = `<h2 class="topics-h">${esc(s("pickTopic"))}</h2><div class="topic-groups">${html}
+      <button type="button" class="link more-topics" id="more-topics">${esc(s(state.moreTopics ? "fewerTopics" : "moreTopics"))}</button></div>`;
   }
 
   // ---------- the answer ----------
@@ -203,8 +205,11 @@
   function renderKey(sc) {
     const ind = state.ind, r = ramp(ind), dir = D.meta(ind).direction;
     const edges = [sc.min, ...sc.breaks, sc.max];
+    // Narrow percentage ranges get a decimal so labels don't repeat ("6%–6%").
+    const fine = D.meta(ind).format === "percent" && sc.max - sc.min < 0.2;
+    const kf = (v) => (fine ? (v * 100).toFixed(1) + "%" : D.fmtShort(v, ind));
     const steps = [0, 1, 2, 3, 4].map((i) =>
-      `<span class="key-step"><i style="background:var(--seq-${r}-${i})"></i><b>${esc(D.fmtShort(edges[i], ind))}–${esc(D.fmtShort(edges[i + 1], ind))}</b></span>`).join("");
+      `<span class="key-step"><i style="background:var(--seq-${r}-${i})"></i><b>${esc(kf(edges[i]))}–${esc(kf(edges[i + 1]))}</b></span>`).join("");
     const note = dir === "higher_better" ? s("betterUp") : dir === "higher_worse" ? s("worseUp") : "";
     $("key").innerHTML = `<p class="key-h">${esc(s("howToRead"))}: <b>${esc(s("darker"))}</b>${note ? ` <span class="key-dir is-${r}">(${esc(note)})</span>` : ""}</p>
       <div class="key-steps">${steps}</div>
@@ -287,8 +292,7 @@
       ${chips}
       <p class="focus-say">${esc(sentence)}</p>
       ${citation(ind, g)}
-      ${isState ? `<p class="focus-hint">${esc(s("clickHint"))}</p>`
-        : `<button type="button" class="btn-line" data-goto-profile>${esc(s("seeAll", { place: placeName(g) }))} ↓</button>`}`;
+      ${isState ? `<p class="focus-hint">${esc(s("clickHint"))}</p>` : ""}`;
     $("focus").classList.toggle("is-place", !isState);
   }
 
@@ -316,49 +320,53 @@
 
   // ---------- one district ----------
 
-  function renderProfile() {
-    const el = $("profile");
-    const g = state.district && geo(state.district);
-    if (!g) { el.hidden = true; el.innerHTML = ""; return; }
-    el.hidden = false;
+  function renderTable() {
+    const g = state.district ? geo(state.district) : geo(stateId());
+    const isState = g.level === "state";
     const place = placeName(g);
+    const head = isState
+      ? `<tr><th>${esc(s("colTopic"))}</th><th class="t-num">${esc(s("colPunjab"))}</th><th class="t-num">${esc(s("colRange"))}</th></tr>`
+      : `<tr><th>${esc(s("colTopic"))}</th><th class="t-num">${esc(place)}</th><th class="t-num">${esc(s("colPunjab"))}</th><th class="t-num">${esc(s("colDiff"))}</th></tr>`;
+    const cols = isState ? 3 : 4;
     const rows = available().map((th) => {
       if (!th.indicators.length) return "";
-      return `<tr class="grp"><th colspan="5">${esc(Atlas.tr(th.label))}</th></tr>` + th.indicators.map((ind) => {
+      return `<tr class="grp"><th colspan="${cols}">${esc(Atlas.tr(th.label))}</th></tr>` + th.indicators.map((ind) => {
         const v = D.visible(ind, g.id), pv = D.visible(ind, stateId());
-        const rk = D.rank(ind, g.id);
-        const dd = v !== null && pv !== null ? D.fmtDelta(v, pv, ind) : null;
-        const diffCell = !dd ? "" : dd.sign
-          ? `<span class="chip is-${D.tone(dd.sign, ind)}">${dd.sign > 0 ? "▲" : "▼"} ${esc(dd.text.replace(/^[+−]/, ""))} ${esc(s(dd.sign > 0 ? "higher" : "lower"))}</span>`
-          : `<span class="chip">${esc(s("same"))}</span>`;
+        let tail;
+        if (isState) {
+          const vals = D.districtValues(ind).map((d) => d.value);
+          tail = `<td class="t-num t-muted">${vals.length ? esc(D.fmtShort(Math.min(...vals), ind) + " – " + D.fmtShort(Math.max(...vals), ind)) : ""}</td>`;
+        } else {
+          const dd = v !== null && pv !== null ? D.fmtDelta(v, pv, ind) : null;
+          const cell = !dd ? "" : dd.sign
+            ? `<span class="chip is-${D.tone(dd.sign, ind)}">${dd.sign > 0 ? "▲" : "▼"} ${esc(dd.text.replace(/^[+−]/, ""))}</span>`
+            : `<span class="chip">=</span>`;
+          tail = `<td class="t-num t-muted">${esc(pv === null ? "–" : D.fmt(pv, ind))}</td><td class="t-num">${cell}</td>`;
+        }
         return `<tr class="prow${ind === state.ind ? " is-on" : ""}" data-ind="${esc(ind)}" tabindex="0">
           <td class="t-topic">${esc(label(ind))}</td>
-          <td class="t-num t-strong">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</td>
-          <td class="t-num t-muted">${esc(pv === null ? "–" : D.fmt(pv, ind))}</td>
-          <td>${diffCell}</td>
-          <td class="t-num t-muted">${rk ? esc(s("rankOf", { r: ordinal(rk.r), n: rk.total })) : ""}</td>
-        </tr>`;
+          <td class="t-num t-strong">${esc(v === null ? s("hidden") : D.fmt(v, ind))}</td>${tail}</tr>`;
       }).join("");
     }).join("");
+    $("table").innerHTML = `<h2 class="col-h">${esc(s(isState ? "tableTitleState" : "tableTitle", { place }))}</h2>
+      <table class="ptable"><thead>${head}</thead><tbody>${rows}</tbody></table>`;
+  }
 
-    const vill = g.children.map((id) => geo(id)).filter(Boolean);
+  function renderVillages() {
+    const el = $("villages");
+    const g = state.district && geo(state.district);
+    const vill = g ? g.children.map((id) => geo(id)).filter(Boolean) : [];
+    if (!vill.length) { el.hidden = true; el.innerHTML = ""; return; }
+    el.hidden = false;
+    const place = placeName(g);
     const vv = vill.map((v) => ({ v, x: D.visible(state.ind, v.id) }));
     const vmax = Math.max(...vv.map((o) => o.x ?? 0), D.visible(state.ind, g.id) ?? 0) || 1;
-    const villages = vill.length ? `
-      <h3 class="sub-h">${esc(s("villagesTitle", { place, topic: label(state.ind) }))}</h3>
+    el.innerHTML = `<h2 class="sec-h">${esc(s("villagesTitle", { place, topic: label(state.ind) }))}</h2>
       <ul class="vill">${vv.sort((a, b) => (b.x ?? -1) - (a.x ?? -1)).map(({ v, x }) => `<li>
         <span class="vill-name">${esc(v.name)}</span>
         <span class="vill-track">${x === null ? "" : `<span style="width:${((x / vmax) * 100).toFixed(1)}%"></span>`}</span>
         <span class="vill-v">${esc(x === null ? s("hidden") : D.fmt(x, state.ind))}</span></li>`).join("")}</ul>
-      <p class="note">${esc(s("villagesNote"))}</p>` : "";
-
-    el.innerHTML = `
-      <h2 class="sec-h">${esc(s("profileTitle", { place }))}</h2>
-      <p class="sec-sub">${esc(s("profileSub", { place }))}</p>
-      <div class="table-wrap"><table class="ptable">
-        <thead><tr><th>${esc(s("colTopic"))}</th><th class="t-num">${esc(place)}</th><th class="t-num">${esc(s("colPunjab"))}</th><th>${esc(s("colDiff"))}</th><th class="t-num">${esc(s("colRank"))}</th></tr></thead>
-        <tbody>${rows}</tbody></table></div>
-      ${villages}`;
+      <p class="note">${esc(s("villagesNote"))}</p>`;
   }
 
   // ---------- two topics ----------
@@ -447,7 +455,8 @@
     renderMap(sc);
     renderFocus();
     renderRank(sc);
-    renderProfile();
+    renderTable();
+    renderVillages();
     renderCompare();
     renderFoot();
     renderAbout();
@@ -501,9 +510,8 @@
       const row = e.target.closest(".rank-row");
       if (row) return toggleDistrict(row.dataset.id, { scroll: true });
       if (e.target.closest("[data-clear]")) return selectDistrict(null);
-      if (e.target.closest("[data-goto-profile]")) return $("profile").scrollIntoView({ behavior: "smooth", block: "start" });
       const tr = e.target.closest(".ptable tr[data-ind]");
-      if (tr) { setIndicator(tr.dataset.ind); return document.querySelector(".answer").scrollIntoView({ behavior: "smooth", block: "start" }); }
+      if (tr) return setIndicator(tr.dataset.ind);
       const dot = e.target.closest(".scatter .dot");
       if (dot) return toggleDistrict(dot.dataset.id);
       if (e.target.closest("#home")) { e.preventDefault(); state.district = null; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
