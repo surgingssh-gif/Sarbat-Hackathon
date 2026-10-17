@@ -28,15 +28,15 @@ The atlas is laid out like a newspaper front page: a nameplate, a strip of Punja
 
 | Section | Address | What it shows |
 |---|---|---|
-| **Today** | `#today` | The story: "which districts need help most", an "In 60 seconds" box, the five districts to look at first (each with a "Why" panel), the need map with focus-area toggles, village totals, and every district as a heat tile. |
+| **Explore Punjab** (home) | `#explore/<indicator>` | Pick a topic and a measure: the Punjab average with its source, a map of all 23 districts, and every district ranked. No district needs to be chosen first. |
+| **Where Help Is Needed** | `#today` | The story: which districts need help most, an "In 60 seconds" box, the five districts to look at first (each with a "Why" panel), the need map with focus-area toggles, village totals, and every district as a heat tile. |
 | **Districts** | `#districts` | One card per district, most in need first. |
-| **The Map** | `#map/<indicator>` | Any measure mapped and ranked for all 23 districts, with the Punjab figure and its source. |
 | **Villages** | `#villages` | All 12,158 villages in a sortable table with ✓/✗ for school, health centre, road and water; filter by district, block or missing service. |
 | **How It Works** | `#about` | The survey, the village matching, the need score, sources and privacy. |
 
 Clicking any district opens its **fact sheet** (`#district/<slug>`) as a popup: need score, why it ranks here (district vs Punjab, with sources), key numbers, a block table and a map of its blocks. Clicking a block (`#district/<slug>/<block>`) shows its basic services against the district average, its villages as dots, and a link to those villages in the table.
 
-The header search (press `/`) jumps to any district, block or village. Dark mode and Punjabi are toggles in the top bar. Save, Share and Print sit on every fact sheet. Ask Parvaaz is in the corner.
+The header search (press `/`) jumps to any district, block or village. Dark mode and Punjabi are toggles in the top bar. Share and Print sit on every fact sheet. There is no sign-up or log-in: anyone can use everything. Ask Parvaaz is in the corner.
 
 Styles are one file, `css/atlas.css`, in numbered sections; colours and fonts are tokens at the top. The page logic is `js/app.js` (routing, pages, search).
 

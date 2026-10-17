@@ -1,7 +1,7 @@
 /*
  * Parvaaz Data Hub: the app, laid out like a newspaper front page.
  *
- * Tabs (hash): #today  #districts  #map[/<indicator>]  #villages  #about
+ * Tabs (hash): #explore[/<indicator>] (home)  #today  #districts  #villages  #about
  * Fact sheet popup: #district/<slug>[/<block>]   (opens over the current tab)
  * One map (map.js) is moved into whichever slot is showing: Today's rail, The Map, or the popup.
  */
@@ -18,7 +18,7 @@
     en: {
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
-      tabToday: "Today", tabDistricts: "Districts", tabMap: "The Map", tabVillages: "Villages", tabAbout: "How It Works",
+      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Every topic shows the Punjab average and a map of all 23 districts. Click any district for its fact sheet.", punjabAvgOf: "Punjab average", tabVillages: "Villages", tabAbout: "How It Works",
       kickerLead: "Where help is needed", leadHead: "{a}, {b} and {c} need help most",
       leadDeck: "Ranking Punjab's 23 districts on {areas}, these three come out furthest behind. Below: the five districts to look at first, and why.",
       sixty: "In 60 seconds", sMost: "Most need", sGap: "Biggest gap", sGapV: "{k} of {d} villages with a 2020 record have no high school; {h} have no health centre.",
@@ -74,7 +74,7 @@
     pa: {
       brand: "ਪਰਵਾਜ਼ ਡਾਟਾ ਹੱਬ", byTitle: "ਪਰਵਾਜ਼ ਵੱਲੋਂ ਬਣਾਇਆ", byText: "ਪਰਵਾਜ਼ ਇੱਕ ਗੈਰ-ਮੁਨਾਫ਼ਾ ਸੰਸਥਾ ਹੈ ਜਿਸਨੇ ਪੰਜਾਬ ਦੇ ਹਰ ਸਰਕਾਰੀ ਸੈਕੰਡਰੀ ਸਕੂਲ ਦੇ ਲਗਭਗ 3 ਲੱਖ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ। ਇਹ ਹੱਬ ਜ਼ਿਲ੍ਹਾ-ਵਾਰ ਨਤੀਜੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ। ਅਸਲ ਜਵਾਬ ਕਦੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੁੰਦੇ, ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਔਸਤ।", edition: "ਪੰਜਾਬ ਐਡੀਸ਼ਨ", volume: "ਅੰਕ 1 · ਪਰਵਾਜ਼ ਵੱਲੋਂ", simLine: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਲਈ ਨਕਲੀ ਹਨ।",
       darkMode: "ਗੂੜ੍ਹਾ", lightMode: "ਹਲਕਾ", findPh: "ਜ਼ਿਲ੍ਹਾ, ਬਲਾਕ ਜਾਂ ਪਿੰਡ ਲੱਭੋ",
-      tabToday: "ਅੱਜ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਨਕਸ਼ਾ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
+      tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
       kickerLead: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", leadHead: "{a}, {b} ਅਤੇ {c} ਨੂੰ ਸਭ ਤੋਂ ਵੱਧ ਮਦਦ ਦੀ ਲੋੜ",
       leadDeck: "{areas} ਵਿੱਚ ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰਨ 'ਤੇ ਇਹ ਤਿੰਨ ਸਭ ਤੋਂ ਪਿੱਛੇ ਹਨ। ਹੇਠਾਂ: ਪਹਿਲਾਂ ਦੇਖਣ ਵਾਲੇ ਪੰਜ ਜ਼ਿਲ੍ਹੇ।",
       sixty: "60 ਸਕਿੰਟਾਂ ਵਿੱਚ", sMost: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ", sGap: "ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਟ", sGapV: "ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਨਹੀਂ; {h} ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਨਹੀਂ।",
@@ -142,7 +142,7 @@
 
   // ---------- state + helpers ----------
 
-  const state = { tab: "today", ind: null, sheet: null, block: null, areas: ["poverty", "education", "services", "floods"],
+  const state = { tab: "map", ind: null, sheet: null, block: null, areas: ["poverty", "education", "services", "floods"],
     open: null, vq: "", vd: "", vb: "", vm: "", vsort: "svc", vdir: 1, vlimit: 60, vhl: null, zoomed: undefined };
 
   const geo = (id) => Atlas.data.geos.get(id);
@@ -228,7 +228,7 @@
     const t = villageTotals();
     $("markets").innerHTML = available().map((th) => {
       const ind = th.indicators[0], v = D.visible(ind, stateId());
-      return `<a class="mk" href="#map/${esc(ind)}"><span class="mk-name">${esc(Atlas.tr(th.label))}</span><span class="mk-price">${esc(v === null ? "–" : D.fmt(v, ind))}</span><span class="mk-chg">${esc(short(ind))}</span></a>`;
+      return `<a class="mk" href="#explore/${esc(ind)}"><span class="mk-name">${esc(Atlas.tr(th.label))}</span><span class="mk-price">${esc(v === null ? "–" : D.fmt(v, ind))}</span><span class="mk-chg">${esc(short(ind))}</span></a>`;
     }).join("") + `<a class="mk" href="#villages"><span class="mk-name">${esc(s("tabVillages"))}</span><span class="mk-price">${t.noHS.toLocaleString()}</span><span class="mk-chg">${esc(s("tNoHS"))}</span></a>`;
   }
 
@@ -318,8 +318,8 @@
 
   function renderMapTab() {
     const ind = state.ind, m = D.meta(ind), th = themeOf(ind), sc = scaleFor(ind);
-    $("topic-pills").innerHTML = available().map((t) => `<a class="pill pill-lg" href="#map/${esc(t.id === th.id ? ind : t.indicators[0])}" aria-pressed="${t.id === th.id}">${esc(Atlas.tr(t.label))}</a>`).join("");
-    $("measure-pills").innerHTML = th.indicators.length > 1 ? th.indicators.map((i) => `<a class="pill" href="#map/${esc(i)}" aria-pressed="${i === ind}">${esc(label(i))}</a>`).join("") : "";
+    $("topic-pills").innerHTML = available().map((t) => `<a class="pill pill-lg" href="#explore/${esc(t.id === th.id ? ind : t.indicators[0])}" aria-pressed="${t.id === th.id}">${esc(Atlas.tr(t.label))}</a>`).join("");
+    $("measure-pills").innerHTML = th.indicators.length > 1 ? th.indicators.map((i) => `<a class="pill" href="#explore/${esc(i)}" aria-pressed="${i === ind}">${esc(label(i))}</a>`).join("") : "";
     $("map-title").textContent = label(ind);
     $("map-desc").textContent = Atlas.tr(m.desc || "");
     const dir = m.direction === "higher_better" ? s("higherBetter") : m.direction === "higher_worse" ? s("higherWorse") : "";
@@ -327,7 +327,7 @@
     const pv = D.visible(ind, stateId()), list = D.districtValues(ind).sort((a, b) => b.value - a.value), hi = list[0], lo = list[list.length - 1];
     const lo0 = m.format === "score" && m.scale ? m.scale[0] : 0, hi0 = (Math.max(sc.max, pv ?? 0) * 1.05) || 1;
     const pos = (x) => Math.max(0, Math.min(100, ((x - lo0) / (hi0 - lo0)) * 100));
-    $("map-side").innerHTML = `<p class="hero-label">${esc(s("punjab"))}</p><p class="hero-figure">${esc(pv === null ? "–" : D.fmt(pv, ind))}</p>
+    $("map-side").innerHTML = `<p class="hero-label">${esc(s("punjabAvgOf"))}</p><p class="hero-figure">${esc(pv === null ? "–" : D.fmt(pv, ind))}</p>
       <p class="hero-note">${esc(pv === null ? "" : D.say(ind, pv).replace(/^\w/, (c) => c.toUpperCase()))}</p>
       ${hi ? `<p class="find-note">${s("findingTopic", { hi: esc(placeName(hi.geo)), hiV: esc(D.fmt(hi.value, ind)), lo: esc(placeName(lo.geo)), loV: esc(D.fmt(lo.value, ind)) })}</p>` : ""}
       ${source(ind, geo(stateId()))}
@@ -384,10 +384,8 @@
   // ---------- FACT SHEET (popup) ----------
 
   function sheetTop() {
-    const saved = Atlas.Account.isSaved(location.hash.slice(1));
     return `<div class="modal-top"><p class="kicker">${esc(state.block ? s("blockSheet") : s("factSheet"))}</p>
-      <div class="modal-actions"><button type="button" class="pill${saved ? " on" : ""}" data-save aria-pressed="${saved}">${saved ? "★" : "☆"} ${esc(saved ? s("saved") : s("save"))}</button>
-      <button type="button" class="pill" data-share>${esc(s("share"))}</button><button type="button" class="pill" data-print>${esc(s("print"))}</button></div></div>`;
+      <div class="modal-actions"><button type="button" class="pill" data-share>${esc(s("share"))}</button><button type="button" class="pill" data-print>${esc(s("print"))}</button></div></div>`;
   }
 
   function openSheet() {
@@ -470,7 +468,7 @@
     state.sheet = null; state.block = null;
     const dlg = $("modal"); if (dlg.open) dlg.close();
     document.body.classList.remove("modal-open");
-    history.replaceState(null, "", "#" + (state.tab === "map" ? "map/" + state.ind : state.tab));
+    history.replaceState(null, "", "#" + (state.tab === "map" ? "explore/" + state.ind : state.tab));
     state.zoomed = undefined;
     render();
   }
@@ -556,12 +554,6 @@
       `<div><h3>${esc(s("n2h"))}</h3><p>${esc(s("n2", { n: Atlas.config.minGroupSize }))}</p></div>`;
   }
   function renderFoot() { $("foot").textContent = `${s("n2", { n: Atlas.config.minGroupSize })} ${s("footLicense")}`; }
-  const A = () => Atlas.Account;
-  function renderAccount() {
-    const a = A().get();
-    $("acct").innerHTML = a ? `<a class="toggle-btn" href="signin.html" title="${esc(a.name)}">${esc(a.name.split(" ")[0])}</a><button type="button" class="toggle-btn" data-signout>${esc(s("signOut"))}</button>`
-      : `<a class="toggle-btn" href="signin.html">${esc(s("signIn"))}</a>`;
-  }
   let toastTimer;
   function toast(msg) { const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2400); }
 
@@ -572,8 +564,9 @@
     const [a, b, c] = location.hash.replace(/^#\/?/, "").split("/").map((x) => { try { return decodeURIComponent(x || ""); } catch (e) { return x || ""; } });
     if (a === "district" && bySlug(b)) { state.sheet = bySlug(b).id; state.block = c || null; return; }
     state.sheet = null; state.block = null;
-    state.tab = TABS.includes(a) ? a : "today";
-    if (a === "map" && allIndicators().includes(b)) state.ind = b;
+    const tab = a === "explore" ? "map" : a;
+    state.tab = TABS.includes(tab) ? tab : "map";
+    if (tab === "map" && allIndicators().includes(b)) state.ind = b;
   }
   let lastTab = "";
   function render() {
@@ -588,7 +581,7 @@
     else renderAbout();
     if (state.sheet) openSheet();
     else { if ($("modal").open) $("modal").close(); document.body.classList.remove("modal-open"); if (state.tab !== "today" && state.tab !== "map") mapTo(".map-park"); }
-    renderFoot(); renderAccount();
+    renderFoot();
     Atlas.Chat.refresh();
   }
 
@@ -607,13 +600,8 @@
       if (th) { const k = th.dataset.sort; state.vdir = state.vsort === k ? -state.vdir : (k === "pop" ? -1 : 1); state.vsort = k; return renderVillages(); }
       if (e.target.closest("#vmore")) { state.vlimit += 100; return renderVillages(); }
       if (e.target.closest("#modal-close")) return closeSheet();
-      if (e.target.closest("[data-save]")) {
-        if (!A().get()) { location.href = "signin.html"; return; }
-        const on = A().toggleSave({ hash: location.hash.slice(1), title: state.block || placeName(geo(state.sheet)) }); toast(s(on ? "savedToast" : "removedToast")); return openSheet();
-      }
       if (e.target.closest("[data-share]")) { (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(() => toast(s("copied")), () => toast(location.href)); return; }
       if (e.target.closest("[data-print]")) { window.print(); return; }
-      if (e.target.closest("[data-signout]")) { A().signOut(); return render(); }
     });
     $("modal").addEventListener("click", (e) => { if (e.target === $("modal")) closeSheet(); });
     $("modal").addEventListener("cancel", (e) => { e.preventDefault(); closeSheet(); });
@@ -640,14 +628,12 @@
     try { const l = localStorage.getItem("atlas-lang"); if (l === "pa" || l === "en") Atlas.lang = l; const t = localStorage.getItem("atlas-theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch (err) { /* ignore */ }
     try {
       await D.load();
-      const me = A().get(); if (me?.lang) Atlas.lang = me.lang;
       state.ind = defaultInd();
       buildIndex();
       Atlas.Map.init($("map"), Atlas.boundaries, { onSelect: (n) => onMapSelect(n), onHover: (n) => onMapHover(n), context: Atlas.context });
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind(); parse(); render();
       document.body.classList.add("is-ready");
-      try { if (sessionStorage.getItem("pdh-welcome") && me) { sessionStorage.removeItem("pdh-welcome"); toast(s("welcomeToast", { name: me.name.split(" ")[0] })); } } catch (err) { /* ignore */ }
     } catch (err) {
       console.error(err);
       document.body.insertAdjacentHTML("afterbegin", `<p style="padding:40px">The data didn't load: ${esc(err.message)}</p>`);
