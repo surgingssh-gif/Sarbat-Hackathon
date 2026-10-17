@@ -859,7 +859,9 @@
       // One surface: title + finding sit at the top of the map card, beside the key.
       const head = document.querySelector(".answer-head"), mapbox = document.querySelector(".mapbox");
       const top = document.createElement("div"); top.className = "mapbox-top";
-      top.append(head, $("key")); mapbox.prepend(top);
+      top.append(head); mapbox.prepend(top);
+      // Title and key float over the map on glass panels.
+      $("map").append(top, $("key"));
       Atlas.Chat.init({ getContext: chatContext, getSuggestions: chatSuggestions });
       bind();
       render();

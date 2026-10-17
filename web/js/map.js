@@ -44,7 +44,7 @@ window.Atlas = window.Atlas || {};
   // ---------- basemap tiles (real roads, rivers, towns) ----------
 
   // Esri "Light Gray Canvas": free, no API key, quiet grey that keeps the data in front.
-  const TILE_BASE = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
+  const TILE_BASE = ""; // street tiles off: the atlas uses a clean vector canvas (set an Esri/OSM template here to bring them back)
   const TILE_LABELS = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}";
   let gTiles, gTileLabels, tileState = "unknown", tilesQueued = false;
   const tileCache = new Map();
@@ -189,7 +189,7 @@ window.Atlas = window.Atlas || {};
     const features = geojson.features || [];
     project = makeProjection(features);
     const H = Math.ceil(project.height);
-    fullBox = [-16, -16, W + 32, H + 32];
+    fullBox = [-16, -16 - H * 0.2, W + 32, H * 1.2 + 32]; // room at the top for the floating title panel
     box = fullBox.slice();
 
     svg = document.createElementNS(NS, "svg");
@@ -284,7 +284,7 @@ window.Atlas = window.Atlas || {};
     callout.hidden = true;
     const attr = document.createElement("p");
     attr.className = "map-attrib";
-    attr.innerHTML = 'Base map: Esri, HERE, Garmin, © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
+    attr.innerHTML = 'Boundaries: Survey of India / GADM (simplified)';
     el.append(svg, callout, tip, attr);
     // One entrance moment: districts settle in, then the class is removed.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
