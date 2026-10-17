@@ -511,7 +511,6 @@
     for (const d of D.districts()) fills[d.name] = sc.color(D.visible(ind, d.id));
     Atlas.Map.paint({ fills, selected: atlas.district, calloutHtml: "", labelText: (n) => mapName(n), label: (n) => mapName(n) });
     $("atlas-hint").hidden = !!dg;
-    if (!atlas.lines) { const by = {}; for (const v of Atlas.villages) if (v.lat && v.lon) (by[v.district] = by[v.district] || []).push({ lon: v.lon, lat: v.lat, key: v.block }); Atlas.Map.setBlockLines(by); atlas.lines = true; }
     document.querySelectorAll(".slot-big path.district").forEach((pth, i) => pth.style.setProperty("--d", i));
     const key = [atlas.district, showV, atlas.sel, ind].join("|");
     if (atlas.drawnFor !== key) {
@@ -522,7 +521,7 @@
         for (const v of vs) { if (blocks[v.block]) continue; const b = byB[v.block];
           blocks[v.block] = { fill: dc, label: v.block, value: "", selected: false,
             tip: `<strong>${esc(v.block)}</strong>` + (b ? SVC.map(([c, , l]) => `<span class="tip-r">${esc(s(l))}: ${pct(b.shares[c])}</span>`).join("") : "") }; }
-        Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); });
+        Atlas.Map.setBlocks(dg.name, vs.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, (k) => { location.hash = sheetUrl(dg, k); }, { boxy: false });
         Atlas.Map.setDense(showV ? vs.map((v) => ({ id: v.code, lat: v.lat, lon: v.lon, cls: v.hasData ? String(svcCount(v)) : "nr", tip: villageTip(v) })) : null, atlas.sel, selectVillage);
       } else { Atlas.Map.setBlocks(null, [], {}, () => {}); Atlas.Map.setDense(null); }
     }
