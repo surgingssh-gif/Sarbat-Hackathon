@@ -68,7 +68,25 @@
       tipRank: "{r} of {n}",
       noValue: "No data",
       villagesN: "{n} villages",
-      measure: "Measure", allPunjab: "All of Punjab",
+      measure: "Measure",
+      modeNeed: "Where help is needed", modeExplore: "Explore the data", iFund: "I want to help with",
+      needTitle: "Where help is needed most", needDesc: "Districts ranked by need across {areas}, compared with each other.",
+      needFinding: "Need is highest in <b>{a}</b>, <b>{b}</b> and <b>{c}</b>. Click a district for its brief: why it ranks here and which blocks need help most.",
+      lessNeed: "Less need", moreNeed: "More need", scoreOf: "need score {v}/100",
+      needMapNote: "Darker = more need. Click a district to zoom in and see which of its blocks need help most.",
+      needBlocksNote: "Blocks in {place}, darker where fewer villages have a high school, health centre, all-weather road and piped water.",
+      blockCoverage: "Villages have {p}% of four basic services on average",
+      printBrief: "Print brief", needScoreLbl: "Need score", needRank: "{r} most in need of {n} districts",
+      whyHere: "Why it ranks here", punjabIs: "Punjab {v}", nthLowest: "{r} lowest of {n}", nthHighest: "{r} highest of {n}", lowestOf: "Lowest of all {n} districts", highestOf: "Highest of all {n} districts", needTop: "Most in need of {n} districts",
+      blocksHelp: "Blocks that need help most",
+      blockLine: "{hs}% of villages have a high school, {hc}% a health centre, {rd}% an all-weather road ({n} villages)",
+      villagesH: "Villages",
+      villagesGap: "Of {d} villages with a 2020 record, <b>{hs}</b> have no high school, <b>{hc}</b> no health centre and <b>{rd}</b> no all-weather road.",
+      needCaveat: "The need score compares districts with each other; it is not an absolute measure. Survey figures are simulated in this demo; village services are real 2020 public data (Mission Antyodaya via SHRUG).",
+      howScore: "How the need score works",
+      howScoreBody: "For each area you pick, we compare every district with the others on its indicators (fewer cars and ACs, less schooling, fewer village services, more flood damage), then average. 100 = most need of Punjab's 23 districts, 0 = least.",
+      needHint: "Click a district on the map or in the list to open its brief.",
+      priorityList: "Priority list", allPunjab: "All of Punjab",
       noBlockData: "Block numbers exist for Village facilities topics.",
       blocksOutline: "Lines show the development blocks of {place}. Pick a Villages topic to see a number for each block.",
       clickToZoom: "Click a district to zoom in and see its blocks.", punjab: "Punjab", rankAll: "Show all {n}", rankLess: "Show top 8", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
@@ -141,7 +159,25 @@
       tipRank: "{n} ਵਿੱਚੋਂ {r}",
       noValue: "ਡਾਟਾ ਨਹੀਂ",
       villagesN: "{n} ਪਿੰਡ",
-      measure: "ਮਾਪ", allPunjab: "ਪੂਰਾ ਪੰਜਾਬ",
+      measure: "ਮਾਪ",
+      modeNeed: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", modeExplore: "ਡਾਟਾ ਦੇਖੋ", iFund: "ਮੈਂ ਇਸ ਵਿੱਚ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦਾ ਹਾਂ",
+      needTitle: "ਮਦਦ ਦੀ ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ ਕਿੱਥੇ ਹੈ", needDesc: "{areas} ਵਿੱਚ ਲੋੜ ਦੇ ਹਿਸਾਬ ਨਾਲ ਜ਼ਿਲ੍ਹੇ, ਇੱਕ ਦੂਜੇ ਦੇ ਮੁਕਾਬਲੇ।",
+      needFinding: "ਲੋੜ ਸਭ ਤੋਂ ਵੱਧ <b>{a}</b>, <b>{b}</b> ਅਤੇ <b>{c}</b> ਵਿੱਚ ਹੈ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
+      lessNeed: "ਘੱਟ ਲੋੜ", moreNeed: "ਵੱਧ ਲੋੜ", scoreOf: "ਲੋੜ ਅੰਕ {v}/100",
+      needMapNote: "ਗੂੜ੍ਹਾ = ਵੱਧ ਲੋੜ। ਬਲਾਕ ਦੇਖਣ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
+      needBlocksNote: "{place} ਦੇ ਬਲਾਕ, ਗੂੜ੍ਹੇ ਜਿੱਥੇ ਘੱਟ ਪਿੰਡਾਂ ਵਿੱਚ ਸਕੂਲ, ਸਿਹਤ ਕੇਂਦਰ, ਸੜਕ ਅਤੇ ਪਾਣੀ ਹੈ।",
+      blockCoverage: "ਪਿੰਡਾਂ ਵਿੱਚ ਔਸਤਨ ਚਾਰ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ ਦਾ {p}%",
+      printBrief: "ਛਾਪੋ", needScoreLbl: "ਲੋੜ ਅੰਕ", needRank: "{n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਲੋੜ ਵਿੱਚ {r}",
+      whyHere: "ਇਹ ਇੱਥੇ ਕਿਉਂ ਹੈ", punjabIs: "ਪੰਜਾਬ {v}", nthLowest: "{n} ਵਿੱਚੋਂ {r} ਸਭ ਤੋਂ ਘੱਟ", nthHighest: "{n} ਵਿੱਚੋਂ {r} ਸਭ ਤੋਂ ਵੱਧ", lowestOf: "ਸਾਰੇ {n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਘੱਟ", highestOf: "ਸਾਰੇ {n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਧ", needTop: "{n} ਜ਼ਿਲ੍ਹਿਆਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ",
+      blocksHelp: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ ਵਾਲੇ ਬਲਾਕ",
+      blockLine: "{hs}% ਪਿੰਡਾਂ ਵਿੱਚ ਹਾਈ ਸਕੂਲ, {hc}% ਸਿਹਤ ਕੇਂਦਰ, {rd}% ਪੱਕੀ ਸੜਕ ({n} ਪਿੰਡ)",
+      villagesH: "ਪਿੰਡ",
+      villagesGap: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ <b>{hs}</b> ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਨਹੀਂ, <b>{hc}</b> ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਨਹੀਂ ਅਤੇ <b>{rd}</b> ਵਿੱਚ ਪੱਕੀ ਸੜਕ ਨਹੀਂ।",
+      needCaveat: "ਲੋੜ ਅੰਕ ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਆਪਸੀ ਤੁਲਨਾ ਹੈ। ਸਰਵੇਖਣ ਅੰਕੜੇ ਇਸ ਡੈਮੋ ਵਿੱਚ ਨਕਲੀ ਹਨ; ਪਿੰਡ ਸਹੂਲਤਾਂ ਅਸਲ 2020 ਜਨਤਕ ਡਾਟਾ ਹਨ।",
+      howScore: "ਲੋੜ ਅੰਕ ਕਿਵੇਂ ਬਣਦਾ ਹੈ",
+      howScoreBody: "ਹਰ ਚੁਣੇ ਖੇਤਰ ਵਿੱਚ ਹਰ ਜ਼ਿਲ੍ਹੇ ਦੀ ਬਾਕੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕਰਕੇ ਔਸਤ ਕੱਢੀ ਜਾਂਦੀ ਹੈ। 100 = ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ, 0 = ਸਭ ਤੋਂ ਘੱਟ।",
+      needHint: "ਵੇਰਵਾ ਖੋਲ੍ਹਣ ਲਈ ਨਕਸ਼ੇ ਜਾਂ ਸੂਚੀ ਵਿੱਚ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
+      priorityList: "ਤਰਜੀਹ ਸੂਚੀ", allPunjab: "ਪੂਰਾ ਪੰਜਾਬ",
       noBlockData: "ਬਲਾਕ ਅੰਕੜੇ ਪਿੰਡ ਸਹੂਲਤਾਂ ਵਾਲੇ ਵਿਸ਼ਿਆਂ ਲਈ ਹਨ।",
       blocksOutline: "ਲਕੀਰਾਂ {place} ਦੇ ਬਲਾਕ ਦਿਖਾਉਂਦੀਆਂ ਹਨ। ਹਰ ਬਲਾਕ ਦਾ ਅੰਕੜਾ ਦੇਖਣ ਲਈ ਪਿੰਡ ਵਾਲਾ ਵਿਸ਼ਾ ਚੁਣੋ।",
       clickToZoom: "ਜ਼ੂਮ ਕਰਨ ਅਤੇ ਬਲਾਕ ਦੇਖਣ ਲਈ ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjab: "ਪੰਜਾਬ", rankAll: "ਸਾਰੇ {n} ਦਿਖਾਓ", rankLess: "ਸਿਰਫ਼ ਸਿਖਰਲੇ 8", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
@@ -182,7 +218,7 @@
 
   // ---------- state ----------
 
-  const state = { ind: null, district: null, block: null, cmp: null, moreTopics: false, allRows: false, zoomed: null };
+  const state = { mode: "need", areas: ["poverty", "education", "services", "floods"], ind: null, district: null, block: null, cmp: null, moreTopics: false, allRows: false, zoomed: null };
 
   const geo = (id) => Atlas.data.geos.get(id);
   const stateId = () => Atlas.data.stateId;
@@ -698,9 +734,115 @@
     clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2600);
   }
 
+  // ---------- "Where help is needed" ----------
+
+  const areaLabel = (id) => Atlas.tr(Atlas.NEED_AREAS.find((a) => a.id === id).label);
+  function needWhy(dr) {
+    const m = D.meta(dr.ind), rk = D.rank(dr.ind, dr.geoId), pv = D.visible(dr.ind, stateId());
+    let pos = "";
+    if (rk) {
+      const k = m.direction === "higher_better" ? rk.total - rk.r + 1 : rk.r, low = m.direction === "higher_better";
+      pos = k === 1 ? s(low ? "lowestOf" : "highestOf", { n: rk.total }) : s(low ? "nthLowest" : "nthHighest", { r: ordinal(k), n: rk.total });
+    }
+    return { label: label(dr.ind), value: D.fmt(dr.v, dr.ind), punjab: pv === null ? "" : D.fmt(pv, dr.ind), pos };
+  }
+  let needRows = [];
+  function needScale() {
+    const b = D.breaks(needRows.map((r) => r.score));
+    return (v) => (v === null || v === undefined ? "var(--nodata)" : `var(--seq-bad-${D.binOf(v, b)})`);
+  }
+
+  function renderNeed() {
+    needRows = Atlas.Need.score(state.areas);
+    const byId = Object.fromEntries(needRows.map((r) => [r.geo.id, r]));
+    const color = needScale();
+    // focus areas
+    $("topics").innerHTML = `<div class="need-areas"><span class="tpanel-h">${esc(s("iFund"))}</span>
+      ${Atlas.NEED_AREAS.map((a) => `<button type="button" class="area${state.areas.includes(a.id) ? " is-on" : ""}" data-area="${a.id}" aria-pressed="${state.areas.includes(a.id)}">${esc(Atlas.tr(a.label))}</button>`).join("")}</div>`;
+    // headline
+    const top = needRows.slice(0, 3).map((r) => placeName(r.geo));
+    $("answer-title").textContent = s("needTitle");
+    $("answer-desc").textContent = s("needDesc", { areas: state.areas.map(areaLabel).join(", ").toLowerCase() });
+    $("answer-finding").innerHTML = s("needFinding", { a: esc(top[0] || ""), b: esc(top[1] || ""), c: esc(top[2] || "") });
+    // key
+    $("key").innerHTML = `<div class="key-simple"><span class="key-end">${esc(s("lessNeed"))}</span>
+      <span class="key-grad" style="background:linear-gradient(90deg,${[0,1,2,3,4].map((i) => `var(--seq-bad-${i})`).join(",")})"></span>
+      <span class="key-end">${esc(s("moreNeed"))}</span></div>`;
+    // map
+    const fills = {};
+    for (const d of D.districts()) fills[d.name] = color(byId[d.id]?.score);
+    const sel = state.district && geo(state.district);
+    Atlas.Map.paint({ fills, selected: sel ? sel.name : null, calloutHtml: "",
+      label: (n) => { const d = byName(n), r = d && byId[d.id]; return `${mapName(n)}: ${r ? s("scoreOf", { v: r.score }) : s("noValue")}`; },
+      labelText: (n) => mapName(n) });
+    Atlas.Map.setVillages([], () => {});
+    if (sel && Atlas.villages.length) {
+      const bn = Atlas.Need.blockNeeds(sel.name), byB = Object.fromEntries(bn.map((b) => [b.name, b]));
+      const inDist = Atlas.villages.filter((v) => v.district === sel.name);
+      const blocks = {};
+      for (const v of inDist) {
+        if (blocks[v.block]) continue;
+        const b = byB[v.block], bin = b ? Math.min(4, Math.max(0, Math.floor((b.need - 0.3) / 0.1))) : null;
+        blocks[v.block] = { fill: b ? `var(--seq-bad-${bin})` : "var(--nodata)", label: v.block, value: "", selected: false,
+          tip: `<strong>${esc(v.block)} ${esc(s("blockWord"))}</strong>` + (b ? `<span class="tip-r">${esc(s("blockCoverage", { p: Math.round(b.coverage * 100) }))}</span>` : "") };
+      }
+      Atlas.Map.setBlocks(sel.name, inDist.map((v) => ({ lon: v.lon, lat: v.lat, key: v.block })), blocks, () => {});
+      if (state.zoomed !== sel.name) { Atlas.Map.zoomTo(sel.name, 1.12); state.zoomed = sel.name; }
+    } else {
+      Atlas.Map.setBlocks(null, [], {}, () => {});
+      if (state.zoomed) { Atlas.Map.reset(); state.zoomed = null; }
+    }
+    $("map").classList.remove("has-dots");
+    $("map-back").hidden = !sel; $("map-back").textContent = "← " + s("allPunjab");
+    $("map-note").textContent = sel ? s("needBlocksNote", { place: placeName(sel) }) : s("needMapNote");
+    // brief / intro
+    const r = sel && byId[sel.id];
+    if (r) {
+      const why = r.drivers.slice(0, 3).map((dr) => needWhy({ ...dr, geoId: sel.id }));
+      const bn = Atlas.Need.blockNeeds(sel.name).slice(0, 3);
+      const vl = Atlas.Need.villagesLacking(sel.name);
+      $("focus").innerHTML = `${crumbs()}
+        <div class="focus-top"><p class="focus-place">${esc(placeName(sel))}</p>
+          <span class="focus-actions"><button type="button" class="save-btn" data-print>⎙ ${esc(s("printBrief"))}</button>
+          <button type="button" class="save-btn" data-share>↗ ${esc(s("share"))}</button></span></div>
+        <p class="focus-label">${esc(s("needScoreLbl"))}</p>
+        <p class="focus-value">${r.score}<span class="focus-of">/100</span></p>
+        <div class="focus-chips"><span class="chip is-bad">${esc(r.rank === 1 ? s("needTop", { n: needRows.length }) : s("needRank", { r: ordinal(r.rank), n: needRows.length }))}</span></div>
+        <h3 class="brief-h">${esc(s("whyHere"))}</h3>
+        <ol class="why">${why.map((w) => `<li><b>${esc(w.label)}</b>: ${esc(w.value)} <span class="why-p">(${esc(s("punjabIs", { v: w.punjab }))})</span><span class="why-pos">${esc(w.pos)}</span></li>`).join("")}</ol>
+        ${bn.length ? `<h3 class="brief-h">${esc(s("blocksHelp"))}</h3>
+        <ul class="why">${bn.map((b) => `<li><b>${esc(b.name)}</b>: ${esc(s("blockLine", { hs: Math.round(b.shares.high_school * 100), hc: Math.round(b.shares.health_centre * 100), rd: Math.round(b.shares.all_weather_road * 100), n: b.n }))}</li>`).join("")}</ul>` : ""}
+        ${vl.withData ? `<h3 class="brief-h">${esc(s("villagesH"))}</h3>
+        <p class="brief-p">${s("villagesGap", { hs: vl.noHighSchool.toLocaleString(), hc: vl.noHealth.toLocaleString(), rd: vl.noRoad.toLocaleString(), d: vl.withData.toLocaleString() })}</p>` : ""}
+        <p class="cite">${esc(s("needCaveat"))}</p>`;
+      $("focus").classList.add("is-place");
+    } else {
+      $("focus").innerHTML = `<h3 class="brief-h">${esc(s("howScore"))}</h3><p class="brief-p">${esc(s("howScoreBody"))}</p>
+        <p class="focus-hint">${esc(s("needHint"))}</p>`;
+      $("focus").classList.remove("is-place");
+    }
+    // priority list
+    const max = 100;
+    $("rank-title").innerHTML = `<span>${esc(s("priorityList"))}</span>`;
+    $("rank-list").innerHTML = needRows.slice(0, state.rankAll ? needRows.length : 10).map((row) => {
+      const why = row.drivers.slice(0, 2).map((dr) => short(dr.ind)).join(" · ");
+      return `<li><button type="button" class="rank-row need-row${row.geo.id === state.district ? " is-sel" : ""}" data-id="${esc(row.geo.id)}" data-name="${esc(row.geo.name)}">
+        <span class="rank-name"><span class="need-n">${row.rank}</span>${esc(placeName(row.geo))}<small>${esc(why)}</small></span>
+        <span class="rank-track"><span class="rank-bar" style="width:${row.score}%;background:${color(row.score)}"></span></span>
+        <span class="rank-v">${row.score}</span></button></li>`;
+    }).join("") + `<li><button type="button" class="link rank-more" id="rank-more">${esc(state.rankAll ? s("rankLess") : s("rankAll", { n: needRows.length }))}</button></li>`;
+    $("compare").innerHTML = ""; $("villages").hidden = true;
+  }
+
   // ---------- render + navigation ----------
 
   function render() {
+    document.body.dataset.mode = state.mode;
+    document.querySelectorAll("button[data-mode]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === state.mode)));
+    if (state.mode === "need") {
+      writeHash(); renderStatic(); renderNeed(); renderTable(); renderFoot(); renderAbout(); renderAccount(); renderMine();
+      Atlas.Chat.refresh(); return;
+    }
     writeHash();
     renderStatic();
     renderTopics();
@@ -722,6 +864,11 @@
   }
 
   function writeHash() {
+    if (state.mode === "need") {
+      const h0 = "#need/" + (state.district ? geo(state.district).id.split(":").pop() : "") + "/" + state.areas.join(",");
+      if (location.hash !== h0) history.replaceState(null, "", h0);
+      return;
+    }
     const d = state.district ? geo(state.district).id.split(":").pop() : "";
     const h = "#" + [state.ind, d, state.cmp || "", state.block ? encodeURIComponent(state.block) : ""].join("/").replace(/\/+$/, "");
     if (location.hash !== h) history.replaceState(null, "", h);
@@ -729,6 +876,18 @@
   }
 
   function readHash() {
+    if (!location.hash || location.hash.startsWith("#need")) {
+      const [, d, areas] = location.hash.slice(1).split("/");
+      state.mode = "need";
+      const g = d && D.districts().find((x) => x.id.split(":").pop() === d);
+      state.district = g ? g.id : null;
+      const ok = (areas || "").split(",").filter((a) => Atlas.NEED_AREAS.some((x) => x.id === a));
+      if (ok.length) state.areas = ok;
+      const inds0 = allIndicators();
+      state.ind = state.ind || (inds0.includes(Atlas.config.defaultIndicator) ? Atlas.config.defaultIndicator : inds0[0]);
+      return;
+    }
+    state.mode = "explore";
     const [ind, d, cmp, blk] = location.hash.slice(1).split("/").map((x) => decodeURIComponent(x || ""));
     const inds = allIndicators();
     state.ind = inds.includes(ind) ? ind : inds.includes(Atlas.config.defaultIndicator) ? Atlas.config.defaultIndicator : inds[0];
@@ -787,6 +946,12 @@
       const kpi = e.target.closest("[data-kpi]");
       if (kpi) { const d = D.districts().find((x) => x.name === A().get().home); state.district = d ? d.id : null; state.ind = kpi.dataset.kpi; return render(); }
       if (e.target.closest("[data-home]")) { const d = D.districts().find((x) => x.name === A().get().home); return selectDistrict(d ? d.id : null); }
+      const mb = e.target.closest("button[data-mode]");
+      if (mb) { state.mode = mb.dataset.mode; state.block = null; state.zoomed = state.zoomed; return render(); }
+      const ab = e.target.closest("[data-area]");
+      if (ab) { const id = ab.dataset.area; const on = state.areas.includes(id);
+        if (on && state.areas.length === 1) return; state.areas = on ? state.areas.filter((x) => x !== id) : state.areas.concat(id); return render(); }
+      if (e.target.closest("[data-print]")) { window.print(); return; }
       if (e.target.closest("#rank-more")) { state.rankAll = !state.rankAll; return render(); }
       if (e.target.closest("#rows-toggle")) { state.allRows = !state.allRows; return renderTable(); }
       const brow = e.target.closest(".rank-row[data-block]");
