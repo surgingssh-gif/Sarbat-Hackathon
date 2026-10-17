@@ -872,7 +872,7 @@
     onMapSelect = (n) => { const d = byName(n); if (d) location.hash = sheetUrl(d); };
     onMapHover = (n) => { const d = byName(n); return `<strong>${esc(d ? placeName(d) : n)}</strong>`; };
     state.zoomed = "block:" + state.block;
-    requestAnimationFrame(() => Atlas.Map.zoomToPoints(vs.filter((v) => v.lat && v.lon).map((v) => [v.lon, v.lat]), 2.1));
+    requestAnimationFrame(() => Atlas.Map.zoomToPoints(vs.filter((v) => v.lat && v.lon).map((v) => [v.lon, v.lat]), 1.8));
   }
 
   function drawSheetMap(g, bn, sel) {

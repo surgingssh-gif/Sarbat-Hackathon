@@ -633,7 +633,7 @@ window.Atlas = window.Atlas || {};
             if (!o || !o.length) break;
             cur = o.pop();
           }
-          if (loop.length > 3) loops.push(loop);
+          if (loop.length > 8) loops.push(loop); // skip 1–2 cell specks
         }
       }
       return loops;
@@ -764,7 +764,7 @@ window.Atlas = window.Atlas || {};
       const t = document.createElementNS(NS, "text");
       t.setAttribute("class", "block-label" + (b.selected ? " is-sel" : ""));
       t.setAttribute("x", (a.x / a.n).toFixed(1)); t.setAttribute("y", (a.y / a.n).toFixed(1));
-      t.innerHTML = `<tspan x="${(a.x / a.n).toFixed(1)}" dy="-0.4em">${escText(b.label)}</tspan><tspan class="label-val" x="${(a.x / a.n).toFixed(1)}" dy="1.15em">${escText(b.value)}</tspan>`;
+      t.innerHTML = `<tspan x="${(a.x / a.n).toFixed(1)}" dy="-0.4em">${escText(String(b.label).replace(/\s*-\s*\d+$/, ""))}</tspan><tspan class="label-val" x="${(a.x / a.n).toFixed(1)}" dy="1.15em">${escText(b.value)}</tspan>`;
       gBlockLabels.appendChild(t);
     }
   }
