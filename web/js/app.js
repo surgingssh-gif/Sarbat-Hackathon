@@ -18,7 +18,7 @@
     en: {
       brand: "Parvaaz Data Hub", byTitle: "Built with Parvaaz", byText: "Parvaaz is a nonprofit that surveyed about 300,000 students in every government secondary school in Punjab. This hub shares what that survey shows, district by district, alongside public records, so funders and researchers can see where help is needed. Real survey answers are never published; only district averages.", edition: "Punjab edition", volume: "Vol. I · by Parvaaz", simLine: "Survey figures are simulated for this demo.",
       darkMode: "Dark mode", lightMode: "Light mode", findPh: "Find a district, block or village",
-      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Pick one to map it across all 23 districts, then click any district for its fact sheet.", punjabAvgOf: "Punjab average",
+      tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average",
       cmpTitle: "Does it go together?", cmpCompare: "Compare", cmpWithWord: "with", cmpKeyTrend: "Trend", cmpMore: "more", cmpLess: "less", cmpKeyRef: "Punjab average", cmpKeyDot: "One dot per district ({n})", cmpSub: "Compare this measure with another one across the 23 districts.", cmpWith: "Compare with",
       cmpSame: "Districts that score higher on {x} tend to score higher on {y}.", cmpOpp: "Districts that score higher on {x} tend to score lower on {y}.",
       cmpNone: "There's little or no link between {x} and {y} across districts.",
@@ -32,7 +32,7 @@
       xwAcc: "Accuracy on hand-matched villages", xwAccPending: "Waiting for the hand-matched set", xwAccSub: "{c} of {n} hand-checked villages matched correctly", xwAccPendingSub: "add the results in js/config.js (crosswalk)",
       xwHow: "How matching works", xwHow1: "Compare places only within the same district (and block) first.", xwHow2: "Use the official census code when it exists: an exact match scores 1.00.",
       xwHow3: "Otherwise compare names after evening out spelling (aa/a, ee/i, w/v, double letters). \u201cKalan\u201d and \u201cKhurd\u201d are never removed: they are different villages.",
-      xwHow4: "Above {hi} is accepted, {lo}\u2013{hi} goes to a person, below {lo} stays unmatched.", colMatch: "Match", matchCode: "Code", pickTopic: "Topic", pickMeasure: "Measures in this topic", measuresN: "{n} measures", tabVillages: "Villages", tabAbout: "How It Works",
+      xwHow4: "Above {hi} is accepted, {lo}\u2013{hi} goes to a person, below {lo} stays unmatched.", colMatch: "Match", matchCode: "Code", pickTopic: "Topic", measuresIn: "Measures in {t}", pickMeasure: "Measures in this topic", measuresN: "{n} measures", tabVillages: "Villages", tabAbout: "How It Works",
       kickerLead: "Where help is needed", leadHead: "{a}, {b} and {c} need help most",
       leadDeck: "Ranking Punjab's 23 districts on {areas}, these three come out furthest behind. Below: the five districts to look at first, and why.",
       sixty: "In 60 seconds", sMost: "Most need", sGap: "Biggest gap", sGapV: "{k} of {d} villages with a 2020 record have no high school; {h} have no health centre.",
@@ -102,7 +102,7 @@
       xwAcc: "ਹੱਥੀਂ ਜਾਂਚੇ ਪਿੰਡਾਂ 'ਤੇ ਸ਼ੁੱਧਤਾ", xwAccPending: "ਹੱਥੀਂ ਜਾਂਚਿਆ ਸੈੱਟ ਉਡੀਕ ਵਿੱਚ", xwAccSub: "{n} ਵਿੱਚੋਂ {c} ਸਹੀ ਮਿਲੇ", xwAccPendingSub: "ਨਤੀਜੇ js/config.js ਵਿੱਚ ਜੋੜੋ",
       xwHow: "ਮਿਲਾਉਣ ਦਾ ਤਰੀਕਾ", xwHow1: "ਪਹਿਲਾਂ ਸਿਰਫ਼ ਇੱਕੋ ਜ਼ਿਲ੍ਹੇ (ਅਤੇ ਬਲਾਕ) ਵਿੱਚ ਤੁਲਨਾ।", xwHow2: "ਸਰਕਾਰੀ ਜਨਗਣਨਾ ਕੋਡ ਹੋਵੇ ਤਾਂ ਉਹ ਵਰਤੋ: ਸਹੀ ਮਿਲਾਨ = 1.00।",
       xwHow3: "ਨਹੀਂ ਤਾਂ ਸ਼ਬਦ-ਜੋੜ ਬਰਾਬਰ ਕਰਕੇ ਨਾਵਾਂ ਦੀ ਤੁਲਨਾ। \u201cਕਲਾਂ\u201d ਅਤੇ \u201cਖ਼ੁਰਦ\u201d ਕਦੇ ਨਹੀਂ ਹਟਾਏ ਜਾਂਦੇ।",
-      xwHow4: "{hi} ਤੋਂ ਉੱਪਰ ਮਨਜ਼ੂਰ, {lo}\u2013{hi} ਵਿਅਕਤੀ ਕੋਲ, {lo} ਤੋਂ ਹੇਠਾਂ ਬਿਨਾਂ ਮਿਲਾਨ।", colMatch: "ਮਿਲਾਨ", matchCode: "ਕੋਡ", pickTopic: "ਵਿਸ਼ਾ", pickMeasure: "ਇਸ ਵਿਸ਼ੇ ਦੇ ਮਾਪ", measuresN: "{n} ਮਾਪ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
+      xwHow4: "{hi} ਤੋਂ ਉੱਪਰ ਮਨਜ਼ੂਰ, {lo}\u2013{hi} ਵਿਅਕਤੀ ਕੋਲ, {lo} ਤੋਂ ਹੇਠਾਂ ਬਿਨਾਂ ਮਿਲਾਨ।", colMatch: "ਮਿਲਾਨ", matchCode: "ਕੋਡ", pickTopic: "ਵਿਸ਼ਾ", measuresIn: "{t} ਦੇ ਮਾਪ", pickMeasure: "ਇਸ ਵਿਸ਼ੇ ਦੇ ਮਾਪ", measuresN: "{n} ਮਾਪ", tabVillages: "ਪਿੰਡ", tabAbout: "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
       kickerLead: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", leadHead: "{a}, {b} ਅਤੇ {c} ਨੂੰ ਸਭ ਤੋਂ ਵੱਧ ਮਦਦ ਦੀ ਲੋੜ",
       leadDeck: "{areas} ਵਿੱਚ ਪੰਜਾਬ ਦੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰਨ 'ਤੇ ਇਹ ਤਿੰਨ ਸਭ ਤੋਂ ਪਿੱਛੇ ਹਨ। ਹੇਠਾਂ: ਪਹਿਲਾਂ ਦੇਖਣ ਵਾਲੇ ਪੰਜ ਜ਼ਿਲ੍ਹੇ।",
       sixty: "60 ਸਕਿੰਟਾਂ ਵਿੱਚ", sMost: "ਸਭ ਤੋਂ ਵੱਧ ਲੋੜ", sGap: "ਸਭ ਤੋਂ ਵੱਡੀ ਘਾਟ", sGapV: "ਰਿਕਾਰਡ ਵਾਲੇ {d} ਪਿੰਡਾਂ ਵਿੱਚੋਂ {k} ਵਿੱਚ ਹਾਈ ਸਕੂਲ ਨਹੀਂ; {h} ਵਿੱਚ ਸਿਹਤ ਕੇਂਦਰ ਨਹੀਂ।",
@@ -348,11 +348,13 @@
     const ind = state.ind, m = D.meta(ind), th = themeOf(ind), sc = scaleFor(ind);
     const pval = (i) => { const v = D.visible(i, stateId()); return v === null ? "–" : D.fmt(v, i); };
     $("topic-pills").innerHTML = available().map((t) => { const on = t.id === th.id, i0 = on ? ind : t.indicators[0];
-      return `<a class="topic-card" href="#explore/${esc(i0)}"${on ? ' aria-current="true"' : ""}>
+      return `<a class="topic-card" data-topic="${esc(t.id)}" href="#explore/${esc(i0)}"${on ? ' aria-current="true"' : ""} aria-expanded="${on && state.mOpen}">
         <span class="tc-name">${esc(Atlas.tr(t.label))}</span><span class="tc-val">${esc(pval(i0))}</span><span class="tc-sub">${esc(label(i0))}</span>
         <span class="tc-n">${esc(s("measuresN", { n: t.indicators.length }))}</span></a>`; }).join("");
     $("measure-pills").innerHTML = th.indicators.map((i) => `<a class="measure" href="#explore/${esc(i)}"${i === ind ? ' aria-current="true"' : ""}><span class="m-name">${esc(label(i))}</span><span class="m-val">${esc(pval(i))}</span></a>`).join("");
-    $("measure-row").hidden = th.indicators.length < 2;
+    $("measures-lbl").textContent = s("measuresIn", { t: Atlas.tr(th.label) });
+    $("measure-row").classList.toggle("is-open", !!state.mOpen);
+    $("topic-pills").classList.toggle("is-open", !!state.mOpen);
     $("map-title").textContent = label(ind);
     $("map-desc").textContent = Atlas.tr(m.desc || "");
     const dir = m.direction === "higher_better" ? s("higherBetter") : m.direction === "higher_worse" ? s("higherWorse") : "";
@@ -771,6 +773,12 @@
     document.addEventListener("click", (e) => {
       const ar = e.target.closest("[data-area]");
       if (ar) { const id = ar.dataset.area, on = state.areas.includes(id); if (on && state.areas.length === 1) return; state.areas = on ? state.areas.filter((x) => x !== id) : state.areas.concat(id); return render(); }
+      const tc = e.target.closest(".topic-card");
+      if (tc) {
+        if (tc.getAttribute("aria-current")) { e.preventDefault(); state.mOpen = !state.mOpen; tc.setAttribute("aria-expanded", state.mOpen);
+          $("measure-row").classList.toggle("is-open", state.mOpen); $("topic-pills").classList.toggle("is-open", state.mOpen); return; }
+        state.mOpen = true;
+      }
       const w = e.target.closest("[data-why]");
       if (w) { state.open = state.open === w.dataset.why ? null : w.dataset.why; return renderToday(); }
       const fl = e.target.closest("[data-filter-district]");
