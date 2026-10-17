@@ -14,7 +14,8 @@ window.Atlas = window.Atlas || {};
 
   const NS = "http://www.w3.org/2000/svg";
   const W = 1000;
-  let svg, gTop, gContext, gOutline, gShapes, gLabels, gVillages, tip, wrap, callout;
+  let svg, gTop, gContext, gOutline, gShapes, gLabels, gVillages, gDense, tip, wrap, callout;
+  let dense = null; // every village at once: { pts, sel, onSelect, r }
   let selectedName = null, calloutHtml = "";
   let shapes = new Map(), project, fullBox, box, anim, handlers, gBlocks, gBlockLabels;
   let drag = null, suppressClick = false;
@@ -213,6 +214,8 @@ window.Atlas = window.Atlas || {};
     gLabels = document.createElementNS(NS, "g");
     gLabels.setAttribute("class", "labels");
     gLabels.setAttribute("aria-hidden", "true");
+    gDense = document.createElementNS(NS, "g");
+    gDense.setAttribute("class", "dense");
     gVillages = document.createElementNS(NS, "g");
     gVillages.setAttribute("class", "villages");
     gTop = document.createElementNS(NS, "g");
@@ -223,7 +226,8 @@ window.Atlas = window.Atlas || {};
     gBlockLabels = document.createElementNS(NS, "g");
     gBlockLabels.setAttribute("class", "block-labels");
     gBlockLabels.setAttribute("aria-hidden", "true");
-    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gBlocks, gLabels, gBlockLabels, gTop, gVillages);
+    svg.append(gTiles, gContext, gOutline, gShapes, gTileLabels, gBlocks, gLabels, gBlockLabels, gTop, gDense, gVillages);
+    bindDense();
     drawContext(opts.context);
     // Re-fit whenever the map's box changes size (layout changes, full-screen toggle).
     if (window.ResizeObserver) {
@@ -325,7 +329,10 @@ window.Atlas = window.Atlas || {};
     const unit = Math.max(box[2] / (svg.clientWidth || 800), box[3] / (svg.clientHeight || 600));
     svg.style.setProperty("--label-size", (11.5 * unit).toFixed(3) + "px");
     svg.style.setProperty("--label-halo", (3.2 * unit).toFixed(3) + "px");
-    gVillages.querySelectorAll("circle").forEach((c) => c.setAttribute("r", (c.dataset.sel ? 8 : 6) * unit));
+    // Dense mode (every village in Punjab): small dots that grow as you zoom in.
+    const dense = wrap.classList.contains("is-dense"), dr = Math.min(5, Math.max(1.4, 1.4 / Math.sqrt(box[2] / fullBox[2])));
+    gVillages.querySelectorAll("circle").forEach((c) => c.setAttribute("r", (c.dataset.sel ? (dense ? Math.max(7, dr * 1.8) : 8) : dense ? dr : 6) * unit));
+    drawDense(unit, dr);
     gTop.querySelectorAll(".ctx-city circle").forEach((c) => c.setAttribute("r", 4.5 * unit));
     gTop.querySelectorAll(".ctx-city text").forEach((tx) => {
       const c = tx.previousElementSibling;
@@ -564,6 +571,45 @@ window.Atlas = window.Atlas || {};
     applyBox();
   }
 
+  /*
+   * Every village at once (the big map). Drawn as one path per colour group instead of thousands of
+   * elements; hover and click find the nearest village to the pointer.
+   * points: [{ id, lon, lat, cls, tip }]  cls: "0".."4" (services) or "nr" (no record)
+   */
+  function setDense(points, selId, onSelect) {
+    if (!points) { dense = null; gDense.innerHTML = ""; return; }
+    dense = { pts: points.map((p) => { const [x, y] = project([p.lon, p.lat]); return { ...p, x, y }; }), sel: selId, onSelect, r: 1 };
+    applyBox();
+  }
+  function drawDense(unit, dr) {
+    if (!dense) return;
+    const r = dr * unit; dense.r = r;
+    const groups = {};
+    for (const p of dense.pts) (groups[p.cls] = groups[p.cls] || []).push(`M${(p.x - r).toFixed(1)},${p.y.toFixed(1)}a${r.toFixed(2)},${r.toFixed(2)} 0 1,0 ${(2 * r).toFixed(2)},0a${r.toFixed(2)},${r.toFixed(2)} 0 1,0 ${(-2 * r).toFixed(2)},0`);
+    const sel = dense.sel && dense.pts.find((p) => p.id === dense.sel);
+    gDense.innerHTML = Object.entries(groups).map(([k, d]) => `<path class="dense-dots d-${k}" d="${d.join("")}"/>`).join("") +
+      (sel ? `<circle class="dense-sel" cx="${sel.x.toFixed(1)}" cy="${sel.y.toFixed(1)}" r="${(Math.max(7, dr * 1.8) * unit).toFixed(2)}"/>` : "");
+  }
+  function nearestDense(e) {
+    const [x, y, scale] = toSvgPoint(e.clientX, e.clientY), lim = Math.max(dense.r * 1.8, 5 / scale);
+    let best = null, bd = lim * lim;
+    for (const p of dense.pts) { const dx = p.x - x, dy = p.y - y, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = p; } }
+    return best;
+  }
+  function bindDense() {
+    svg.addEventListener("pointermove", (e) => {
+      if (!dense || e.buttons) return;
+      const p = nearestDense(e);
+      if (p) { e.stopPropagation(); svg.style.cursor = "pointer"; showTip(e, p.tip); }
+      else svg.style.cursor = "";
+    }, true);
+    svg.addEventListener("click", (e) => {
+      if (!dense || suppressClick) return;
+      const p = nearestDense(e);
+      if (p) { e.stopPropagation(); dense.onSelect(p.id); }
+    }, true);
+  }
+
   // A small static copy of the map (for the "all indicators" grid).
   function miniSvg(fills, selected) {
     const paths = [...shapes].map(([name, s]) =>
@@ -679,5 +725,5 @@ window.Atlas = window.Atlas || {};
 
   function drawn() { return new Set(shapes.keys()); }
 
-  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setVillages, setBlocks, miniSvg, drawn, hideTip };
+  Atlas.Map = { init, paint, zoomTo, zoomBy, reset, setVillages, setDense, setBlocks, miniSvg, drawn, hideTip };
 })();
