@@ -516,6 +516,51 @@ body.embed .embed-credit img { height: 14px; }
 .sixty { background: transparent; border-top: 2px solid var(--rule); padding: 10px 0 4px; }
 .sixty-row { border-top-color: var(--hair); }
 
+
+/* ---------- motion (only while arriving somewhere new; off for reduced motion) ---------- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes growX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes pop { 0% { opacity: 0; transform: scale(0); } 70% { opacity: 1; transform: scale(1.25); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(24px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .is-entering .page-intro > *, .is-entering .explore-intro > *, .is-entering .lead > .kicker, .is-entering .lead > .headline, .is-entering .lead > .deck { animation: fadeUp .55s cubic-bezier(.2,.7,.2,1) both; }
+  .is-entering .page-intro > :nth-child(2), .is-entering .explore-intro > :nth-child(2), .is-entering .lead > .headline { animation-delay: 60ms; }
+  .is-entering .page-intro > :nth-child(3), .is-entering .explore-intro > :nth-child(3), .is-entering .lead > .deck { animation-delay: 120ms; }
+  .is-entering :is(.topic-card, .measure, .stock-card, .tb-row, .heat-tile, .ranking .meter-row, .tile, .xw-tile, .cal-item, .sixty-row, .facts > div, .reason, .about > div) {
+    animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(140ms + var(--i, 0) * 35ms); }
+  .is-entering :is(.btable tbody tr, #vtable tbody tr) { animation: fadeIn .4s ease both; animation-delay: calc(var(--i, 0) * 18ms); }
+  .is-entering :is(.map-fig, .map-side, .rail, .cmp-text, .modal-map, .xw-how, .built-by, .filters) { animation: fadeUp .6s cubic-bezier(.2,.7,.2,1) both; animation-delay: 120ms; }
+  .is-entering :is(.meter > span, .meter-sm i, .stock-card .meter > span) { transform-origin: left center; animation: growX .9s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(250ms + var(--i, 0) * 30ms); }
+  .is-entering .ranking .meter-row .meter > span { animation-delay: calc(250ms + var(--i, 0) * 30ms); }
+  .is-entering .cmp-meter i { transform-origin: left center; animation: growX .5s ease both; }
+  .is-entering .cmp-meter i:nth-child(2) { animation-delay: 80ms; } .is-entering .cmp-meter i:nth-child(3) { animation-delay: 160ms; } .is-entering .cmp-meter i:nth-child(4) { animation-delay: 240ms; }
+  .is-entering .cmp-svg .cdot .pt { transform-box: fill-box; transform-origin: center; animation: pop .45s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(200ms + var(--i, 0) * 28ms); }
+  .is-entering .cmp-svg .cdot text { animation: fadeIn .4s ease both; animation-delay: 900ms; }
+  .is-entering .cmp-svg .trend { stroke-dasharray: 1; animation: draw .9s cubic-bezier(.4,0,.2,1) both; animation-delay: 700ms; }
+  .is-entering .cmp-svg .grid, .is-entering .cmp-svg .ref { animation: fadeIn .5s ease both; }
+  .modal[open] .modal-inner { animation: rise .45s cubic-bezier(.2,.8,.2,1) both; }
+  .modal[open]::backdrop { animation: fadeIn .3s ease both; }
+  .chat-panel:not([hidden]) { animation: slideUp .35s cubic-bezier(.2,.8,.2,1) both; transform-origin: bottom right; }
+  .toast:not([hidden]) { animation: slideUp .3s ease both; }
+  .results:not([hidden]) { animation: fadeUp .2s ease both; }
+  .tb-more:not([hidden]) { animation: fadeUp .35s ease both; }
+  .embed-box[open] > :not(summary) { animation: fadeUp .3s ease both; }
+  .district { transition: fill .6s cubic-bezier(.2,.7,.2,1), opacity .25s, stroke-width .15s; }
+  .blk, .village-dot { animation: fadeIn .5s ease both; }
+  .stock-card, .heat-tile, .topic-card, .tb-row, .tile, .xw-tile { transition: transform .2s cubic-bezier(.2,.7,.2,1), box-shadow .2s, background .2s, border-color .2s; }
+  .stock-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,.09); }
+  .heat-tile:hover { transform: translateY(-2px); }
+  .topic-card:not([aria-current]):hover { transform: translateY(-1px); }
+  .pill, .measure, .toggle-btn, .sections a, .seg-btn, .chat-toggle, .btn, .more { transition: background .2s, color .2s, border-color .2s, transform .15s; }
+  .chat-toggle:hover, .btn:hover { transform: translateY(-1px); }
+  .pill:active, .toggle-btn:active, .btn:active, .more:active { transform: scale(.97); }
+  .tb-caret { transition: transform .25s cubic-bezier(.2,.7,.2,1); }
+  .sections a { transition: color .2s, border-color .25s; }
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
   .cmp-grid, .topic-cards { grid-template-columns: 1fr 1fr; }

@@ -416,7 +416,7 @@
     const qx = refX != null && refX > x0 && refX < x1 ? sx(refX) : null, qy = refY != null && refY > y0 && refY < y1 ? sy(refY) : null;
     const refs = (qx != null ? `<line class="ref" x1="${f(qx)}" x2="${f(qx)}" y1="${T}" y2="${B}"/>` : "") + (qy != null ? `<line class="ref" x1="${L}" x2="${R}" y1="${f(qy)}" y2="${f(qy)}"/>` : "") +
       (qx != null && qy != null ? `<text class="ref-t" x="${f(qx + 6)}" y="${f(T + 10)}">${esc(s("punjabAvg"))}</text>` : "");
-    const trend = `<line class="trend" x1="${f(sx(x0))}" y1="${f(sy(clip(yAt(x0))))}" x2="${f(sx(x1))}" y2="${f(sy(clip(yAt(x1))))}"/>`;
+    const trend = `<line class="trend" pathLength="1" x1="${f(sx(x0))}" y1="${f(sy(clip(yAt(x0))))}" x2="${f(sx(x1))}" y2="${f(sy(clip(yAt(x1))))}"/>`;
 
     // name a few districts that stand out: ends of the x axis + the two furthest from the trend
     const pick = [], add = (p) => p && !pick.includes(p) && pick.length < 4 && pick.push(p), by = (fn) => ps.slice().sort((a, b) => fn(b) - fn(a));
@@ -718,6 +718,34 @@
     if (tab === "map" && allIndicators().includes(b)) state.ind = b;
   }
   let lastTab = "";
+  // ---------- motion ----------
+  // Elements animate only while their container has .is-entering (set when you arrive somewhere new),
+  // so small updates like opening a "Why" panel don't replay the whole page.
+  const reduceMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const STAGGER = ".topic-card, .measure, .stock-card, .tb-row, .heat-tile, .ranking .meter-row, .tile, .xw-tile, .cal-item, .sixty-row, .fact, .facts > div, .reason, .btable tbody tr, #vtable tbody tr, .about > div, .cdot";
+  function countUp(el) {
+    const node = [...el.childNodes].find((n) => n.nodeType === 3 && /\d/.test(n.textContent));
+    if (!node) return;
+    const txt = node.textContent, m = txt.match(/-?[\d,]*\.?\d+/);
+    if (!m || /\d(st|nd|rd|th)\b/.test(txt)) return;
+    const target = parseFloat(m[0].replace(/,/g, "")), dec = (m[0].split(".")[1] || "").length, comma = m[0].includes(",");
+    if (!isFinite(target)) return;
+    const fmt = (v) => { const s = v.toFixed(dec); return comma ? Number(s).toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }) : s; };
+    const t0 = performance.now(), dur = 750;
+    const step = (now) => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); node.textContent = txt.replace(m[0], fmt(target * e)); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  const enterTimers = new WeakMap();
+  function enter(el) {
+    if (!el || reduceMotion()) return;
+    el.classList.remove("is-entering"); void el.offsetWidth; el.classList.add("is-entering");
+    el.querySelectorAll(STAGGER).forEach((c, i) => c.style.setProperty("--i", Math.min(i, 24)));
+    el.querySelectorAll(".hero-figure, .tc-val, .tile .value, .xw-tile .value, .tb-price .now, .card-price, .heat-val, .facts dd").forEach(countUp);
+    clearTimeout(enterTimers.get(el));
+    enterTimers.set(el, setTimeout(() => el.classList.remove("is-entering"), 1600));
+  }
+  let lastView = "";
+
   function render() {
     renderStatic();
     TABS.forEach((t) => { $("tab-" + t).hidden = t !== state.tab; });
@@ -731,7 +759,12 @@
     else { if ($("modal").open) $("modal").close(); document.body.classList.remove("modal-open"); if (state.tab !== "today" && state.tab !== "map") mapTo(".map-park"); }
     renderFoot();
     Atlas.Chat.refresh();
+    const view = [state.tab, state.tab === "map" ? state.ind : "", state.areas.join()].join("|"), sheet = state.sheet ? state.sheet + "|" + (state.block || "") : "";
+    if (view !== lastView) { lastView = view; enter($("tab-" + state.tab)); }
+    if (sheet && sheet !== lastSheet) enter(document.querySelector(".modal-inner"));
+    lastSheet = sheet;
   }
+  let lastSheet = "";
 
   function bind() {
     window.addEventListener("hashchange", () => { parse(); render(); });
@@ -760,7 +793,7 @@
     document.addEventListener("change", (e) => {
       if (e.target.id === "vf-district") { state.vd = e.target.value; state.vb = ""; state.vhl = null; state.vlimit = 60; renderVillageFilters(); renderVillages(); }
       if (e.target.id === "vf-block") { state.vb = e.target.value; state.vhl = null; state.vlimit = 60; renderVillages(); }
-      if (e.target.id === "cmp-sel") { state.cmp = e.target.value; renderCompare(state.ind); return; }
+      if (e.target.id === "cmp-sel") { state.cmp = e.target.value; renderCompare(state.ind); enter($("compare")); return; }
       if (e.target.id === "vf-missing") { state.vm = e.target.value; state.vlimit = 60; renderVillages(); }
     });
     document.addEventListener("mouseover", (e) => { if (e.buttons) return; const row = e.target.closest("[data-name]"); if (!row || row.closest(".map-wrap")) return;
