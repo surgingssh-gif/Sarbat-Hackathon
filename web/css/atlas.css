@@ -535,6 +535,15 @@ body.on-atlas footer { display: none; }
 .as-dots .d-0 { background: #fff; border: 1px solid #9aa3ad; } .as-dots .d-1 { background: var(--seq-good-1); } .as-dots .d-2 { background: var(--seq-good-2); }
 .as-dots .d-3 { background: var(--seq-good-3); } .as-dots .d-4 { background: var(--seq-good-4); } .as-dots .d-nr { background: #b9b6ae; margin-left: 8px; }
 .atlas-map .map-wrap.has-blocks .blk { fill: var(--card); fill-opacity: .7; }
+.vd-lede { margin: 2px 0 2px; font: 16px/1.5 var(--serif); color: var(--ink); }
+.vd-table { width: 100%; border-collapse: collapse; font: 12.5px/1.35 var(--sans); }
+.vd-table th { padding: 4px 6px; font: 600 11px/1.2 var(--sans); text-transform: none; letter-spacing: 0; color: var(--muted); border-bottom: 1px solid var(--hair); text-align: right; }
+.vd-table td { padding: 5px 6px; border-bottom: 1px solid var(--hair); text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.vd-table td:first-child, .vd-table th:first-child { text-align: left; padding-left: 0; color: var(--ink); }
+.vd-table .yes { color: var(--up); font-weight: 700; } .vd-table .no { color: var(--down); font-weight: 700; }
+.vd-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.vd-list li { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--hair); font: 12.5px/1.35 var(--sans); }
+.vd-k { color: var(--ink-2); } .vd-v { text-align: right; color: var(--muted); } .vd-v b { color: var(--ink); }
 /* ---------- toast ---------- */
 .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 90; background: var(--ink); color: var(--paper); padding: 9px 16px; border-radius: 999px; font: 600 13px var(--sans); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
 

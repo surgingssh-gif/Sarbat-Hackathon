@@ -21,7 +21,13 @@
       tabToday: "Where Help Is Needed", tabDistricts: "Districts", tabMap: "Explore Punjab", exploreKicker: "Explore Punjab", exploreHead: "Pick a topic to see how Punjab is doing", exploreDeck: "Each card shows the Punjab average. Click a topic to see its measures and map it across all 23 districts; click any district for its fact sheet.", punjabAvgOf: "Punjab average", tabAtlas: "Big Map", atlasHead: "Every district and village in Punjab", atlasDeck: "23 districts, 161 blocks, 12,158 villages. Pick a measure, then click a district to fly in and see its villages.",
       atlasColour: "Shade districts by", atlasShowV: "Show villages", atlasHint: "Hover a dot for a village · click a district to zoom in", atlasFind: "Find a village", atlasDotsH: "Villages: missing basic services", atlasDotsKey: "Each dot is a village: basic services it has", atlasDots04: "0 → 4", atlasMissMany: "All 4 missing", atlasMissNone: "None missing", atlasClickD: "Click to zoom in",
       atlasBasic: "basic services (school, health centre, road, water)", atlasNoRec: "This village has no 2020 facility record.", atlasDistLine: "{m} in {place}: {v} (district-wide survey figure).",
-      atlasOpenBlock: "Open {b} block →", atlasAll: "All districts", atlasBlocks: "Its blocks: villages with a high school", atlasBlocksNote: "Weakest first. Click a block for its full page, or a dot on the map for a village.", overview: "Overview", topicDeck: "{place}: {say}. That ranks {pos} (Punjab: {pv}).", topicHidden: "{place}: too few students in this group to show safely (fewer than {n}).",
+      atlasOpenBlock: "Open {b} block →", vdWhere: "{block} block, {place} district", vdNoRec: "{name} has no 2020 facility record, so its services are unknown. It is still matched to the official village list.",
+      vdAll4: "{name} has all four basic services: a high school, a health centre, an all-weather road and piped water.", vdNone: "{name} has none of the four basic services: no high school, health centre, all-weather road or piped water.",
+      vdSome: "{name} has {k} of the 4 basic services ({has}) but no {lacks}.", vdBetter: "That is better served than about {p}% of villages in {block} block.",
+      vdBigger: "bigger than {p}% of villages in {place}", vdLargest: "the largest village in {place}", vdNear: "Villages within 5 km", vdNearSub: "neighbours that share roads and services",
+      vdCompare: "Compared with its area", vdCompareNote: "Share of villages with each service (2020 records).",
+      vdNearest: "Nearest village with what it lacks", vdNearestNote: "Straight-line distance between village centres.",
+      vdDistrict: "{place} district at a glance", vdDistrictNote: "District-wide figures (survey and public records), not this village alone.", and: "and", atlasAll: "All districts", atlasBlocks: "Its blocks: villages with a high school", atlasBlocksNote: "Weakest first. Click a block for its full page, or a dot on the map for a village.", overview: "Overview", topicDeck: "{place}: {say}. That ranks {pos} (Punjab: {pv}).", topicHidden: "{place}: too few students in this group to show safely (fewer than {n}).",
       topicMeasures: "{t}, measure by measure", inVillages: "In its villages", inVillagesSub: "Basic services in the {n} of {all} villages with a 2020 record.",
       vHasLacks: "{has} have it, {lack} don't (of {n}).", vNoHS: "Villages without a high school", studentsIn: "Students in this survey",
       topicBlocksSub: "Share of villages with each service, sorted by {svc}. Click a block.", topicMapBlocks: "Blocks shaded by the share of villages without {svc} (darker = more without). Block areas are approximate.",
@@ -99,7 +105,13 @@
       tabToday: "ਮਦਦ ਕਿੱਥੇ ਚਾਹੀਦੀ ਹੈ", tabDistricts: "ਜ਼ਿਲ੍ਹੇ", tabMap: "ਪੰਜਾਬ ਦੇਖੋ", exploreKicker: "ਪੰਜਾਬ ਦੇਖੋ", exploreHead: "ਵਿਸ਼ਾ ਚੁਣੋ ਅਤੇ ਦੇਖੋ ਪੰਜਾਬ ਕਿਵੇਂ ਹੈ", exploreDeck: "ਹਰ ਵਿਸ਼ੇ ਵਿੱਚ ਪੰਜਾਬ ਦੀ ਔਸਤ ਅਤੇ ਸਾਰੇ 23 ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਨਕਸ਼ਾ। ਵੇਰਵੇ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", punjabAvgOf: "ਪੰਜਾਬ ਔਸਤ", tabAtlas: "ਵੱਡਾ ਨਕਸ਼ਾ", atlasHead: "ਪੰਜਾਬ ਦਾ ਹਰ ਜ਼ਿਲ੍ਹਾ ਅਤੇ ਪਿੰਡ", atlasDeck: "ਜ਼ਿਲ੍ਹੇ ਚੁਣੇ ਮਾਪ ਮੁਤਾਬਕ ਰੰਗੇ ਹਨ; ਹਰ ਬਿੰਦੂ 12,158 ਪਿੰਡਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ। ਪਿੰਡ ਲੱਭੋ ਜਾਂ ਕਲਿੱਕ ਕਰੋ।",
       atlasColour: "ਜ਼ਿਲ੍ਹਿਆਂ ਦਾ ਰੰਗ", atlasShowV: "ਜ਼ੂਮ ਕਰਨ 'ਤੇ ਪਿੰਡ ਦਿਖਾਓ", atlasHint: "ਬਲਾਕ ਅਤੇ ਪਿੰਡ ਦੇਖਣ ਲਈ ਜ਼ਿਲ੍ਹੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ (ਜਾਂ ਪਿੰਡ ਲੱਭੋ)।", atlasFind: "ਪਿੰਡ ਲੱਭੋ", atlasDotsH: "ਪਿੰਡ: ਘੱਟ ਸਹੂਲਤਾਂ", atlasDotsKey: "ਹਰ ਬਿੰਦੂ ਇੱਕ ਪਿੰਡ: ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ", atlasDots04: "0 → 4", atlasShowV: "ਪਿੰਡ ਦਿਖਾਓ", atlasMissMany: "ਚਾਰੇ ਨਹੀਂ", atlasMissNone: "ਸਭ ਹਨ", atlasClickD: "ਜ਼ੂਮ ਲਈ ਕਲਿੱਕ ਕਰੋ",
       atlasBasic: "ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ", atlasNoRec: "ਇਸ ਪਿੰਡ ਦਾ 2020 ਰਿਕਾਰਡ ਨਹੀਂ।", atlasDistLine: "{place} ਵਿੱਚ {m}: {v} (ਜ਼ਿਲ੍ਹਾ ਪੱਧਰ)।",
-      atlasOpenBlock: "{b} ਬਲਾਕ ਖੋਲ੍ਹੋ →", atlasAll: "ਸਾਰੇ ਜ਼ਿਲ੍ਹੇ", atlasBlocks: "ਇਸਦੇ ਬਲਾਕ: ਹਾਈ ਸਕੂਲ ਵਾਲੇ ਪਿੰਡ", atlasBlocksNote: "ਸਭ ਤੋਂ ਕਮਜ਼ੋਰ ਪਹਿਲਾਂ। ਬਲਾਕ ਜਾਂ ਪਿੰਡ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", overview: "ਸਾਰ", topicDeck: "{place}: {say}। ਇਹ {pos} ਹੈ (ਪੰਜਾਬ: {pv})।", topicHidden: "{place}: ਇਸ ਸਮੂਹ ਵਿੱਚ ਬਹੁਤ ਘੱਟ ਵਿਦਿਆਰਥੀ ({n} ਤੋਂ ਘੱਟ)।",
+      atlasOpenBlock: "{b} ਬਲਾਕ ਖੋਲ੍ਹੋ →", vdWhere: "{block} ਬਲਾਕ, {place} ਜ਼ਿਲ੍ਹਾ", vdNoRec: "{name} ਦਾ 2020 ਰਿਕਾਰਡ ਨਹੀਂ, ਇਸ ਲਈ ਸਹੂਲਤਾਂ ਪਤਾ ਨਹੀਂ।",
+      vdAll4: "{name} ਵਿੱਚ ਚਾਰੇ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ ਹਨ।", vdNone: "{name} ਵਿੱਚ ਚਾਰਾਂ ਵਿੱਚੋਂ ਕੋਈ ਸਹੂਲਤ ਨਹੀਂ।",
+      vdSome: "{name} ਵਿੱਚ 4 ਵਿੱਚੋਂ {k} ਸਹੂਲਤਾਂ ਹਨ ({has}), ਪਰ {lacks} ਨਹੀਂ।", vdBetter: "ਇਹ {block} ਬਲਾਕ ਦੇ ਲਗਭਗ {p}% ਪਿੰਡਾਂ ਨਾਲੋਂ ਬਿਹਤਰ ਹੈ।",
+      vdBigger: "{place} ਦੇ {p}% ਪਿੰਡਾਂ ਨਾਲੋਂ ਵੱਡਾ", vdLargest: "{place} ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਪਿੰਡ", vdNear: "5 ਕਿਮੀ ਵਿੱਚ ਪਿੰਡ", vdNearSub: "ਨੇੜਲੇ ਪਿੰਡ",
+      vdCompare: "ਇਲਾਕੇ ਨਾਲ ਤੁਲਨਾ", vdCompareNote: "ਹਰ ਸਹੂਲਤ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ (2020)।",
+      vdNearest: "ਘਾਟ ਵਾਲੀ ਸਹੂਲਤ ਵਾਲਾ ਨੇੜਲਾ ਪਿੰਡ", vdNearestNote: "ਪਿੰਡਾਂ ਦੇ ਕੇਂਦਰਾਂ ਵਿਚਕਾਰ ਸਿੱਧੀ ਦੂਰੀ।",
+      vdDistrict: "{place} ਜ਼ਿਲ੍ਹਾ (ਸਰਵੇਖਣ)", vdDistrictNote: "ਸਰਵੇਖਣ ਅੰਕੜੇ ਪੂਰੇ ਜ਼ਿਲ੍ਹੇ ਦੇ ਹਨ।", and: "ਅਤੇ", atlasAll: "ਸਾਰੇ ਜ਼ਿਲ੍ਹੇ", atlasBlocks: "ਇਸਦੇ ਬਲਾਕ: ਹਾਈ ਸਕੂਲ ਵਾਲੇ ਪਿੰਡ", atlasBlocksNote: "ਸਭ ਤੋਂ ਕਮਜ਼ੋਰ ਪਹਿਲਾਂ। ਬਲਾਕ ਜਾਂ ਪਿੰਡ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", overview: "ਸਾਰ", topicDeck: "{place}: {say}। ਇਹ {pos} ਹੈ (ਪੰਜਾਬ: {pv})।", topicHidden: "{place}: ਇਸ ਸਮੂਹ ਵਿੱਚ ਬਹੁਤ ਘੱਟ ਵਿਦਿਆਰਥੀ ({n} ਤੋਂ ਘੱਟ)।",
       topicMeasures: "{t}, ਹਰ ਮਾਪ", inVillages: "ਇਸਦੇ ਪਿੰਡਾਂ ਵਿੱਚ", inVillagesSub: "2020 ਰਿਕਾਰਡ ਵਾਲੇ {all} ਵਿੱਚੋਂ {n} ਪਿੰਡਾਂ ਵਿੱਚ ਮੁੱਢਲੀਆਂ ਸਹੂਲਤਾਂ।",
       vHasLacks: "{n} ਵਿੱਚੋਂ {has} ਕੋਲ ਹੈ, {lack} ਕੋਲ ਨਹੀਂ।", vNoHS: "ਹਾਈ ਸਕੂਲ ਤੋਂ ਬਿਨਾਂ ਪਿੰਡ", studentsIn: "ਸਰਵੇਖਣ ਦੇ ਵਿਦਿਆਰਥੀ",
       topicBlocksSub: "ਹਰ ਸਹੂਲਤ ਵਾਲੇ ਪਿੰਡਾਂ ਦਾ ਹਿੱਸਾ। ਬਲਾਕ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।", topicMapBlocks: "ਬਲਾਕ {svc} ਤੋਂ ਬਿਨਾਂ ਪਿੰਡਾਂ ਮੁਤਾਬਕ ਰੰਗੇ (ਗੂੜ੍ਹਾ = ਵੱਧ ਬਿਨਾਂ)।",
@@ -550,16 +562,7 @@
     const dotKey = atlas.dots ? `<p class="as-label as-dk">${esc(s("atlasDotsKey"))}</p><div class="as-dots">${["d-0", "d-1", "d-2", "d-3", "d-4"].map((k) => `<i class="${k}"></i>`).join("")}<span>${esc(s("atlasDots04"))}</span><i class="d-nr"></i><span>${esc(s("noRecord"))}</span></div>` : "";
     const legend = `<div class="as-legend"><span>${esc(D.fmtShort(sc.min, ind))}</span><i class="grad atlas-grad" style="background:${grad(ramp(ind))}"></i><span>${esc(D.fmtShort(sc.max, ind))}</span></div>`;
     if (atlas.sel) {
-      const v = Atlas.villages.find((x) => x.code === atlas.sel), d = byName(v.district), dv = d ? D.visible(ind, d.id) : null, conf = parseFloat(v.raw.match_confidence);
-      const svc = [["high_school", "svcHSl"], ["health_centre", "svcHCl"], ["all_weather_road", "svcRDl"], ["piped_water", "svcPWl"], ["public_transport", "svcPTl"], ["broadband", "svcBBl"]];
-      el.innerHTML = `<button type="button" class="as-back" data-aback="district">← ${esc(d ? placeName(d) : v.district)}</button>
-        <p class="kicker">${esc(s("village"))}</p><h3 class="as-name">${esc(v.name.replace(/\s*\(\d+\)$/, ""))}</h3>
-        <p class="as-sub">${esc(v.block)} · ${esc(d ? placeName(d) : v.district)}${v.population ? ` · ${esc(s("colPop"))} ${v.population.toLocaleString()}` : ""}</p>
-        ${v.hasData ? `<div class="as-big"><b>${svcCount(v)}</b><span>/4</span></div><p class="as-note">${esc(s("atlasBasic"))}</p>
-          <ul class="ac-svc">${svc.map(([c, l]) => `<li class="${v.raw[c] === "1" ? "yes" : "no"}"><span>${v.raw[c] === "1" ? "✓" : "✗"}</span>${esc(s(l))}</li>`).join("")}</ul>` : `<p class="as-note">${esc(s("atlasNoRec"))}</p>`}
-        ${d ? `<p class="as-note">${esc(s("atlasDistLine", { m: label(ind), place: placeName(d), v: dv === null ? s("hidden") : D.fmt(dv, ind) }))}</p>` : ""}
-        ${conf >= 0 ? `<p class="as-note">${esc(s("colMatch"))}: LGD ${esc(v.code)} · ${esc(s("matchCode"))} ${conf.toFixed(2)}</p>` : ""}
-        ${d ? `<a class="btn as-btn" href="${sheetUrl(d, v.block)}">${esc(s("atlasOpenBlock", { b: v.block }))}</a>` : ""}`;
+      el.innerHTML = villageDetail(Atlas.villages.find((x) => x.code === atlas.sel), ind);
       return;
     }
     if (atlas.district) {
@@ -582,6 +585,48 @@
     el.innerHTML = `<p class="as-label">${esc(s("punjabAvg"))} · ${esc(label(ind))}</p><div class="as-big"><b>${esc(pv === null ? "–" : D.fmt(pv, ind))}</b></div>${legend}${dotKey}
       <p class="as-h">${esc(s("rankTitle"))}</p>
       <div class="as-list">${list.map((d, i) => `<button type="button" class="as-row" data-adist="${esc(d.geo.name)}" data-name="${esc(d.geo.name)}"><span class="n">${i + 1}. ${esc(placeName(d.geo))}</span><span class="bar"><i style="width:${Math.max(3, (d.value / hi) * 100).toFixed(0)}%;background:${sc.color(d.value)}"></i></span><span class="v">${esc(D.fmt(d.value, ind))}</span></button>`).join("")}</div>`;
+  }
+  // rich, data-driven village profile for the Big Map sidebar
+  function kmBetween(a, b) { const R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLo = (b.lon - a.lon) * r;
+    const h = Math.sin(dLa / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); }
+  function villageDetail(v, ind) {
+    const d = byName(v.district), clean = (n) => n.replace(/\s*\(\d+\)$/, ""), name = clean(v.name);
+    const SV = [["high_school", "svcHSl"], ["health_centre", "svcHCl"], ["all_weather_road", "svcRDl"], ["piped_water", "svcPWl"], ["public_transport", "svcPTl"], ["broadband", "svcBBl"]];
+    const blockV = Atlas.villages.filter((x) => x.district === v.district && x.block === v.block), distV = Atlas.villages.filter((x) => x.district === v.district);
+    const share = (list, c) => { const r = list.filter((x) => x.hasData); return r.length ? r.filter((x) => x.raw[c] === "1").length / r.length : null; };
+    const conf = parseFloat(v.raw.match_confidence);
+    const back = `<button type="button" class="as-back" data-aback="district">← ${esc(d ? placeName(d) : v.district)}</button>`;
+    const head = `${back}<p class="kicker">${esc(s("village"))}</p><h3 class="as-name">${esc(name)}</h3>
+      <p class="as-sub">${esc(s("vdWhere", { block: v.block, place: d ? placeName(d) : v.district }))}</p>`;
+    if (!v.hasData) return head + `<p class="vd-lede">${esc(s("vdNoRec", { name }))}</p>` + (d ? `<a class="btn as-btn" href="${sheetUrl(d, v.block)}">${esc(s("atlasOpenBlock", { b: v.block }))}</a>` : "");
+    const k = svcCount(v), has = SV.filter(([c]) => v.raw[c] === "1"), lacks = SV.filter(([c]) => v.raw[c] !== "1");
+    const lower = (key) => s(key).toLowerCase(), list = (arr) => arr.map(([, l]) => lower(l)).join(", ").replace(/, ([^,]*)$/, ` ${s("and")} $1`);
+    // services rank in block, size rank in district
+    const recB = blockV.filter((x) => x.hasData), better = recB.filter((x) => svcCount(x) < k).length, tie = recB.filter((x) => svcCount(x) === k).length;
+    const pctBetter = recB.length > 1 ? Math.round(((better + tie / 2) / recB.length) * 100) : null;
+    const pops = distV.map((x) => x.population || 0).filter(Boolean), pctBigger = v.population && pops.length ? Math.round((pops.filter((p) => p < v.population).length / pops.length) * 100) : null;
+    const near5 = v.lat ? Atlas.villages.filter((x) => x !== v && x.lat && kmBetween(v, x) <= 5).length : null;
+    let lede = s(k === 4 ? "vdAll4" : k === 0 ? "vdNone" : "vdSome", { name, k, has: list(has.filter(([c]) => SVC.some((q) => q[0] === c))), lacks: list(lacks.filter(([c]) => SVC.some((q) => q[0] === c))) });
+    if (pctBetter != null) lede += " " + s("vdBetter", { p: pctBetter, block: v.block });
+    // nearest village that has each missing service
+    const nearest = v.lat ? lacks.map(([c, l]) => { let best = null, bd = Infinity;
+      for (const x of Atlas.villages) { if (x === v || !x.lat || x.raw[c] !== "1") continue; const dd = kmBetween(v, x); if (dd < bd) { bd = dd; best = x; } }
+      return best ? `<li><span class="vd-k">${esc(s(l))}</span><span class="vd-v">${esc(clean(best.name))} · <b>${bd < 1 ? bd.toFixed(1) : bd.toFixed(1)} km</b></span></li>` : ""; }).join("") : "";
+    const cmpRows = SV.map(([c, l]) => { const on = v.raw[c] === "1", sb = share(blockV, c), sd = share(distV, c), sp = share(Atlas.villages, c);
+      return `<tr><td><span class="${on ? "yes" : "no"}">${on ? "✓" : "✗"}</span> ${esc(s(l))}</td><td>${sb == null ? "–" : pct(sb)}</td><td>${sd == null ? "–" : pct(sd)}</td><td>${sp == null ? "–" : pct(sp)}</td></tr>`; }).join("");
+    const facts = [[s("colPop"), v.population ? v.population.toLocaleString() : "–", pctBigger != null ? s(pctBigger >= 99 ? "vdLargest" : "vdBigger", { p: pctBigger, place: d ? placeName(d) : "" }) : ""],
+      [s("vdNear"), near5 != null ? near5.toLocaleString() : "–", s("vdNearSub")]];
+    const distLines = d ? available().map((th) => { const i = th.indicators[0], x = D.visible(i, d.id); return x == null ? "" : `<li><span class="vd-k">${esc(label(i))}</span><span class="vd-v"><b>${esc(D.fmt(x, i))}</b> · ${esc(posPhrase(i, d.id))}</span></li>`; }).join("") : "";
+    return head + `<div class="as-big"><b>${k}</b><span>/4</span></div><p class="as-note">${esc(s("atlasBasic"))}</p>
+      <p class="vd-lede">${esc(lede)}</p>
+      <dl class="ac-facts">${facts.map(([a1, b1, c1]) => `<div><dt>${esc(a1)}</dt><dd>${esc(b1)}<small>${esc(c1)}</small></dd></div>`).join("")}</dl>
+      <p class="as-h">${esc(s("vdCompare"))}</p>
+      <table class="vd-table"><thead><tr><th></th><th>${esc(s("block"))}</th><th>${esc(s("district"))}</th><th>${esc(s("punjab"))}</th></tr></thead><tbody>${cmpRows}</tbody></table>
+      <p class="as-note">${esc(s("vdCompareNote"))}</p>
+      ${nearest ? `<p class="as-h">${esc(s("vdNearest"))}</p><ul class="vd-list">${nearest}</ul><p class="as-note">${esc(s("vdNearestNote"))}</p>` : ""}
+      ${distLines ? `<p class="as-h">${esc(s("vdDistrict", { place: placeName(d) }))}</p><ul class="vd-list">${distLines}</ul><p class="as-note">${esc(s("vdDistrictNote"))}</p>` : ""}
+      ${conf >= 0 ? `<p class="as-note">${esc(s("colMatch"))}: LGD ${esc(v.code)} · ${esc(s("matchCode"))} ${conf.toFixed(2)}</p>` : ""}
+      ${d ? `<a class="btn as-btn" href="${sheetUrl(d, v.block)}">${esc(s("atlasOpenBlock", { b: v.block }))}</a>` : ""}`;
   }
   function selectVillage(code) {
     const v = Atlas.villages.find((x) => x.code === code); if (!v) return;
