@@ -582,3 +582,31 @@ a:hover, .link:hover, .crumb:hover { text-decoration: underline !important; }
   .lower { grid-template-columns: 1fr; }
   .map-wrap { height: 460px; min-height: 0; }
 }
+
+/* ---------- topic picker: tabs joined to a measure panel ---------- */
+.topics { padding: 18px 0 4px; }
+.ttabs { display: flex; gap: 4px; flex-wrap: wrap; position: relative; z-index: 1; }
+.ttab { display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; border-bottom: 0; background: transparent;
+  padding: 10px 16px 12px; border-radius: 14px 14px 0 0; font: 600 14px/1 var(--sans); color: var(--muted); cursor: pointer; }
+.ttab svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ttab em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--faint); background: var(--wash); border-radius: 999px; padding: 2px 7px; }
+.ttab:hover { color: var(--ink); background: rgba(255,255,255,.6); }
+.ttab.is-on { background: var(--card); color: var(--ink); border-color: var(--line); margin-bottom: -1px; padding-bottom: 13px; }
+.ttab.is-on svg { color: var(--accent); }
+.ttab.is-on em { background: var(--accent-soft); color: var(--accent); }
+.tpanel { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: var(--card); border: 1px solid var(--line);
+  border-radius: 0 16px 16px 16px; padding: 12px 16px; box-shadow: var(--shadow); }
+.tpanel-h { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.segs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--wash); padding: 4px; border-radius: 12px; }
+.seg { border: 0; background: transparent; padding: 7px 14px; border-radius: 9px; font: 600 13.5px/1.2 var(--sans); color: var(--ink-2); cursor: pointer; }
+.seg:hover { background: rgba(255,255,255,.7); }
+.seg.is-on { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(16,24,40,.12); }
+.seg.is-planned { color: var(--faint); cursor: default; font-weight: 500; border: 1px dashed var(--line-2); }
+.seg small { font-size: 11px; }
+.topic-main, .topic-subs { display: none; }
+@media (max-width: 600px) {
+  .ttabs, .segs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .ttab, .seg { flex: none; white-space: nowrap; }
+  .ttab em { display: none; }
+  .tpanel { border-radius: 0 0 16px 16px; }
+}

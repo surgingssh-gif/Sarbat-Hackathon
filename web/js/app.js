@@ -68,7 +68,7 @@
       tipRank: "{r} of {n}",
       noValue: "No data",
       villagesN: "{n} villages",
-      punjab: "Punjab", rankAll: "Show all {n}", rankLess: "Show top 8", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
+      measure: "Measure", punjab: "Punjab", rankAll: "Show all {n}", rankLess: "Show top 8", blockWord: "block", blocksIn: "{n} blocks in {place}", blockTip: "{k} of {n} villages with a record",
       blocksApprox: "Block areas on the map are approximate: each spot is shaded by its nearest village's block.",
       blocksNote: "Shaded areas are development blocks in {place}. Click one to see its villages.",
       aboveD: "{d} above {place}", belowD: "{d} below {place}", rankOfBlocks: "{r} of {n} blocks",
@@ -138,7 +138,7 @@
       tipRank: "{n} ਵਿੱਚੋਂ {r}",
       noValue: "ਡਾਟਾ ਨਹੀਂ",
       villagesN: "{n} ਪਿੰਡ",
-      punjab: "ਪੰਜਾਬ", rankAll: "ਸਾਰੇ {n} ਦਿਖਾਓ", rankLess: "ਸਿਰਫ਼ ਸਿਖਰਲੇ 8", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
+      measure: "ਮਾਪ", punjab: "ਪੰਜਾਬ", rankAll: "ਸਾਰੇ {n} ਦਿਖਾਓ", rankLess: "ਸਿਰਫ਼ ਸਿਖਰਲੇ 8", blockWord: "ਬਲਾਕ", blocksIn: "{place} ਦੇ {n} ਬਲਾਕ", blockTip: "ਰਿਕਾਰਡ ਵਾਲੇ {n} ਵਿੱਚੋਂ {k} ਪਿੰਡ",
       blocksApprox: "ਨਕਸ਼ੇ 'ਤੇ ਬਲਾਕ ਅੰਦਾਜ਼ਨ ਹਨ: ਹਰ ਥਾਂ ਨੇੜਲੇ ਪਿੰਡ ਦੇ ਬਲਾਕ ਨਾਲ ਰੰਗੀ ਹੈ।",
       blocksNote: "ਰੰਗੇ ਖੇਤਰ {place} ਦੇ ਬਲਾਕ ਹਨ। ਪਿੰਡ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ।",
       aboveD: "{place} ਤੋਂ {d} ਵੱਧ", belowD: "{place} ਤੋਂ {d} ਘੱਟ", rankOfBlocks: "{n} ਬਲਾਕਾਂ ਵਿੱਚੋਂ {r}",
@@ -233,14 +233,26 @@
 
   // One button per section; the active section shows its few sub-topics underneath.
   const themeOf = (ind) => available().find((th) => th.indicators.includes(ind));
+  const THEME_ICONS = {
+    wealth: '<path d="M3 13l2-5h14l2 5v5h-3v-2H6v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/>',
+    education: '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
+    villages: '<path d="M3 20V10l5-4 5 4v10"/><path d="M13 20v-6h8v6"/><path d="M7 20v-4h2v4"/>',
+    floods: '<path d="M2 16c2 0 2-1.5 4-1.5S8 16 10 16s2-1.5 4-1.5S16 16 18 16s2-1.5 4-1.5"/><path d="M2 20c2 0 2-1.5 4-1.5S8 20 10 20s2-1.5 4-1.5S16 20 18 20s2-1.5 4-1.5"/><path d="M12 3c2 3 3 4.5 3 6a3 3 0 0 1-6 0c0-1.5 1-3 3-6z"/>',
+    people: '<path d="M4 20c0-3 2-5 5-5s5 2 5 5"/><circle cx="9" cy="9" r="3"/><path d="M15 6h6M15 10h6M15 14h4"/>',
+  };
   function renderTopics() {
     const cur = themeOf(state.ind);
-    const main = available().filter((th) => th.indicators.length).map((th) =>
-      `<button type="button" class="pill pill-theme${cur && th.id === cur.id ? " is-on" : ""}" data-ind="${esc(cur && th.id === cur.id ? state.ind : th.indicators[0])}">${esc(Atlas.tr(th.label))}</button>`).join("");
-    const subs = cur ? cur.indicators.map((i) =>
-      `<button type="button" class="sub${i === state.ind ? " is-on" : ""}" data-ind="${esc(i)}">${esc(label(i))}</button>`).join("") +
-      (cur.planned || []).map((p) => `<span class="sub is-planned">${esc(Atlas.tr(p))} · ${esc(s("comingSoon"))}</span>`).join("") : "";
-    $("topics").innerHTML = `<div class="topic-main">${main}</div><div class="topic-subs">${subs}</div>`;
+    const tabs = available().filter((th) => th.indicators.length).map((th) => {
+      const on = cur && th.id === cur.id;
+      return `<button type="button" role="tab" aria-selected="${on}" class="ttab${on ? " is-on" : ""}" data-ind="${esc(on ? state.ind : th.indicators[0])}">
+        <svg viewBox="0 0 24 24" aria-hidden="true">${THEME_ICONS[th.id] || ""}</svg><span>${esc(Atlas.tr(th.label))}</span>
+        <em>${th.indicators.length}</em></button>`;
+    }).join("");
+    const opts = cur ? cur.indicators.map((i) =>
+      `<button type="button" class="seg${i === state.ind ? " is-on" : ""}" data-ind="${esc(i)}" aria-pressed="${i === state.ind}">${esc(label(i))}</button>`).join("") +
+      (cur.planned || []).map((p) => `<span class="seg is-planned">${esc(Atlas.tr(p))} <small>${esc(s("comingSoon"))}</small></span>`).join("") : "";
+    $("topics").innerHTML = `<div class="ttabs" role="tablist">${tabs}</div>
+      <div class="tpanel"><span class="tpanel-h">${esc(s("measure"))}</span><div class="segs">${opts}</div></div>`;
   }
 
   // ---------- the answer ----------
@@ -736,7 +748,7 @@
 
   function bind() {
     document.addEventListener("click", (e) => {
-      const pill = e.target.closest(".pill[data-ind], .sub[data-ind]");
+      const pill = e.target.closest(".pill[data-ind], .sub[data-ind], .ttab[data-ind], .seg[data-ind]");
       if (pill) return setIndicator(pill.dataset.ind);
       if (e.target.closest("#more-topics")) { state.moreTopics = !state.moreTopics; return renderTopics(); }
       if (e.target.closest("[data-signin]")) { location.href = "signin.html"; return; }
