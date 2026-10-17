@@ -24,17 +24,19 @@ Opening `index.html` by double-clicking won't work, because browsers block the d
 
 ## What's on the page
 
-Two cards. On phones they stack.
+One page, read top to bottom. It answers one question at a time: **"how does each district compare on this topic?"**
 
 | Part | What it does |
 |---|---|
-| **Map card** | The title is the topic picker: tap "Families with a car ▾" to open the topic menu (grouped, filterable, with each topic's value for the current place). Three view tabs: **One topic**, **Compare two** (pick A and B; districts coloured on a 3×3 grid, darkest = worse on both) and **Problem areas** (how many topics each district is among Punjab's worst on). A slim legend, then the map: drag to pan, scroll or +/− to zoom, T cycles labels (names, names and values, off), click a district to open it. The menu's footer opens **every topic on small maps**. |
-| **Details card** | On Punjab: a **Start here** panel with tappable questions, the headline number, and districts ranked. On a district or village: the headline number (chips for the gap to Punjab and the rank, one plain sentence, a labelled range bar, the source), **How it compares** on every topic (most unusual first, with mini bars; red dot = warning sign), its villages, and **More detail** (relationship chart, side-by-side pins). |
-| Search | Any district or village, English or Gurmukhi. Press `/`. |
-| Ask Parvaaz | Chat in the corner; sends the question plus place, topic and view. |
-| About | Sources, privacy rule, views, and a slot for crosswalk accuracy. |
+| **Pick a topic** | Topic buttons grouped by theme (household wealth, education, 2025 floods, livelihoods). "Show more topics" reveals the rest. Planned data (e.g. ASER learning levels) shows as a dashed "coming soon" button. |
+| **The answer** | The topic name, what it measures, and one sentence with the finding: highest district, lowest district, Punjab overall. |
+| **Map** | Each district is coloured *and* has its number printed on it. The key above says how to read it (darker = higher, and whether higher is good or bad). Grey = no data or hidden for privacy. Real grey street map underneath. |
+| **Right column** | A card with the number for Punjab, or for the district you clicked: value, gap to the Punjab average, rank, a plain sentence, and the **source** with a link. Below it, every district ranked as a bar, with a dashed Punjab-average line. Hovering the map highlights the bar and the other way round. |
+| **Everything about a district** | Appears after you click a district: every topic for that district next to Punjab, higher/lower, and rank. Click a row to map that topic. Then its villages. |
+| **Do two topics go together?** | A dot per district, a second topic to pick, and one sentence saying how strongly they move together. |
+| **Ask Parvaaz** | Chat button in the corner; sends the question plus the current topic and district. |
 
-Links can point straight at a view: `web/#district.fazilka~car_ownership_share`, or with a view and second indicator, `web/#district.mansa~car_ownership_share~overlap~severe_or_total_house_damage_share`.
+Links remember the view: `web/#car_ownership_share/sangrur/severe_or_total_house_damage_share` (topic / district / comparison topic).
 
 ## The data file
 
@@ -61,11 +63,11 @@ The current file is the team's sample (simulated survey, 23 districts, 5 **demo*
 
 ## Common changes (all in `js/config.js`)
 
-- **Add an indicator:** add its rows to the CSV, then add an entry to `Atlas.INDICATORS` (labels in English and Punjabi, description, `format`, `direction`, `tier`, and a plain-language `say` phrase) and put its id in a theme in `Atlas.THEMES`. Indicators in the data but not in the config still show up under "Other".
-- **Plain-language sentences:** every number is also written as a sentence ("In Fazilka, about 1 in 7 families own a car, the lowest of 23 districts"). Shares become frequencies ("about 1 in 7"); scores use the indicator's `scaleWords` ("between mild and moderate damage"). The "What stands out" findings are generated from the data: the indicators where a place differs most from Punjab, and for Punjab the extremes, the warning-sign hotspots and the strongest cross-topic pattern.
-- **Core vs detail:** `tier: "detail"` indicators are hidden behind "Show all" in the rail and left out of findings, to keep the first view focused.
+- **Add an indicator:** add its rows to the CSV, then add an entry to `Atlas.INDICATORS` (labels in English and Punjabi, description, `format`, `direction`, `tier`, and a plain-language `say` phrase) and put its id in a theme in `Atlas.THEMES`. An indicator must be listed in a theme to get a topic button.
+- **Plain-language sentences:** every number is also written as a sentence ("In Fazilka, about 1 in 7 families own a car"). Shares become frequencies ("about 1 in 7"); scores use the indicator's `scaleWords` ("between mild and moderate damage").
+- **Core vs detail:** `tier: "detail"` indicators are hidden behind "Show more topics", to keep the first view focused.
+- **Page wording:** the English and Punjabi text for the page itself is the `S` table at the top of `js/app.js`.
 - **Privacy threshold:** `minGroupSize` (placeholder 10, confirm with Parvaaz). Anything below it is hidden at every level, and its exact count is never printed.
-- **Warning signs:** `Atlas.WARNING_SIGNS` lists the indicators used for "Where warning signs line up".
 - **Connect the assistant:** set `assistantUrl`. The page sends
   `POST { question, lang, context: { level, geography_id, district, village, indicator, compare, view } }`
   and expects `{ answer, sources: [{ name, url }] }`. Keep the Claude API key on the assistant's server, never in this site.
