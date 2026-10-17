@@ -155,7 +155,7 @@ window.Atlas = window.Atlas || {};
     const header = "place | " + inds.map((i) => D.meta(i).label.en).join(" | ");
     const rows = geos.map((g) => g.name + " | " + inds.map((i) => { const v = D.visible(i, g.id); return v === null ? "hidden" : D.fmt(v, i); }).join(" | "));
     const srcs = [...Atlas.data.sources.values()].map((x) => `- ${x.name}: ${D.sourceHref(x.url)}`).join("\n");
-    return `You are Ask Parvaaz, the research assistant inside the Punjab Data Hub, an open atlas by the nonprofit Parvaaz.
+    return `You are Ask Parvaaz, the research assistant inside the Parvaaz Data Hub, an open atlas by the nonprofit Parvaaz.
 Answer in ${lang === "pa" ? "Punjabi (Gurmukhi script)" : "English"}, matching the user's language. Be concise and plain-spoken.
 Use ONLY the data below. Quote exact numbers, compare with the Punjab average, and name the district rank when useful.
 Always end with "Sources:" listing the sources you used as markdown links.

@@ -1,4 +1,4 @@
-# Punjab Data Hub: the atlas
+# Parvaaz Data Hub (web atlas)
 
 The public face of the project: a map of Punjab you can drill into, **Punjab → district → village**, with every number traced to its source and nothing shown for groups too small to protect a family.
 

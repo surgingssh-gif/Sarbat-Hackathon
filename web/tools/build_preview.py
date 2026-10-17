@@ -8,6 +8,7 @@ Useful for sharing a preview that opens anywhere without a server, e.g. on a pho
 """
 
 import argparse
+import base64
 import json
 import re
 from pathlib import Path
@@ -39,8 +40,14 @@ def main():
     body = html[html.index("<body>") + len("<body>"): html.index("<script src=")]
     fonts = re.search(r'<link rel="stylesheet" href="(https://fonts[^"]+)">', html).group(1)
 
+    def inline_img(m):
+        p = WEB / "img" / m.group(2)
+        return m.group(1) + "data:image/png;base64," + base64.b64encode(p.read_bytes()).decode()
+    body = re.sub(r'(src=")img/([\w.-]+\.png)', inline_img, body)
+    css = re.sub(r'(url\(")\.\./img/([\w.-]+\.png)', inline_img, css)
+
     parts = [
-        "<title>Punjab Data Hub</title>",
+        "<title>Parvaaz Data Hub</title>",
         '<meta name="claude:viewport-fit-sides" content="cover">',
         f'<link rel="stylesheet" href="{fonts}">',
         f"<style>\n{css}\n</style>",
